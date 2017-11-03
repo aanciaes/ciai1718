@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Mona Lisa",
     "date": "1530-03-21",
     "techniques": [
@@ -23,6 +24,7 @@
     "sale": false
   },
   {
+    "id": 2,
     "name": "Guernica",
     "date": "1937-07-27",
     "techniques": [
@@ -46,6 +48,7 @@
     "sale": false
   },
   {
+    "id": 3,
     "name": "Venus de Millo",
     "date": "1999-12-25",
     "techniques": [
@@ -69,6 +72,7 @@
     "sale": false
   },
   {
+    "id": 4,
     "name": "Sonhos de Menino",
     "date": "1997-01-01",
     "techniques": [

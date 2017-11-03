@@ -1,0 +1,23 @@
+{
+  "title": "User",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "password":{
+      "type": "string"
+    },
+    "accountType": {
+      "description": "If 1 then user is an artist else user is normal",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "required": ["id", "name", "password", "accountType"]
+}

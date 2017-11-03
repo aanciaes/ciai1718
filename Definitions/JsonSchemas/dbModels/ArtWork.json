@@ -1,0 +1,58 @@
+{
+  "title": "ArtWork",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "techniques": {
+      "description": "Tecnhiques used",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "keywords": {
+      "description": "A set of keywords used to facilitate search",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "multimedia": {
+      "description": "A set of multimedia contents to describe or promote the piece",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "author": {
+      "type": "string"
+    },
+    "sale": {
+      "description": "True if the piece is available for sale",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "date",
+    "techniques",
+    "description",
+    "keywords",
+    "multimedia",
+    "author",
+    "sale"
+  ]
+}
