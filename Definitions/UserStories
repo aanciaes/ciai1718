@@ -1,0 +1,33 @@
+User Storie- Registar Utilizador
+- Um utilizador regista-se no sistema (a partir da landing page), 
+colocando nome,email, password e o tipo de utilizador 
+através do formulário fornecido , caso não coloque email,password e tipo de utilizador
+vê mensagem de erro, caso contrário, vê a resposta de confirmação de registo na página de registo.
+
+User Storie- Login Utilizador
+- Um utilizador faz login colocando email e password 
+e vai para dashboard com indicaçao de login feito
+
+User Storie - Editar Utilizador
+-Um utilizador seleciona o seu perfil(a partir da dashboard),
+ve a sua página de perfil, modifica os campos associado do perfil e ve o
+resultado na página de perfil.
+
+User Storie - Adicionar Peça
+- Um utilizador registado como autor, adiciona uma peça fornecendo o nome,
+data,tecnicas usadas,descricao textual, keywords e conteúdo multimédia 
+e ve o resultado na sua galeria.
+
+User Storie - Editar Peça
+- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+e ve a página da peça, modifica os valores associado da peça e ve o resultado das 
+alterações na página da peça.
+
+User Storie - Remover Peça
+- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+e ve a página da peça, remove e confirma remoção da  peça e ve o resultado das 
+alterações na página da peça.
+
+User Storie - Colocar Peça Venda
+- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+ve a página da peça, seleciona 

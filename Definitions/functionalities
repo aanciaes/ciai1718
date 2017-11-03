@@ -1,0 +1,29 @@
+1 - Registar utilizador  para artistas e utilizador normal
+
+2-  Login de utilizador e possibilitar  editar o perfil de utilizador
+
+3 - Utilizador poderem comprar peças
+
+4 - Artista poder adicionar,remover e editar peças no sistema podendo acrescentar keywords à peça e multimedia content da peça.
+
+5 - Artista colocar a peça em venda
+
+6 - Utilizador pode fazer bid de uma peça
+
+7 - Mostrar página de uma peça
+
+8 - Inbox notificação para o artista que informa uma bid de uma peça
+
+9 - Inbox notificação para o utilizador que informa se o bid foi aceite ou rejeitado.Depois de aceite tem de haver possibilidade de tornar a venda pública.
+
+10 - Possibilidade de pesquisar uma galeria de um determinado autor sem precisar de estar logado
+
+11 - Possibilidade de ver galerias de todos os autores sem precisar de estar logado
+
+12 - Possibilidade de pesquisar peças por keywords sem precisar de estar logado
+
+13 - Possibilidade de terminar a venda pelo Autor.
+
+14 - Possibilidade da página da peça poder carregar numa keyword e navegar para uma pagina com todas peça que tenham a keyword.
+
+15 - Possibilidade da página da peça poder carregar no autor navegar para uma pagina com todas peça do autor.
