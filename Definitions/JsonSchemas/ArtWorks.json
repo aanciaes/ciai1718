@@ -1,0 +1,96 @@
+[
+  {
+    "name": "Mona Lisa",
+    "date": "1530-03-21",
+    "techniques": [
+      "oil on poplar panel"
+    ],
+    "description": "Beautiful artwork made in the 16th century",
+    "keywords": [
+      "painting",
+      "women",
+      "mother",
+      "oil",
+      "Joconde",
+      "Gioconda",
+      "DaVinci",
+      "Louvre"
+    ],
+    "multimedia": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"
+    ],
+    "autor": 4,
+    "sale": false
+  },
+  {
+    "name": "Guernica",
+    "date": "1937-07-27",
+    "techniques": [
+      "oil on canvas"
+    ],
+    "description": "Guernica is a mural-sized oil painting on canvas by Spanish artist Pablo Picasso completed in June 1937",
+    "keywords": [
+      "painting",
+      "abstract",
+      "Spanish",
+      "oil",
+      "Madrid",
+      "picasso",
+      "pablo",
+      "Museu"
+    ],
+    "multimedia": [
+      "https://upload.wikimedia.org/wikipedia/en/7/74/PicassoGuernica.jpg"
+    ],
+    "autor": 3,
+    "sale": false
+  },
+  {
+    "name": "Venus de Millo",
+    "date": "1999-12-25",
+    "techniques": [
+      "Marble"
+    ],
+    "description": "The Aphrodite of Milos is widely renowned for the mystery of her missing arms",
+    "keywords": [
+      "sculpture",
+      "venus",
+      "France",
+      "marble",
+      "Paris",
+      "Louvre",
+      "Greece",
+      "Greek"
+    ],
+    "multimedia": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Front_views_of_the_Venus_de_Milo.jpg/800px-Front_views_of_the_Venus_de_Milo.jpg"
+    ],
+    "autor": 3,
+    "sale": false
+  },
+  {
+    "name": "Sonhos de Menino",
+    "date": "1997-01-01",
+    "techniques": [
+      "Bateria",
+      "Guitarra",
+      "Baixo",
+      "Voz"
+    ],
+    "description": "O Menino era eu",
+    "keywords": [
+      "sonhos",
+      "antony",
+      "carreiros",
+      "pop",
+      "pimba",
+      "plágio",
+      "Portugal"
+    ],
+    "multimedia": [
+      "https://i.ytimg.com/vi/Sx_OALoIrj8/0.jpg"
+    ],
+    "autor": 4,
+    "sale": false
+  }
+]
