@@ -1,72 +1,139 @@
 User Storie- Registar Utilizador
-- Um utilizador regista-se no sistema (a partir da landing page), 
+	- Um utilizador regista-se no sistema (a partir da landing page), 
 colocando nome,email, password e o tipo de utilizador 
 através do formulário fornecido , caso não coloque email,password e tipo de utilizador
 vê mensagem de erro, caso contrário, vê a resposta de confirmação de registo na página de registo.
 
 User Storie- Login Utilizador
 
-- Um utilizador faz login (a partir da landing page) colocando email e password através do formulário fornecido,
+	- Um utilizador faz login (a partir da landing page) colocando email e password através do formulário fornecido,
 caso não coloque email,password, ou coloque password ou email errados é mostrado uma mensagem de erro,
 caso contrário vai para a landing page com indicação de login feito.
 
 User Storie - Editar Utilizador
--Um utilizador seleciona o seu perfil(a partir da dashboard),
+
+	-Um utilizador seleciona o seu perfil(a partir da dashboard),
 ve a sua página de perfil, modifica os campos associado do perfil e ve o
 resultado na página de perfil.
 
+
 User Store - Ver uma Peça
--Um utilizador  registado, seleciona uma peça (a partir da galeria publica) e ve a página peça.
+	-Um utilizador  registado, seleciona uma peça (a partir da galeria publica) e ve a página peça.
 
 User Storie - Adicionar Peça
-- Um utilizador registado como autor, adiciona uma peça fornecendo o nome,
+Sucesso:
+	- Um utilizador registado como autor, adiciona uma peça fornecendo o nome,
 data,tecnicas usadas,descricao textual, keywords e conteúdo multimédia 
 e ve o resultado na sua galeria.
 
+Erro: Nome obrigatório 
+	- Um utilizador registado como autor, adiciona uma peça (a partir da dashboard) fornecendo ,
+data,tecnicas usadas,descricao textual, keywords e conteúdo multimédia 
+e ve mensagem de erro de nome obrigatorio e mantém-se no dashboard
+
+
 User Storie - Editar Peça
-- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+Sucesso:
+	- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
 e ve a página da peça, modifica os valores associado da peça e ve o resultado das 
 alterações na página da peça.
 
+Erro: Nome obrigatorio
+	- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+e ve a página da peça, modifica nome  da peça para vazio  e  ve mensagem de erro de obrigatoriedade 
+de nome.
+
 User Storie - Remover Peça
-- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
-e ve a página da peça, remove e confirma remoção da  peça e ve o resultado das 
+	- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+e ve a página da peça, remove e confirma ou cancela remoção da  peça e ve o resultado das 
 alterações na página da peça.
 
 
 User Storie - Colocar Peça Venda
-- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+Sucesso:
+	- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
 ve a página da peça, seleciona vender peça (a partir da página da peça) , 
 colocando um preço através de um formulario fornecido e ve o resultado na página da peça
 
+Erro: Peça já em venda
+	- Um utilizador registado como autor, seleciona uma peça(já no estado de venda) (a partir da sua galeria)
+ve a página da peça, seleciona vender peça (a partir da página da peça) e mostra mensagem de erro de peça já em venda.
+
+Erro: Preço Negativo
+	- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
+ve a página da peça, seleciona vender peça (a partir da página da peça) , 
+colocando um preço negativo através de um formulario fornecido e ve o erro preço negativo.
+
+
 User Storie - Fazer bid de uma peça
-- Um utilizador registado ,seleciona uma peça (a partir da galeria publica) (que esteja disponivel para venda), 
+Sucesso:
+	- Um utilizador registado ,seleciona uma peça (a partir da galeria publica) (que esteja disponivel para venda), 
 vai para
 a página da peça ,seleciona bid  coloca valor e 
 se pretende ser identificado, através de formulário fornecido, e vê o resultado na página da peça e informa o autor.
 
+Erro:Bid de uma peça que nao está em venda
+ 	-Um utilizador registado ,seleciona uma peça (a partir da galeria publica) (que deixou de estar disponivel para venda), 
+vai para
+a página da peça ,seleciona bid  e vê mensagem de erro de peça já naõ está em venda.
+
+Erro: Bid menor que o preço base
+	- Um utilizador registado ,seleciona uma peça (a partir da galeria publica) (que esteja disponivel para venda), 
+vai para a página da peça ,seleciona bid  coloca valor menor que preço base e 
+se pretende ser identificado, através de formulário fornecido, e vê erro de preço de bid inferior a preço base.
+
+
+
 User Storie - Aceitar Bid
--Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
+Sucesso:
+	-Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
 vai para página da peça correspondente ao bid e aceita o bid , envia notificação ao utilizador que fez o bid e navega para página da peça.
 
+Erro: Aceitar Bid já aceite
+	-Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
+vai para página da peça correspondente ao bid (já aceite) e aceita o bid , e vê mensagem de erro de bid já foi aceite.
+
+
 User Storie - Rejeitar Bid
--Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
+Sucesso:
+	-Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
 vai para página da peça correspondente ao bid e rejeita  bid , envia notificação ao utilizador que fez o bid e navega para página da peça.
 
+Erro: Rejeitar Bid já rejeitado
+	-Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
+vai para página da peça correspondente ao bid(já rejeitado) e rejeita  bid , e vê mensagem de erro de bid já foi rejeitado
+
+
+
 User Storie - Anular Bid
--Um utilizador registado  , seleciona meus bids a (partir da landing page),
+Sucesso:
+	-Um utilizador registado  , seleciona meus bids a (partir da landing page),
 vai para página dos bids , seleciona o bid da lista de bids, vai para página da peça correspondente ao bid,
 confirma a anulação do bid (na página da peça) , envia notificação ao autor e navega para página da peça.
 
+Erro: Anular Bid já anulado
+
+	-Um utilizador registado  , seleciona meus bids a (partir da landing page),
+vai para página dos bids , seleciona o bid da lista de bids, vai para página da peça correspondente ao bid,
+confirma a anulação do bid(já anulado) (na página da peça) , ve mensagem de erro de bid já anulado.
+
 
 User Storie -  Finalizar Compra
-- Um utilizador registado  , seleciona meus bids a (partir da Landing Page)
-seleciona bids realizados, pesquisa  e seleciona o bid , vai para página da peça e 
+Sucesso:
+	- Um utilizador registado autor , seleciona meus bids a (partir da Landing Page)
+seleciona bids pesquisa  e seleciona o bid , vai para página da peça e 
 finaliza compra e seleciona se torna bid publico
  e envia notificação ao comprador.
 
+Erro: Bid Não aceite
+	- Um utilizador registado autor  , seleciona meus bids a (partir da Landing Page)
+seleciona bids  pesquisa  e seleciona o bid(que deixou de estar aceite) , vai para página da peça e 
+finaliza compra e seleciona se torna bid publico
+ e ve mensagem de erro de bid não está aceite.
+
+
 User Storie - Pesquisar Peça Por Keyword
-- Um utilizador , escreve no input de pesquisa (na landing page)  e clica no botao pesquisar,
+	-Um utilizador , escreve no input de pesquisa (na landing page)  e clica no botao pesquisar,
 ve as peças  relacionadas com as keywords que escritas na página de landing page.
 
 
