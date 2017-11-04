@@ -1,73 +1,140 @@
 User Storie- Registar Utilizador
-- Um utilizador regista-se no sistema (a partir da landing page), 
+
+	- Um utilizador regista-se no sistema (a partir da landing page),
 colocando nome,email, password e o tipo de utilizador 
-através do formulário fornecido , caso não coloque email,password e tipo de utilizador
-vê mensagem de erro, caso contrário, vê a resposta de confirmação de registo na página de registo.
+atravï¿½s do formulï¿½rio fornecido , caso nï¿½o coloque email,password e tipo de utilizador
+vï¿½ mensagem de erro, caso contrï¿½rio, vï¿½ a resposta de confirmaï¿½ï¿½o de registo na pï¿½gina de registo.
 
 User Storie- Login Utilizador
 
-- Um utilizador faz login (a partir da landing page) colocando email e password através do formulário fornecido,
-caso não coloque email,password, ou coloque password ou email errados é mostrado uma mensagem de erro,
-caso contrário vai para a landing page com indicação de login feito.
+	- Um utilizador faz login (a partir da landing page) colocando email e password atravï¿½s do formulï¿½rio fornecido,
+caso nï¿½o coloque email,password, ou coloque password ou email errados ï¿½ mostrado uma mensagem de erro,
+caso contrï¿½rio vai para a landing page com indicaï¿½ï¿½o de login feito.
 
 User Storie - Editar Utilizador
--Um utilizador seleciona o seu perfil(a partir da dashboard),
-ve a sua página de perfil, modifica os campos associado do perfil e ve o
-resultado na página de perfil.
 
-User Store - Ver uma Peça
--Um utilizador  registado, seleciona uma peça (a partir da galeria publica) e ve a página peça.
+	-Um utilizador seleciona o seu perfil(a partir da dashboard),
+ve a sua pï¿½gina de perfil, modifica os campos associado do perfil e ve o
+resultado na pï¿½gina de perfil.
 
-User Storie - Adicionar Peça
-- Um utilizador registado como autor, adiciona uma peça fornecendo o nome,
-data,tecnicas usadas,descricao textual, keywords e conteúdo multimédia 
+
+User Store - Ver uma Peï¿½a
+	-Um utilizador  registado, seleciona uma peï¿½a (a partir da galeria publica) e ve a pï¿½gina peï¿½a.
+
+User Storie - Adicionar Peï¿½a
+Sucesso:
+	- Um utilizador registado como autor, adiciona uma peï¿½a fornecendo o nome,
+data,tecnicas usadas,descricao textual, keywords e conteï¿½do multimï¿½dia 
 e ve o resultado na sua galeria.
 
-User Storie - Editar Peça
-- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
-e ve a página da peça, modifica os valores associado da peça e ve o resultado das 
-alterações na página da peça.
-
-User Storie - Remover Peça
-- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
-e ve a página da peça, remove e confirma remoção da  peça e ve o resultado das 
-alterações na página da peça.
+Erro: Nome obrigatï¿½rio 
+	- Um utilizador registado como autor, adiciona uma peï¿½a (a partir da dashboard) fornecendo ,
+data,tecnicas usadas,descricao textual, keywords e conteï¿½do multimï¿½dia 
+e ve mensagem de erro de nome obrigatorio e mantï¿½m-se no dashboard
 
 
-User Storie - Colocar Peça Venda
-- Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria)
-ve a página da peça, seleciona vender peça (a partir da página da peça) , 
-colocando um preço através de um formulario fornecido e ve o resultado na página da peça
+User Storie - Editar Peï¿½a
+Sucesso:
+	- Um utilizador registado como autor, seleciona uma peï¿½a (a partir da sua galeria)
+e ve a pï¿½gina da peï¿½a, modifica os valores associado da peï¿½a e ve o resultado das 
+alteraï¿½ï¿½es na pï¿½gina da peï¿½a.
 
-User Storie - Fazer bid de uma peça
-- Um utilizador registado ,seleciona uma peça (a partir da galeria publica) (que esteja disponivel para venda), 
+Erro: Nome obrigatorio
+	- Um utilizador registado como autor, seleciona uma peï¿½a (a partir da sua galeria)
+e ve a pï¿½gina da peï¿½a, modifica nome  da peï¿½a para vazio  e  ve mensagem de erro de obrigatoriedade 
+de nome.
+
+User Storie - Remover Peï¿½a
+	- Um utilizador registado como autor, seleciona uma peï¿½a (a partir da sua galeria)
+e ve a pï¿½gina da peï¿½a, remove e confirma ou cancela remoï¿½ï¿½o da  peï¿½a e ve o resultado das
+alteraï¿½ï¿½es na pï¿½gina da peï¿½a.
+
+
+User Storie - Colocar Peï¿½a Venda
+
+Sucesso:
+	- Um utilizador registado como autor, seleciona uma peï¿½a (a partir da sua galeria)
+ve a pï¿½gina da peï¿½a, seleciona vender peï¿½a (a partir da pï¿½gina da peï¿½a) , 
+colocando um preï¿½o atravï¿½s de um formulario fornecido e ve o resultado na pï¿½gina da peï¿½a
+
+Erro: Peï¿½a jï¿½ em venda
+	- Um utilizador registado como autor, seleciona uma peï¿½a(jï¿½ no estado de venda) (a partir da sua galeria)
+ve a pï¿½gina da peï¿½a, seleciona vender peï¿½a (a partir da pï¿½gina da peï¿½a) e mostra mensagem de erro de peï¿½a jï¿½ em venda.
+
+Erro: Preï¿½o Negativo
+	- Um utilizador registado como autor, seleciona uma peï¿½a (a partir da sua galeria)
+ve a pï¿½gina da peï¿½a, seleciona vender peï¿½a (a partir da pï¿½gina da peï¿½a) , 
+colocando um preï¿½o negativo atravï¿½s de um formulario fornecido e ve o erro preï¿½o negativo.
+
+
+User Storie - Fazer bid de uma peï¿½a
+Sucesso:
+	- Um utilizador registado ,seleciona uma peï¿½a (a partir da galeria publica) (que esteja disponivel para venda),
 vai para
-a página da peça ,seleciona bid  coloca valor e 
-se pretende ser identificado, através de formulário fornecido, e vê o resultado na página da peça e informa o autor.
+a pï¿½gina da peï¿½a ,seleciona bid  coloca valor e 
+se pretende ser identificado, atravï¿½s de formulï¿½rio fornecido, e vï¿½ o resultado na pï¿½gina da peï¿½a e informa o autor.
+
+Erro:Bid de uma peï¿½a que nao estï¿½ em venda
+ 	-Um utilizador registado ,seleciona uma peï¿½a (a partir da galeria publica) (que deixou de estar disponivel para venda), 
+vai para
+a pï¿½gina da peï¿½a ,seleciona bid  e vï¿½ mensagem de erro de peï¿½a jï¿½ naï¿½ estï¿½ em venda.
+
+Erro: Bid menor que o preï¿½o base
+	- Um utilizador registado ,seleciona uma peï¿½a (a partir da galeria publica) (que esteja disponivel para venda), 
+vai para a pï¿½gina da peï¿½a ,seleciona bid  coloca valor menor que preï¿½o base e 
+se pretende ser identificado, atravï¿½s de formulï¿½rio fornecido, e vï¿½ erro de preï¿½o de bid inferior a preï¿½o base.
+
+
 
 User Storie - Aceitar Bid
--Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
-vai para página da peça correspondente ao bid e aceita o bid , envia notificação ao utilizador que fez o bid e navega para página da peça.
+Sucesso:
+	-Um utilizador registado como autor , seleciona inbox das notificaï¿½ï¿½es a (partir da landing page), seleciona notificaï¿½ï¿½o de bid,
+vai para pï¿½gina da peï¿½a correspondente ao bid e aceita o bid , envia notificaï¿½ï¿½o ao utilizador que fez o bid e navega para pï¿½gina da peï¿½a.
+
+Erro: Aceitar Bid jï¿½ aceite
+	-Um utilizador registado como autor , seleciona inbox das notificaï¿½ï¿½es a (partir da landing page), seleciona notificaï¿½ï¿½o de bid,
+vai para pï¿½gina da peï¿½a correspondente ao bid (jï¿½ aceite) e aceita o bid , e vï¿½ mensagem de erro de bid jï¿½ foi aceite.
+
 
 User Storie - Rejeitar Bid
--Um utilizador registado como autor , seleciona inbox das notificações a (partir da landing page), seleciona notificação de bid,
-vai para página da peça correspondente ao bid e rejeita  bid , envia notificação ao utilizador que fez o bid e navega para página da peça.
+Sucesso:
+	-Um utilizador registado como autor , seleciona inbox das notificaï¿½ï¿½es a (partir da landing page), seleciona notificaï¿½ï¿½o de bid,
+vai para pï¿½gina da peï¿½a correspondente ao bid e rejeita  bid , envia notificaï¿½ï¿½o ao utilizador que fez o bid e navega para pï¿½gina da peï¿½a.
+
+Erro: Rejeitar Bid jï¿½ rejeitado
+	-Um utilizador registado como autor , seleciona inbox das notificaï¿½ï¿½es a (partir da landing page), seleciona notificaï¿½ï¿½o de bid,
+vai para pï¿½gina da peï¿½a correspondente ao bid(jï¿½ rejeitado) e rejeita  bid , e vï¿½ mensagem de erro de bid jï¿½ foi rejeitado
 
 User Storie - Anular Bid
--Um utilizador registado  , seleciona meus bids a (partir da landing page),
-vai para página dos bids , seleciona o bid da lista de bids, vai para página da peça correspondente ao bid,
-confirma a anulação do bid (na página da peça) , envia notificação ao autor e navega para página da peça.
+Sucesso:
+	-Um utilizador registado  , seleciona meus bids a (partir da landing page),
+vai para pï¿½gina dos bids , seleciona o bid da lista de bids, vai para pï¿½gina da peï¿½a correspondente ao bid,
+confirma a anulaï¿½ï¿½o do bid (na pï¿½gina da peï¿½a) , envia notificaï¿½ï¿½o ao autor e navega para pï¿½gina da peï¿½a.
+
+Erro: Anular Bid jï¿½ anulado
+
+	-Um utilizador registado  , seleciona meus bids a (partir da landing page),
+vai para pï¿½gina dos bids , seleciona o bid da lista de bids, vai para pï¿½gina da peï¿½a correspondente ao bid,
+confirma a anulaï¿½ï¿½o do bid(jï¿½ anulado) (na pï¿½gina da peï¿½a) , ve mensagem de erro de bid jï¿½ anulado.
 
 
 User Storie -  Finalizar Compra
-- Um utilizador registado  , seleciona meus bids a (partir da Landing Page)
-seleciona bids realizados, pesquisa  e seleciona o bid , vai para página da peça e 
+Sucesso:
+	- Um utilizador registado autor , seleciona meus bids a (partir da Landing Page)
+seleciona bids pesquisa  e seleciona o bid , vai para pï¿½gina da peï¿½a e 
 finaliza compra e seleciona se torna bid publico
- e envia notificação ao comprador.
+ e envia notificaï¿½ï¿½o ao comprador.
 
-User Storie - Pesquisar Peça Por Keyword
-- Um utilizador , escreve no input de pesquisa (na landing page)  e clica no botao pesquisar,
-ve as peças  relacionadas com as keywords que escritas na página de landing page.
+Erro: Bid Nï¿½o aceite
+	- Um utilizador registado autor  , seleciona meus bids a (partir da Landing Page)
+seleciona bids  pesquisa  e seleciona o bid(que deixou de estar aceite) , vai para pï¿½gina da peï¿½a e 
+finaliza compra e seleciona se torna bid publico
+ e ve mensagem de erro de bid nï¿½o estï¿½ aceite.
+
+
+User Storie - Pesquisar Peï¿½a Por Keyword
+	-Um utilizador , escreve no input de pesquisa (na landing page)  e clica no botao pesquisar,
+ve as peï¿½as  relacionadas com as keywords que escritas na pï¿½gina de landing page.
 
 
 
