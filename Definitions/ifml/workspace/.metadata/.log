@@ -47,3 +47,12 @@ java.lang.IllegalStateException: Unexpected request: org.eclipse.gef.requests.Cr
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:575)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1408)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1384)
+!SESSION 2017-11-08 03:21:28.173 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_80
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pt_PT
+Command-line arguments:  -data C:\Users\Tecnico\Documents\ciaiRepo\Definitions\ifml\workspace -os win32 -ws win32 -arch x86_64
+
+!ENTRY org.eclipse.core.resources 2 10035 2017-11-08 03:21:34.602
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

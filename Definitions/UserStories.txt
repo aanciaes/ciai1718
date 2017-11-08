@@ -100,7 +100,7 @@ se pretende ser identificado, atrav�s de formul�rio fornecido, e v� erro d
 User Storie - Aceitar Bid
 Sucesso:
 	-Um utilizador registado como autor , seleciona inbox das notifica��es a (partir da landing page), seleciona notifica��o de bid,
-vai para p�gina da pe�a correspondente ao bid e aceita o bid , envia notifica��o ao utilizador que fez o bid e navega para p�gina da pe�a.
+vai para p�gina da pe�a correspondente ao bid e aceita o bid , envia notifica��o ao utilizador que fez o bid e navega para p�gina do bid.
 
 Erro: Aceitar Bid j� aceite
 	-Um utilizador registado como autor , seleciona inbox das notifica��es a (partir da landing page), seleciona notifica��o de bid,
@@ -109,36 +109,36 @@ vai para p�gina da pe�a correspondente ao bid (j� aceite) e aceita o bid ,
 
 User Storie - Rejeitar Bid
 Sucesso:
-	-Um utilizador registado como autor , seleciona inbox das notifica��es a (partir da landing page), seleciona notifica��o de bid,
-vai para p�gina da pe�a correspondente ao bid e rejeita  bid , envia notifica��o ao utilizador que fez o bid e navega para p�gina da pe�a.
+	-Um utilizador registado como autor , seleciona inbox das notifica��es a (partir da dashboard), seleciona notifica��o de bid,
+vai para p�gina da pe�a correspondente ao bid e rejeita  bid , envia notifica��o ao utilizador que fez o bid e navega para p�gina do bid.
 
 Erro: Rejeitar Bid j� rejeitado
-	-Um utilizador registado como autor , seleciona inbox das notifica��es a (partir da landing page), seleciona notifica��o de bid,
+	-Um utilizador registado como autor , seleciona inbox das notifica��es a (partir da dashboard), seleciona notifica��o de bid,
 vai para p�gina da pe�a correspondente ao bid(j� rejeitado) e rejeita  bid , e v� mensagem de erro de bid j� foi rejeitado
 
 User Storie - Anular Bid
 Sucesso:
-	-Um utilizador registado  , seleciona meus bids a (partir da landing page),
+	-Um utilizador registado  , seleciona meus bids a (partir da dashboard),
 vai para p�gina dos bids , seleciona o bid da lista de bids, vai para p�gina da pe�a correspondente ao bid,
-confirma a anula��o do bid (na p�gina da pe�a) , envia notifica��o ao autor e navega para p�gina da pe�a.
+confirma a anula��o do bid (na p�gina do bid) , envia notifica��o ao autor e navega para os meus bids.
 
 Erro: Anular Bid j� anulado
 
-	-Um utilizador registado  , seleciona meus bids a (partir da landing page),
+	-Um utilizador registado  , seleciona meus bids a (partir da dashboard),
 vai para p�gina dos bids , seleciona o bid da lista de bids, vai para p�gina da pe�a correspondente ao bid,
 confirma a anula��o do bid(j� anulado) (na p�gina da pe�a) , ve mensagem de erro de bid j� anulado.
 
 
 User Storie -  Finalizar Compra
 Sucesso:
-	- Um utilizador registado autor , seleciona meus bids a (partir da Landing Page)
-seleciona bids pesquisa  e seleciona o bid , vai para p�gina da pe�a e 
+	- Um utilizador registado autor , seleciona meus bids a (partir da dashboard)
+seleciona bids pesquisa  e seleciona o bid , vai para p�gina do bid e 
 finaliza compra e seleciona se torna bid publico
- e envia notifica��o ao comprador.
+ e envia notifica��o ao comprador e navega para pagina do bid.
 
 Erro: Bid N�o aceite
 	- Um utilizador registado autor  , seleciona meus bids a (partir da Landing Page)
-seleciona bids  pesquisa  e seleciona o bid(que deixou de estar aceite) , vai para p�gina da pe�a e 
+seleciona bids  pesquisa  e seleciona o bid(que deixou de estar aceite) , vai para p�gina do bid e 
 finaliza compra e seleciona se torna bid publico
  e ve mensagem de erro de bid n�o est� aceite.
 
