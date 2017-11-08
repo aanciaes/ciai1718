@@ -13,7 +13,7 @@
       "format": "date-time"
     },
     "techniques": {
-      "description": "Tecnhiques used",
+      "description": "Techniques used",
       "type": "array",
       "items": {
         "type": "string"
@@ -47,11 +47,7 @@
   "required": [
     "id",
     "name",
-    "date",
-    "techniques",
-    "description",
     "keywords",
-    "multimedia",
     "author",
     "sale"
   ]
