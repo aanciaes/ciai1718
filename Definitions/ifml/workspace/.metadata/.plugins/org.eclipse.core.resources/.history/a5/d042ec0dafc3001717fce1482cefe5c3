@@ -1,0 +1,27 @@
+<SiteView xmlns:gr="http://www.webratio.com/2006/WebML/Graph" id="sv1" name="Site View 1" linkVisibilityPolicy="hide" homePage="sv1#page3">
+  <OperationUnits>
+    <CreateUnit gr:x="90" gr:y="-10" id="sv1#cru1" name="Criar Artista" entity="ent3">
+      <OKLink id="sv1#cru1#oln1" name="OKFlow1" to="sv1#page3" automaticCoupling="true"/>
+      <KOLink id="sv1#cru1#kln1" name="KOFlow1" to="sv1#page3#enu1" automaticCoupling="true"/>
+    </CreateUnit>
+    <LoginUnit gr:x="625" gr:y="20" id="sv1#lgu1" name="Login">
+      <KOLink id="sv1#lgu1#kln2" name="KOFlow2" to="sv1#page3#gctu4" automaticCoupling="true"/>
+    </LoginUnit>
+    <ConnectUnit gr:x="620" gr:y="290" id="sv1#cnu3" name="Connect3">
+      <SourceSelector id="sv1#cnu3#su5" defaultPolicy="fill" booleanOperator="and">
+        <KeyCondition id="sv1#cnu3#su5#kcond5" name="KeyCondition5" predicate="in" implied="false"/>
+      </SourceSelector>
+      <TargetSelector id="sv1#cnu3#su6" defaultPolicy="fill" booleanOperator="and">
+        <KeyCondition id="sv1#cnu3#su6#kcond6" name="KeyCondition6" predicate="in" implied="false"/>
+      </TargetSelector>
+    </ConnectUnit>
+    <IsNotNullUnit gr:x="80" gr:y="125" id="sv1#inn1" name="Tipo Utilizador" linkOrder="sv1#inn1#ln3 sv1#inn1#ln4">
+      <Link id="sv1#inn1#ln3" name="Flow3" to="sv1#cru1" automaticCoupling="true" type="transport" validate="true"/>
+      <Link id="sv1#inn1#ln4" name="Flow4" to="sv1#cru2" automaticCoupling="true" type="transport" validate="true"/>
+    </IsNotNullUnit>
+    <CreateUnit gr:x="80" gr:y="245" id="sv1#cru2" name="Criar Utilizador Basico" entity="ent4">
+      <OKLink id="sv1#cru2#oln2" name="OKFlow2" to="sv1#page3" automaticCoupling="true"/>
+      <KOLink id="sv1#cru2#kln3" name="KOFlow3" to="sv1#page3#enu1" automaticCoupling="true"/>
+    </CreateUnit>
+  </OperationUnits>
+</SiteView>

@@ -1,4 +1,4 @@
-User Storie- Registar Utilizador
+﻿User Storie- Registar Utilizador
 
 	- Um utilizador regista-se no sistema (a partir da landing page),
 colocando nome,email, password e o tipo de utilizador 
@@ -18,8 +18,13 @@ ve a sua p�gina de perfil, modifica os campos associado do perfil e ve o
 resultado na p�gina de perfil.
 
 
-User Store - Ver uma Pe�a
-	-Um utilizador  registado, seleciona uma pe�a (a partir da galeria publica) e ve a p�gina pe�a.
+User Storie - Ver uma Pe�a
+Sucesso
+	-Um utilizador , seleciona uma pe�a (a partir da galeria publica) e ve a p�gina pe�a.
+	-Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria) e ve a página da peça.
+Erro: Peça nao existe
+	-Um utilizador , seleciona uma pe�a (a partir da galeria publica) e ve erro de peça nao existente.
+	-Um utilizador registado como autor, seleciona uma peça (a partir da sua galeria) e ve erro de peça nao existente.
 
 User Storie - Adicionar Pe�a
 Sucesso:
@@ -35,8 +40,11 @@ e ve mensagem de erro de nome obrigatorio e mant�m-se no dashboard
 
 User Storie - Editar Pe�a
 Sucesso:
-	- Um utilizador registado como autor, seleciona uma pe�a (a partir da sua galeria)
+	- Um utilizador registado como autor, seleciona uma pe�a para editar (a partir da sua galeria)
 e ve a p�gina da pe�a, modifica os valores associado da pe�a e ve o resultado das 
+altera��es na p�gina da pe�a.
+	- Um utilizador registado como autor, seleciona uma pe�a (a partir da sua galeria)
+e ve a p�gina da pe�a e seleciona para editar peça, modifica os valores associado da pe�a e ve o resultado das 
 altera��es na p�gina da pe�a.
 
 Erro: Nome obrigatorio
@@ -46,8 +54,11 @@ de nome.
 
 User Storie - Remover Pe�a
 	- Um utilizador registado como autor, seleciona uma pe�a (a partir da sua galeria)
-e ve a p�gina da pe�a, remove e confirma ou cancela remo��o da  pe�a e ve o resultado das
-altera��es na p�gina da pe�a.
+e ve a p�gina da pe�a e seleciona para remover peça, confirma a remoção e ve o resultado das 
+altera��es na galeria.
+	- Um utilizador registado como autor, seleciona uma pe�a (a partir da sua galeria)
+e ve a p�gina da pe�a e seleciona para remover peça, cancela a remoção e ve o resultado das 
+altera��es na página da peça.
 
 
 User Storie - Colocar Pe�a Venda
@@ -72,7 +83,7 @@ Sucesso:
 	- Um utilizador registado ,seleciona uma pe�a (a partir da galeria publica) (que esteja disponivel para venda),
 vai para
 a p�gina da pe�a ,seleciona bid  coloca valor e 
-se pretende ser identificado, atrav�s de formul�rio fornecido, e v� o resultado na p�gina da pe�a e informa o autor.
+se pretende ser identificado, atrav�s de formul�rio fornecido, e v� o resultado na página dos bids e informa o autor.
 
 Erro:Bid de uma pe�a que nao est� em venda
  	-Um utilizador registado ,seleciona uma pe�a (a partir da galeria publica) (que deixou de estar disponivel para venda), 

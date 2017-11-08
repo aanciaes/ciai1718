@@ -1,0 +1,375 @@
+<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="875" gr:y="-170" id="sv1#page6" name="DashboardPage">
+  <ContentUnits/>
+  <layout:Grid containerType="grid">
+    <layout:Row>
+      <layout:Cell colspan="12">
+        <layout:SubPage pageId="sv1#page6#alt2#page7">
+          <layout:Grid containerType="grid">
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu3">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu3#ln11"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu6">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu6#ln13"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#enu3">
+                  <layout:Link link="sv1#page6#alt2#page7#enu3#ln14"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#pwu1">
+                  <layout:Link link="sv1#page6#alt2#page7#pwu1#ln35"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12"/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu7">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu7#ln16"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu8">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu8#ln20"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12"/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu21">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu21#ln57"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#pwu3">
+                  <layout:Link link="sv1#page6#alt2#page7#pwu3#ln58"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#pwu6">
+                  <layout:Link link="sv1#page6#alt2#page7#pwu6#ln69"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu30">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu30#ln68"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+          </layout:Grid>
+        </layout:SubPage>
+      </layout:Cell>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+    </layout:Row>
+    <layout:Row>
+      <layout:Cell colspan="12">
+        <layout:SubPage pageId="sv1#page6#alt2#page9">
+          <layout:Grid containerType="grid">
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page9#gctu5">
+                  <layout:Link link="sv1#page6#alt2#page9#gctu5#ln12"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page9#gctu14">
+                  <layout:Link link="sv1#page6#alt2#page9#gctu14#ln32"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page9#pwu2">
+                  <layout:Link link="sv1#page6#alt2#page9#pwu2#ln33"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+          </layout:Grid>
+        </layout:SubPage>
+      </layout:Cell>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+    </layout:Row>
+    <layout:Row>
+      <layout:Cell colspan="12">
+        <layout:Unit unitId="sv1#page6#alt2#page9#gctu12">
+          <layout:Link link="sv1#page6#alt2#page9#gctu12#ln27"/>
+        </layout:Unit>
+      </layout:Cell>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+      <layout:Cell/>
+    </layout:Row>
+  </layout:Grid>
+  <Alternative gr:x="0" gr:y="0" id="sv1#page6#alt2" name="Alternative2" defaultPage="sv1#page6#alt2#page7">
+    <Page gr:x="0" gr:y="0" id="sv1#page6#alt2#page7" name="Dashboard Artista">
+      <ContentUnits>
+        <NoOpContentUnit gr:x="35" gr:y="90" id="sv1#page6#alt2#page7#gctu3" name="Logout" linkOrder="sv1#page6#alt2#page7#gctu3#ln11">
+          <Link id="sv1#page6#alt2#page7#gctu3#ln11" name="Flow11" to="sv1#page3" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <NoOpContentUnit gr:x="140" gr:y="95" id="sv1#page6#alt2#page7#gctu6" name="Adicionar Pe&#231;a" linkOrder="sv1#page6#alt2#page7#gctu6#ln13">
+          <Link id="sv1#page6#alt2#page7#gctu6#ln13" name="Flow13" to="sv1#page6#alt2#page7#enu3" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <EntryUnit gr:x="140" gr:y="185" id="sv1#page6#alt2#page7#enu3" name="Adicionar Pe&#231;a" entity="ent1" linkOrder="sv1#page6#alt2#page7#enu3#ln14">
+          <Link id="sv1#page6#alt2#page7#enu3#ln14" name="Flow14" to="sv1#cru3" automaticCoupling="true" type="normal" validate="true"/>
+        </EntryUnit>
+        <PowerIndexUnit gr:x="455" gr:y="180" id="sv1#page6#alt2#page7#pwu1" name="Galeria" sortable="true" checkable="false" useCountQuery="false" entity="ent1" linkOrder="sv1#page6#alt2#page7#pwu1#ln35">
+          <Link id="sv1#page6#alt2#page7#pwu1#ln35" name="Flow35" to="sv1#switch5" automaticCoupling="true" type="normal" validate="true"/>
+        </PowerIndexUnit>
+        <NoOpContentUnit gr:x="385" gr:y="95" id="sv1#page6#alt2#page7#gctu7" name="Minha Galeria" linkOrder="sv1#page6#alt2#page7#gctu7#ln16">
+          <Link id="sv1#page6#alt2#page7#gctu7#ln16" name="Flow16" to="sv1#page6#alt2#page7#pwu1" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <NoOpContentUnit gr:x="0" gr:y="175" id="sv1#page6#alt2#page7#gctu8" name="GaleriaPublica" linkOrder="sv1#page6#alt2#page7#gctu8#ln20">
+          <Link id="sv1#page6#alt2#page7#gctu8#ln20" name="Flow17" to="sv1#page10#pwu4" type="normal" automaticCoupling="true" validate="true"/>
+        </NoOpContentUnit>
+        <NoOpContentUnit gr:x="645" gr:y="5" id="sv1#page6#alt2#page7#gctu21" name="Inbox Autor" linkOrder="sv1#page6#alt2#page7#gctu21#ln57">
+          <Link id="sv1#page6#alt2#page7#gctu21#ln57" name="Flow57" to="sv1#page6#alt2#page7#pwu3" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <PowerIndexUnit gr:x="650" gr:y="160" id="sv1#page6#alt2#page7#pwu3" name="Notificac&#245;es" sortable="true" checkable="false" useCountQuery="false" entity="ent7" linkOrder="sv1#page6#alt2#page7#pwu3#ln58">
+          <Link id="sv1#page6#alt2#page7#pwu3#ln58" name="Flow58" to="sv1#switch11" automaticCoupling="true" type="normal" validate="true"/>
+        </PowerIndexUnit>
+        <PowerIndexUnit gr:x="525" gr:y="50" id="sv1#page6#alt2#page7#pwu6" name="Bids" sortable="true" checkable="false" useCountQuery="false" entity="ent6" linkOrder="sv1#page6#alt2#page7#pwu6#ln69">
+          <Link id="sv1#page6#alt2#page7#pwu6#ln69" name="Flow69" to="sv1#switch14" automaticCoupling="true" type="normal" validate="true"/>
+        </PowerIndexUnit>
+        <NoOpContentUnit gr:x="380" gr:y="0" id="sv1#page6#alt2#page7#gctu30" name="Meus Bids" linkOrder="sv1#page6#alt2#page7#gctu30#ln68">
+          <Link id="sv1#page6#alt2#page7#gctu30#ln68" name="Flow68" to="sv1#page6#alt2#page7#pwu6" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+      </ContentUnits>
+    </Page>
+    <Page gr:x="65" gr:y="365" id="sv1#page6#alt2#page9" name="Dashboard Basico">
+      <ContentUnits>
+        <NoOpContentUnit gr:x="0" gr:y="5" id="sv1#page6#alt2#page9#gctu5" name="Logout" linkOrder="sv1#page6#alt2#page9#gctu5#ln12">
+          <Link id="sv1#page6#alt2#page9#gctu5#ln12" name="Flow12" to="sv1#page3" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <NoOpContentUnit id="sv1#page6#alt2#page9#gctu12" name="GaleriaPublica" linkOrder="sv1#page6#alt2#page9#gctu12#ln27" gr:x="0" gr:y="85">
+          <Link id="sv1#page6#alt2#page9#gctu12#ln27" name="Flow17" to="sv1#page10#pwu4" type="normal" automaticCoupling="true" validate="true"/>
+        </NoOpContentUnit>
+        <NoOpContentUnit gr:x="250" gr:y="0" id="sv1#page6#alt2#page9#gctu14" name="Meus Bids" linkOrder="sv1#page6#alt2#page9#gctu14#ln32">
+          <Link id="sv1#page6#alt2#page9#gctu14#ln32" name="Flow32" to="sv1#page6#alt2#page9#pwu2" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <PowerIndexUnit gr:x="190" gr:y="105" id="sv1#page6#alt2#page9#pwu2" name="Bids" sortable="true" checkable="false" useCountQuery="false" entity="ent6" linkOrder="sv1#page6#alt2#page9#pwu2#ln33">
+          <Link id="sv1#page6#alt2#page9#pwu2#ln33" name="Flow33" to="sv1#page4" automaticCoupling="true" type="normal" validate="true"/>
+        </PowerIndexUnit>
+      </ContentUnits>
+    </Page>
+  </Alternative>
+</Page>

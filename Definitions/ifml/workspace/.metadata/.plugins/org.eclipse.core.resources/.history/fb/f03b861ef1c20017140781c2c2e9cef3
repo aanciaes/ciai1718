@@ -1,0 +1,8 @@
+<SiteView xmlns:gr="http://www.webratio.com/2006/WebML/Graph" id="sv1" name="Site View 1" linkVisibilityPolicy="hide" homePage="sv1#page3">
+  <OperationUnits>
+    <CreateUnit gr:x="20" gr:y="45" id="sv1#cru1" name="Criar Utilizador" entity="ent2">
+      <KOLink id="sv1#cru1#kln1" name="KOFlow1" to="sv1#page3#enu1" automaticCoupling="true" gr:bendpoints="23,-61,8,54"/>
+      <OKLink id="sv1#cru1#oln3" name="OKFlow3" to="sv1#page3" automaticCoupling="true"/>
+    </CreateUnit>
+  </OperationUnits>
+</SiteView>
