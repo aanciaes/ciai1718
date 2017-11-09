@@ -124,7 +124,7 @@
       <OKLink id="sv1#mfu1#oln13" name="OKFlow13" to="sv1#page1#dau1" automaticCoupling="true"/>
       <KOLink id="sv1#mfu1#kln6" name="KOFlow6" to="sv1#page1#enu8" automaticCoupling="true" gr:bendpoints="96,19,-99,9"/>
     </ModifyUnit>
-    <ConnectUnit gr:x="1765" gr:y="240" id="sv1#cnu1" name="NotifComprador" relationship="rel5#role9" linkOrder="sv1#cnu1#ln24">
+    <ConnectUnit gr:x="1735" gr:y="245" id="sv1#cnu1" name="NotifComprador" relationship="rel5#role9" linkOrder="sv1#cnu1#ln24">
       <SourceSelector id="sv1#cnu1#su4" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#cnu1#su4#kcond4" name="KeyCondition4" predicate="in" implied="false"/>
       </SourceSelector>

@@ -137,14 +137,14 @@ finaliza compra e seleciona se torna bid publico
  e envia notifica��o ao comprador e navega para pagina do bid.
 
 Erro: Bid N�o aceite
-	- Um utilizador registado autor  , seleciona meus bids a (partir da Landing Page)
+	- Um utilizador registado autor  , seleciona meus bids a (partir da dashboard)
 seleciona bids  pesquisa  e seleciona o bid(que deixou de estar aceite) , vai para p�gina do bid e 
 finaliza compra e seleciona se torna bid publico
  e ve mensagem de erro de bid n�o est� aceite.
 
 
 User Storie - Pesquisar Pe�a Por Keyword
-	-Um utilizador , escreve no input de pesquisa (na landing page)  e clica no botao pesquisar,
+	-Um utilizador , escreve no input de pesquisa (na galeria publica)  e clica no botao pesquisar,
 ve as pe�as  relacionadas com as keywords que escritas na p�gina de landing page.
 
 

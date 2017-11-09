@@ -1,4 +1,4 @@
-<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="1305" gr:y="785" id="sv1#page5" name="Pe&#231;a Detalhe">
+<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="1370" gr:y="785" id="sv1#page5" name="Pe&#231;a Detalhe">
   <ContentUnits>
     <DataUnit id="sv1#page5#dau4" name="Pe&#231;a" gr:x="0" gr:y="20" entity="ent1">
       <Selector id="sv1#page5#dau4#su7" defaultPolicy="fill" booleanOperator="and">
@@ -270,7 +270,7 @@
         <EntryUnit id="sv1#page5#alt1#page12#enu11" name="Editar Pe&#231;a" gr:x="25" gr:y="200" linkOrder="sv1#page5#alt1#page12#enu11#ln40">
           <Link id="sv1#page5#alt1#page12#enu11#ln40" name="Flow40" to="sv1#mfu3" automaticCoupling="true" type="normal" validate="true"/>
         </EntryUnit>
-        <NoOpContentUnit id="sv1#page5#alt1#page12#gctu17" name="Remover Pe&#231;a" gr:x="375" gr:y="0" linkOrder="sv1#page5#alt1#page12#gctu17#ln44">
+        <NoOpContentUnit id="sv1#page5#alt1#page12#gctu17" name="Remover Pe&#231;a" gr:x="445" gr:y="0" linkOrder="sv1#page5#alt1#page12#gctu17#ln44">
           <Link id="sv1#page5#alt1#page12#gctu17#ln44" name="Flow44" to="sv1#switch9" automaticCoupling="true" type="normal" validate="true"/>
         </NoOpContentUnit>
         <NoOpContentUnit id="sv1#page5#alt1#page12#gctu19" name="Vender Pe&#231;a" gr:x="210" gr:y="305" linkOrder="sv1#page5#alt1#page12#gctu19#ln49">

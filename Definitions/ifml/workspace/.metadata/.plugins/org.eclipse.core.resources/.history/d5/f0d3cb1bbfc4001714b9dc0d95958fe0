@@ -1,16 +1,16 @@
-<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="840" gr:y="-195" id="sv1#page6" name="DashboardPage">
-  <ContentUnits>
-    <NoOpContentUnit id="sv1#page6#gctu28" name="Logout" linkOrder="sv1#page6#gctu28#ln28" gr:x="0" gr:y="95">
-      <Link id="sv1#page6#gctu28#ln28" name="Flow12" to="sv1#page3" type="normal" automaticCoupling="true" validate="true"/>
-    </NoOpContentUnit>
-  </ContentUnits>
+<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="875" gr:y="-185" id="sv1#page6" name="DashboardPage">
+  <ContentUnits/>
   <layout:Grid containerType="grid">
     <layout:Row>
       <layout:Cell colspan="12">
         <layout:SubPage pageId="sv1#page6#alt2#page7">
           <layout:Grid containerType="grid">
             <layout:Row>
-              <layout:Cell colspan="12"/>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page7#gctu3">
+                  <layout:Link link="sv1#page6#alt2#page7#gctu3#ln11"/>
+                </layout:Unit>
+              </layout:Cell>
               <layout:Cell/>
               <layout:Cell/>
               <layout:Cell/>
@@ -251,7 +251,11 @@
         <layout:SubPage pageId="sv1#page6#alt2#page9">
           <layout:Grid containerType="grid">
             <layout:Row>
-              <layout:Cell colspan="12"/>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page6#alt2#page9#gctu5">
+                  <layout:Link link="sv1#page6#alt2#page9#gctu5#ln12"/>
+                </layout:Unit>
+              </layout:Cell>
               <layout:Cell/>
               <layout:Cell/>
               <layout:Cell/>
@@ -318,22 +322,6 @@
               <layout:Cell/>
               <layout:Cell/>
             </layout:Row>
-            <layout:Row>
-              <layout:Cell colspan="12">
-                <layout:Unit unitId="sv1#page6#alt2#page9#gctu25"/>
-              </layout:Cell>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-              <layout:Cell/>
-            </layout:Row>
           </layout:Grid>
         </layout:SubPage>
       </layout:Cell>
@@ -367,28 +355,13 @@
       <layout:Cell/>
       <layout:Cell/>
     </layout:Row>
-    <layout:Row>
-      <layout:Cell colspan="12">
-        <layout:Unit unitId="sv1#page6#gctu28">
-          <layout:Link link="sv1#page6#gctu28#ln28"/>
-        </layout:Unit>
-      </layout:Cell>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-      <layout:Cell/>
-    </layout:Row>
   </layout:Grid>
-  <Alternative gr:x="80" gr:y="0" id="sv1#page6#alt2" name="Alternative2" defaultPage="sv1#page6#alt2#page7">
+  <Alternative gr:x="0" gr:y="0" id="sv1#page6#alt2" name="Alternative2" defaultPage="sv1#page6#alt2#page7">
     <Page gr:x="0" gr:y="0" id="sv1#page6#alt2#page7" name="Dashboard Artista">
       <ContentUnits>
+        <NoOpContentUnit gr:x="35" gr:y="25" id="sv1#page6#alt2#page7#gctu3" name="Logout" linkOrder="sv1#page6#alt2#page7#gctu3#ln11">
+          <Link id="sv1#page6#alt2#page7#gctu3#ln11" name="Flow11" to="sv1#page3" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
         <NoOpContentUnit gr:x="140" gr:y="110" id="sv1#page6#alt2#page7#gctu6" name="Adicionar Pe&#231;a" linkOrder="sv1#page6#alt2#page7#gctu6#ln13">
           <Link id="sv1#page6#alt2#page7#gctu6#ln13" name="Flow13" to="sv1#page6#alt2#page7#enu3" automaticCoupling="true" type="normal" validate="true"/>
         </NoOpContentUnit>
@@ -421,21 +394,23 @@
         </NoOpContentUnit>
       </ContentUnits>
     </Page>
-    <Page gr:x="65" gr:y="355" id="sv1#page6#alt2#page9" name="Dashboard Basico">
+    <Page gr:x="65" gr:y="380" id="sv1#page6#alt2#page9" name="Dashboard Basico">
       <ContentUnits>
-        <NoOpContentUnit id="sv1#page6#alt2#page9#gctu12" name="GaleriaPublica" linkOrder="sv1#page6#alt2#page9#gctu12#ln27" gr:x="0" gr:y="110">
+        <NoOpContentUnit gr:x="0" gr:y="5" id="sv1#page6#alt2#page9#gctu5" name="Logout" linkOrder="sv1#page6#alt2#page9#gctu5#ln12">
+          <Link id="sv1#page6#alt2#page9#gctu5#ln12" name="Flow12" to="sv1#page3" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <NoOpContentUnit id="sv1#page6#alt2#page9#gctu12" name="GaleriaPublica" linkOrder="sv1#page6#alt2#page9#gctu12#ln27" gr:x="0" gr:y="85">
           <Link id="sv1#page6#alt2#page9#gctu12#ln27" name="Flow17" to="sv1#page10#pwu4" type="normal" automaticCoupling="true" validate="true"/>
         </NoOpContentUnit>
-        <NoOpContentUnit gr:x="120" gr:y="0" id="sv1#page6#alt2#page9#gctu14" name="Meus Bids" linkOrder="sv1#page6#alt2#page9#gctu14#ln32">
+        <NoOpContentUnit gr:x="250" gr:y="0" id="sv1#page6#alt2#page9#gctu14" name="Meus Bids" linkOrder="sv1#page6#alt2#page9#gctu14#ln32">
           <Link id="sv1#page6#alt2#page9#gctu14#ln32" name="Flow32" to="sv1#page6#alt2#page9#pwu2" automaticCoupling="true" type="normal" validate="true"/>
         </NoOpContentUnit>
-        <PowerIndexUnit gr:x="190" gr:y="130" id="sv1#page6#alt2#page9#pwu2" name="Bids" sortable="true" checkable="false" useCountQuery="false" entity="ent6" linkOrder="sv1#page6#alt2#page9#pwu2#ln33">
+        <PowerIndexUnit gr:x="190" gr:y="105" id="sv1#page6#alt2#page9#pwu2" name="Bids" sortable="true" checkable="false" useCountQuery="false" entity="ent6" linkOrder="sv1#page6#alt2#page9#pwu2#ln33">
           <Link id="sv1#page6#alt2#page9#pwu2#ln33" name="Flow33" to="sv1#page4" automaticCoupling="true" type="normal" validate="true"/>
         </PowerIndexUnit>
-        <NoOpContentUnit gr:x="10" gr:y="175" id="sv1#page6#alt2#page9#gctu23" name="Perfil" linkOrder="sv1#page6#alt2#page9#gctu23#ln18">
+        <NoOpContentUnit gr:x="10" gr:y="150" id="sv1#page6#alt2#page9#gctu23" name="Perfil" linkOrder="sv1#page6#alt2#page9#gctu23#ln18">
           <Link id="sv1#page6#alt2#page9#gctu23#ln18" name="Flow18" to="sv1#page1" automaticCoupling="true" type="normal" validate="true"/>
         </NoOpContentUnit>
-        <NoOpContentUnit gr:x="235" gr:y="5" id="sv1#page6#alt2#page9#gctu25" name="Inbox Utilizador"/>
       </ContentUnits>
     </Page>
   </Alternative>

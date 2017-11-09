@@ -24,7 +24,7 @@
       <OKLink id="sv1#switch3#oln9" name="OKFlow9" to="sv1#page6#alt2#page7" automaticCoupling="true" code="artista"/>
       <OKLink id="sv1#switch3#oln10" name="OKFlow10" to="sv1#page6#alt2#page9" automaticCoupling="true" code="basico"/>
     </SwitchUnit>
-    <CreateUnit gr:x="1255" gr:y="115" id="sv1#cru3" name="Criar Pe&#231;a" entity="ent1">
+    <CreateUnit gr:x="1230" gr:y="120" id="sv1#cru3" name="Criar Pe&#231;a" entity="ent1">
       <KOLink id="sv1#cru3#kln4" name="KOFlow4" to="sv1#page6#alt2#page7#enu3" automaticCoupling="true" gr:bendpoints="-98,47,117,-23"/>
       <OKLink id="sv1#cru3#oln11" name="OKFlow11" to="sv1#page6#alt2#page7#pwu1" automaticCoupling="true"/>
     </CreateUnit>
@@ -124,7 +124,7 @@
       <OKLink id="sv1#mfu1#oln13" name="OKFlow13" to="sv1#page1#dau1" automaticCoupling="true"/>
       <KOLink id="sv1#mfu1#kln6" name="KOFlow6" to="sv1#page1#enu8" automaticCoupling="true" gr:bendpoints="96,19,-99,9"/>
     </ModifyUnit>
-    <ConnectUnit gr:x="1765" gr:y="240" id="sv1#cnu1" name="NotifComprador" relationship="rel5#role9" linkOrder="sv1#cnu1#ln24">
+    <ConnectUnit gr:x="1735" gr:y="245" id="sv1#cnu1" name="NotifComprador" relationship="rel5#role9" linkOrder="sv1#cnu1#ln24">
       <SourceSelector id="sv1#cnu1#su4" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#cnu1#su4#kcond4" name="KeyCondition4" predicate="in" implied="false"/>
       </SourceSelector>

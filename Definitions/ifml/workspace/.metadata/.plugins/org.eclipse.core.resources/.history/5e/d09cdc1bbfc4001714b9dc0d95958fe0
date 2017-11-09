@@ -375,7 +375,6 @@
         <ContentUnits>
           <ModuleInstanceUnit gr:x="0" gr:y="10" id="sv1#page4#alt3#page13#page15#miu3" action="true" name="Envia Notificacao Comprador">
             <Link id="sv1#page4#alt3#page13#page15#miu3#ln62" name="Flow62" to="sv1#page4#dau3" automaticCoupling="true" type="transport" validate="true"/>
-            <Link id="sv1#page4#alt3#page13#page15#miu3#ln21" name="Flow21" to="sv1#cnu1" automaticCoupling="true" type="transport" validate="true"/>
           </ModuleInstanceUnit>
           <NoOpContentUnit gr:x="305" gr:y="0" id="sv1#page4#alt3#page13#page15#gctu26" name="Erro Rejeitar"/>
           <NoOpContentUnit id="sv1#page4#alt3#page13#page15#gctu27" name="Erro Aceitar" gr:x="145" gr:y="95"/>
