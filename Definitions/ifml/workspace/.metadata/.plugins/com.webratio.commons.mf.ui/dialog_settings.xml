@@ -10,8 +10,8 @@
 			</section>
 		</section>
 		<section name="COMPANY_DOCUMENTATION">
-			<item value="" key="COMPANY"/>
 			<item value="" key="AUTHOR"/>
+			<item value="" key="COMPANY"/>
 			<item value="" key="LOGO"/>
 		</section>
 	</section>
