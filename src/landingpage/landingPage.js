@@ -236,18 +236,14 @@ class UserControl extends React.Component {
             s.loggedIn = true;
 
         this.props.updateState(s);
+
+        if (s.loggedIn)
+            this.props.history.push('/dashboard');
     }
 
     render() {
 
         const added = this.state.added;
-        const loggedIn = this.state.loggedIn;
-        console.log(this.state.users);
-
-        if (loggedIn) {
-            return (<Redirect to="/dashboard"/>);
-        }
-
         return (
             <div>
 
@@ -301,7 +297,8 @@ class LandingPage extends React.Component {
         return (
             <div>
                 <MenuComponent/>
-                <UserControl users={this.state.users} updateState={this.props.updateState}/>
+                <UserControl users={this.state.users} updateState={this.props.updateState}
+                             history={this.props.parent.history}/>
                 <Route path="/gallery" render={() => {
 
                     return (

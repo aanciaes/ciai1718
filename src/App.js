@@ -1,17 +1,27 @@
 import React, {Component} from 'react';
 import './App.css';
 import $ from 'jquery';
-import {BrowserRouter, Router, Route, Switch, Redirect, Link} from 'react-router-dom'
+
+import {BrowserRouter, Router, Route, Switch, Redirect, Link, withRouter} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+window.jQuery = $;
+window.$ = $;
+global.jQuery = $;
+const bootstrap = require('bootstrap');
 
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false
+            loggedIn: false,
+            user: {
+                email: "",
+                type: ""
+            }
         };
         this.updateState = this.updateState.bind(this);
     }
@@ -25,32 +35,28 @@ class App extends Component {
         const loggedIn = this.state.loggedIn;
         return (
 
-            <BrowserRouter>
-                <div className="App">
-                    <div className="container">
+
+            <div className="App">
+                <div className="container">
 
 
-                        <Route path="/" render={() => {
-                            if (loggedIn) {
-                                return (<Redirect to="/dashboard"/>);
-                            }
-                            return (<LandingPage updateState={this.updateState}/>)
-                        }
+                    <Route path="/" render={() => {
+                        return (<LandingPage updateState={this.updateState} parent={this.props}/>)
+                    }
 
-                        }/>
+                    }/>
 
-                        <Route path="/dashboard" render={() => {
-                            return (
-                                <Dashboard />
-                            );
-                        }}/>
+                    <Route path="/dashboard"  render={() => {
+                        return (
+                            <Dashboard />
+                        );
+                    }}/>
 
-                    </div>
                 </div>
-            </BrowserRouter>
+            </div>
 
         );
     }
 }
 
-export default App;
+export default withRouter(App);

@@ -35,7 +35,12 @@ const MenuDash = () =>
         </header>
 
 
-    </div>
+    </div>;
+
+const Test = ()=>
+<div>
+    <h1>Teste</h1>
+</div>;
 
 
 class Dashboard extends React.Component {
@@ -45,6 +50,7 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash/>
+                <Test/>
             </div>
         );
     }
