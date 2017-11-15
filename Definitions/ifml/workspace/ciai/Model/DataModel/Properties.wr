@@ -30,11 +30,12 @@
     <RelationshipRole1 id="Group2Module" name="modules" maxCard="N"/>
     <RelationshipRole2 id="Module2Group" name="groups" maxCard="N"/>
   </Relationship>
-  <Entity gr:x="120" gr:y="170" id="ent2" name="Utilizador" duration="persistent" attributeOrder="ent2#att3 ent2#att4 ent2#att5 ent2#att6">
+  <Entity gr:x="120" gr:y="170" id="ent2" name="Utilizador" duration="persistent" attributeOrder="ent2#att3 ent2#att4 ent2#att5 ent2#att6 ent2#att22">
     <Attribute id="ent2#att3" key="true" name="oid" type="integer"/>
     <Attribute id="ent2#att4" name="email" type="string"/>
     <Attribute id="ent2#att5" name="password" type="string"/>
     <Attribute id="ent2#att6" name="tipo" type="string"/>
+    <Attribute id="ent2#att22" name="name" type="string"/>
   </Entity>
   <Entity gr:x="40" gr:y="310" id="ent3" name="Artista" duration="persistent">
     <Attribute id="ent3#att2" key="true" name="oid" type="integer"/>

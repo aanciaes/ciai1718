@@ -2,41 +2,10 @@
  * Created by Tecnico on 09/11/2017.
  */
 import React, {Component} from 'react';
-import {BrowserRouter, Router, Route, Switch, Redirect, Link, withRouter} from 'react-router-dom'
+import {Route, Link} from 'react-router-dom'
 import './landingPage.css';
 import PublicGallery from '../publicGallery/publicGallery';
-import $ from 'jquery';
 
-
-const MenuComponent = () =>
-    <div>
-
-        <header className="App-header">
-            <nav className="navbar navbar-default navbar-fixed-top">
-                <div className="container">
-                    <div className="navbar-header">
-                        <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
-                                data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                            <span className="sr-only">Toggle navigation</span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                            <span className="icon-bar"></span>
-                        </button>
-                        <a className="navbar-brand" href="#">ArtBiz</a>
-                    </div>
-                    <div id="navbar" className="navbar-collapse collapse">
-                        <ul className="nav navbar-nav navbar-right">
-                            <li><Link to={`/register`}> Registar</Link></li>
-                            <li><Link to={`/login`}>Login</Link></li>
-                            <li><Link to={`/gallery`}>Galeria Pública</Link></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </header>
-
-
-    </div>
 
 const Error = ({message}) =>
     <div>
@@ -52,13 +21,6 @@ const Sucesso = ({message}) =>
         </div>
     </div>;
 
-function ErrorLogin(props) {
-    if (props.error) {
-        let m = "Email ou password errado!!";
-        return <Error message={m}/>
-    }
-    return null;
-}
 
 class RegistarUtilizador extends React.Component {
 
@@ -66,6 +28,7 @@ class RegistarUtilizador extends React.Component {
         super(props);
         this.state = {
             email: "",
+            name: "",
             password: "",
             type: ""
         }
@@ -93,15 +56,20 @@ class RegistarUtilizador extends React.Component {
                     <h1>Registar</h1>
                     <form id="form_register" onSubmit={this.recordUser}>
                         <div className="form-group">
+                            <label>Name:</label>
+                            <input type="text" className="form-control" name="name"
+                                   placeholder="Inserir nome" onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
                             <label>Email</label>
                             <input type="email" className="form-control" name="email"
                                    aria-describedby="emailHelp"
-                                   placeholder="Enter email" onChange={this.handleChange}/>
+                                   placeholder="Inserir email" onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
                             <input type="password" className="form-control" name="password"
-                                   placeholder="Password" onChange={this.handleChange}/>
+                                   placeholder="Inserir Password" onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
                             <div>
@@ -190,95 +158,92 @@ class LoginUtilizador extends React.Component {
 }
 
 
-class UserControl extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            users: this.props.users,
-            added: false,
-            loggedIn: false,
-            error: false
-        };
-        this.addUser = this.addUser.bind(this);
-        this.loginUser = this.loginUser.bind(this);
-    }
+function RegisterControl(props) {
+    if (props.register) {
+        if (props.added)
+            return (<Sucesso message="Criação com sucesso!!"/>);
 
-    addUser(u) {
-        let s = this.state;
-        let us = s.users;
-        us.push(u);
-        s.users = us;
-        s.added = true;
-        this.setState(s);
+        return (<RegistarUtilizador addUser={props.addUser}/>);
 
 
     }
+    return null;
+}
 
-    loginUser(u) {
-        let s = this.state;
-        let us = s.users;
-
-        console.log(u);
-        console.log(us);
-        let found = false;
-        $.each(us, function (i, val) {
-            if (val.email == u.email)
-                if (val.password == u.password) {
-                    found = true;
-                    return false;
-                }
-        });
-
-
-        if (!found)
-            s.error = true;
-        else
-            s.loggedIn = true;
-
-        this.props.updateState(s);
-
-        if (s.loggedIn)
-            this.props.history.push('/dashboard');
-    }
-
-    render() {
-
-        const added = this.state.added;
+function LoginControl(props) {
+    if (props.login) {
         return (
             <div>
-
-                <Route path="/register" render={() => {
-
-
-                    return (
-                        <div>
-                            {added ? (
-                                <Sucesso message="Criado com sucesso"/>
-                            ) : (
-                                <RegistarUtilizador addUser={this.addUser}/>
-                            )}
-
-                        </div>
-
-                    );
-                }}/>
-
-
-                <Route path="/login" render={() => {
-
-                    return (
-                        <div>
-                            <ErrorLogin error={this.state.error}/>
-                            <LoginUtilizador loginUser={this.loginUser}/>
-                        </div>
-
-                    );
-                }}/>
-
+                {
+                    (props.error ? <Error message="Email e password Errados!!!"/> : "" )
+                }
+                <LoginUtilizador loginUser={props.loginUser}/>
             </div>
         );
+
+    }
+    return null;
+}
+
+function GalleryControl(props) {
+    if (props.gallery) {
+        return (<PublicGallery/>);
+    }
+    return null;
+}
+
+
+class MenuComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.registerMode = this.registerMode.bind(this);
+        this.loginMode = this.loginMode.bind(this);
+        this.galleryMode = this.galleryMode.bind(this);
     }
 
+    registerMode() {
+        this.props.updateRegister(true);
+    }
+
+    loginMode() {
+        this.props.updateLogin(true);
+    }
+
+    galleryMode() {
+        this.props.updateGallery(true);
+    }
+
+
+    render() {
+        return ( <div>
+
+            <header className="App-header">
+                <nav className="navbar navbar-default navbar-fixed-top">
+                    <div className="container">
+                        <div className="navbar-header">
+                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                                    data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                <span className="sr-only">Toggle navigation</span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                                <span className="icon-bar"></span>
+                            </button>
+                            <a className="navbar-brand" href="#">ArtBiz</a>
+                        </div>
+                        <div id="navbar" className="navbar-collapse collapse">
+                            <ul className="nav navbar-nav navbar-right">
+                                <li><a href="#" onClick={this.registerMode}> Registar</a></li>
+                                <li><a href="#" onClick={this.loginMode}>Login</a></li>
+                                <li><a href="#" onClick={this.galleryMode}>Galeria Pública</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+
+        </div>);
+    }
 }
 
 
@@ -286,30 +251,98 @@ class LandingPage extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             users: [],
-            error: false,
-            loggedIn: false
+            added: false,
+            register: false,
+            login: false,
+            gallery: false,
+            error: false
+        };
+        this.getInitialState = this.getInitialState.bind(this);
+        this.addUser = this.addUser.bind(this);
+        this.reset = this.reset.bind(this);
+        this.loginUser = this.loginUser.bind(this);
+        this.updateRegister = this.updateRegister.bind(this);
+        this.updateLogin = this.updateLogin.bind(this);
+        this.updateGallery = this.updateGallery.bind(this);
+
+    }
+
+    getInitialState() {
+        return {
+            added: false,
+            register: false,
+            login: false,
+            gallery: false,
+            error: false
         };
     }
 
+    addUser(u) {
+        let s = this.state;
+        s.added = true;
+        this.props.addUser(u);
+        this.setState(s);
+    }
+
+    updateRegister(r) {
+        let s = this.getInitialState();
+        s.register = r;
+        this.setState(s);
+    }
+
+    updateGallery(r) {
+        let s = this.getInitialState();
+        s.gallery = r;
+        this.setState(s);
+    }
+
+    updateLogin(r) {
+        let s = this.getInitialState();
+        s.login = r;
+        this.setState(s);
+    }
+
+    reset() {
+        this.setState(this.getInitialState());
+
+    }
+
+    loginUser(u) {
+        this.reset();
+        console.log(this.props.loginUser(u));
+
+        if (this.props.loginUser(u) == false) {
+            console.log(1);
+            let s = Object.assign({}, this.state);
+            s.error = true;
+            this.setState(s);
+        }
+
+    }
+
     render() {
+
+        const s = this.state;
+
+
         return (
             <div>
-                <MenuComponent/>
-                <UserControl users={this.state.users} updateState={this.props.updateState}
-                             history={this.props.parent.history}/>
-                <Route path="/gallery" render={() => {
+                <MenuComponent updateRegister={this.updateRegister} updateLogin={this.updateLogin}
+                               updateGallery={this.updateGallery}/>
 
-                    return (
-                        <div>
-                            <PublicGallery/>
-                        </div>
-                    );
-                }}/>
+
+                <RegisterControl added={s.added} register={s.register} addUser={this.addUser}/>
+                <LoginControl error={s.error} login={s.login} loginUser={this.loginUser}/>
+                <GalleryControl gallery={s.gallery}/>
+
+
             </div>
         );
     }
+
 }
 
 export default LandingPage;

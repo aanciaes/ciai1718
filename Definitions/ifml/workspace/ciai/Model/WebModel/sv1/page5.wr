@@ -1,6 +1,6 @@
-<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="1305" gr:y="785" id="sv1#page5" name="Pe&#231;a Detalhe">
+<Page xmlns:gr="http://www.webratio.com/2006/WebML/Graph" xmlns:layout="http://www.webratio.com/2006/WebML/Layout" gr:x="1385" gr:y="950" id="sv1#page5" name="Pe&#231;a Detalhe">
   <ContentUnits>
-    <DataUnit id="sv1#page5#dau4" name="Pe&#231;a" gr:x="0" gr:y="20" entity="ent1">
+    <DataUnit id="sv1#page5#dau4" name="Pe&#231;a" gr:x="0" gr:y="35" entity="ent1">
       <Selector id="sv1#page5#dau4#su7" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#page5#dau4#su7#kcond7" name="KeyCondition5" predicate="in" implied="false"/>
       </Selector>
@@ -248,8 +248,8 @@
       <layout:Cell/>
     </layout:Row>
   </layout:Grid>
-  <Alternative gr:x="375" gr:y="0" id="sv1#page5#alt1" name="Alternative1" defaultPage="sv1#page5#alt1#page8">
-    <Page gr:x="50" gr:y="455" id="sv1#page5#alt1#page8" name="Pe&#231;a Basico">
+  <Alternative gr:x="420" gr:y="0" id="sv1#page5#alt1" name="Alternative1" defaultPage="sv1#page5#alt1#page8">
+    <Page gr:x="35" gr:y="455" id="sv1#page5#alt1#page8" name="Pe&#231;a Basico">
       <ContentUnits>
         <NoOpContentUnit id="sv1#page5#alt1#page8#gctu20" name="Fazer Bid" gr:x="0" gr:y="5" linkOrder="sv1#page5#alt1#page8#gctu20#ln54">
           <Link id="sv1#page5#alt1#page8#gctu20#ln54" name="Flow54" to="sv1#switch10" automaticCoupling="true" type="normal" validate="true"/>

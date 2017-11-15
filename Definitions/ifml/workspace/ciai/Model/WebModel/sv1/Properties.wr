@@ -28,44 +28,44 @@
       <KOLink id="sv1#cru3#kln4" name="KOFlow4" to="sv1#page6#alt2#page7#enu3" automaticCoupling="true" gr:bendpoints="-98,47,117,-23"/>
       <OKLink id="sv1#cru3#oln11" name="OKFlow11" to="sv1#page6#alt2#page7#pwu1" automaticCoupling="true"/>
     </CreateUnit>
-    <SwitchUnit gr:x="1510" gr:y="990" id="sv1#switch5" name="Tipo Utilizador">
+    <SwitchUnit gr:x="1535" gr:y="1190" id="sv1#switch5" name="Tipo Utilizador">
       <Case value="basico"/>
       <Case value="artista"/>
       <OKLink id="sv1#switch5#oln23" name="OKFlow23" to="sv1#page5#alt1#page8" automaticCoupling="true" code="basico"/>
       <OKLink id="sv1#switch5#oln24" name="OKFlow24" to="sv1#page5#alt1#page12" automaticCoupling="true" code="artista"/>
     </SwitchUnit>
-    <ModifyUnit gr:x="1770" gr:y="895" id="sv1#mfu3" name="Pe&#231;a" entity="ent1">
+    <ModifyUnit gr:x="1850" gr:y="1080" id="sv1#mfu3" name="Pe&#231;a" entity="ent1">
       <Selector id="sv1#mfu3#su8" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#mfu3#su8#kcond8" name="KeyCondition8" predicate="in" implied="false"/>
       </Selector>
       <KOLink id="sv1#mfu3#kln10" name="KOFlow10" to="sv1#page5#alt1#page12#enu11" automaticCoupling="true" gr:bendpoints="111,22,-114,7"/>
       <OKLink id="sv1#mfu3#oln26" name="OKFlow26" to="sv1#page5#dau4" automaticCoupling="true"/>
     </ModifyUnit>
-    <SwitchUnit gr:x="2015" gr:y="1030" id="sv1#switch9" name="Confirma&#231;&#227;o de remo&#231;&#227;o">
+    <SwitchUnit gr:x="2170" gr:y="1205" id="sv1#switch9" name="Confirma&#231;&#227;o de remo&#231;&#227;o">
       <OKLink id="sv1#switch9#oln31" name="OKFlow31" to="sv1#dlu2" automaticCoupling="true" code="sim"/>
       <Case value="sim"/>
       <Case value="nao"/>
     </SwitchUnit>
-    <DeleteUnit gr:x="1965" gr:y="890" id="sv1#dlu2" name="Remove Pe&#231;a" entity="ent1">
+    <DeleteUnit gr:x="2075" gr:y="1055" id="sv1#dlu2" name="Remove Pe&#231;a" entity="ent1">
       <Selector id="sv1#dlu2#su9" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#dlu2#su9#kcond9" name="KeyCondition9" predicate="in" implied="false"/>
       </Selector>
       <KOLink id="sv1#dlu2#kln11" name="KOFlow11" to="sv1#switch9" automaticCoupling="true" gr:bendpoints="59,67,-71,-38"/>
       <OKLink id="sv1#dlu2#oln32" name="OKFlow32" to="sv1#page6#alt2#page7#pwu1" automaticCoupling="true"/>
     </DeleteUnit>
-    <ModifyUnit gr:x="1880" gr:y="1010" id="sv1#mfu5" name="Pe&#231;a Venda" entity="ent1">
+    <ModifyUnit gr:x="1965" gr:y="1060" id="sv1#mfu5" name="Pe&#231;a Venda" entity="ent1">
       <Selector id="sv1#mfu5#su11" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#mfu5#su11#kcond11" name="KeyCondition11" predicate="in" implied="false"/>
       </Selector>
       <OKLink id="sv1#mfu5#oln34" name="OKFlow34" to="sv1#page5#dau4" automaticCoupling="true"/>
       <KOLink id="sv1#mfu5#kln13" name="KOFlow13" to="sv1#page5#alt1#page12#enu12" automaticCoupling="true" gr:bendpoints="-2,76,-27,-64"/>
     </ModifyUnit>
-    <SwitchUnit gr:x="1840" gr:y="1415" id="sv1#switch10" name="Em Venda">
+    <SwitchUnit gr:x="1895" gr:y="1605" id="sv1#switch10" name="Em Venda">
       <Case value="sim"/>
       <Case value="nao"/>
       <OKLink id="sv1#switch10#oln36" name="OKFlow36" to="sv1#page5#alt1#page8#enu14" automaticCoupling="true" code="sim"/>
     </SwitchUnit>
-    <CreateUnit gr:x="1965" gr:y="1350" id="sv1#cru5" name="Criar Bid" entity="ent6">
+    <CreateUnit gr:x="2010" gr:y="1530" id="sv1#cru5" name="Criar Bid" entity="ent6">
       <KOLink id="sv1#cru5#kln14" name="KOFlow14" to="sv1#page5#alt1#page8#enu14" automaticCoupling="true" gr:bendpoints="68,33,-77,-7"/>
       <OKLink id="sv1#cru5#oln38" name="OKFlow38" to="sv1#page5#alt1#page8#miu1" automaticCoupling="true"/>
     </CreateUnit>
@@ -117,7 +117,7 @@
       <OKLink id="sv1#dlu1#oln12" name="OKFlow12" to="sv1#page6#alt2#page9#pwu2" automaticCoupling="true"/>
       <KOLink id="sv1#dlu1#kln5" name="KOFlow5" to="sv1#page4#alt3#page14#gctu10" automaticCoupling="true"/>
     </DeleteUnit>
-    <ModifyUnit gr:x="435" gr:y="805" id="sv1#mfu1" name="Editar Utilizador" entity="ent2">
+    <ModifyUnit gr:x="1255" gr:y="620" id="sv1#mfu1" name="Editar Utilizador" entity="ent2">
       <Selector id="sv1#mfu1#su3" defaultPolicy="fill" booleanOperator="and">
         <KeyCondition id="sv1#mfu1#su3#kcond3" name="KeyCondition3" predicate="in" implied="false"/>
       </Selector>

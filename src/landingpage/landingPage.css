@@ -3,6 +3,6 @@ form{
     max-width: 400px;
     margin: auto;
 }
-.App-header{
-    background-color:white ;
+.App-header {
+    height: 150px;
 }
