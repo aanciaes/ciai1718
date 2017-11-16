@@ -1,8 +1,17 @@
-form{
+form {
     width: 100%;
     max-width: 400px;
     margin: auto;
 }
+
 .App-header {
-    height: 150px;
+    height: 150px !important;
+}
+
+.alert{
+    margin-top: 10px;
+}
+
+header{
+    height: 50px;
 }

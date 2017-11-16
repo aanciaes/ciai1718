@@ -3,7 +3,7 @@
  */
 
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom'
+
 
 const types = {
     0: 'Basico',
@@ -75,7 +75,7 @@ class EditarUtilizador extends React.Component {
                         <div className="form-group">
                             <label>Email</label>
                             <input type="email" className="form-control" name="email"
-                                   placeholder="Inserir email" onChange={this.handleChange} required="required"/>
+                                   placeholder="Inserir email" value={this.state.user.email} onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>

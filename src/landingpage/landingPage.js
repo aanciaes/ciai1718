@@ -51,7 +51,7 @@ class RegistarUtilizador extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="forms">
                 <section>
                     <h1>Registar</h1>
                     <form id="form_register" onSubmit={this.recordUser}>
@@ -128,7 +128,7 @@ class LoginUtilizador extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="forms">
                 <section>
                     <h1>Login</h1>
                     <form id="form_login" onSubmit={this.login}>
@@ -217,7 +217,7 @@ class MenuComponent extends React.Component {
     render() {
         return ( <div>
 
-            <header className="App-header">
+            <header>
                 <nav className="navbar navbar-default navbar-fixed-top">
                     <div className="container">
                         <div className="navbar-header">

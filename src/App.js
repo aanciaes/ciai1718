@@ -13,6 +13,23 @@ window.$ = $;
 global.jQuery = $;
 const bootstrap = require('bootstrap');
 
+
+function LandingPageControl(props) {
+    if (props.landingPageMode) {
+        return (<LandingPage loginUser={props.loginUser} addUser={props.addUser}/>)
+    }
+    return null;
+}
+
+function DashboardPageControl(props) {
+    if (!props.landingPageMode) {
+        return ( <Dashboard user_id={props.user_id} users={props.users}
+                            logoutUser={props.logoutUser}
+                            updateUser={props.updateUser} getCopyState={props.getCopyState}/>)
+    }
+    return null;
+}
+
 class App extends Component {
 
     constructor(props) {
@@ -20,7 +37,8 @@ class App extends Component {
         this.state = {
             loggedIn: false,
             users: [],
-            user_id: ""
+            user_id: "",
+            landingPageMode: true
         };
         this.getCopyState = this.getCopyState.bind(this);
         this.loginUser = this.loginUser.bind(this);
@@ -63,6 +81,7 @@ class App extends Component {
         let stateCopy = this.getCopyState(this.state);
         stateCopy.user_id = user;
         stateCopy.loggedIn = true;
+        stateCopy.landingPageMode = false;
         this.setState(stateCopy);
         this.props.history.push('/dashboard');
         return true;
@@ -72,6 +91,7 @@ class App extends Component {
         let stateCopy = this.getCopyState(this.state);
         stateCopy.user_id = "";
         stateCopy.loggedIn = false;
+        stateCopy.landingPageMode = true;
         this.setState(stateCopy);
         this.props.history.push('/');
     }
@@ -96,16 +116,18 @@ class App extends Component {
                 <div className="container">
 
                     <Route path="/" render={() => {
-                        return (<LandingPage loginUser={this.loginUser} addUser={this.addUser}/>)
+                        return (
+                            <LandingPageControl landingPageMode={this.state.landingPageMode} loginUser={this.loginUser}
+                                                addUser={this.addUser}/>)
                     }
 
                     }/>
 
                     <Route path="/dashboard" render={() => {
                         return (
-                            <Dashboard user_id={this.state.user_id} users={this.state.users}
-                                       logoutUser={this.logoutUser}
-                                       updateUser={this.updateUser} getCopyState={this.getCopyState}/>
+                            <DashboardPageControl landingPageMode={this.state.landingPageMode} user_id={this.state.user_id} users={this.state.users}
+                                                  logoutUser={this.logoutUser}
+                                                  updateUser={this.updateUser} getCopyState={this.getCopyState}/>
                         );
                     }}/>
 
