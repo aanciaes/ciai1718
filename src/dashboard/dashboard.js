@@ -22,14 +22,14 @@ class MenuArtista extends React.Component {
                 </li>
                 <li>
                     <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-database"></i></span>
+                        <span className="sidebar-icon"><i className="fa fa-film"></i></span>
                         <span className="sidebar-title">Galeria Pública</span>
                     </a>
                 </li>
                 <li>
                     <a className="accordion-toggle collapsed toggle-switch" data-toggle="collapse"
                        href="#submenu-2">
-                        <span className="sidebar-icon"><i className="fa fa-users"></i></span>
+                        <span className="sidebar-icon"><i className="fa fa-cubes"></i></span>
                         <span className="sidebar-title">Peça</span>
                         <b className="caret"></b>
                     </a>
@@ -40,7 +40,7 @@ class MenuArtista extends React.Component {
                 </li>
                 <li>
                     <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-database"></i></span>
+                        <span className="sidebar-icon"><i className="fa fa-money"></i></span>
                         <span className="sidebar-title">Bids</span>
                     </a>
                 </li>
@@ -65,13 +65,13 @@ class MenuBasico extends React.Component {
                 </li>
                 <li>
                     <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-database"></i></span>
+                        <span className="sidebar-icon"><i className="fa fa-film"></i></span>
                         <span className="sidebar-title">Galeria Pública</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-database"></i></span>
+                        <span className="sidebar-icon"><i className="fa fa-money"></i></span>
                         <span className="sidebar-title">Bids</span>
                     </a>
                 </li>
