@@ -51,7 +51,9 @@
 </view>
 <view id="com.webratio.ide.ui.explorer.views.WRExplorerView" partName="WebRatio Explorer">
 <viewState configured="false" sortWorkingSets="false">
-<localWorkingSetManager>&#x0A;<workingSet editPageId="org.eclipse.jdt.internal.ui.OthersWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1509821152777_0" label="Other Projects" name="Other Projects">&#x0A;<item elementID="=teste" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<localWorkingSetManager>
+<workingSet editPageId="org.eclipse.jdt.internal.ui.OthersWorkingSet" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1509821152777_0" label="Other Projects" name="Other Projects">
+<item elementID="=teste" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/ciai" type="4"/>
 </workingSet>
 </localWorkingSetManager>
@@ -73,7 +75,9 @@
 </view>
 <view id="org.eclipse.jdt.ui.PackageExplorer" partName="Package Explorer">
 <viewState group_libraries="1" layout="2" linkWithEditor="0" rootMode="1" workingSetName="Aggregate for window 1509899996244">
-<customFilters userDefinedPatternsEnabled="false">&#x0A;<xmlDefinedFilters>&#x0A;<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
+<customFilters userDefinedPatternsEnabled="false">
+<xmlDefinedFilters>
+<child filterId="org.eclipse.jdt.ui.PackageExplorer.LibraryFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter" isEnabled="false"/>
 <child filterId="org.eclipse.jdt.ui.PackageExplorer.StaticsFilter" isEnabled="false"/>
 <child filterId="org.eclipse.pde.ui.ExternalPluginLibrariesFilter1" isEnabled="true"/>
@@ -272,7 +276,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
-<info part="org.eclipse.ui.editorss" ratio="0.21328413" ratioLeft="289" ratioRight="1066" relationship="2" relative="left"/>
+<info part="org.eclipse.ui.editorss" ratio="0.1690037" ratioLeft="229" ratioRight="1126" relationship="2" relative="left"/>
 <info folder="true" part="bottom" ratio="0.9531502" ratioLeft="590" ratioRight="29" relationship="4" relative="org.eclipse.ui.editorss">
 <folder activePageID="com.webratio.ide.ui.grid.views.GridView" appearance="2" expanded="2">
 <page content="com.webratio.ide.ui.grid.views.GridView" label="Layout"/>
@@ -304,15 +308,6 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.webratio.ide.ui.editors.WebProjectEditor" path="/ciai/Model.wr"/>
 </editors>
-<item historyLabel="ciai &gt; Site View 1 &gt; Peça" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#mfu3&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Peça Detalhe" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1&apos;)" PROPERTY_TAB_ID=""/>
-</item>
 <item historyLabel="ciai &gt; DashboardPage" index="0">
 <position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page6&apos;)" PROPERTY_TAB_ID=""/>
 </item>
@@ -451,8 +446,17 @@
 <item historyLabel="ciai &gt; Site View 1 &gt; Em Venda" index="0">
 <position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#switch10&apos;)" PROPERTY_TAB_ID=""/>
 </item>
-<item active="true" historyLabel="ciai &gt; Site View 1" index="0">
+<item historyLabel="ciai &gt; Domain Model" index="0">
 <position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#cru5&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Artista" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent3&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item active="true" historyLabel="ciai &gt; Site View 1" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1&apos;)" PROPERTY_TAB_ID=""/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>

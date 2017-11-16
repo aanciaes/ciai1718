@@ -4,108 +4,10 @@
 import {Route, Link, withRouter} from 'react-router-dom'
 import React, {Component} from 'react';
 import User from './user';
+import DashboardArtista from './dashboardArtista';
+import DashboardBasico from './dashboardBasico';
 import './dashboard.css';
 
-
-class MenuArtista extends React.Component {
-
-
-    render() {
-        return (
-            <div>
-
-                <li>
-                    <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-dashboard"></i></span>
-                        <span className="sidebar-title">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-film"></i></span>
-                        <span className="sidebar-title">Galeria Pública</span>
-                    </a>
-                </li>
-                <li>
-                    <a className="accordion-toggle collapsed toggle-switch" data-toggle="collapse"
-                       href="#submenu-2">
-                        <span className="sidebar-icon"><i className="fa fa-cubes"></i></span>
-                        <span className="sidebar-title">Peça</span>
-                        <b className="caret"></b>
-                    </a>
-                    <ul id="submenu-2" className="panel-collapse collapse panel-switch" role="menu">
-                        <li><a href="#"><i className="fa fa-caret-right"></i>Nova Peça</a></li>
-                        <li><a href="#"><i className="fa fa-caret-right"></i>Minha Galeria</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-money"></i></span>
-                        <span className="sidebar-title">Bids</span>
-                    </a>
-                </li>
-
-            </div>
-
-        )
-    }
-}
-
-class MenuBasico extends React.Component {
-
-
-    render() {
-        return (
-            <div>
-                <li>
-                    <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-dashboard"></i></span>
-                        <span className="sidebar-title">Home</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-film"></i></span>
-                        <span className="sidebar-title">Galeria Pública</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span className="sidebar-icon"><i className="fa fa-money"></i></span>
-                        <span className="sidebar-title">Bids</span>
-                    </a>
-                </li>
-            </div>
-
-        )
-    }
-}
-
-
-class MenuAside extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-    }
-
-
-    render() {
-
-        return (<div id="wrapper">
-            <div id="sidebar-wrapper">
-                <aside id="sidebar">
-                    <ul id="sidemenu" className="sidebar-nav">
-                        {this.props.user.type == 1 ? <MenuArtista/> : <MenuBasico/>}
-                    </ul>
-                </aside>
-            </div>
-            <main id="page-content-wrapper" role="main">
-            </main>
-        </div>);
-    }
-
-}
 
 class MenuDash extends React.Component {
     constructor(props) {
@@ -233,10 +135,8 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash user={user} logoutUser={this.props.logoutUser} updateUserMode={this.updateUserMode}/>
-                <MenuAside user={user}/>
-
+                {user.type == 1 ? <DashboardArtista/> : <DashboardBasico/> }
                 <UserControl usermode={this.state.usermode} user={user} updateUser={this.props.updateUser}/>
-
             </div>
         );
     }

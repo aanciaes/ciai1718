@@ -312,7 +312,7 @@ class LandingPage extends React.Component {
 
     loginUser(u) {
         this.reset();
-        console.log(this.props.loginUser(u));
+
 
         if (this.props.loginUser(u) == false) {
             console.log(1);

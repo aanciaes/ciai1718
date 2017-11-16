@@ -37,7 +37,7 @@
     <Attribute id="ent2#att6" name="tipo" type="string"/>
     <Attribute id="ent2#att22" name="name" type="string"/>
   </Entity>
-  <Entity gr:x="25" gr:y="330" id="ent3" name="Artista" duration="persistent">
+  <Entity gr:x="40" gr:y="310" id="ent3" name="Artista" duration="persistent">
     <Attribute id="ent3#att2" key="true" name="oid" type="integer"/>
     <Generalization superEntity="ent2"/>
   </Entity>
