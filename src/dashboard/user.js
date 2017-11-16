@@ -26,7 +26,7 @@ class DetalheUtilizador extends React.Component {
             <div>
                 <h2>Perfil</h2>
                 <div>
-                    <a href="#" onClick={this.editMode}>Editar</a>
+                    <a onClick={this.editMode}>Editar</a>
                     <p>Name:{this.props.user.name}</p>
                     <p>Email:{this.props.user.email}</p>
                     <p>Tipo:{types[this.props.user.type]}</p>
@@ -70,7 +70,12 @@ class EditarUtilizador extends React.Component {
                         <div className="form-group">
                             <label>Name:</label>
                             <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" onChange={this.handleChange}/>
+                                   placeholder="Inserir nome" value={this.state.user.name} onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input type="email" className="form-control" name="email"
+                                   placeholder="Inserir email" onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
@@ -82,12 +87,10 @@ class EditarUtilizador extends React.Component {
                                 <label>Tipo Utilizador</label>
                             </div>
                             <div>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="0"
-                                                                       onChange={this.handleChange}/>Básico</label>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="1"
-                                                                       onChange={this.handleChange}/>Artista</label>
+                                <label className="radio-inline">
+                                    <input type="radio" name="type" value="0" checked={this.state.user.type == 0 ?'checked':''} onChange={this.handleChange} required="required"/>Básico</label>
+                                <label className="radio-inline">
+                                    <input type="radio" name="type" value="1" checked={this.state.user.type == 1 ?'checked':''} onChange={this.handleChange} required="required"/>Artista</label>
                             </div>
 
                         </div>

@@ -64,12 +64,12 @@ class RegistarUtilizador extends React.Component {
                             <label>Email</label>
                             <input type="email" className="form-control" name="email"
                                    aria-describedby="emailHelp"
-                                   placeholder="Inserir email" onChange={this.handleChange}/>
+                                   placeholder="Inserir email" onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
                             <input type="password" className="form-control" name="password"
-                                   placeholder="Inserir Password" onChange={this.handleChange}/>
+                                   placeholder="Inserir Password" onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <div>
@@ -78,10 +78,10 @@ class RegistarUtilizador extends React.Component {
                             <div>
                                 <label className="radio-inline"><input type="radio" name="type"
                                                                        value="0"
-                                                                       onChange={this.handleChange}/>Básico</label>
+                                                                       onChange={this.handleChange} required="required"/>Básico</label>
                                 <label className="radio-inline"><input type="radio" name="type"
                                                                        value="1"
-                                                                       onChange={this.handleChange}/>Artista</label>
+                                                                       onChange={this.handleChange} required="required"/>Artista</label>
                             </div>
 
                         </div>
@@ -136,12 +136,12 @@ class LoginUtilizador extends React.Component {
                             <label>Email</label>
                             <input type="email" className="form-control" name="email"
                                    aria-describedby="emailHelp"
-                                   placeholder="Enter email" onChange={this.handleChange}/>
+                                   placeholder="Enter email" onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
                             <input type="password" className="form-control" name="password"
-                                   placeholder="Password" onChange={this.handleChange}/>
+                                   placeholder="Password" onChange={this.handleChange} required="required"/>
                         </div>
                         <div>
                             <button type="submit" className="btn btn-primary">Entrar</button>
@@ -228,13 +228,13 @@ class MenuComponent extends React.Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </button>
-                            <a className="navbar-brand" href="#">ArtBiz</a>
+                            <a className="navbar-brand">ArtBiz</a>
                         </div>
                         <div id="navbar" className="navbar-collapse collapse">
                             <ul className="nav navbar-nav navbar-right">
-                                <li><a href="#" onClick={this.registerMode}> Registar</a></li>
-                                <li><a href="#" onClick={this.loginMode}>Login</a></li>
-                                <li><a href="#" onClick={this.galleryMode}>Galeria Pública</a></li>
+                                <li><a onClick={this.registerMode}> Registar</a></li>
+                                <li><a onClick={this.loginMode}>Login</a></li>
+                                <li><a onClick={this.galleryMode}>Galeria Pública</a></li>
                             </ul>
                         </div>
                     </div>

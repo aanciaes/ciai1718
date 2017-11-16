@@ -29,12 +29,12 @@ class App extends Component {
         this.updateUser = this.updateUser.bind(this);
     }
 
-    getCopyState() {
-        return Object.assign({}, this.state);
+    getCopyState(state) {
+        return Object.assign({}, state);
     }
 
     addUser(u) {
-        let stateCopy = this.getCopyState();
+        let stateCopy = this.getCopyState(this.state);
         u.id = stateCopy.users.length;
         stateCopy.users.push(u);
         this.setState(stateCopy);
@@ -60,7 +60,7 @@ class App extends Component {
             return false;
         }
 
-        let stateCopy = this.getCopyState();
+        let stateCopy = this.getCopyState(this.state);
         stateCopy.user_id = user;
         stateCopy.loggedIn = true;
         this.setState(stateCopy);
@@ -69,7 +69,7 @@ class App extends Component {
     }
 
     logoutUser() {
-        let stateCopy = this.getCopyState();
+        let stateCopy = this.getCopyState(this.state);
         stateCopy.user_id = "";
         stateCopy.loggedIn = false;
         this.setState(stateCopy);
@@ -77,13 +77,12 @@ class App extends Component {
     }
 
     updateUser(i, u) {
-        let stateCopy = this.getCopyState();
+        let stateCopy = this.getCopyState(this.state);
         let us = stateCopy.users;
         us[i] = u;
         stateCopy.users = us;
         stateCopy.user = u;
         this.setState(stateCopy);
-        this.props.history.push('/dashboard/user/' + i);
         return true;
     }
 
@@ -106,7 +105,7 @@ class App extends Component {
                         return (
                             <Dashboard user_id={this.state.user_id} users={this.state.users}
                                        logoutUser={this.logoutUser}
-                                       updateUser={this.updateUser}/>
+                                       updateUser={this.updateUser} getCopyState={this.getCopyState}/>
                         );
                     }}/>
 

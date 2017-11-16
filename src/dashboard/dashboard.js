@@ -7,20 +7,21 @@ import User from './user';
 import './dashboard.css';
 
 
-const Test = ()=>
-    <div>
-        <h1>Teste</h1>
-    </div>;
 
 
 class MenuDash extends React.Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        this.updateUserMode = this.updateUserMode.bind(this);
     }
 
     logout() {
         this.props.logoutUser();
+    }
+
+    updateUserMode() {
+        this.props.updateUserMode(true);
     }
 
     render() {
@@ -44,8 +45,8 @@ class MenuDash extends React.Component {
                             <div id="navbar" className="navbar-collapse collapse">
                                 <ul className="nav navbar-nav navbar-right">
                                     <li>
-                                        <Link to={`/dashboard/user/${this.props.user.id}`}> {this.props.user.name}<span
-                                            className="glyphicon glyphicon-user"></span></Link>
+                                        <a onClick={this.updateUserMode}> {this.props.user.name}<span
+                                            className="glyphicon glyphicon-user"></span></a>
                                     </li>
                                     <li>
                                         <div className="dropdown">
@@ -55,7 +56,7 @@ class MenuDash extends React.Component {
                                                 <span className="glyphicon glyphicon-chevron-down"></span>
                                             </button>
                                             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a className="dropdown-item" href="#" onClick={this.logout}>Logout</a>
+                                                <a className="dropdown-item" onClick={this.logout}>Logout</a>
                                             </div>
                                         </div>
                                     </li>
@@ -72,24 +73,48 @@ class MenuDash extends React.Component {
 }
 
 
+function UserControl(props) {
+    if (props.usermode) {
+        return (<User user={props.user} updateUser={props.updateUser}/>)
+    }
+    return null;
+}
+
 class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            usermode: false
+        };
 
+        this.getInitialState = this.getInitialState.bind(this);
+        this.updateUserMode = this.updateUserMode.bind(this);
+
+    }
+
+    getInitialState() {
+        return {
+            usermode: false
+        };
+    }
+
+    updateUserMode(u) {
+        let s = this.getInitialState();
+        s.usermode = u;
+        this.setState(s);
 
     }
 
 
     render() {
+
+        const user = this.props.users[this.props.user_id];
         return (
             <div>
-                <MenuDash user={this.props.users[this.props.user_id]} logoutUser={this.props.logoutUser}/>
+                <MenuDash user={user} logoutUser={this.props.logoutUser} updateUserMode={this.updateUserMode}/>
 
-                <Route path="/dashboard/user/:id" exact={true} render={({match}) => {
-                    return (<User user={this.props.users[match.params.id]} updateUser={this.props.updateUser}/>);
-                }
-                }/>
+                <UserControl usermode={this.state.usermode} user={user} updateUser={this.props.updateUser}/>
 
             </div>
         );
