@@ -4,34 +4,34 @@
     "name": "Miguel",
     "email": "miguel@mail.com",
     "password": "1234Q4321",
-    "accountType": 0
+    "type": 0
   },
   {
     "id": 2,
     "name": "Tiago",
     "email": "tiago@mail.com",
     "password": "password",
-    "accountType": 0
+    "type": 0
   },
   {
     "id": 3,
     "name": "Picasto",
     "email": "pablo@mail.com",
     "password": "picassopablo",
-    "accountType": 1
+    "type": 1
   },
   {
     "id": 4,
     "name": "Leo Da Vintes",
     "email": "leovinci@mail.com",
     "password": "monalisa",
-    "accountType": 1
+    "type": 1
   },
   {
     "id": 5,
     "name": "Antony Carreiros",
     "email": "tonito@carreiros.com",
     "password": "eucopiomusicas",
-    "accountType": 1
+    "type": 1
   }
 ]

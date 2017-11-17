@@ -1,11 +1,51 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import {Route, Link, withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import React, {Component} from 'react';
-import User from './user';
 import './dashboard.css';
 import $ from 'jquery';
+
+
+const PieceItem = ({piece}) =>
+    <div>
+        <div>Nome: {piece.name} Data: {piece.date}</div>
+        <div>Técnicas: {piece.techniques}</div>
+        <div>Descrição: {piece.description}</div>
+        <div>Keywords: {piece.keywords.join(',')}</div>
+        <div>Multimedia : {piece.multimedia}</div>
+    </div>;
+
+
+class MinhaGaleria extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            pieces: this.props.pieces
+
+        };
+        console.log(this.state.pieces);
+    }
+
+    render() {
+        return (
+            <div>
+                <ul className="list-group">
+
+                    {
+                        this.state.pieces.map(
+                            (piece, index) =>
+                                (
+                                    <li className="list-group-item" key={index}><PieceItem piece={piece}/></li>
+                                )
+                        )
+                    }
+                </ul>
+            </div>
+        )
+    }
+}
+
 
 class CriarPeca extends React.Component {
 
@@ -16,20 +56,37 @@ class CriarPeca extends React.Component {
             date: "",
             techniques: "",
             description: "",
-            keywords: []
+            keywords: [],
+            multimedia: ""
 
         };
         this.handleChange = this.handleChange.bind(this);
-
-        $("select[name='keywords']").select2({
-            theme: "bootstrap"
-        });
+        this.createPiece = this.createPiece.bind(this);
     }
 
     handleChange({target}) {
         let s = this.state;
-        s[target.name] = target.value;
+        if (target.name == 'keywords') {
+            if (target.value.indexOf(',') > -1) {
+
+                let k = target.value.split(',');
+                $.each(k, function (i, val) {
+                    if (k.indexOf(val) < 0)
+                        k.push(val);
+                });
+                s[target.name] = k;
+            }
+        } else {
+            s[target.name] = target.value;
+        }
+
         this.setState(s);
+    }
+
+    createPiece(e, inputData) {
+
+        e.preventDefault();
+        this.props.createPiece(this.state);
     }
 
     render() {
@@ -37,7 +94,7 @@ class CriarPeca extends React.Component {
             <div>
                 <section>
 
-                    <form id="form_register" onSubmit={this.updateUser}>
+                    <form id="form_create_piece" onSubmit={this.createPiece}>
                         <h2>Criar Peça</h2>
                         <div className="form-group">
                             <label>Nome:</label>
@@ -51,8 +108,8 @@ class CriarPeca extends React.Component {
                         </div>
                         <div className="form-group">
                             <label>Técnicas</label>
-                            <input type="text" className="form-control" name="password"
-                                   placeholder="Inserir Password" onChange={this.handleChange}/>
+                            <input type="text" className="form-control" name="techniques"
+                                   placeholder="Inserir Técnicnas" onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
                             <label>Descrição textual</label>
@@ -61,11 +118,11 @@ class CriarPeca extends React.Component {
                         </div>
                         <div className="form-group">
                             <label>Keywords</label>
-                            <select name="keywords" multiple="multiple" onChange={this.handleChange}>
-                                <option value="art">Art</option>
-                                <option value="air">Air</option>
-                                <option value="Nature">Nature</option>
-                            </select>
+                            <input type="text" name="keywords" className="form-control" onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Multimedia</label>
+                            <input type="file" name="multimedia" className="form-control" onChange={this.handleChange}/>
                         </div>
                         <div>
                             <button type="submit" className="btn btn-primary">Criar</button>
@@ -87,12 +144,18 @@ class MenuAsideArtista extends React.Component {
     constructor(props) {
         super(props);
         this.updateCreatePiece = this.updateCreatePiece.bind(this);
+        this.updatePieceList = this.updatePieceList.bind(this);
     }
 
     updateCreatePiece() {
 
         this.props.updateCreatePiece(true);
     }
+
+    updatePieceList() {
+        this.props.updatePieceList(true);
+    }
+
 
     render() {
 
@@ -122,7 +185,8 @@ class MenuAsideArtista extends React.Component {
                             <ul id="submenu-2" className="panel-collapse collapse panel-switch" role="menu">
                                 <li><a onClick={this.updateCreatePiece}><i className="fa fa-caret-right"></i>Nova
                                     Peça</a></li>
-                                <li><a href="#"><i className="fa fa-caret-right"></i>Minha Galeria</a></li>
+                                <li><a onClick={this.updatePieceList}><i className="fa fa-caret-right"></i>Minha Galeria</a>
+                                </li>
                             </ul>
                         </li>
                         <li>
@@ -146,7 +210,19 @@ function CriarPecaControl(props) {
     if (props.createpiece) {
         return (
             <div>
-                <CriarPeca/>
+                <CriarPeca createPiece={props.createPiece}/>
+            </div>);
+    }
+    return null;
+
+}
+
+function MinhaGaleriaControl(props) {
+    if (props.piecelist) {
+
+        return (
+            <div>
+                <MinhaGaleria pieces={props.pieces}/>
             </div>);
     }
     return null;
@@ -160,11 +236,15 @@ class DashboardArtista extends React.Component {
         super(props);
         this.state = {
             usermode: false,
-            createpiece: false
+            createpiece: false,
+            piecelist: false,
+            pieces: []
         };
 
         this.getInitialState = this.getInitialState.bind(this);
         this.updateCreatePiece = this.updateCreatePiece.bind(this);
+        this.updatePieceList = this.updatePieceList.bind(this);
+        this.createPiece = this.createPiece.bind(this);
 
     }
 
@@ -172,8 +252,18 @@ class DashboardArtista extends React.Component {
     getInitialState() {
         return {
             usermode: false,
-            createpiece: false
+            createpiece: false,
+            piecelist: false,
+            pieces: this.state.pieces
         };
+    }
+
+    createPiece(p) {
+        let s = this.getInitialState();
+        p['user_id'] = this.props.user.id;
+        s.pieces.push(p);
+        s.piecelist = true;
+        this.setState(s);
     }
 
     updateCreatePiece(p) {
@@ -183,12 +273,24 @@ class DashboardArtista extends React.Component {
         this.setState(s);
     }
 
+    updatePieceList(p) {
+        this.props.resetDashboard();
+        let s = this.getInitialState();
+        s.piecelist = p;
+        this.setState(s);
+    }
+
     render() {
         return (
             <div>
-                <CriarPecaControl createpiece={this.state.createpiece}/>
+                {this.props.usermode == false ?
+                    <CriarPecaControl createpiece={this.state.createpiece} createPiece={this.createPiece}/> : "" }
+
+                {this.props.usermode == false ?
+                    <MinhaGaleriaControl pieces={this.state.pieces} piecelist={this.state.piecelist}/> : "" }
+
                 <MenuAsideArtista resetDashboard={this.props.resetDashboard}
-                                  updateCreatePiece={this.updateCreatePiece}/>
+                                  updateCreatePiece={this.updateCreatePiece} updatePieceList={this.updatePieceList}/>
 
             </div>
         );

@@ -7,11 +7,12 @@ import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import PublicGallery from './publicGallery/publicGallery';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import '../node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css';
+
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
 const bootstrap = require('bootstrap');
+var Typeahead = require('react-bootstrap-typeahead').Typeahead;
 
 
 function LandingPageControl(props) {
@@ -30,13 +31,14 @@ function DashboardPageControl(props) {
     return null;
 }
 
+
 class App extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             loggedIn: false,
-            users: [],
+            users:[],
             user_id: "",
             landingPageMode: true
         };
@@ -45,7 +47,9 @@ class App extends Component {
         this.logoutUser = this.logoutUser.bind(this);
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
+
     }
+
 
     getCopyState(state) {
         return Object.assign({}, state);
@@ -125,7 +129,8 @@ class App extends Component {
 
                     <Route path="/dashboard" render={() => {
                         return (
-                            <DashboardPageControl landingPageMode={this.state.landingPageMode} user_id={this.state.user_id} users={this.state.users}
+                            <DashboardPageControl landingPageMode={this.state.landingPageMode}
+                                                  user_id={this.state.user_id} users={this.state.users}
                                                   logoutUser={this.logoutUser}
                                                   updateUser={this.updateUser} getCopyState={this.getCopyState}/>
                         );

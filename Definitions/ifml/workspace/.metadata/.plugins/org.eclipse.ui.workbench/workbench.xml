@@ -308,72 +308,6 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.webratio.ide.ui.editors.WebProjectEditor" path="/ciai/Model.wr"/>
 </editors>
-<item historyLabel="ciai &gt; DashboardPage" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page6&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Peça Detalhe &gt; Alternative1" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page5#alt1&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Peça Detalhe" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Peça" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#mfu3&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Remove Peça" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#dlu2&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Peça Venda" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#mfu5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Confirmação de remoção" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#switch9&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Peça Venda" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#mfu5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Em Venda" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#switch10&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; DashboardPage &gt; Perfil" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page6#gctu2&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Utilizador" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page1&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Peça Basico" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page5#alt1#page8&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Criar Bid" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#cru5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Peça Artista" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page5#alt1#page12&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Peça" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#mfu3&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Remove Peça" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#dlu2&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Confirmação de remoção" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#switch9&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Remove Peça" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#dlu2&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Confirmação de remoção" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#switch9&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Site View 1 &gt; Tipo Utilizador" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#switch5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
-<item historyLabel="ciai &gt; Peça Detalhe" index="0">
-<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#page5&apos;)" PROPERTY_TAB_ID=""/>
-</item>
 <item historyLabel="ciai &gt; Site View 1 &gt; Peça Venda" index="0">
 <position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1#mfu5&apos;)" PROPERTY_TAB_ID=""/>
 </item>
@@ -455,8 +389,74 @@
 <item historyLabel="ciai &gt; Domain Model" index="0">
 <position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
 </item>
-<item active="true" historyLabel="ciai &gt; Site View 1" index="0">
+<item historyLabel="ciai &gt; Domain Model" index="0">
 <position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Site View 1" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="id(&apos;sv1&apos;)" GRAPHEDITOR_PATH="id(&apos;sv1&apos;)" LOCATIONS="id(&apos;sv1&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Site View 1" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject" GRAPHEDITOR_PATH="/WebProject" LOCATIONS="id(&apos;sv1&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject" GRAPHEDITOR_PATH="/WebProject" LOCATIONS="/WebProject" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Venda" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent5&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8#att30&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Keywords" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Keywords" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8#att31&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Keywords" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8#att31&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Keywords" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; peca_id" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8#att30&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Keywords" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;ent8&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
+</item>
+<item historyLabel="ciai &gt; Keywords_Peca" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="id(&apos;rel3&apos;)" PROPERTY_TAB_ID=""/>
+</item>
+<item active="true" historyLabel="ciai &gt; Domain Model" index="0">
+<position CLIENTAREA_GRAPHINFO="" GRAPHEDITOR_INPUT_PATH="/WebProject/DataModel" GRAPHEDITOR_PATH="/WebProject/DataModel" LOCATIONS="/WebProject/DataModel" PROPERTY_TAB_ID=""/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>

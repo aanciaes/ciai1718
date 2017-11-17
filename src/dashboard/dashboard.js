@@ -144,8 +144,8 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash user={user} logoutUser={this.props.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.type == 1 ? <DashboardArtista resetDashboard={this.resetDashboard}/> :
-                    <DashboardBasico resetDashboard={this.resetDashboard}/> }
+                {user.type == 1 ? <DashboardArtista usermode={this.state.usermode} resetDashboard={this.resetDashboard} user={user}/> :
+                    <DashboardBasico usermode={this.state.usermode} resetDashboard={this.resetDashboard}/> }
                 <UserControl usermode={this.state.usermode} user={user} updateUser={this.props.updateUser}/>
             </div>
         );
