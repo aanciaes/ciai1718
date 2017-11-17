@@ -1,12 +1,14 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import {Route, Link, withRouter} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
+
 import React, {Component} from 'react';
 import User from './user';
 import DashboardArtista from './dashboardArtista';
 import DashboardBasico from './dashboardBasico';
 import './dashboard.css';
+
 
 
 class MenuDash extends React.Component {
@@ -112,14 +114,21 @@ class Dashboard extends React.Component {
 
         this.getInitialState = this.getInitialState.bind(this);
         this.updateUserMode = this.updateUserMode.bind(this);
+        this.resetDashboard = this.resetDashboard.bind(this);
 
     }
+
 
     getInitialState() {
         return {
             usermode: false
         };
     }
+
+    resetDashboard() {
+        this.setState(this.getInitialState());
+    }
+
 
     updateUserMode(u) {
         let s = this.getInitialState();
@@ -135,7 +144,8 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash user={user} logoutUser={this.props.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.type == 1 ? <DashboardArtista/> : <DashboardBasico/> }
+                {user.type == 1 ? <DashboardArtista resetDashboard={this.resetDashboard}/> :
+                    <DashboardBasico resetDashboard={this.resetDashboard}/> }
                 <UserControl usermode={this.state.usermode} user={user} updateUser={this.props.updateUser}/>
             </div>
         );

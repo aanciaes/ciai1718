@@ -8,6 +8,11 @@
     padding: 8px 0;
 }
 
+#sidebar-wrapper {
+    position: absolute;
+    top: 50px;
+}
+
 /*bootstrap aside menu*/
 
 body {
@@ -141,6 +146,7 @@ body {
     #wrapper #sidebar-wrapper {
         width: 45px;
     }
+
     #wrapper #sidebar-wrapper #sidebar #sidemenu li ul {
         position: fixed;
         left: 45px;

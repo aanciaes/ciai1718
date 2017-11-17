@@ -7,7 +7,7 @@ import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import PublicGallery from './publicGallery/publicGallery';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+import '../node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css';
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
