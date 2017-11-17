@@ -1,6 +1,27 @@
-app:
-  name: art-biz
-  description: Artwork selling platform
+spring:
+  application:
+    name: art-biz
+    description: Artwork selling platform
+
+---
+#Active environment
+spring:
+  profiles:
+    active: prod
+
+---
+#Dev settings
+spring:
+  profiles: dev
+
+server:
+  port: 8080
+
+
+---
+#Prod settings
+spring:
+  profiles: prod
 
 server:
   port: 8443
@@ -11,4 +32,3 @@ server:
     key-store-password: 123456
     key-store-type: JKS
     key-alias: artBizSsl
-
