@@ -1,0 +1,14 @@
+app:
+  name: art-biz
+  description: Artwork selling platform
+
+server:
+  port: 8443
+
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.jks
+    key-store-password: 123456
+    key-store-type: JKS
+    key-alias: artBizSsl
+
