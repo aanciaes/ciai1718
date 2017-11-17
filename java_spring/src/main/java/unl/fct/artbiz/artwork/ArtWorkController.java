@@ -4,9 +4,8 @@ import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import javax.websocket.server.PathParam;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -14,38 +13,45 @@ import java.util.stream.Collectors;
 public class ArtWorkController {
 
     //Just for testing
-    private List<ArtWork> artWorks = new ArrayList();
+    private Map<Long, ArtWork> artWorks = new HashMap<Long, ArtWork>();
 
 
     @RequestMapping(method = RequestMethod.GET)
     public List<ArtWork> getAllArtWorks() {
-        return artWorks;
+        return new ArrayList<>(artWorks.values());
     }
 
     @RequestMapping(value = "/onsale", method = RequestMethod.GET)
     public List<ArtWork> getOnSalePeices() {
-        return artWorks.stream().filter(artWork -> artWork.isOnSale()).collect(Collectors.toList());
+        return artWorks.values().stream().filter(artWork -> artWork.isOnSale()).collect(Collectors.toList());
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ArtWork findById(@PathVariable long id) throws ArtWorkNotFound {
-        Optional<ArtWork> matchingArtWork = artWorks.stream().filter(artWork -> artWork.getId() == id).findFirst();
+        ArtWork artWork;
 
-        ArtWork res;
-
-        if ((res = matchingArtWork.orElse(null)) == null) {
+        if ((artWork = artWorks.get(id)) == null) {
             throw new ArtWorkNotFound();
-        }else {
-            return res;
+        } else {
+            return artWork;
         }
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ArtWork createArtwork(@RequestBody ArtWork artWork) {
         ArtWork.validate(artWork);
-        artWorks.add(artWork);
+        artWorks.put(artWork.getId(), artWork);
         return artWork;
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ArtWork updateArtwork(@PathVariable long id, @RequestBody ArtWork artWork) {
+        ArtWork res;
 
+        if(!artWorks.containsKey(id)){
+            throw new ArtWorkNotFound();
+        }
+
+        return artWorks.put(id, artWork);
+    }
 }
