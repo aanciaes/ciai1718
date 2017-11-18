@@ -17,10 +17,11 @@ public class ArtWork {
 
     public ArtWork () { }
 
-    public ArtWork(String name, Date dateOfCreation,
+    public ArtWork(long id, String name, Date dateOfCreation,
                    List<String> techniques, String description,
                    List<String> keywords, List<String> multimedia,
                    long author, boolean onSale) {
+        this.id = id;
         this.name = name;
         this.dateOfCreation = dateOfCreation;
         this.techniques = techniques;
