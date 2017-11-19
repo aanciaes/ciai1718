@@ -13,6 +13,7 @@ public class ArtWork {
     private List<String> multimedia;
     private long author;
     private boolean onSale;
+    private double price;
 
     public ArtWork() {
     }
@@ -20,7 +21,7 @@ public class ArtWork {
     public ArtWork(long id, String name, String dateOfCreation,
                    List<String> techniques, String description,
                    List<String> keywords, List<String> multimedia,
-                   long author, boolean onSale) {
+                   long author, boolean onSale, double price) {
         this.id = id;
         this.name = name;
         this.dateOfCreation = dateOfCreation;
@@ -30,6 +31,7 @@ public class ArtWork {
         this.multimedia = multimedia;
         this.author = author;
         this.onSale = onSale;
+        this.price = price;
     }
 
     public long getId() {
@@ -102,6 +104,14 @@ public class ArtWork {
 
     public void setOnSale(boolean onSale) {
         this.onSale = onSale;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public static void validate(ArtWork artWork) {

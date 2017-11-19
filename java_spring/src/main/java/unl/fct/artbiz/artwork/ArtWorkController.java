@@ -68,4 +68,19 @@ public class ArtWorkController {
         return artWorks.values().stream().filter(artWork -> artWork.getKeywords().containsAll(keywordsAsList))
                 .collect(Collectors.toList());
     }
+
+    @RequestMapping(value = "/{pieceId}/sell", method = RequestMethod.PUT)
+    public double sellPiece (@PathVariable long pieceId, @RequestParam("price") double price) {
+        ArtWork artWork = artWorks.get(pieceId);
+        artWork.setOnSale(true);
+        artWork.setPrice(price);
+        return artWork.getPrice();
+    }
+
+    @RequestMapping(value = "/{pieceId}/keep", method = RequestMethod.PUT)
+    public boolean keepPiece (@PathVariable long pieceId) {
+        ArtWork artWork = artWorks.get(pieceId);
+        artWork.setOnSale(false);
+        return artWork.isOnSale();
+    }
 }
