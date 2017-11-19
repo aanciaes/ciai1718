@@ -1,3 +1,13 @@
+## Full API documentation 
+
+### On dev profile
+http://localhost:8080/swagger-ui.html
+
+### On prod profile (when up)
+https://art-biz.servebeer.com:8443/swagger-ui.html
+
+##
+
 # **MyArt.com**
 ### or ArtistLife, or FeedArtists, or NoMorePoorArtists, or HelpingArtists
 ## Internet Applications Design and Implementation (2017/18)
