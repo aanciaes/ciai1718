@@ -38,7 +38,7 @@ class App extends Component {
         super(props);
         this.state = {
             loggedIn: false,
-            users:[],
+            users: [],
             user_id: "",
             landingPageMode: true
         };
@@ -47,6 +47,7 @@ class App extends Component {
         this.logoutUser = this.logoutUser.bind(this);
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
+
 
     }
 
@@ -110,6 +111,8 @@ class App extends Component {
         return true;
     }
 
+
+
     render() {
 
 
@@ -117,11 +120,13 @@ class App extends Component {
 
 
             <div className="App">
+                <img id="body_img" src="imgs/body/body.jpg"/>
                 <div className="container">
 
                     <Route path="/" render={() => {
                         return (
-                            <LandingPageControl landingPageMode={this.state.landingPageMode} loginUser={this.loginUser}
+                            <LandingPageControl landingPageMode={this.state.landingPageMode}
+                                                loginUser={this.loginUser}
                                                 addUser={this.addUser}/>)
                     }
 

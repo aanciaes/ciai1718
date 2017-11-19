@@ -29,8 +29,40 @@ a{
   cursor: pointer;
 }
 
+#body_img{
+  z-index: -1;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  animation: opacity_animation 5s;
+  opacity:0.2;
+}
+
+.logo_img{
+  width:125px;
+  margin-bottom: 5px;
+  position: absolute;
+  left: 0;
+  top: 5px;
+}
+.logo_img img{
+  width: 100%;
+}
+
+nav .active{
+  border-top: solid black 1px;
+  font-weight: bold;
+  background-color: #efefef;
+  color: #0a0a0a;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+@keyframes opacity_animation {
+  from { opacity: 0; }
+  to { opacity: 0.2; }
 }

@@ -8,7 +8,7 @@ import User from './user';
 import DashboardArtista from './dashboardArtista';
 import DashboardBasico from './dashboardBasico';
 import './dashboard.css';
-
+import PublicGallery from '../publicGallery/publicGallery';
 
 
 class MenuDash extends React.Component {
@@ -42,33 +42,61 @@ class MenuDash extends React.Component {
                                     <span className="icon-bar"></span>
                                     <span className="icon-bar"></span>
                                 </button>
-                                <a className="navbar-brand" href="#">Art Biz</a>
+                                <a className="navbar-brand" href="#">
+                                    <div className="logo_img">
+                                        <img src="imgs/logo2.png"/>
+                                    </div>
+                                </a>
                             </div>
                             <div id="navbar-collapse" className="collapse navbar-collapse">
-                                <form className="navbar-form navbar-left" role="search">
-                                    <div className="input-group">
-                                        <input type="text" className="form-control" placeholder="Search"/>
-                                        <span className="input-group-btn">
-                                    <button className="btn btn-default" type="submit"><span
-                                        className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </span>
-                                    </div>
-                                </form>
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className="dropdown">
-                                        <a id="flag" href="#" className="dropdown-toggle" data-toggle="dropdown">
-                                            <img
-                                                src="http://www.country-dialing-codes.net/img/png-country-4x2-fancy-res-1280x960/gb.png"
-                                                alt="English" width="28px" height="18px"/>
+                                        <a id="flag" href="#" className="dropdown-toggle count-info"
+                                           data-toggle="dropdown">
+                                            <i className="fa fa-envelope"></i>
+                                            <span className="count label label-primary">8</span>
                                         </a>
-                                        <ul className="dropdown-menu dropdown-menu-flag" role="menu">
+                                        <ul className="dropdown-menu dropdown-alerts">
                                             <li>
-                                                <a href="#">
-                                                    <img
-                                                        src="http://www.country-dialing-codes.net/img/png-country-4x2-flat-res-640x480/gf.png"
-                                                        alt="Français" width="28px" height="18px"/>
-                                                    <span>Français</span>
+                                                <a href="mailbox.html">
+                                                    <div>
+                                                        <i className="fa fa-envelope fa-fw"></i> You have 16 messages
+                                                        <span
+                                                            className="pull-right text-muted small">4 minutes ago</span>
+                                                    </div>
                                                 </a>
+                                                <div className="clear"></div>
+                                            </li>
+                                            <li className="divider"></li>
+                                            <li>
+                                                <a href="profile.html">
+                                                    <div>
+                                                        <i className="fa fa-twitter fa-fw"></i> 3 New Followers
+                                                        <span
+                                                            className="pull-right text-muted small">12 minutes ago</span>
+                                                    </div>
+                                                </a>
+                                                <div className="clear"></div>
+                                            </li>
+                                            <li className="divider"></li>
+                                            <li>
+                                                <a href="grid_options.html">
+                                                    <div>
+                                                        <i className="fa fa-upload fa-fw"></i> Server Rebooted
+                                                        <span
+                                                            className="pull-right text-muted small">4 minutes ago</span>
+                                                    </div>
+                                                </a>
+                                                <div className="clear"></div>
+                                            </li>
+                                            <li className="divider"></li>
+                                            <li>
+                                                <div className="text-center link-block">
+                                                    <a href="notifications.html">
+                                                        <strong>See All Alerts</strong>
+                                                        <i className="fa fa-angle-right"></i>
+                                                    </a>
+                                                </div>
                                             </li>
                                         </ul>
                                     </li>
@@ -78,8 +106,20 @@ class MenuDash extends React.Component {
                                             className="img-responsive img-thumbnail img-circle"/>
                                             {this.props.user.name}</a>
                                         <ul className="dropdown-menu dropdown-block" role="menu">
-                                            <li><a onClick={this.updateUserMode}>Perfil</a></li>
-                                            <li><a onClick={this.logout}>Logout</a></li>
+                                            <li>
+                                                <a onClick={this.updateUserMode}>
+                                                    <div>
+                                                        <i className="fa fa-user"></i> Perfil
+                                                    </div>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a onClick={this.logout}>
+                                                    <div>
+                                                        <i className="fa fa-sign-out"></i> Logout
+                                                    </div>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -97,6 +137,14 @@ class MenuDash extends React.Component {
 }
 
 
+function GalleryControl(props) {
+    if (props.gallery) {
+        return (<PublicGallery/>);
+    }
+    return null;
+}
+
+
 function UserControl(props) {
     if (props.usermode) {
         return (<User user={props.user} updateUser={props.updateUser}/>)
@@ -109,11 +157,13 @@ class Dashboard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            usermode: false
+            usermode: false,
+            gallery: true
         };
 
         this.getInitialState = this.getInitialState.bind(this);
         this.updateUserMode = this.updateUserMode.bind(this);
+        this.updateGallery = this.updateGallery.bind(this);
         this.resetDashboard = this.resetDashboard.bind(this);
 
     }
@@ -121,7 +171,8 @@ class Dashboard extends React.Component {
 
     getInitialState() {
         return {
-            usermode: false
+            usermode: false,
+            gallery: false
         };
     }
 
@@ -129,6 +180,11 @@ class Dashboard extends React.Component {
         this.setState(this.getInitialState());
     }
 
+    updateGallery(r) {
+        let s = this.getInitialState();
+        s.gallery = r;
+        this.setState(s);
+    }
 
     updateUserMode(u) {
         let s = this.getInitialState();
@@ -141,12 +197,23 @@ class Dashboard extends React.Component {
     render() {
 
         const user = this.props.users[this.props.user_id];
+        const s = this.state;
+        const args = this.props;
         return (
             <div>
-                <MenuDash user={user} logoutUser={this.props.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.type == 1 ? <DashboardArtista usermode={this.state.usermode} resetDashboard={this.resetDashboard} user={user}/> :
-                    <DashboardBasico usermode={this.state.usermode} resetDashboard={this.resetDashboard}/> }
-                <UserControl usermode={this.state.usermode} user={user} updateUser={this.props.updateUser}/>
+                <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
+                {user.type == 1 ? <DashboardArtista usermode={s.usermode} updateGallery={this.updateGallery}
+                                                    resetDashboard={this.resetDashboard}
+                                                    user={user}/> :
+                    <DashboardBasico usermode={s.usermode} resetDashboard={this.resetDashboard}
+                                     updateGallery={this.updateGallery}/> }
+
+
+                <div className="content_wmenu">
+                    <GalleryControl gallery={s.gallery}/>
+                    <UserControl usermode={s.usermode} user={user} updateUser={args.updateUser}/>
+                </div>
+
             </div>
         );
     }

@@ -27,7 +27,7 @@ class MenuAsideBasico extends React.Component {
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a onClick={this.props.updateGallery}>
                                 <span className="sidebar-icon"><i className="fa fa-film"></i></span>
                                 <span className="sidebar-title">Galeria Pública</span>
                             </a>
@@ -70,7 +70,7 @@ class DashboardBasico extends React.Component {
     render() {
         return (
             <div>
-                <MenuAsideBasico resetDashboard={this.props.resetDashboard}/>
+                <MenuAsideBasico resetDashboard={this.props.resetDashboard} updateGallery={this.props.updateGallery}/>
             </div>
         );
     }

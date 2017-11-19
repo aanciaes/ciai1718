@@ -170,7 +170,7 @@ class MenuAsideArtista extends React.Component {
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a onClick={this.props.updateGallery}>
                                 <span className="sidebar-icon"><i className="fa fa-film"></i></span>
                                 <span className="sidebar-title">Galeria Pública</span>
                             </a>
@@ -290,6 +290,7 @@ class DashboardArtista extends React.Component {
                     <MinhaGaleriaControl pieces={this.state.pieces} piecelist={this.state.piecelist}/> : "" }
 
                 <MenuAsideArtista resetDashboard={this.props.resetDashboard}
+                                  updateGallery={this.props.updateGallery}
                                   updateCreatePiece={this.updateCreatePiece} updatePieceList={this.updatePieceList}/>
 
             </div>

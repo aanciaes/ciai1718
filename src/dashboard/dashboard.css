@@ -3,6 +3,15 @@
     padding: 0px;
 }
 
+.clear{
+    clear: both;
+}
+
+.count{
+    position: absolute;
+    right: 6px;
+    top:12px;
+}
 .well {
     width: 300px;
     padding: 8px 0;
@@ -11,6 +20,10 @@
 #sidebar-wrapper {
     position: absolute;
     top: 50px;
+}
+
+.content_wmenu{
+    margin-left: 22%;
 }
 
 /*bootstrap aside menu*/

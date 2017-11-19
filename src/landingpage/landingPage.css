@@ -2,16 +2,46 @@ form {
     width: 100%;
     max-width: 400px;
     margin: auto;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0px 0px 1px 0px gray;
+    padding: 10px;
+    margin-top: 50px;
+}
+
+.title_form p {
+    text-align: left;
+    font-weight: bold;
+    line-height: 200%;
+    font-size: 12pt;
+    border-bottom: solid 1px #959595;
+
 }
 
 .App-header {
     height: 150px !important;
 }
 
-.alert{
+.alert {
     margin-top: 10px;
 }
 
-header{
+header {
     height: 50px;
 }
+
+.control-label {
+    font-size: 8pt;
+}
+
+.buttons_label .btn{
+    color:white;
+    font-weight: bold;
+    background-color: black;
+}
+.buttons_label .btn:hover{
+    color:white;
+    font-weight: bold;
+}
+
+

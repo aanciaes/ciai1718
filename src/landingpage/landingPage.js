@@ -53,42 +53,66 @@ class RegistarUtilizador extends React.Component {
         return (
             <div className="forms">
                 <section>
-                    <h1>Registar</h1>
-                    <form id="form_register" onSubmit={this.recordUser}>
-                        <div className="form-group">
-                            <label>Name:</label>
-                            <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" className="form-control" name="email"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Inserir email" onChange={this.handleChange} required="required"/>
-                        </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" name="password"
-                                   placeholder="Inserir Password" onChange={this.handleChange} required="required"/>
-                        </div>
-                        <div className="form-group">
-                            <div>
-                                <label>Tipo Utilizador</label>
-                            </div>
-                            <div>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="0"
-                                                                       onChange={this.handleChange} required="required"/>Básico</label>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="1"
-                                                                       onChange={this.handleChange} required="required"/>Artista</label>
-                            </div>
 
-                        </div>
-                        <div>
-                            <button type="submit" className="btn btn-primary">Registar</button>
-                        </div>
 
+                    <form id="form_register" className="form-horizontal" onSubmit={this.recordUser}>
+                        <div className="title_form">
+                            <p>Registar</p>
+                        </div>
+                        <div className="form-group">
+                            <label className="col-lg-2 control-label">
+                                Nome:
+                            </label>
+
+                            <div className="col-lg-10">
+                                <input type="text" className="form-control" name="name"
+                                       placeholder="Inserir nome" onChange={this.handleChange}/>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label className="col-lg-2 control-label">
+                                Email:
+                            </label>
+
+                            <div className="col-lg-10">
+                                <input type="email" className="form-control" name="email"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Inserir email" onChange={this.handleChange} required="required"/>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label className="col-lg-2 control-label">
+                                Password:
+                            </label>
+
+                            <div className="col-lg-10">
+                                <input type="password" className="form-control" name="password"
+                                       placeholder="Inserir Password" onChange={this.handleChange} required="required"/>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label className="col-lg-4 control-label user_type_label">
+                                Tipo de Utilizador:
+                            </label>
+
+                            <div className="col-lg-8">
+                                <div>
+                                    <label className="radio-inline"><input type="radio" name="type"
+                                                                           value="0"
+                                                                           onChange={this.handleChange}
+                                                                           required="required"/>Básico</label>
+                                    <label className="radio-inline"><input type="radio" name="type"
+                                                                           value="1"
+                                                                           onChange={this.handleChange}
+                                                                           required="required"/>Artista</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="buttons_label">
+                                <button className="btn btn-gray" type="submit">Registar</button>
+                            </div>
+                        </div>
                     </form>
                 </section>
 
@@ -217,32 +241,38 @@ class MenuComponent extends React.Component {
     render() {
         return ( <div>
 
-            <header>
-                <nav className="navbar navbar-default navbar-fixed-top">
-                    <div className="container">
-                        <div className="navbar-header">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
-                                    data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </button>
-                            <a className="navbar-brand">ArtBiz</a>
+                <header>
+                    <nav className="navbar navbar-default navbar-fixed-top">
+                        <div className="container">
+                            <div className="navbar-header">
+                                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span className="sr-only">Toggle navigation</span>
+                                    <span className="icon-bar"></span>
+                                    <span className="icon-bar"></span>
+                                    <span className="icon-bar"></span>
+                                </button>
+                                <a className="navbar-brand">
+                                    <div className="logo_img">
+                                        <img src="imgs/logo2.png"/>
+                                    </div>
+
+                                </a>
+                            </div>
+                            <div id="navbar" className="navbar-collapse collapse">
+                                <ul id="landing_nav" className="nav navbar-nav navbar-right">
+                                    <li><a onClick={this.registerMode}> Registar</a></li>
+                                    <li><a onClick={this.loginMode}>Login</a></li>
+                                    <li><a onClick={this.galleryMode}>Galeria Pública</a></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div id="navbar" className="navbar-collapse collapse">
-                            <ul className="nav navbar-nav navbar-right">
-                                <li><a onClick={this.registerMode}> Registar</a></li>
-                                <li><a onClick={this.loginMode}>Login</a></li>
-                                <li><a onClick={this.galleryMode}>Galeria Pública</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+                    </nav>
+                </header>
 
 
-        </div>);
+            </div>
+        );
     }
 }
 
@@ -257,7 +287,7 @@ class LandingPage extends React.Component {
             added: false,
             register: false,
             login: false,
-            gallery: false,
+            gallery: true,
             error: false
         };
         this.getInitialState = this.getInitialState.bind(this);
@@ -279,6 +309,7 @@ class LandingPage extends React.Component {
             error: false
         };
     }
+
 
     addUser(u) {
         let s = this.state;
@@ -322,6 +353,8 @@ class LandingPage extends React.Component {
         }
 
     }
+
+
 
     render() {
 
