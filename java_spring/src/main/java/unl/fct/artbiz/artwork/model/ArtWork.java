@@ -1,15 +1,12 @@
 package unl.fct.artbiz.artwork.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class ArtWork {
 
     private long id;
     private String name;
-    private Date dateOfCreation;
+    private String dateOfCreation;
     private List<String> techniques;
     private String description;
     private List<String> keywords;
@@ -17,7 +14,8 @@ public class ArtWork {
     private long author;
     private boolean onSale;
 
-    public ArtWork () { }
+    public ArtWork() {
+    }
 
     public ArtWork(long id, String name, String dateOfCreation,
                    List<String> techniques, String description,
@@ -25,19 +23,13 @@ public class ArtWork {
                    long author, boolean onSale) {
         this.id = id;
         this.name = name;
+        this.dateOfCreation = dateOfCreation;
         this.techniques = techniques;
         this.description = description;
         this.keywords = keywords;
         this.multimedia = multimedia;
         this.author = author;
         this.onSale = onSale;
-
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            this.dateOfCreation = format.parse(dateOfCreation);
-        }catch (ParseException e){
-            this.dateOfCreation = null;
-        }
     }
 
     public long getId() {
@@ -56,17 +48,12 @@ public class ArtWork {
         this.name = name;
     }
 
-    public Date getDateOfCreation() {
+    public String getDateOfCreation() {
         return dateOfCreation;
     }
 
     public void setDateOfCreation(String dateOfCreation) {
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            this.dateOfCreation = format.parse(dateOfCreation);
-        }catch (ParseException e){
-            this.dateOfCreation = null;
-        }
+        this.dateOfCreation = dateOfCreation;
     }
 
     public List<String> getTechniques() {
@@ -117,8 +104,7 @@ public class ArtWork {
         this.onSale = onSale;
     }
 
-    public static void validate (ArtWork artWork) {
+    public static void validate(ArtWork artWork) {
         //TODO: Validate schema
     }
-
 }
