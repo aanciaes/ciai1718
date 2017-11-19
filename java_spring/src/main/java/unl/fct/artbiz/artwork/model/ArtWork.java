@@ -1,5 +1,7 @@
 package unl.fct.artbiz.artwork.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,19 +19,25 @@ public class ArtWork {
 
     public ArtWork () { }
 
-    public ArtWork(long id, String name, Date dateOfCreation,
+    public ArtWork(long id, String name, String dateOfCreation,
                    List<String> techniques, String description,
                    List<String> keywords, List<String> multimedia,
                    long author, boolean onSale) {
         this.id = id;
         this.name = name;
-        this.dateOfCreation = dateOfCreation;
         this.techniques = techniques;
         this.description = description;
         this.keywords = keywords;
         this.multimedia = multimedia;
         this.author = author;
         this.onSale = onSale;
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            this.dateOfCreation = format.parse(dateOfCreation);
+        }catch (ParseException e){
+            this.dateOfCreation = null;
+        }
     }
 
     public long getId() {
@@ -52,8 +60,13 @@ public class ArtWork {
         return dateOfCreation;
     }
 
-    public void setDateOfCreation(Date dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
+    public void setDateOfCreation(String dateOfCreation) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            this.dateOfCreation = format.parse(dateOfCreation);
+        }catch (ParseException e){
+            this.dateOfCreation = null;
+        }
     }
 
     public List<String> getTechniques() {
