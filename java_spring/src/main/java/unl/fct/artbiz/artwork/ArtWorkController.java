@@ -63,7 +63,7 @@ public class ArtWorkController {
     @RequestMapping(value = "/search/keywords", method = RequestMethod.GET)
     public List<ArtWork> searchByKeyword (@RequestParam String keywords) {
 
-        List<String> keywordsAsList = Arrays.asList(keywords.split("//+"));
+        List<String> keywordsAsList = Arrays.asList(keywords.split("\\s"));
 
         return artWorks.values().stream().filter(artWork -> artWork.getKeywords().containsAll(keywordsAsList))
                 .collect(Collectors.toList());

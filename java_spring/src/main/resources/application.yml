@@ -7,7 +7,7 @@ spring:
 #Active environment
 spring:
   profiles:
-    active: dev
+    active: prod
 
 ---
 #Dev settings
