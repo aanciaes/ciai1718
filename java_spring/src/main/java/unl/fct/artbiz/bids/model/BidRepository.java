@@ -1,6 +1,7 @@
 package unl.fct.artbiz.bids.model;
 
 import org.springframework.stereotype.Repository;
+import unl.fct.artbiz.bids.exceptions.BidNotFoundException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,8 +18,10 @@ public class BidRepository {
     }
 
     public Bid findById (long id) {
-        //TODO: It can throw a exception like in artworkRepository
+        if(!exist(id))
+            throw new BidNotFoundException();
         return bids.get(id);
+
     }
 
     public void save (Bid bid) {
@@ -30,7 +33,7 @@ public class BidRepository {
     }
 
     public List<Bid> getBidsOfPiece(long pieceId) {
-        return bids.values().stream().filter(bid -> bid.getBidId()==pieceId).collect(Collectors.toList());
+        return bids.values().stream().filter(bid -> bid.getPieceId()==pieceId).collect(Collectors.toList());
     }
 
     public Bid delete(long bidId) {

@@ -59,8 +59,13 @@ public class BidController {
         return bidRepository.getBidsOfPiece(pieceId);
     }
 
+    @RequestMapping (value = "/{bidId}", method = RequestMethod.GET)
+    public Bid getBidById (@PathVariable long bidId) {
+        return bidRepository.findById(bidId);
+    }
+
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
-    public Bid deletBid (@PathVariable long bidId) {
+    public Bid deleteBid (@PathVariable long bidId) {
         return bidRepository.delete(bidId);
     }
 }

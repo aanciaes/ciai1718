@@ -23,6 +23,11 @@ import java.util.List;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArtworkJUnit {
 
+
+    // RUN TESTS ONE BY ONE
+
+
+
     @Autowired
     TestRestTemplate restTemplate;
 
