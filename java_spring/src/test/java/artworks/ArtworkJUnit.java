@@ -35,10 +35,10 @@ public class ArtworkJUnit {
 
     @Test
     public void addArtwork () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", new Date(System.currentTimeMillis()),
+        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 1l, false);
+                new ArrayList<>(), 1l, false, 0);
 
         HttpEntity<ArtWork> entity = new HttpEntity(artwork);
         ResponseEntity res = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
@@ -58,10 +58,10 @@ public class ArtworkJUnit {
 
     @Test
     public void addSameArtworkFails () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", new Date(System.currentTimeMillis()),
+        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 1l, false);
+                new ArrayList<>(), 1l, false, 0);
 
         HttpEntity<ArtWork> entity = new HttpEntity(artwork);
         ResponseEntity firstRes = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
@@ -83,10 +83,10 @@ public class ArtworkJUnit {
 
     @Test
     public void updateArtwork () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", new Date(System.currentTimeMillis()),
+        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 1l, false);
+                new ArrayList<>(), 1l, false, 0);
 
         HttpEntity<ArtWork> entity = new HttpEntity(artwork);
         ResponseEntity firstRes = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
@@ -115,18 +115,18 @@ public class ArtworkJUnit {
 
     @Test
     public void listByArtist () throws JSONException {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork1", new Date(System.currentTimeMillis()),
+        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 1l, false);
-        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork2", new Date(System.currentTimeMillis()),
+                new ArrayList<>(), 1l, false, 0);
+        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork2", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 2l, false);
-        ArtWork artwork3 = new ArtWork(3l, "FakeArtwork3", new Date(System.currentTimeMillis()),
+                new ArrayList<>(), 2l, false, 0);
+        ArtWork artwork3 = new ArtWork(3l, "FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 1l, false);
+                new ArrayList<>(), 1l, false, 0);
 
         HttpEntity<ArtWork> entity = new HttpEntity(artwork);
         ResponseEntity firstRes = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
@@ -162,14 +162,14 @@ public class ArtworkJUnit {
         keywords2.add("d");
         keywords2.add("e");
 
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork1", new Date(System.currentTimeMillis()),
+        ArtWork artwork = new ArtWork(1l, "FakeArtwork1", "1995-07-27",
                 new ArrayList<String>(), "description",
                 keywords1,
-                new ArrayList<>(), 1l, false);
-        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork2", new Date(System.currentTimeMillis()),
+                new ArrayList<>(), 1l, false, 0);
+        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork1", "1995-07-27",
                 new ArrayList<String>(), "description",
                 keywords2,
-                new ArrayList<>(), 2l, false);
+                new ArrayList<>(), 2l, false, 0);
 
         HttpEntity<ArtWork> entity = new HttpEntity(artwork);
         ResponseEntity firstRes = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
@@ -190,5 +190,30 @@ public class ArtworkJUnit {
             JSONObject obj = jsonArray.getJSONObject(i);
             assert obj.getLong("id") == 1l;
         }
+    }
+
+    @Test
+    public void salePiece () {
+        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+                new ArrayList<String>(), "description",
+                new ArrayList<>(),
+                new ArrayList<>(), 1l, false, 0);
+
+        HttpEntity<ArtWork> entity = new HttpEntity(artwork);
+        ResponseEntity res = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
+
+        assert res.getStatusCodeValue() == 200;
+
+        double price = 120.30;
+        ResponseEntity saleRes = restTemplate.exchange("/artwork/1/sell?price=" + price, HttpMethod.PUT, entity, Double.class);
+        assert saleRes.getStatusCodeValue() == 200;
+
+        ResponseEntity pieceRes = restTemplate.exchange("/artwork/1", HttpMethod.GET, entity, ArtWork.class);
+        assert pieceRes.getStatusCodeValue() == 200;
+
+        ArtWork modifiedArtWork = (ArtWork) pieceRes.getBody();
+
+        assert artwork.isOnSale() == false && modifiedArtWork.isOnSale()==true;
+        assert modifiedArtWork.getPrice() == price;
     }
 }
