@@ -39,4 +39,9 @@ public class BidRepository {
     public Bid delete(long bidId) {
         return bids.remove(bidId);
     }
+
+    // Just for testing TODO: Delete
+    public void deleteAll () {
+        bids = new HashMap<>();
+    }
 }

@@ -2,8 +2,10 @@ package unl.fct.artbiz.bids;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
+import unl.fct.artbiz.artwork.services.ArtworkService;
 import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
 import unl.fct.artbiz.bids.exceptions.LowerBidException;
 import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
@@ -36,16 +38,21 @@ public class BidController {
                 throw new LowerBidException();
             }
         }else {
-            ArtWork artWork = artworkRepository.findById(incoming.getPieceId());
-            if (artWork.isOnSale()){
-                if(artWork.getPrice() <= incoming.getBidAmount()){
-                    bidRepository.save(incoming);
-                    return incoming;
-                }else {
-                    throw new BidIsToLowException();
+            if(artworkRepository.exists(incoming.getPieceId())) {
+                ArtWork artWork = artworkRepository.findOne(incoming.getPieceId());
+
+                if (artWork.isOnSale()) {
+                    if (artWork.getPrice() <= incoming.getBidAmount()) {
+                        bidRepository.save(incoming);
+                        return incoming;
+                    } else {
+                        throw new BidIsToLowException();
+                    }
+                } else {
+                    throw new PieceNotOnSaleException();
                 }
             }else {
-                throw new PieceNotOnSaleException();
+                throw new ArtWorkNotFound();
             }
         }
     }
