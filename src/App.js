@@ -15,6 +15,31 @@ const bootstrap = require('bootstrap');
 var Typeahead = require('react-bootstrap-typeahead').Typeahead;
 
 
+const Loading = ()=>
+    <div>
+        <div className="loading_screen">
+            <i className="fa fa-cog fa-spin"></i>
+        </div>
+    </div>;
+
+
+function LoadingControl(props) {
+    if (props.loading == true) {
+        return (<Loading/>);
+    }
+    return null;
+}
+function ajaxCalls(params) {
+    params['BeforeSend'] = function () {
+        return <LoadingControl loading={true}/>;
+    };
+    params['complete'] = function () {
+        return <LoadingControl loading={false}/>;
+    };
+    $.ajax(params);
+}
+
+
 function LandingPageControl(props) {
     if (props.landingPageMode) {
         return (<LandingPage loginUser={props.loginUser} addUser={props.addUser}/>)
@@ -38,8 +63,14 @@ class App extends Component {
         super(props);
         this.state = {
             loggedIn: false,
-            users: [],
-            user_id: "",
+            users: [{
+                "id": "0",
+                "name": "teste",
+                "email": "tiago_espirito_santo@hotmail.com",
+                "password": "1",
+                "type": "1"
+            }],
+            user_id: "0",
             landingPageMode: true
         };
         this.getCopyState = this.getCopyState.bind(this);
@@ -110,7 +141,6 @@ class App extends Component {
         this.setState(stateCopy);
         return true;
     }
-
 
 
     render() {

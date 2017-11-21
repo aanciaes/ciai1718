@@ -1,68 +1,81 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
-
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: white;
-  height: 75px;
-  padding: 20px;
-  color: white;
+    background-color: white;
+    height: 75px;
+    padding: 20px;
+    color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
-a{
-  cursor: pointer;
+a {
+    cursor: pointer;
 }
 
-#body_img{
-  z-index: -1;
-  position: fixed;
-  width: 100%;
-  left: 0;
-  animation: opacity_animation 5s;
-  opacity:0.2;
+#body_img {
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    animation: opacity_animation 5s;
+    opacity: 0.2;
 }
 
-.logo_img{
-  width:125px;
-  margin-bottom: 5px;
-  position: absolute;
-  left: 0;
-  top: 5px;
-}
-.logo_img img{
-  width: 100%;
+.logo_img {
+    width: 125px;
+    margin-bottom: 5px;
+    position: absolute;
+    left: 0;
+    top: 5px;
 }
 
-nav .active{
-  border-top: solid black 1px;
-  font-weight: bold;
-  background-color: #efefef;
-  color: #0a0a0a;
+.logo_img img {
+    width: 100%;
 }
 
+.loading_screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+nav .active {
+    border-top: solid black 1px;
+    font-weight: bold;
+    background-color: #efefef;
+    color: #0a0a0a;
+}
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 @keyframes opacity_animation {
-  from { opacity: 0; }
-  to { opacity: 0.2; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.2;
+    }
 }

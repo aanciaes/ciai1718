@@ -6,6 +6,8 @@ import React, {Component} from 'react';
 import './dashboard.css';
 import $ from 'jquery';
 
+const url = "http://localhost:8080/";
+
 
 const PieceItem = ({piece}) =>
     <div>
@@ -21,10 +23,19 @@ class MinhaGaleria extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            pieces: this.props.pieces
+            pieces: []
 
         };
-        console.log(this.state.pieces);
+        this.getMyPieces(this.state);
+    }
+
+    getMyPieces(state) {
+
+        let t = this;
+        $.get(url + "artwork/search/artist/" + this.props.user.id, function (data) {
+            state.pieces = data;
+            t.setState(state);
+        });
     }
 
     render() {
@@ -53,7 +64,7 @@ class CriarPeca extends React.Component {
         super(props);
         this.state = {
             name: "",
-            date: "",
+            dateOfCreation: "",
             techniques: "",
             description: "",
             keywords: [],
@@ -66,7 +77,7 @@ class CriarPeca extends React.Component {
 
     handleChange({target}) {
         let s = this.state;
-        if (target.name == 'keywords') {
+        if (target.name == 'keywords' || target.name == 'techniques') {
             if (target.value.indexOf(',') > -1) {
 
                 let k = target.value.split(',');
@@ -156,6 +167,10 @@ class MenuAsideArtista extends React.Component {
         this.props.updatePieceList(true);
     }
 
+    updateGallery() {
+        this.props.updateGallery();
+    }
+
 
     render() {
 
@@ -222,7 +237,7 @@ function MinhaGaleriaControl(props) {
 
         return (
             <div>
-                <MinhaGaleria pieces={props.pieces}/>
+                <MinhaGaleria user={props.user}/>
             </div>);
     }
     return null;
@@ -241,9 +256,11 @@ class DashboardArtista extends React.Component {
             pieces: []
         };
 
+
         this.getInitialState = this.getInitialState.bind(this);
         this.updateCreatePiece = this.updateCreatePiece.bind(this);
         this.updatePieceList = this.updatePieceList.bind(this);
+        this.updateGallery = this.updateGallery.bind(this);
         this.createPiece = this.createPiece.bind(this);
 
     }
@@ -260,10 +277,28 @@ class DashboardArtista extends React.Component {
 
     createPiece(p) {
         let s = this.getInitialState();
-        p['user_id'] = this.props.user.id;
-        s.pieces.push(p);
+        p['author'] = this.props.user.id;
+        p['multimedia'] = null;
         s.piecelist = true;
-        this.setState(s);
+
+        let t = this;
+
+        $.ajax({
+            type: 'POST',
+            url: url + 'artwork',
+            processData: false,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(p),
+            success: function (result) {
+                t.setState(s);
+            },
+            error: function (status) {
+                alert("Erro a criar peça!!");
+                console.log("Failed	to	Post:	" + status);
+            }
+        });
+
+
     }
 
     updateCreatePiece(p) {
@@ -280,17 +315,23 @@ class DashboardArtista extends React.Component {
         this.setState(s);
     }
 
+    updateGallery() {
+        this.props.updateGallery(true);
+
+    }
+
     render() {
         return (
             <div>
-                {this.props.usermode == false ?
+                {this.props.usermode == false && this.props.gallery == false ?
                     <CriarPecaControl createpiece={this.state.createpiece} createPiece={this.createPiece}/> : "" }
 
-                {this.props.usermode == false ?
-                    <MinhaGaleriaControl pieces={this.state.pieces} piecelist={this.state.piecelist}/> : "" }
+                {this.props.usermode == false && this.props.gallery == false ?
+                    <MinhaGaleriaControl pieces={this.state.pieces} piecelist={this.state.piecelist}
+                                         user={this.props.user}/> : "" }
 
                 <MenuAsideArtista resetDashboard={this.props.resetDashboard}
-                                  updateGallery={this.props.updateGallery}
+                                  updateGallery={this.updateGallery}
                                   updateCreatePiece={this.updateCreatePiece} updatePieceList={this.updatePieceList}/>
 
             </div>

@@ -56,46 +56,35 @@ class RegistarUtilizador extends React.Component {
 
 
                     <form id="form_register" className="form-horizontal" onSubmit={this.recordUser}>
-                        <div className="title_form">
-                            <p>Registar</p>
-                        </div>
                         <div className="form-group">
-                            <label className="col-lg-2 control-label">
-                                Nome:
-                            </label>
 
-                            <div className="col-lg-10">
+                            <div className="input-group form_input ">
+                                <span className="input-group-addon">  Nome</span>
                                 <input type="text" className="form-control" name="name"
                                        placeholder="Inserir nome" onChange={this.handleChange}/>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label className="col-lg-2 control-label">
-                                Email:
-                            </label>
 
-                            <div className="col-lg-10">
+                            <div className="input-group form_input ">
+                                <span className="input-group-addon"> Email</span>
                                 <input type="email" className="form-control" name="email"
                                        aria-describedby="emailHelp"
                                        placeholder="Inserir email" onChange={this.handleChange} required="required"/>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label className="col-lg-2 control-label">
-                                Password:
-                            </label>
-
-                            <div className="col-lg-10">
+                            <div className="input-group form_input ">
+                                <span className="input-group-addon">Password</span>
                                 <input type="password" className="form-control" name="password"
                                        placeholder="Inserir Password" onChange={this.handleChange} required="required"/>
                             </div>
                         </div>
                         <div className="form-group">
-                            <label className="col-lg-4 control-label user_type_label">
-                                Tipo de Utilizador:
-                            </label>
 
-                            <div className="col-lg-8">
+
+                            <div className="input-group form_input ">
+                                <span className="input-group-addon"> Tipo de Utilizador</span>
                                 <div>
                                     <label className="radio-inline"><input type="radio" name="type"
                                                                            value="0"
@@ -154,21 +143,35 @@ class LoginUtilizador extends React.Component {
         return (
             <div className="forms">
                 <section>
-                    <h1>Login</h1>
+
                     <form id="form_login" onSubmit={this.login}>
                         <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" className="form-control" name="email"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Enter email" onChange={this.handleChange} required="required"/>
+
+                            <div className="input-group form_input">
+                                <span className="input-group-addon">Email</span>
+                                <input type="email" className="form-control" name="email"
+                                       aria-describedby="emailHelp"
+                                       placeholder="Enter email" onChange={this.handleChange} required="required"/>
+                            </div>
                         </div>
                         <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" name="password"
-                                   placeholder="Password" onChange={this.handleChange} required="required"/>
+
+                            <div className="input-group form_input ">
+                                <span className="input-group-addon">Password</span>
+                                <input type="password" className="form-control" name="password"
+                                       placeholder="Password" onChange={this.handleChange} required="required"/>
+                            </div>
+
+
                         </div>
-                        <div>
-                            <button type="submit" className="btn btn-primary">Entrar</button>
+                        <div className="form-group">
+                            <div className="row">
+
+                                <div className="col-md-12 col-xs-12">
+                                    <button type="submit" className="btn btn-primary">Entrar</button>
+                                </div>
+                            </div>
+
                         </div>
 
                     </form>
@@ -353,7 +356,6 @@ class LandingPage extends React.Component {
         }
 
     }
-
 
 
     render() {

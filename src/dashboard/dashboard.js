@@ -202,10 +202,10 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.type == 1 ? <DashboardArtista usermode={s.usermode} updateGallery={this.updateGallery}
+                {user.type == 1 ? <DashboardArtista gallery={s.gallery} usermode={s.usermode} updateGallery={this.updateGallery}
                                                     resetDashboard={this.resetDashboard}
                                                     user={user}/> :
-                    <DashboardBasico usermode={s.usermode} resetDashboard={this.resetDashboard}
+                    <DashboardBasico usermode={s.usermode} gallery={s.gallery} resetDashboard={this.resetDashboard}
                                      updateGallery={this.updateGallery}/> }
 
 
