@@ -13,6 +13,7 @@ import unl.fct.artbiz.bids.model.BidRepository;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/bid")
 public class BidController {
 
