@@ -38,6 +38,11 @@ public class ArtworkRepository {
 
     public ArtWork save (ArtWork artWork) {
         ArtWork.validate(artWork);
+
+        //Generate id
+        if(artWork.getId()==0)
+            artWork.setId((long) (artWorks.size()+1));
+
         if(artWorks.containsKey(artWork.getId()))
             throw new DuplicateIdArtwork();
         artWorks.put(artWork.getId(), artWork);

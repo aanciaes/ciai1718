@@ -172,15 +172,15 @@ public class BidJUnit {
 
 
     private void createFakeArtwork () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, true, 120);
-        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork2", "1995-07-27",
+        ArtWork artwork2 = new ArtWork("FakeArtwork2", "1995-07-27",
                 new ArrayList<String>(), "description2",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, true, 100);
-        ArtWork artwork3 = new ArtWork(3l, "FakeArtwork3", "1995-07-27",
+        ArtWork artwork3 = new ArtWork("FakeArtwork3", "1995-07-27",
                 new ArrayList<String>(), "description3",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);

@@ -40,7 +40,7 @@ public class ArtworkJUnit {
 
     @Test
     public void addArtwork () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);
@@ -52,7 +52,6 @@ public class ArtworkJUnit {
 
         ArtWork response = (ArtWork) res.getBody();
 
-        assert response.getId() == artwork.getId();
         assert response.getName().equals(artwork.getName());
 
         ResponseEntity getRes = restTemplate.exchange("/artwork", HttpMethod.GET, HttpEntity.EMPTY, List.class);
@@ -63,7 +62,7 @@ public class ArtworkJUnit {
 
     @Test
     public void addSameArtworkFails () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);
@@ -74,7 +73,7 @@ public class ArtworkJUnit {
 
         ArtWork response = (ArtWork) firstRes.getBody();
 
-        assert response.getId() == artwork.getId();
+        artwork.setId(response.getId());
         assert response.getName().equals(artwork.getName());
 
         ResponseEntity secondRes = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
@@ -88,7 +87,7 @@ public class ArtworkJUnit {
 
     @Test
     public void updateArtwork () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);
@@ -99,7 +98,7 @@ public class ArtworkJUnit {
 
         ArtWork response = (ArtWork) firstRes.getBody();
 
-        assert response.getId() == artwork.getId();
+        artwork.setId(response.getId());
         assert response.getName().equals(artwork.getName());
 
         artwork.setName("AlteredName");
@@ -120,15 +119,15 @@ public class ArtworkJUnit {
 
     @Test
     public void listByArtist () throws JSONException {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);
-        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork2", "1995-07-27",
+        ArtWork artwork2 = new ArtWork("FakeArtwork2", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 2l, false, 0);
-        ArtWork artwork3 = new ArtWork(3l, "FakeArtwork", "1995-07-27",
+        ArtWork artwork3 = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);
@@ -167,11 +166,11 @@ public class ArtworkJUnit {
         keywords2.add("d");
         keywords2.add("e");
 
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork1", "1995-07-27",
+        ArtWork artwork = new ArtWork("FakeArtwork1", "1995-07-27",
                 new ArrayList<String>(), "description",
                 keywords1,
                 new ArrayList<>(), 1l, false, 0);
-        ArtWork artwork2 = new ArtWork(2l, "FakeArtwork1", "1995-07-27",
+        ArtWork artwork2 = new ArtWork("FakeArtwork1", "1995-07-27",
                 new ArrayList<String>(), "description",
                 keywords2,
                 new ArrayList<>(), 2l, false, 0);
@@ -198,8 +197,8 @@ public class ArtworkJUnit {
     }
 
     @Test
-    public void salePiece () {
-        ArtWork artwork = new ArtWork(1l, "FakeArtwork", "1995-07-27",
+    public void sellPiece () {
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0);
