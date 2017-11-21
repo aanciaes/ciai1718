@@ -3,6 +3,7 @@ package artworks;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import unl.fct.artbiz.Application;
 import unl.fct.artbiz.artwork.model.ArtWork;
+import unl.fct.artbiz.artwork.model.ArtworkRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,13 +25,16 @@ import java.util.List;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ArtworkJUnit {
 
-
-    // RUN TESTS ONE BY ONE
-
-
-
     @Autowired
     TestRestTemplate restTemplate;
+
+    @Autowired
+    ArtworkRepository artworkRepository;
+
+    @Before
+    public void setUp() {
+        artworkRepository.deleteAll();
+    }
 
     @Test
     public void getAllPieces () throws Exception {
@@ -109,6 +114,7 @@ public class ArtworkJUnit {
         assert secondRes.getStatusCodeValue() == 200;
 
         ResponseEntity getPiece = restTemplate.exchange("/artwork/" + artwork.getId(), HttpMethod.GET, HttpEntity.EMPTY, ArtWork.class);
+        System.out.println("QWERTY:" + getPiece.getStatusCodeValue());
         assert getPiece.getStatusCodeValue() == 200;
 
         ArtWork updatedArtwork = (ArtWork) getPiece.getBody();
