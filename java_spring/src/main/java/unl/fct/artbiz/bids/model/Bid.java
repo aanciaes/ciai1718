@@ -1,16 +1,26 @@
 package unl.fct.artbiz.bids.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Bid {
 
+    @Id
+    @GeneratedValue (strategy = GenerationType.AUTO)
     private long bidId;
+
     private long pieceId;
+
     private long userId;
+
     private double bidAmount;
 
     public Bid () {}
 
-    public Bid(long bidId, long pieceId, long userId, double bidAmount) {
-        this.bidId = bidId;
+    public Bid(long pieceId, long userId, double bidAmount) {
         this.pieceId = pieceId;
         this.userId = userId;
         this.bidAmount = bidAmount;

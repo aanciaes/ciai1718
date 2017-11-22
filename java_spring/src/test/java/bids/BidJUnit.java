@@ -1,6 +1,6 @@
 package bids;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,20 +9,21 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import unl.fct.artbiz.Application;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.bids.model.Bid;
+import unl.fct.artbiz.bids.services.BidService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class BidJUnit {
-
-    // RUN TESTS ONE BY ONE
 
     @Autowired
     TestRestTemplate restTemplate;
@@ -30,16 +31,26 @@ public class BidJUnit {
     @Autowired
     ArtworkRepository artworkRepository;
 
+    @Autowired
+    BidService bidService;
+
+    @Before
+    public void setUp() {
+        createFakeArtwork();
+    }
+
     @Test
     public void makeABid () {
-        createFakeArtwork();
-
-        Bid bid = new Bid(1l, 1l, 1l, 130);
+        Bid bid = new Bid(1l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
+        System.out.println(res.getBody());
+        System.out.println(res.getStatusCodeValue());
         assert res.getStatusCodeValue() == 200;
+
+        bid.setBidId(((Bid) res.getBody()).getBidId());
 
         ResponseEntity getResponse = restTemplate.exchange("/bid/" + bid.getBidId(), HttpMethod.GET, HttpEntity.EMPTY, Bid.class);
         assert getResponse.getStatusCodeValue() == 200;
@@ -52,9 +63,8 @@ public class BidJUnit {
 
     @Test
     public void makeABidTwice () {
-        createFakeArtwork();
 
-        Bid bid = new Bid(1l, 1l, 1l, 130);
+        Bid bid = new Bid(1l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -69,16 +79,15 @@ public class BidJUnit {
 
     @Test
     public void bidDifferentPieces() {
-        createFakeArtwork();
 
-        Bid bid = new Bid(1l, 1l, 1l, 130);
+        Bid bid = new Bid(1l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
         assert res.getStatusCodeValue() == 200;
 
-        Bid bid2 = new Bid(2l, 2l, 1l, 130);
+        Bid bid2 = new Bid(2l, 1l, 130);
 
         entity = new HttpEntity(bid2);
 
@@ -88,9 +97,8 @@ public class BidJUnit {
 
     @Test
     public void bidOnNotOnSalePiece () {
-        createFakeArtwork();
 
-        Bid bid = new Bid(1l, 3l, 1l, 130);
+        Bid bid = new Bid(3l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -100,10 +108,9 @@ public class BidJUnit {
 
     @Test
     public void bidErrors () {
-        createFakeArtwork();
 
         //Bid less than asking value
-        Bid bid = new Bid(1l, 1l, 1l, 1);
+        Bid bid = new Bid(1l, 1l, 1);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -113,6 +120,7 @@ public class BidJUnit {
         bid.setBidAmount(200);
         ResponseEntity succRes = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
         assert succRes.getStatusCodeValue() == 200;
+        bid.setBidId(((Bid) succRes.getBody()).getBidId());
 
         bid.setBidAmount(190); //Make a bid worst than the on made before
         ResponseEntity failRes = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
@@ -121,10 +129,9 @@ public class BidJUnit {
 
     @Test
     public void twoUsersMakeEqualBid () {
-        createFakeArtwork();
 
-        Bid bid = new Bid(1l, 1l, 1l, 200);
-        Bid bid2 = new Bid(2l, 1l, 2l, 200);
+        Bid bid = new Bid(1l, 1l, 200);
+        Bid bid2 = new Bid(1l, 2l, 200);
 
         HttpEntity entity = new HttpEntity(bid);
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
@@ -154,8 +161,7 @@ public class BidJUnit {
 
     @Test
     public void deleteBid () {
-        createFakeArtwork();
-        Bid bid = new Bid(1l, 1l, 2l, 200);
+        Bid bid = new Bid(1l, 2l, 200);
 
         HttpEntity entity = new HttpEntity(bid);
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
@@ -187,5 +193,7 @@ public class BidJUnit {
         artworkRepository.save(artwork);
         artworkRepository.save(artwork2);
         artworkRepository.save(artwork3);
+
+        System.out.println(artworkRepository.findOne(1l));
     }
 }
