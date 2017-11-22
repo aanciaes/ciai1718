@@ -12,7 +12,7 @@ public class StorageTest {
         File f =  new File("src/test/resources/ferrari-logo.jpg");
         String encodstring = encodeFileToBase64Binary(f);
         System.out.println(encodstring);
-        decode(encodstring);
+        //decode(encodstring);
     }
 
     private static String encodeFileToBase64Binary(File file){

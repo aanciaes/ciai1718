@@ -49,8 +49,8 @@ public class FileSystemStorageService implements StorageService {
                 generatedName = generatedName.substring(0,9);
 
             // write the image to a file
-            File outputfile = new File(rootLocation + generatedName);
-            ImageIO.write(image, "jpg", outputfile);
+            File outputfile = new File(rootLocation + "/" + generatedName);
+            ImageIO.write(image, "png", outputfile);
 
             return outputfile.getPath();
 
