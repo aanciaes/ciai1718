@@ -9,7 +9,7 @@ import DashboardArtista from './dashboardArtista';
 import DashboardBasico from './dashboardBasico';
 import './dashboard.css';
 import PublicGallery from '../publicGallery/publicGallery';
-
+import Piece from '../piece/piece';
 
 class MenuDash extends React.Component {
     constructor(props) {
@@ -144,6 +144,12 @@ function GalleryControl(props) {
     return null;
 }
 
+function PieceControl(props) {
+    if (props.piecemode) {
+        return (<Piece/>);
+    }
+    return null;
+}
 
 function UserControl(props) {
     if (props.usermode) {
@@ -158,12 +164,14 @@ class Dashboard extends React.Component {
         super(props);
         this.state = {
             usermode: false,
-            gallery: true
+            gallery: true,
+            piecemode: false
         };
 
         this.getInitialState = this.getInitialState.bind(this);
         this.updateUserMode = this.updateUserMode.bind(this);
         this.updateGallery = this.updateGallery.bind(this);
+        this.updatePieceMode = this.updatePieceMode.bind(this);
         this.resetDashboard = this.resetDashboard.bind(this);
 
     }
@@ -172,7 +180,8 @@ class Dashboard extends React.Component {
     getInitialState() {
         return {
             usermode: false,
-            gallery: false
+            gallery: false,
+            piecemode: false
         };
     }
 
@@ -183,6 +192,12 @@ class Dashboard extends React.Component {
     updateGallery(r) {
         let s = this.getInitialState();
         s.gallery = r;
+        this.setState(s);
+    }
+
+    updatePieceMode(r) {
+        let s = this.getInitialState();
+        s.piecemode = r;
         this.setState(s);
     }
 
@@ -202,16 +217,18 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.type == 1 ? <DashboardArtista gallery={s.gallery} usermode={s.usermode} updateGallery={this.updateGallery}
-                                                    resetDashboard={this.resetDashboard}
-                                                    user={user}/> :
-                    <DashboardBasico usermode={s.usermode} gallery={s.gallery} resetDashboard={this.resetDashboard}
-                                     updateGallery={this.updateGallery}/> }
+                {user.type == 1 ?
+                    <DashboardArtista gallery={s.gallery} usermode={s.usermode} piecemode={s.piecemode} updateGallery={this.updateGallery}
+                                      resetDashboard={this.resetDashboard}
+                                      user={user} updatePieceMode={this.updatePieceMode}/> :
+                    <DashboardBasico usermode={s.usermode} gallery={s.gallery} piecemode={s.piecemode} resetDashboard={this.resetDashboard}
+                                     updateGallery={this.updateGallery} updatePieceMode={this.updatePieceMode}/> }
 
 
                 <div className="content_wmenu">
                     <GalleryControl gallery={s.gallery}/>
                     <UserControl usermode={s.usermode} user={user} updateUser={args.updateUser}/>
+                    <PieceControl piecemode={s.piecemode}/>
                 </div>
 
             </div>

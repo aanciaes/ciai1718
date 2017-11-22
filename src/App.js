@@ -5,7 +5,6 @@ import $ from 'jquery';
 import {Route, withRouter} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
-import PublicGallery from './publicGallery/publicGallery';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 window.jQuery = $;

@@ -26,6 +26,7 @@ class MinhaGaleria extends React.Component {
             pieces: []
 
         };
+        this.updatePieceMode = this.updatePieceMode.bind(this);
         this.getMyPieces(this.state);
     }
 
@@ -38,6 +39,10 @@ class MinhaGaleria extends React.Component {
         });
     }
 
+    updatePieceMode() {
+        this.props.updatePieceMode();
+    }
+
     render() {
         return (
             <div>
@@ -47,7 +52,8 @@ class MinhaGaleria extends React.Component {
                         this.state.pieces.map(
                             (piece, index) =>
                                 (
-                                    <li className="list-group-item" key={index}><PieceItem piece={piece}/></li>
+                                    <li className="list-group-item" key={index} onClick={this.updatePieceMode}>
+                                        <PieceItem piece={piece}/></li>
                                 )
                         )
                     }
@@ -76,6 +82,7 @@ class CriarPeca extends React.Component {
     }
 
     handleChange({target}) {
+
         let s = this.state;
         if (target.name == 'keywords' || target.name == 'techniques') {
             if (target.value.indexOf(',') > -1) {
@@ -88,8 +95,20 @@ class CriarPeca extends React.Component {
                 s[target.name] = k;
             }
         } else {
-            s[target.name] = target.value;
+            if (target.name == 'multimedia') {
+                let file = target.files[0];
+                let fr = new FileReader();
+                fr.onload = function () {
+                    s[target.name] = fr.result;
+                };
+                fr.readAsDataURL(file);
+
+            }
+            else
+                s[target.name] = target.value;
+
         }
+
 
         this.setState(s);
     }
@@ -237,7 +256,7 @@ function MinhaGaleriaControl(props) {
 
         return (
             <div>
-                <MinhaGaleria user={props.user}/>
+                <MinhaGaleria user={props.user} updatePieceMode={props.updatePieceMode}/>
             </div>);
     }
     return null;
@@ -261,6 +280,7 @@ class DashboardArtista extends React.Component {
         this.updateCreatePiece = this.updateCreatePiece.bind(this);
         this.updatePieceList = this.updatePieceList.bind(this);
         this.updateGallery = this.updateGallery.bind(this);
+        this.updatePieceMode = this.updatePieceMode.bind(this);
         this.createPiece = this.createPiece.bind(this);
 
     }
@@ -320,14 +340,24 @@ class DashboardArtista extends React.Component {
 
     }
 
+    updatePieceMode() {
+        this.props.updatePieceMode(true);
+    }
+
+
     render() {
         return (
             <div>
-                {this.props.usermode == false && this.props.gallery == false ?
+                {this.props.usermode == false
+                && this.props.gallery == false
+                && this.props.piecemode == false ?
                     <CriarPecaControl createpiece={this.state.createpiece} createPiece={this.createPiece}/> : "" }
 
-                {this.props.usermode == false && this.props.gallery == false ?
-                    <MinhaGaleriaControl pieces={this.state.pieces} piecelist={this.state.piecelist}
+                {this.props.usermode == false
+                && this.props.gallery == false
+                && this.props.piecemode == false ?
+                    <MinhaGaleriaControl updatePieceMode={this.updatePieceMode} pieces={this.state.pieces}
+                                         piecelist={this.state.piecelist}
                                          user={this.props.user}/> : "" }
 
                 <MenuAsideArtista resetDashboard={this.props.resetDashboard}
