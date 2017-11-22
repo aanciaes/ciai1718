@@ -5,12 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
-import unl.fct.artbiz.artwork.services.ArtworkService;
 import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
 import unl.fct.artbiz.bids.exceptions.LowerBidException;
 import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
 import unl.fct.artbiz.bids.model.Bid;
-import unl.fct.artbiz.bids.model.BidRepository;
+import unl.fct.artbiz.bids.services.BidService;
 
 import java.util.List;
 
@@ -24,15 +23,15 @@ public class BidController {
     ArtworkRepository artworkRepository;
 
     @Autowired
-    BidRepository bidRepository;
+    BidService bidService;
 
 
     @RequestMapping(method = RequestMethod.POST)
     public Bid makeBid (@RequestBody Bid incoming) {
-        if(bidRepository.exist(incoming.getBidId())){
-            Bid lastBid = bidRepository.findById(incoming.getBidId());
+        if(bidService.exist(incoming.getBidId())){
+            Bid lastBid = bidService.findById(incoming.getBidId());
             if(lastBid.getBidAmount()< incoming.getBidAmount()) {
-                bidRepository.save(incoming);
+                bidService.save(incoming);
                 return incoming;
             }else{
                 throw new LowerBidException();
@@ -43,7 +42,7 @@ public class BidController {
 
                 if (artWork.isOnSale()) {
                     if (artWork.getPrice() <= incoming.getBidAmount()) {
-                        bidRepository.save(incoming);
+                        bidService.save(incoming);
                         return incoming;
                     } else {
                         throw new BidIsToLowException();
@@ -59,21 +58,21 @@ public class BidController {
 
     @RequestMapping (value = "/user/{userId}", method = RequestMethod.GET)
     public List<Bid> getBidsOfUser (@PathVariable long userId) {
-        return bidRepository.getBidsOfUser(userId);
+        return bidService.getBidsOfUser(userId);
     }
 
     @RequestMapping (value = "/piece/{pieceId}", method = RequestMethod.GET)
     public List<Bid> getBidsOfPiece (@PathVariable long pieceId) {
-        return bidRepository.getBidsOfPiece(pieceId);
+        return bidService.getBidsOfPiece(pieceId);
     }
 
     @RequestMapping (value = "/{bidId}", method = RequestMethod.GET)
     public Bid getBidById (@PathVariable long bidId) {
-        return bidRepository.findById(bidId);
+        return bidService.findById(bidId);
     }
 
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
-    public Bid deleteBid (@PathVariable long bidId) {
-        return bidRepository.delete(bidId);
+    public void deleteBid (@PathVariable long bidId) {
+        bidService.delete(bidId);
     }
 }

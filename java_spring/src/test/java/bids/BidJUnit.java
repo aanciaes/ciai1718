@@ -14,9 +14,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import unl.fct.artbiz.Application;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
-import unl.fct.artbiz.artwork.services.ArtworkService;
 import unl.fct.artbiz.bids.model.Bid;
-import unl.fct.artbiz.bids.model.BidRepository;
+import unl.fct.artbiz.bids.services.BidService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +32,7 @@ public class BidJUnit {
     ArtworkRepository artworkRepository;
 
     @Autowired
-    BidRepository bidRepository;
+    BidService bidService;
 
     @Before
     public void setUp() {
@@ -42,7 +41,7 @@ public class BidJUnit {
 
     @Test
     public void makeABid () {
-        Bid bid = new Bid(1l, 1l, 1l, 130);
+        Bid bid = new Bid(1l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -50,6 +49,8 @@ public class BidJUnit {
         System.out.println(res.getBody());
         System.out.println(res.getStatusCodeValue());
         assert res.getStatusCodeValue() == 200;
+
+        bid.setBidId(((Bid) res.getBody()).getBidId());
 
         ResponseEntity getResponse = restTemplate.exchange("/bid/" + bid.getBidId(), HttpMethod.GET, HttpEntity.EMPTY, Bid.class);
         assert getResponse.getStatusCodeValue() == 200;
@@ -63,7 +64,7 @@ public class BidJUnit {
     @Test
     public void makeABidTwice () {
 
-        Bid bid = new Bid(1l, 1l, 1l, 130);
+        Bid bid = new Bid(1l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -79,14 +80,14 @@ public class BidJUnit {
     @Test
     public void bidDifferentPieces() {
 
-        Bid bid = new Bid(1l, 1l, 1l, 130);
+        Bid bid = new Bid(1l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
         assert res.getStatusCodeValue() == 200;
 
-        Bid bid2 = new Bid(2l, 2l, 1l, 130);
+        Bid bid2 = new Bid(2l, 1l, 130);
 
         entity = new HttpEntity(bid2);
 
@@ -97,7 +98,7 @@ public class BidJUnit {
     @Test
     public void bidOnNotOnSalePiece () {
 
-        Bid bid = new Bid(1l, 3l, 1l, 130);
+        Bid bid = new Bid(3l, 1l, 130);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -109,7 +110,7 @@ public class BidJUnit {
     public void bidErrors () {
 
         //Bid less than asking value
-        Bid bid = new Bid(1l, 1l, 1l, 1);
+        Bid bid = new Bid(1l, 1l, 1);
 
         HttpEntity entity = new HttpEntity(bid);
 
@@ -119,6 +120,7 @@ public class BidJUnit {
         bid.setBidAmount(200);
         ResponseEntity succRes = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
         assert succRes.getStatusCodeValue() == 200;
+        bid.setBidId(((Bid) succRes.getBody()).getBidId());
 
         bid.setBidAmount(190); //Make a bid worst than the on made before
         ResponseEntity failRes = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
@@ -128,8 +130,8 @@ public class BidJUnit {
     @Test
     public void twoUsersMakeEqualBid () {
 
-        Bid bid = new Bid(1l, 1l, 1l, 200);
-        Bid bid2 = new Bid(2l, 1l, 2l, 200);
+        Bid bid = new Bid(1l, 1l, 200);
+        Bid bid2 = new Bid(1l, 2l, 200);
 
         HttpEntity entity = new HttpEntity(bid);
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
@@ -159,7 +161,7 @@ public class BidJUnit {
 
     @Test
     public void deleteBid () {
-        Bid bid = new Bid(1l, 1l, 2l, 200);
+        Bid bid = new Bid(1l, 2l, 200);
 
         HttpEntity entity = new HttpEntity(bid);
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);

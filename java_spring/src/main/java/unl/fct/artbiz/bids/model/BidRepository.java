@@ -1,47 +1,14 @@
 package unl.fct.artbiz.bids.model;
 
-import org.springframework.stereotype.Repository;
-import unl.fct.artbiz.bids.exceptions.BidNotFoundException;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-@Repository
-public class BidRepository {
+public interface BidRepository extends CrudRepository<Bid, Long> {
 
-    private Map<Long, Bid> bids = new HashMap();
 
-    public boolean exist (long id){
-        return bids.containsKey(id);
-    }
+    List<Bid> getBidsByUserId (long userId);
 
-    public Bid findById (long id) {
-        if(!exist(id))
-            throw new BidNotFoundException();
-        return bids.get(id);
+    List<Bid> getBidsByPieceId (long pieceId);
 
-    }
-
-    public void save (Bid bid) {
-        bids.put(bid.getBidId(), bid);
-    }
-
-    public List<Bid> getBidsOfUser (long id) {
-        return bids.values().stream().filter(bid -> bid.getUserId()==id).collect(Collectors.toList());
-    }
-
-    public List<Bid> getBidsOfPiece(long pieceId) {
-        return bids.values().stream().filter(bid -> bid.getPieceId()==pieceId).collect(Collectors.toList());
-    }
-
-    public Bid delete(long bidId) {
-        return bids.remove(bidId);
-    }
-
-    // Just for testing TODO: Delete
-    public void deleteAll () {
-        bids = new HashMap<>();
-    }
 }
