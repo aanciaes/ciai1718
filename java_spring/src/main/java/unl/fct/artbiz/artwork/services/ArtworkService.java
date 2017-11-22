@@ -25,11 +25,11 @@ public class ArtworkService {
     }
 
     public List<ArtWork> getAllPieces() {
-        return (List) artworkRepository.findAll();
+        return loadResourcesList(artworkRepository.findAll());
     }
 
     public List<ArtWork> getPiecesOnSalePieces() {
-        return artworkRepository.getArtWorkByOnSale(true);
+       return loadResourcesList(artworkRepository.getArtWorkByOnSale(true));
     }
 
     public ArtWork findById(long id) {
@@ -37,15 +37,7 @@ public class ArtworkService {
             throw new ArtWorkNotFound();
         } else {
             ArtWork artWork = artworkRepository.findOne(id);
-            List<String> newMultimedia = new ArrayList<>();
-
-            for (String path : artWork.getMultimedia()){
-                newMultimedia.add(storageService.load(path));
-            }
-
-            artWork.setMultimedia(newMultimedia);
-
-            return artWork;
+            return loadResources (artWork);
         }
     }
 
@@ -54,15 +46,7 @@ public class ArtworkService {
         if (artworkRepository.exists(artWork.getId()))
             throw new DuplicateIdArtwork();
 
-        List<String> multimedia = artWork.getMultimedia();
-        List<String> newMulimedia = new ArrayList<>();
-
-        for (String m : multimedia){
-            newMulimedia.add(storageService.store(m));
-        }
-
-        artWork.setMultimedia(newMulimedia);
-        artworkRepository.save(artWork);
+        artworkRepository.save(saveResources(artWork));
         return artWork;
     }
 
@@ -74,14 +58,47 @@ public class ArtworkService {
     }
 
     public List<ArtWork> getPiecesByArtist(long id) {
-        return artworkRepository.getArtWorkByAuthor(id);
+        return loadResourcesList(artworkRepository.getArtWorkByAuthor(id));
     }
 
 
     public List<ArtWork> getPiecesByKeywords(List<String> keywords) {
 
-        return (artworkRepository.getArtWorkByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
+        return loadResourcesList((artworkRepository.getArtWorkByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
                 containsAll(keywords)).distinct()
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+    }
+
+    private ArtWork saveResources (ArtWork piece) {
+        List<String> multimedia = piece.getMultimedia();
+        List<String> newMulimedia = new ArrayList<>();
+
+        for (String m : multimedia){
+            newMulimedia.add(storageService.store(m));
+        }
+
+        piece.setMultimedia(newMulimedia);
+        return piece;
+    }
+
+    private List<ArtWork> loadResourcesList (List<ArtWork> lst) {
+        List<ArtWork> withMultimedia = new ArrayList<>();
+
+        for(ArtWork piece : lst){
+            withMultimedia.add(loadResources(piece));
+        }
+
+        return withMultimedia;
+    }
+
+    private ArtWork loadResources (ArtWork piece) {
+        List<String> newMultimedia = new ArrayList<>();
+
+        for (String path : piece.getMultimedia()){
+            newMultimedia.add(storageService.load(path));
+        }
+
+        piece.setMultimedia(newMultimedia);
+        return piece;
     }
 }

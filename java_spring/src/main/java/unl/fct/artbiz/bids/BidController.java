@@ -20,40 +20,12 @@ public class BidController {
 
 
     @Autowired
-    ArtworkRepository artworkRepository;
-
-    @Autowired
     BidService bidService;
 
 
     @RequestMapping(method = RequestMethod.POST)
     public Bid makeBid (@RequestBody Bid incoming) {
-        if(bidService.exist(incoming.getBidId())){
-            Bid lastBid = bidService.findById(incoming.getBidId());
-            if(lastBid.getBidAmount()< incoming.getBidAmount()) {
-                bidService.save(incoming);
-                return incoming;
-            }else{
-                throw new LowerBidException();
-            }
-        }else {
-            if(artworkRepository.exists(incoming.getPieceId())) {
-                ArtWork artWork = artworkRepository.findOne(incoming.getPieceId());
-
-                if (artWork.isOnSale()) {
-                    if (artWork.getPrice() <= incoming.getBidAmount()) {
-                        bidService.save(incoming);
-                        return incoming;
-                    } else {
-                        throw new BidIsToLowException();
-                    }
-                } else {
-                    throw new PieceNotOnSaleException();
-                }
-            }else {
-                throw new ArtWorkNotFound();
-            }
-        }
+        return bidService.createBid(incoming);
     }
 
     @RequestMapping (value = "/user/{userId}", method = RequestMethod.GET)

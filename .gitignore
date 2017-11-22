@@ -28,8 +28,8 @@ yarn-error.log*
 java_spring/target/
 
 # H2 databases
-*.db
+java_spring/*.db
 
 # resources imgs
-*.png
-*.jpg
+java_spring/src/main/resources/imgs/*
+!java_spring/src/main/resources/imgs/commitDirectory
