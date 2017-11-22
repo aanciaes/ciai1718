@@ -1,21 +1,34 @@
 package unl.fct.artbiz.artwork.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class ArtWork {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     private String name;
     private String dateOfCreation;
+
+    @ElementCollection
     private List<String> techniques;
+
     private String description;
+
+    @ElementCollection
     private List<String> keywords;
+
+    @ElementCollection
     private List<String> multimedia;
+
     private long author;
     private boolean onSale;
     private double price;
 
-    public ArtWork() {
+    protected ArtWork() {
     }
 
     public ArtWork(String name, String dateOfCreation,
@@ -113,7 +126,14 @@ public class ArtWork {
         this.price = price;
     }
 
-    public static void validate(ArtWork artWork) {
-        //TODO: Validate schema
+    @Override
+    public boolean equals (Object object) {
+        if(!(object instanceof ArtWork))
+            return false;
+        else {
+            if(((ArtWork) object).getId() == this.getId())
+                return true;
+        }
+        return false;
     }
 }
