@@ -32,8 +32,15 @@ public class FileSystemStorageService implements StorageService {
 
 
     @Override
-    public String store(String encodedImage) {
+    public String store(String imageInput) {
         try {
+
+            String [] handleInput = imageInput.split("\\,");
+
+            String headers = handleInput [0];
+            String imageFormat = headers.split(":|/|;")[2];
+            String encodedImage = handleInput [1];
+
             // create a buffered image
             BufferedImage image = null;
             byte[] imageByte;
@@ -49,8 +56,8 @@ public class FileSystemStorageService implements StorageService {
                 generatedName = generatedName.substring(0,9);
 
             // write the image to a file
-            File outputfile = new File(rootLocation + "/" + generatedName);
-            ImageIO.write(image, "png", outputfile);
+            File outputfile = new File(rootLocation + "/" + generatedName + "." + imageFormat);
+            ImageIO.write(image, imageFormat, outputfile);
 
             return outputfile.getPath();
 
