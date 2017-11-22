@@ -1,11 +1,13 @@
 package unl.fct.artbiz.storage;
 
-import java.io.IOException;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -15,6 +17,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import unl.fct.artbiz.storage.exceptions.StorageException;
 import unl.fct.artbiz.storage.exceptions.StorageFileNotFoundException;
+
+import javax.imageio.ImageIO;
 
 @Service
 public class FileSystemStorageService implements StorageService {
@@ -28,49 +32,52 @@ public class FileSystemStorageService implements StorageService {
 
 
     @Override
-    public void store(MultipartFile file) {
-        String filename = StringUtils.cleanPath(file.getOriginalFilename());
+    public String store(String encodedImage) {
         try {
-            if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file " + filename);
-            }
-            if (filename.contains("..")) {
-                // This is a security check
-                throw new StorageException(
-                        "Cannot store file with relative path outside current directory "
-                                + filename);
-            }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(filename),
-                    StandardCopyOption.REPLACE_EXISTING);
-        }
-        catch (IOException e) {
-            throw new StorageException("Failed to store file " + filename, e);
+            // create a buffered image
+            BufferedImage image = null;
+            byte[] imageByte;
+
+            imageByte = Base64.getDecoder().decode(encodedImage);
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+            image = ImageIO.read(bis);
+            bis.close();
+
+            //Generate unique name
+            String generatedName = (System.currentTimeMillis()+encodedImage).toString();
+            if(generatedName.length() > 10)
+                generatedName = generatedName.substring(0,9);
+
+            // write the image to a file
+            File outputfile = new File(rootLocation + generatedName);
+            ImageIO.write(image, "jpg", outputfile);
+
+            return outputfile.getPath();
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            return null;
         }
     }
 
 
     @Override
-    public Path load(String filename) {
-        return rootLocation.resolve(filename);
-    }
-
-    @Override
-    public Resource loadAsResource(String filename) {
+    public String load(String filename) {
+        String encodedfile = null;
         try {
-            Path file = load(filename);
-            Resource resource = new UrlResource(file.toUri());
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
-            }
-            else {
-                throw new StorageFileNotFoundException(
-                        "Could not read file: " + filename);
-
-            }
+            File file = new File(filename);
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            encodedfile = Base64.getEncoder().encodeToString(bytes);
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        catch (MalformedURLException e) {
-            throw new StorageFileNotFoundException("Could not read file: " + filename, e);
-        }
+        return encodedfile;
     }
 
 
@@ -78,8 +85,7 @@ public class FileSystemStorageService implements StorageService {
     public void init() {
         try {
             Files.createDirectories(rootLocation);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new StorageException("Could not initialize storage", e);
         }
     }

@@ -1,20 +1,14 @@
 package unl.fct.artbiz.storage;
 
-import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.stereotype.Service;
 
-
-import java.nio.file.Path;
-import java.util.stream.Stream;
-
+@Service
 public interface StorageService {
 
     void init();
 
-    void store(MultipartFile file);
+    String store(String image);
 
-    Path load(String filename);
-
-    Resource loadAsResource(String filename);
+    String load(String filename);
 
 }
