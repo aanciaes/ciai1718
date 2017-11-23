@@ -8,6 +8,8 @@ import java.util.List;
 @Repository
 public interface ArtworkRepository extends CrudRepository<ArtWork, Long> {
 
+    List<ArtWork> findAll ();
+
     List<ArtWork> getArtWorkByOnSale (boolean onSale);
 
     List<ArtWork> getArtWorkByAuthor (long artistId);

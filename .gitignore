@@ -26,3 +26,10 @@ yarn-error.log*
 
 # java_spring
 java_spring/target/
+
+# H2 databases
+java_spring/*.db
+
+# resources imgs
+java_spring/src/main/resources/imgs/*
+!java_spring/src/main/resources/imgs/commitDirectory

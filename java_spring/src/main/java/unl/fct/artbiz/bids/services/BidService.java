@@ -2,7 +2,13 @@ package unl.fct.artbiz.bids.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
+import unl.fct.artbiz.artwork.model.ArtWork;
+import unl.fct.artbiz.artwork.model.ArtworkRepository;
+import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
 import unl.fct.artbiz.bids.exceptions.BidNotFoundException;
+import unl.fct.artbiz.bids.exceptions.LowerBidException;
+import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.model.BidRepository;
 
@@ -17,6 +23,9 @@ public class BidService {
     @Autowired
     BidRepository bidRepository;
 
+    @Autowired
+    ArtworkRepository artworkRepository;
+
     public boolean exist (long id){
         return bidRepository.exists(id);
     }
@@ -28,8 +37,33 @@ public class BidService {
 
     }
 
-    public Bid save (Bid bid) {
-        return bidRepository.save(bid);
+    public Bid createBid (Bid incoming) {
+        if(exist(incoming.getBidId())){
+            Bid lastBid = findById(incoming.getBidId());
+            if(lastBid.getBidAmount()< incoming.getBidAmount()) {
+                bidRepository.save(incoming);
+                return incoming;
+            }else{
+                throw new LowerBidException();
+            }
+        }else {
+            if(artworkRepository.exists(incoming.getPieceId())) {
+                ArtWork artWork = artworkRepository.findOne(incoming.getPieceId());
+
+                if (artWork.isOnSale()) {
+                    if (artWork.getPrice() <= incoming.getBidAmount()) {
+                        bidRepository.save(incoming);
+                        return incoming;
+                    } else {
+                        throw new BidIsToLowException();
+                    }
+                } else {
+                    throw new PieceNotOnSaleException();
+                }
+            }else {
+                throw new ArtWorkNotFound();
+            }
+        }
     }
 
     public List<Bid> getBidsOfUser (long id) {

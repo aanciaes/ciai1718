@@ -166,6 +166,7 @@ public class BidJUnit {
         HttpEntity entity = new HttpEntity(bid);
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
         assert res.getStatusCodeValue() == 200;
+        bid.setBidId(((Bid) res.getBody()).getBidId());
 
         ResponseEntity secondRes = restTemplate.exchange("/bid/" + bid.getBidId(), HttpMethod.DELETE, HttpEntity.EMPTY, Bid.class);
         assert res.getStatusCodeValue() == 200;

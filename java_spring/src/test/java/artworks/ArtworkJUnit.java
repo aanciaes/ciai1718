@@ -107,14 +107,12 @@ public class ArtworkJUnit {
         assert response.getName().equals(artwork.getName());
 
         artwork.setName("AlteredName");
-        System.err.println(artwork.getName());
 
         entity = new HttpEntity(artwork);
         ResponseEntity secondRes = restTemplate.exchange("/artwork", HttpMethod.PUT, entity, ArtWork.class);
         assert secondRes.getStatusCodeValue() == 200;
 
         ResponseEntity getPiece = restTemplate.exchange("/artwork/" + artwork.getId(), HttpMethod.GET, HttpEntity.EMPTY, ArtWork.class);
-        System.out.println("QWERTY:" + getPiece.getStatusCodeValue());
         assert getPiece.getStatusCodeValue() == 200;
 
         ArtWork updatedArtwork = (ArtWork) getPiece.getBody();
@@ -191,7 +189,6 @@ public class ArtworkJUnit {
         String keywords = "?keywords=a+b";
 
         ResponseEntity keywordsSearchRes = restTemplate.exchange("/artwork/search/keywords"+keywords, HttpMethod.GET, HttpEntity.EMPTY, String.class);
-        System.err.println (keywordsSearchRes.getStatusCodeValue());
         assert keywordsSearchRes.getStatusCodeValue() == 200;
 
         JSONArray jsonArray = new JSONArray((String)keywordsSearchRes.getBody());

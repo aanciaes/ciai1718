@@ -7,7 +7,6 @@ import unl.fct.artbiz.artwork.exceptions.DuplicateIdArtwork;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,11 +16,12 @@ public class ArtworkService {
     @Autowired
     ArtworkRepository artworkRepository;
 
+
     public ArtworkService() {
     }
 
     public List<ArtWork> getAllPieces() {
-        return (List) artworkRepository.findAll();
+        return artworkRepository.findAll();
     }
 
     public List<ArtWork> getPiecesOnSalePieces() {
@@ -40,6 +40,7 @@ public class ArtworkService {
 
         if (artworkRepository.exists(artWork.getId()))
             throw new DuplicateIdArtwork();
+
         artworkRepository.save(artWork);
         return artWork;
     }
