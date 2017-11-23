@@ -32,8 +32,7 @@ public class ArtworkService {
         if (!artworkRepository.exists(id)) {
             throw new ArtWorkNotFound();
         } else {
-            ArtWork artWork = artworkRepository.findOne(id);
-            return artWork;
+            return artworkRepository.findOne(id);
         }
     }
 
