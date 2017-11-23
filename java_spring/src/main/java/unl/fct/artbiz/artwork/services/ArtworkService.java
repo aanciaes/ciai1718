@@ -25,18 +25,19 @@ public class ArtworkService {
     }
 
     public List<ArtWork> getAllPieces() {
-        return artworkRepository.findAll();
+        return loadResourcesList(artworkRepository.findAll());
     }
 
     public List<ArtWork> getPiecesOnSalePieces() {
-       return artworkRepository.getArtWorkByOnSale(true);
+        return loadResourcesList(artworkRepository.getArtWorkByOnSale(true));
     }
 
     public ArtWork findById(long id) {
         if (!artworkRepository.exists(id)) {
             throw new ArtWorkNotFound();
         } else {
-            return artworkRepository.findOne(id);
+            ArtWork artWork = artworkRepository.findOne(id);
+            return loadResources (artWork);
         }
     }
 
@@ -57,15 +58,15 @@ public class ArtworkService {
     }
 
     public List<ArtWork> getPiecesByArtist(long id) {
-        return artworkRepository.getArtWorkByAuthor(id);
+        return loadResourcesList(artworkRepository.getArtWorkByAuthor(id));
     }
 
 
     public List<ArtWork> getPiecesByKeywords(List<String> keywords) {
 
-        return (artworkRepository.getArtWorkByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
+        return loadResourcesList((artworkRepository.getArtWorkByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
                 containsAll(keywords)).distinct()
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     private ArtWork saveResources (ArtWork piece) {
@@ -77,6 +78,27 @@ public class ArtworkService {
         }
 
         piece.setMultimedia(newMulimedia);
+        return piece;
+    }
+
+    private List<ArtWork> loadResourcesList (List<ArtWork> lst) {
+        List<ArtWork> withMultimedia = new ArrayList<>();
+
+        for(ArtWork piece : lst){
+            withMultimedia.add(loadResources(piece));
+        }
+
+        return withMultimedia;
+    }
+
+    private ArtWork loadResources (ArtWork piece) {
+        List<String> newMultimedia = new ArrayList<>();
+
+        for (String path : piece.getMultimedia()){
+            newMultimedia.add(storageService.load(path));
+        }
+
+        piece.setMultimedia(newMultimedia);
         return piece;
     }
 }
