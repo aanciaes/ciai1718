@@ -42,34 +42,10 @@ public class ArtWorkController {
         return artworkService.updatePiece(artWork);
     }
 
-    /*@RequestMapping (value = "/search", method = RequestMethod.GET)
-    public List<ArtWork> advanceSearch (@RequestParam (required = false, defaultValue = "") String searchQuery,
-                                 @RequestParam (required = false, defaultValue = "") String artist,
-                                 @RequestParam (required = false, defaultValue = "") String keywords) {
-
-        if(searchQuery.equals("") && artist.equals("") && keywords.equals("")){
-            return artworkService.getAllPieces();
-        }else {
-            if(!artist.equals("") && keywords.equals(""))
-                return searchByArtist(Long.parseLong(artist));
-            if(artist.equals("") && !keywords.equals(""))
-                return searchByKeyword(keywords);
-            if(!artist.equals("") && !keywords.equals(""))
-                return artworkService.searchByArtistAndKeywords (Long.parseLong(artist), keywords);
-            return artworkService.searchByAll (searchQuery);
-        }
-    }*/
 
     @RequestMapping(value = "/artist/{id}/list", method = RequestMethod.GET)
     public List<ArtWork> listByArtist (@PathVariable long id) {
         return  artworkService.getPiecesByArtist(id);
-    }
-
-    @RequestMapping(value = "/search/keywords", method = RequestMethod.GET)
-    public List<ArtWork> searchByKeyword (@RequestParam String keywords) {
-        List<String> keywordsAsList = Arrays.asList(keywords.split("\\s"));
-
-        return artworkService.getPiecesByKeywords(keywordsAsList);
     }
 
     @RequestMapping(value = "/{pieceId}/sell", method = RequestMethod.PUT)
