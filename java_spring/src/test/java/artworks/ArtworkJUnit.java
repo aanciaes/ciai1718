@@ -146,7 +146,7 @@ public class ArtworkJUnit {
         ResponseEntity thirdRes = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
         assert thirdRes.getStatusCodeValue() == 200;
 
-        ResponseEntity listPiecesRes = restTemplate.exchange("/artwork/search/artist/" + 1l, HttpMethod.GET, HttpEntity.EMPTY, String.class);
+        ResponseEntity listPiecesRes = restTemplate.exchange("/artwork/artist/" + 1l + "/list", HttpMethod.GET, HttpEntity.EMPTY, String.class);
         assert listPiecesRes.getStatusCodeValue() == 200;
 
         JSONArray jsonArray = new JSONArray((String)listPiecesRes.getBody());
@@ -222,5 +222,31 @@ public class ArtworkJUnit {
 
         assert artwork.isOnSale() == false && modifiedArtWork.isOnSale()==true;
         assert modifiedArtWork.getPrice() == price;
+    }
+
+    @Test
+    public void deleteArtwork() {
+        ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
+                new ArrayList<String>(), "description",
+                new ArrayList<>(),
+                new ArrayList<>(), 1l, false, 0);
+        artwork.setId(artworkRepository.save(artwork).getId());
+
+        ResponseEntity getRes = restTemplate.exchange("/artwork/" + artwork.getId(), HttpMethod.GET, HttpEntity.EMPTY, ArtWork.class);
+        assert getRes.getStatusCodeValue() == 200;
+
+        ArtWork updatedArtwork = (ArtWork) getRes.getBody();
+        assert updatedArtwork.getId() == artwork.getId();
+        assert updatedArtwork.getName().equals(artwork.getName());
+
+        ResponseEntity deleteRes = restTemplate.exchange("/artwork/" + artwork.getId(), HttpMethod.DELETE, HttpEntity.EMPTY, ArtWork.class);
+        assert deleteRes.getStatusCodeValue() == 200;
+
+        ResponseEntity getDelRes = restTemplate.exchange("/artwork/" + artwork.getId(), HttpMethod.GET, HttpEntity.EMPTY, ArtWork.class);
+        assert getDelRes.getStatusCodeValue() == 404;
+
+        ResponseEntity listRes = restTemplate.exchange("/artwork", HttpMethod.GET, HttpEntity.EMPTY, List.class);
+        assert listRes.getStatusCodeValue() == 200;
+        assert ((List) listRes.getBody()).isEmpty();
     }
 }
