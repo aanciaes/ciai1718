@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import $ from 'jquery';
 
-import {Route, withRouter} from 'react-router-dom'
+import {Route, withRouter, Redirect} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -28,15 +28,7 @@ function LoadingControl(props) {
     }
     return null;
 }
-function ajaxCalls(params) {
-    params['BeforeSend'] = function () {
-        return <LoadingControl loading={true}/>;
-    };
-    params['complete'] = function () {
-        return <LoadingControl loading={false}/>;
-    };
-    $.ajax(params);
-}
+
 
 
 function LandingPageControl(props) {
@@ -152,6 +144,7 @@ class App extends Component {
                 <img id="body_img" src="imgs/body/body.jpg"/>
                 <div className="container">
 
+
                     <Route path="/" render={() => {
                         return (
                             <LandingPageControl landingPageMode={this.state.landingPageMode}
@@ -169,6 +162,8 @@ class App extends Component {
                                                   updateUser={this.updateUser} getCopyState={this.getCopyState}/>
                         );
                     }}/>
+
+
 
 
                 </div>

@@ -1,7 +1,7 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import React, {Component} from 'react';
+import React from 'react';
 import {Route, Link} from 'react-router-dom'
 import './landingPage.css';
 import PublicGallery from '../publicGallery/publicGallery';

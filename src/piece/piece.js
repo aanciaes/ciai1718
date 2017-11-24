@@ -1,10 +1,54 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import React, {Component} from 'react';
+import React from 'react';
 
 import './piece.css';
 
+
+class PieceArtista extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="col-md-2 col-xs-12">
+                    <div>
+                        <button className="btn btn-primary">Editar</button>
+                    </div>
+                </div>
+                <div className="col-md-10 col-xs-12"></div>
+            </div>
+        )
+    }
+
+}
+
+class PieceBasico extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+    }
+
+    render() {
+        return (
+            <div>
+                <div className="col-md-2 col-xs-12">
+                    <div>
+                        <button className="btn btn-primary">Bids</button>
+                    </div>
+                </div>
+                <div className="col-md-10 col-xs-12"></div>
+            </div>
+        )
+    }
+
+}
 
 class PieceDetail extends React.Component {
 
@@ -66,10 +110,15 @@ class PieceDetail extends React.Component {
 
 
 class Piece extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div>
                 <PieceDetail/>
+                {this.props.user !== undefined && this.props.user.type == 1 ? <PieceArtista/> : <PieceBasico/>}
             </div>
         );
     }

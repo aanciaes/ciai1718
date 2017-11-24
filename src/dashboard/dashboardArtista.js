@@ -2,12 +2,12 @@
  * Created by Tecnico on 09/11/2017.
  */
 import {withRouter} from 'react-router-dom'
-import React, {Component} from 'react';
+import React from 'react';
 import './dashboard.css';
 import $ from 'jquery';
+import Config from '../config/config';
 
-const url = "http://localhost:8080/";
-
+const url= Config.url;
 
 const PieceItem = ({piece}) =>
     <div>
@@ -15,7 +15,7 @@ const PieceItem = ({piece}) =>
         <div>Técnicas: {piece.techniques}</div>
         <div>Descrição: {piece.description}</div>
         <div>Keywords: {piece.keywords.join(',')}</div>
-        <div>Multimedia : {piece.multimedia}</div>
+        <div>Multimedia : <img src={piece.multimedia}/></div>
     </div>;
 
 
@@ -71,10 +71,10 @@ class CriarPeca extends React.Component {
         this.state = {
             name: "",
             dateOfCreation: "",
-            techniques: "",
+            techniques: [],
             description: "",
             keywords: [],
-            multimedia: ""
+            multimedia: []
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -94,20 +94,12 @@ class CriarPeca extends React.Component {
                 });
                 s[target.name] = k;
             }
-        } else {
-            if (target.name == 'multimedia') {
-                let file = target.files[0];
-                let fr = new FileReader();
-                fr.onload = function () {
-                    s[target.name] = fr.result;
-                };
-                fr.readAsDataURL(file);
-
-            }
-            else
-                s[target.name] = target.value;
-
         }
+        else if (target.name == 'multimedia') {
+            s[target.name].push(target.value);
+        }
+        else
+            s[target.name] = target.value;
 
 
         this.setState(s);
@@ -152,7 +144,7 @@ class CriarPeca extends React.Component {
                         </div>
                         <div className="form-group">
                             <label>Multimedia</label>
-                            <input type="file" name="multimedia" className="form-control" onChange={this.handleChange}/>
+                            <input type="url" name="multimedia" className="form-control" onChange={this.handleChange}/>
                         </div>
                         <div>
                             <button type="submit" className="btn btn-primary">Criar</button>
@@ -298,7 +290,6 @@ class DashboardArtista extends React.Component {
     createPiece(p) {
         let s = this.getInitialState();
         p['author'] = this.props.user.id;
-        p['multimedia'] = null;
         s.piecelist = true;
 
         let t = this;

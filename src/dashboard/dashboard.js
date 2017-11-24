@@ -146,7 +146,7 @@ function GalleryControl(props) {
 
 function PieceControl(props) {
     if (props.piecemode) {
-        return (<Piece/>);
+        return (<Piece user={props.user}/>);
     }
     return null;
 }
@@ -228,7 +228,7 @@ class Dashboard extends React.Component {
                 <div className="content_wmenu">
                     <GalleryControl gallery={s.gallery}/>
                     <UserControl usermode={s.usermode} user={user} updateUser={args.updateUser}/>
-                    <PieceControl piecemode={s.piecemode}/>
+                    <PieceControl piecemode={s.piecemode} user ={user}/>
                 </div>
 
             </div>
