@@ -2,6 +2,7 @@ package unl.fct.artbiz.artwork.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.provider.certpath.OCSPResponse;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.exceptions.DuplicateIdArtwork;
 import unl.fct.artbiz.artwork.model.ArtWork;
@@ -62,5 +63,11 @@ public class ArtworkService {
         return (artworkRepository.getArtWorkByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
                 containsAll(keywords)).distinct()
                 .collect(Collectors.toList());
+    }
+
+    public void deletePiece(long pieceId) {
+        if(!artworkRepository.exists(pieceId))
+            throw new ArtWorkNotFound();
+        artworkRepository.delete(pieceId);
     }
 }

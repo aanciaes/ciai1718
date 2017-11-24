@@ -68,4 +68,11 @@ public class ArtWorkController {
         artWork.setOnSale(false);
         return artworkService.updatePiece(artWork).isOnSale();
     }
+
+    @RequestMapping (value = "/{pieceId}", method = RequestMethod.DELETE)
+    public void deletePiece (@PathVariable long pieceId) {
+        artworkService.deletePiece(pieceId);
+    }
+
+
 }

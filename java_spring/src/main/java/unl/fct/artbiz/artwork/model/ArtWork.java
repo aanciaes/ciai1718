@@ -1,5 +1,7 @@
 package unl.fct.artbiz.artwork.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.List;
 
