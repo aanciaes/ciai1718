@@ -10,10 +10,10 @@ public interface ArtworkRepository extends CrudRepository<ArtWork, Long> {
 
     List<ArtWork> findAll ();
 
-    List<ArtWork> getArtWorkByOnSale (boolean onSale);
+    List<ArtWork> getArtWorksByOnSale (boolean onSale);
 
-    List<ArtWork> getArtWorkByAuthor (long artistId);
+    List<ArtWork> getArtWorksByAuthor (long artistId);
 
-    List<ArtWork> getArtWorkByKeywordsIsIn (List<String> keywords);
+    List<ArtWork> getArtWorksByKeywordsIsIn (List<String> keywords);
 
 }

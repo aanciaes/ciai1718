@@ -26,7 +26,7 @@ public class ArtworkService {
     }
 
     public List<ArtWork> getPiecesOnSalePieces() {
-        return artworkRepository.getArtWorkByOnSale(true);
+        return artworkRepository.getArtWorksByOnSale(true);
     }
 
     public ArtWork findById(long id) {
@@ -54,13 +54,13 @@ public class ArtworkService {
     }
 
     public List<ArtWork> getPiecesByArtist(long id) {
-        return artworkRepository.getArtWorkByAuthor(id);
+        return artworkRepository.getArtWorksByAuthor(id);
     }
 
 
     public List<ArtWork> getPiecesByKeywords(List<String> keywords) {
 
-        return (artworkRepository.getArtWorkByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
+        return (artworkRepository.getArtWorksByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
                 containsAll(keywords)).distinct()
                 .collect(Collectors.toList());
     }
@@ -70,4 +70,8 @@ public class ArtworkService {
             throw new ArtWorkNotFound();
         artworkRepository.delete(pieceId);
     }
+
+    /*public List<ArtWork> searchByArtistAndKeywords(long l, String keywords) {
+        return artworkRepository.
+    }*/
 }

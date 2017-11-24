@@ -42,8 +42,26 @@ public class ArtWorkController {
         return artworkService.updatePiece(artWork);
     }
 
-    @RequestMapping(value = "/search/artist/{id}", method = RequestMethod.GET)
-    public List<ArtWork> searchByArtist (@PathVariable long id) {
+    /*@RequestMapping (value = "/search", method = RequestMethod.GET)
+    public List<ArtWork> advanceSearch (@RequestParam (required = false, defaultValue = "") String searchQuery,
+                                 @RequestParam (required = false, defaultValue = "") String artist,
+                                 @RequestParam (required = false, defaultValue = "") String keywords) {
+
+        if(searchQuery.equals("") && artist.equals("") && keywords.equals("")){
+            return artworkService.getAllPieces();
+        }else {
+            if(!artist.equals("") && keywords.equals(""))
+                return searchByArtist(Long.parseLong(artist));
+            if(artist.equals("") && !keywords.equals(""))
+                return searchByKeyword(keywords);
+            if(!artist.equals("") && !keywords.equals(""))
+                return artworkService.searchByArtistAndKeywords (Long.parseLong(artist), keywords);
+            return artworkService.searchByAll (searchQuery);
+        }
+    }*/
+
+    @RequestMapping(value = "/artist/{id}/list", method = RequestMethod.GET)
+    public List<ArtWork> listByArtist (@PathVariable long id) {
         return  artworkService.getPiecesByArtist(id);
     }
 
@@ -73,6 +91,4 @@ public class ArtWorkController {
     public void deletePiece (@PathVariable long pieceId) {
         artworkService.deletePiece(pieceId);
     }
-
-
 }
