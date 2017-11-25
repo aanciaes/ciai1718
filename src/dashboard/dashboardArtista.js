@@ -1,13 +1,13 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import {withRouter} from 'react-router-dom'
+import {withRouter,Link} from 'react-router-dom'
 import React from 'react';
 import './dashboard.css';
 import $ from 'jquery';
 import Config from '../config/config';
 
-const url= Config.url;
+const url = Config.url;
 
 const PieceItem = ({piece}) =>
     <div>
@@ -170,14 +170,12 @@ class MenuAsideArtista extends React.Component {
     }
 
     updateCreatePiece() {
-
         this.props.updateCreatePiece(true);
     }
 
     updatePieceList() {
         this.props.updatePieceList(true);
     }
-
     updateGallery() {
         this.props.updateGallery();
     }
@@ -353,7 +351,9 @@ class DashboardArtista extends React.Component {
 
                 <MenuAsideArtista resetDashboard={this.props.resetDashboard}
                                   updateGallery={this.updateGallery}
-                                  updateCreatePiece={this.updateCreatePiece} updatePieceList={this.updatePieceList}/>
+                                  updateCreatePiece={this.updateCreatePiece} updatePieceList={this.updatePieceList}
+                                  route={this.props.route}/>
+
 
             </div>
         );

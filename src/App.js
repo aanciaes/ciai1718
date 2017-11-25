@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import './App.css';
 import $ from 'jquery';
 
-import {Route, withRouter, Redirect} from 'react-router-dom'
+import {Route, withRouter} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
+import PublicGallery from './publicGallery/publicGallery';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 window.jQuery = $;
@@ -14,35 +15,9 @@ const bootstrap = require('bootstrap');
 var Typeahead = require('react-bootstrap-typeahead').Typeahead;
 
 
-const Loading = ()=>
-    <div>
-        <div className="loading_screen">
-            <i className="fa fa-cog fa-spin"></i>
-        </div>
-    </div>;
-
-
-function LoadingControl(props) {
-    if (props.loading == true) {
-        return (<Loading/>);
-    }
-    return null;
-}
-
-
-
-function LandingPageControl(props) {
-    if (props.landingPageMode) {
-        return (<LandingPage loginUser={props.loginUser} addUser={props.addUser}/>)
-    }
-    return null;
-}
-
-function DashboardPageControl(props) {
-    if (!props.landingPageMode) {
-        return ( <Dashboard user_id={props.user_id} users={props.users}
-                            logoutUser={props.logoutUser}
-                            updateUser={props.updateUser} getCopyState={props.getCopyState}/>)
+function GalleryControl(props) {
+    if (props.galleryMode) {
+        return (<PublicGallery/>)
     }
     return null;
 }
@@ -54,25 +29,30 @@ class App extends Component {
         super(props);
         this.state = {
             loggedIn: false,
-            users: [{
-                "id": "0",
-                "name": "teste",
-                "email": "tiago_espirito_santo@hotmail.com",
-                "password": "1",
-                "type": "1"
-            }],
-            user_id: "0",
-            landingPageMode: true
+            users: [],
+            user_id: "",
+            landingPageMode: true,
+            galleryMode: true
         };
         this.getCopyState = this.getCopyState.bind(this);
         this.loginUser = this.loginUser.bind(this);
         this.logoutUser = this.logoutUser.bind(this);
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
-
-
+        this.updateGallery = this.updateGallery.bind(this);
+        this.getUsers();
     }
 
+
+    getUsers() {
+        let that = this;
+        $.getJSON('jsonSchemas/data/Users.json', function (data) {
+            let stateCopy = that.getCopyState(that.state);
+            stateCopy.users = data;
+            console.log(data);
+            that.setState(stateCopy);
+        });
+    }
 
     getCopyState(state) {
         return Object.assign({}, state);
@@ -133,6 +113,11 @@ class App extends Component {
         return true;
     }
 
+    updateGallery(g) {
+        let stateCopy = this.getCopyState(this.state);
+        stateCopy.galleryMode = g;
+        this.setState(stateCopy);
+    }
 
     render() {
 
@@ -141,29 +126,28 @@ class App extends Component {
 
 
             <div className="App">
-                <img id="body_img" src="imgs/body/body.jpg"/>
                 <div className="container">
-
+                    <img id="body_img" src="imgs/body/body.jpg"/>
 
                     <Route path="/" render={() => {
                         return (
-                            <LandingPageControl landingPageMode={this.state.landingPageMode}
-                                                loginUser={this.loginUser}
-                                                addUser={this.addUser}/>)
+                            <LandingPage loginUser={this.loginUser} addUser={this.addUser}
+                                         updateGallery={this.updateGallery}/>
+                        )
                     }
 
                     }/>
 
                     <Route path="/dashboard" render={() => {
                         return (
-                            <DashboardPageControl landingPageMode={this.state.landingPageMode}
-                                                  user_id={this.state.user_id} users={this.state.users}
-                                                  logoutUser={this.logoutUser}
-                                                  updateUser={this.updateUser} getCopyState={this.getCopyState}/>
+                            <Dashboard user_id={this.state.user_id} users={this.state.users}
+                                       logoutUser={this.logoutUser}
+                                       updateUser={this.updateUser} getCopyState={this.getCopyState}
+                                       updateGallery={this.updateGallery}/>
                         );
                     }}/>
 
-
+                    <GalleryControl galleryMode={this.state.galleryMode}/>
 
 
                 </div>

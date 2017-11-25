@@ -146,7 +146,7 @@ function GalleryControl(props) {
 
 function PieceControl(props) {
     if (props.piecemode) {
-        return (<Piece user={props.user}/>);
+        return (<Piece/>);
     }
     return null;
 }

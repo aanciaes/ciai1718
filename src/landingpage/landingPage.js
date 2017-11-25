@@ -212,13 +212,6 @@ function LoginControl(props) {
     return null;
 }
 
-function GalleryControl(props) {
-    if (props.gallery) {
-        return (<PublicGallery/>);
-    }
-    return null;
-}
-
 
 class MenuComponent extends React.Component {
     constructor(props) {
@@ -229,11 +222,15 @@ class MenuComponent extends React.Component {
     }
 
     registerMode() {
+        this.props.updateGallery(false);
         this.props.updateRegister(true);
+
     }
 
     loginMode() {
+        this.props.updateGallery(false);
         this.props.updateLogin(true);
+
     }
 
     galleryMode() {
@@ -290,7 +287,6 @@ class LandingPage extends React.Component {
             added: false,
             register: false,
             login: false,
-            gallery: true,
             error: false
         };
         this.getInitialState = this.getInitialState.bind(this);
@@ -329,7 +325,8 @@ class LandingPage extends React.Component {
 
     updateGallery(r) {
         let s = this.getInitialState();
-        s.gallery = r;
+
+        this.props.updateGallery(r);
         this.setState(s);
     }
 
@@ -365,13 +362,12 @@ class LandingPage extends React.Component {
 
         return (
             <div>
-                <MenuComponent updateRegister={this.updateRegister} updateLogin={this.updateLogin}
+                <MenuComponent route={this.props.route} updateRegister={this.updateRegister}
+                               updateLogin={this.updateLogin}
                                updateGallery={this.updateGallery}/>
-
 
                 <RegisterControl added={s.added} register={s.register} addUser={this.addUser}/>
                 <LoginControl error={s.error} login={s.login} loginUser={this.loginUser}/>
-                <GalleryControl gallery={s.gallery}/>
 
 
             </div>
