@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,24 +15,66 @@ public class SearchService {
     @Autowired
     ArtworkRepository artworkRepository;
 
-    public List<ArtWork> getPiecesByKeywords(List<String> keywords) {
+    public List<ArtWork> getAll () {
+        return artworkRepository.findAll();
+    }
 
-        return (artworkRepository.getArtWorksByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
-                containsAll(keywords)).distinct()
+    public List<ArtWork> searchByKeywords(String keywords) {
+        List<String> keywordsAsList = Arrays.asList(keywords.split("\\s"));
+
+        return (artworkRepository.getArtWorksByKeywordsIsIn(keywordsAsList))
+                .stream().filter(artWork -> artWork.getKeywords().
+                containsAll(keywordsAsList)).distinct()
                 .collect(Collectors.toList());
     }
 
-    public List<ArtWork> searchByArtist(String artist) {
+    public List<ArtWork> searchByArtists(String artists) {
+        List<String> artistsAsList = Arrays.asList(artists.split("\\s"));
+        System.out.println("Search by artists");
+        for (String x : artistsAsList){
+            System.out.println("Query: " + x);
+        }
+
         return artworkRepository.findAll().stream()
-                .filter(artWork -> artWork.getAuthorObject().getName().toLowerCase()
-                        .contains(artist.toLowerCase()))
+                .filter(artWork ->  {
+                    for (String query : artistsAsList) {
+                        if (artWork.getAuthorObject().getName().toLowerCase().contains(query.toLowerCase()))
+                            return true;
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
+    }
+
+    public List<ArtWork> searchByInDescription (String query) {
+        List<String> queryAsList = Arrays.asList(query.split("\\s"));
+
+        return (artworkRepository.findAll())
+                .stream().filter(artWork -> {
+                    for (String queryWord : queryAsList){
+                        if(artWork.getDescription().contains(queryWord))
+                            return true;
+                    }
+                    return false;
+                }).distinct()
                 .collect(Collectors.toList());
     }
 
     public List<ArtWork> searchByAll(String searchQuery) {
-        List<String> keywordsAsList = Arrays.asList(searchQuery.split("\\s"));
+        List<String> queryWords = Arrays.asList(searchQuery.split("\\s"));
 
-        //TODO: Complete
-        return new ArrayList<>();
+        List<ArtWork> result = searchByArtists(searchQuery);
+        result.addAll(searchByKeywords(searchQuery));
+        result.addAll(searchByInDescription(searchQuery));
+
+        return result;
+    }
+
+    public List<ArtWork> searchByArtistsAndKeywords(String artist, String keywords) {
+
+        List<ArtWork> result = searchByArtists(artist);
+        result.retainAll(searchByKeywords(keywords));
+
+        return result;
     }
 }

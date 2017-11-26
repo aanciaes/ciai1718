@@ -1,5 +1,6 @@
 package unl.fct.artbiz.artwork.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import unl.fct.artbiz.users.model.User;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class ArtWork {
 
     private Long author;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "author", insertable = false, updatable = false)
     private User authorObject;
