@@ -42,7 +42,6 @@ public class ArtWorkController {
         return artworkService.updatePiece(artWork);
     }
 
-
     @RequestMapping(value = "/artist/{id}/list", method = RequestMethod.GET)
     public List<ArtWork> listByArtist (@PathVariable long id) {
         return  artworkService.getPiecesByArtist(id);

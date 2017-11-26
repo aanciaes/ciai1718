@@ -58,20 +58,9 @@ public class ArtworkService {
     }
 
 
-    public List<ArtWork> getPiecesByKeywords(List<String> keywords) {
-
-        return (artworkRepository.getArtWorksByKeywordsIsIn(keywords)).stream().filter(artWork -> artWork.getKeywords().
-                containsAll(keywords)).distinct()
-                .collect(Collectors.toList());
-    }
-
     public void deletePiece(long pieceId) {
         if(!artworkRepository.exists(pieceId))
             throw new ArtWorkNotFound();
         artworkRepository.delete(pieceId);
     }
-
-    /*public List<ArtWork> searchByArtistAndKeywords(long l, String keywords) {
-        return artworkRepository.
-    }*/
 }

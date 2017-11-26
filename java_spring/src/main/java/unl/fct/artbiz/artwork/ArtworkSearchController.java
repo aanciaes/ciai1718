@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.services.ArtworkService;
+import unl.fct.artbiz.artwork.services.SearchService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +17,7 @@ public class ArtworkSearchController {
 
 
     @Autowired
-    ArtworkService artworkService;
+    SearchService searchService;
 
     /*@RequestMapping (value = "/search", method = RequestMethod.GET)
     public List<ArtWork> advanceSearch (@RequestParam (required = false, defaultValue = "") String searchQuery,
@@ -40,7 +42,12 @@ public class ArtworkSearchController {
     public List<ArtWork> searchByKeyword (@RequestParam String keywords) {
         List<String> keywordsAsList = Arrays.asList(keywords.split("\\s"));
 
-        return artworkService.getPiecesByKeywords(keywordsAsList);
+        return searchService.getPiecesByKeywords(keywordsAsList);
+    }
+
+    @RequestMapping (value = "/artist", method = RequestMethod.GET)
+    public List<ArtWork> searchByArtist (@RequestParam String artist) {
+        return searchService.searchByArtist (artist);
     }
 
 }

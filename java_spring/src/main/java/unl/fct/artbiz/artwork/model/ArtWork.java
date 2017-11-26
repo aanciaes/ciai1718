@@ -133,6 +133,10 @@ public class ArtWork {
         this.price = price;
     }
 
+    public User getAuthorObject() {
+        return authorObject;
+    }
+
     @Override
     public boolean equals (Object object) {
         if(!(object instanceof ArtWork))
