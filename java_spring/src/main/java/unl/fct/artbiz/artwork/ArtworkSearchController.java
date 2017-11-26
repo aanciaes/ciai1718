@@ -2,10 +2,12 @@ package unl.fct.artbiz.artwork;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.services.ArtworkService;
 import unl.fct.artbiz.artwork.services.SearchService;
 
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +21,8 @@ public class ArtworkSearchController {
     @Autowired
     SearchService searchService;
 
-    /*@RequestMapping (value = "/search", method = RequestMethod.GET)
+    /* //TODO: Complete
+    @RequestMapping (method = RequestMethod.GET)
     public List<ArtWork> advanceSearch (@RequestParam (required = false, defaultValue = "") String searchQuery,
                                  @RequestParam (required = false, defaultValue = "") String artist,
                                  @RequestParam (required = false, defaultValue = "") String keywords) {
@@ -28,12 +31,12 @@ public class ArtworkSearchController {
             return artworkService.getAllPieces();
         }else {
             if(!artist.equals("") && keywords.equals(""))
-                return searchByArtist(Long.parseLong(artist));
+                return searchByArtist(artist);
             if(artist.equals("") && !keywords.equals(""))
                 return searchByKeyword(keywords);
             if(!artist.equals("") && !keywords.equals(""))
-                return artworkService.searchByArtistAndKeywords (Long.parseLong(artist), keywords);
-            return artworkService.searchByAll (searchQuery);
+                return searchService.searchByArtistAndKeywords (artist, keywords);
+            return searchService.searchByAll (searchQuery);
         }
     }*/
 

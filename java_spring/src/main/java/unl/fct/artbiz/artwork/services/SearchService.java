@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,15 @@ public class SearchService {
 
     public List<ArtWork> searchByArtist(String artist) {
         return artworkRepository.findAll().stream()
-                .filter(artWork -> artWork.getAuthorObject().getName().contains(artist))
+                .filter(artWork -> artWork.getAuthorObject().getName().toLowerCase()
+                        .contains(artist.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public List<ArtWork> searchByAll(String searchQuery) {
+        List<String> keywordsAsList = Arrays.asList(searchQuery.split("\\s"));
+
+        //TODO: Complete
+        return new ArrayList<>();
     }
 }
