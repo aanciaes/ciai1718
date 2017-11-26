@@ -13,7 +13,7 @@ public class User {
 
     private String name;
     private String email;
-    private String encPassword;
+    private String password;
 
     @Min(0)
     @Max(1)
@@ -22,10 +22,10 @@ public class User {
     public User() {
     }
 
-    public User(String name, String email, String encPassword, int accountType) {
+    public User(String name, String email, String password, int accountType) {
         this.name = name;
         this.email = email;
-        this.encPassword = encPassword;
+        this.password = password;
         this.accountType = accountType;
     }
 
@@ -53,12 +53,12 @@ public class User {
         this.email = email;
     }
 
-    public String getEncPassword() {
-        return encPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEncPassword(String encPassword) {
-        this.encPassword = encPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getAccountType() {

@@ -68,7 +68,4 @@ public class UsersJUnit {
         assert responseUser.getName().equals(user.getName());
         assert responseUser.getEmail().equals(user.getEmail());
     }
-
-
-
 }
