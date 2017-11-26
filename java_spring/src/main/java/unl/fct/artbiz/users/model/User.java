@@ -1,5 +1,7 @@
 package unl.fct.artbiz.users.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -19,6 +21,20 @@ public class User {
     @Max(1)
     private int accountType;
 
+    //Security
+    @JsonIgnore
+    private boolean isLocked;
+
+    @JsonIgnore
+    private boolean isExpired;
+
+    @JsonIgnore
+    private boolean isEnable;
+
+    @JsonIgnore
+    private boolean credentialsExpired;
+    //
+
     public User() {
     }
 
@@ -27,6 +43,10 @@ public class User {
         this.email = email;
         this.password = password;
         this.accountType = accountType;
+        this.isLocked = false;
+        this.isExpired = false;
+        this.isEnable = true;
+        this.credentialsExpired = false;
     }
 
     public Long getId() {
@@ -68,4 +88,39 @@ public class User {
     public void setAccountType(int accountType) {
         this.accountType = accountType;
     }
+
+    //Security
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
+
+    public boolean isExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(boolean expired) {
+        isExpired = expired;
+    }
+
+    public boolean isEnable() {
+        return isEnable;
+    }
+
+    public void setEnable(boolean enable) {
+        isEnable = enable;
+    }
+
+    public boolean areCredentialsExpired() {
+        return credentialsExpired;
+    }
+
+    public void areCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
+    }
+
+    //
 }
