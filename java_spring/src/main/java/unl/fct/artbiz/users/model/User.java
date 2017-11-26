@@ -1,6 +1,8 @@
 package unl.fct.artbiz.users.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 @Entity
 public class User {
@@ -12,6 +14,9 @@ public class User {
     private String name;
     private String email;
     private String encPassword;
+
+    @Min(0)
+    @Max(1)
     private int accountType;
 
     public User() {
