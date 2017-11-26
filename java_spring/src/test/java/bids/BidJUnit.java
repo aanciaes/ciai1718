@@ -16,6 +16,8 @@ import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.services.BidService;
+import unl.fct.artbiz.users.model.User;
+import unl.fct.artbiz.users.model.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +36,12 @@ public class BidJUnit {
     @Autowired
     BidService bidService;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Before
     public void setUp() {
-        createFakeArtwork();
+        createFakeEnvironment();
     }
 
     @Test
@@ -161,7 +166,7 @@ public class BidJUnit {
 
     @Test
     public void deleteBid () {
-        Bid bid = new Bid(1l, 2l, 200);
+        Bid bid = new Bid(1l, 1l, 200);
 
         HttpEntity entity = new HttpEntity(bid);
         ResponseEntity res = restTemplate.exchange("/bid", HttpMethod.POST, entity, Bid.class);
@@ -178,7 +183,10 @@ public class BidJUnit {
 
 
 
-    private void createFakeArtwork () {
+    private void createFakeEnvironment () {
+        for (int i=0; i<2; i++)
+            userRepository.save(new User());
+
         ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
@@ -194,7 +202,5 @@ public class BidJUnit {
         artworkRepository.save(artwork);
         artworkRepository.save(artwork2);
         artworkRepository.save(artwork3);
-
-        System.out.println(artworkRepository.findOne(1l));
     }
 }

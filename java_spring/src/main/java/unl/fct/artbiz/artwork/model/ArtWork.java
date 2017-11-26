@@ -1,6 +1,6 @@
 package unl.fct.artbiz.artwork.model;
 
-import org.hibernate.annotations.Cascade;
+import unl.fct.artbiz.users.model.User;
 
 import javax.persistence.*;
 import java.util.List;
@@ -26,7 +26,12 @@ public class ArtWork {
     @ElementCollection
     private List<String> multimedia;
 
-    private long author;
+    private Long author;
+
+    @ManyToOne
+    @JoinColumn(name = "author", insertable = false, updatable = false)
+    private User authorObject;
+
     private boolean onSale;
     private double price;
 

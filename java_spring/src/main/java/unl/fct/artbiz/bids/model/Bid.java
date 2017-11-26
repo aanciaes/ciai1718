@@ -1,9 +1,9 @@
 package unl.fct.artbiz.bids.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import unl.fct.artbiz.artwork.model.ArtWork;
+import unl.fct.artbiz.users.model.User;
+
+import javax.persistence.*;
 
 @Entity
 public class Bid {
@@ -14,7 +14,15 @@ public class Bid {
 
     private long pieceId;
 
-    private long userId;
+    @ManyToOne
+    @JoinColumn(name = "peiceId", insertable = false, updatable = false)
+    private ArtWork artWorkObject;
+
+    private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    private User authorObject;
 
     private double bidAmount;
 

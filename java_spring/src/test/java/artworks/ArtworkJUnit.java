@@ -12,10 +12,13 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import unl.fct.artbiz.Application;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
+import unl.fct.artbiz.users.model.User;
+import unl.fct.artbiz.users.model.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +26,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class ArtworkJUnit {
 
     @Autowired
@@ -31,9 +35,13 @@ public class ArtworkJUnit {
     @Autowired
     ArtworkRepository artworkRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Before
     public void setUp() {
-        artworkRepository.deleteAll();
+        for(int i = 0; i<2; i++)
+            userRepository.save(new User("User" + 1, "user@mail.com", "qwerty", 0));
     }
 
     @Test
@@ -48,7 +56,7 @@ public class ArtworkJUnit {
         ArtWork artwork = new ArtWork("FakeArtwork", "1995-07-27",
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
-                new ArrayList<>(), 1l, false, 0);
+                new ArrayList<>(), 1, false, 0);
 
         HttpEntity<ArtWork> entity = new HttpEntity(artwork);
         ResponseEntity res = restTemplate.exchange("/artwork", HttpMethod.POST, entity, ArtWork.class);
