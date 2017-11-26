@@ -1,7 +1,7 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import {withRouter} from 'react-router-dom'
+import {Route, withRouter, Link} from 'react-router-dom'
 
 import React, {Component} from 'react';
 import User from './user';
@@ -107,11 +107,11 @@ class MenuDash extends React.Component {
                                             {this.props.user.name}</a>
                                         <ul className="dropdown-menu dropdown-block" role="menu">
                                             <li>
-                                                <a onClick={this.updateUserMode}>
+                                                <Link to={"/dashboard/user"}>
                                                     <div>
                                                         <i className="fa fa-user"></i> Perfil
                                                     </div>
-                                                </a>
+                                                </Link>
                                             </li>
                                             <li>
                                                 <a onClick={this.logout}>
@@ -136,99 +136,42 @@ class MenuDash extends React.Component {
 
 }
 
-
-function GalleryControl(props) {
-    if (props.gallery) {
-        return (<PublicGallery/>);
-    }
-    return null;
-}
-
-function PieceControl(props) {
-    if (props.piecemode) {
-        return (<Piece/>);
-    }
-    return null;
-}
-
-function UserControl(props) {
-    if (props.usermode) {
-        return (<User user={props.user} updateUser={props.updateUser}/>)
-    }
-    return null;
-}
-
 class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            usermode: false,
-            gallery: true,
-            piecemode: false
-        };
-
-        this.getInitialState = this.getInitialState.bind(this);
-        this.updateUserMode = this.updateUserMode.bind(this);
-        this.updateGallery = this.updateGallery.bind(this);
-        this.updatePieceMode = this.updatePieceMode.bind(this);
-        this.resetDashboard = this.resetDashboard.bind(this);
-
     }
-
-
-    getInitialState() {
-        return {
-            usermode: false,
-            gallery: false,
-            piecemode: false
-        };
-    }
-
-    resetDashboard() {
-        this.setState(this.getInitialState());
-    }
-
-    updateGallery(r) {
-        let s = this.getInitialState();
-        s.gallery = r;
-        this.setState(s);
-    }
-
-    updatePieceMode(r) {
-        let s = this.getInitialState();
-        s.piecemode = r;
-        this.setState(s);
-    }
-
-    updateUserMode(u) {
-        let s = this.getInitialState();
-        s.usermode = u;
-        this.setState(s);
-
-    }
-
 
     render() {
 
         const user = this.props.users[this.props.user_id];
-        const s = this.state;
         const args = this.props;
         return (
             <div>
                 <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
                 {user.type == 1 ?
-                    <DashboardArtista gallery={s.gallery} usermode={s.usermode} piecemode={s.piecemode} updateGallery={this.updateGallery}
-                                      resetDashboard={this.resetDashboard}
-                                      user={user} updatePieceMode={this.updatePieceMode}/> :
-                    <DashboardBasico usermode={s.usermode} gallery={s.gallery} piecemode={s.piecemode} resetDashboard={this.resetDashboard}
-                                     updateGallery={this.updateGallery} updatePieceMode={this.updatePieceMode}/> }
-
+                    <DashboardArtista
+                        user={user}/> :
+                    <DashboardBasico/> }
 
                 <div className="content_wmenu">
-                    <GalleryControl gallery={s.gallery}/>
-                    <UserControl usermode={s.usermode} user={user} updateUser={args.updateUser}/>
-                    <PieceControl piecemode={s.piecemode} user ={user}/>
+                    <Route path="/dashboard/user" exact={true} render={() => {
+                        return (
+                            <User user={user} updateUser={args.updateUser}/>
+                        );
+                    }}/>
+
+                    <Route path="/dashboard/gallery" exact={true} render={() => {
+                        return (
+                            <PublicGallery user={user}/>
+                        );
+                    }}/>
+
+                    <Route path="/dashboard/pieces/:id" exact={true} render={({match}) => {
+                        return (
+                            <Piece piece_id={match.params.id}/>
+                        );
+                    }}/>
                 </div>
 
             </div>

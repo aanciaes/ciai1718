@@ -6,6 +6,7 @@ import {Route, withRouter} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import PublicGallery from './publicGallery/publicGallery';
+import Piece from './piece/piece';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 window.jQuery = $;
@@ -32,14 +33,15 @@ class App extends Component {
             users: [],
             user_id: "",
             landingPageMode: true,
-            galleryMode: true
+            galleryMode: true,
+            piecemode: false,
+            piece_id: -1
         };
         this.getCopyState = this.getCopyState.bind(this);
         this.loginUser = this.loginUser.bind(this);
         this.logoutUser = this.logoutUser.bind(this);
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
-        this.updateGallery = this.updateGallery.bind(this);
         this.getUsers();
     }
 
@@ -112,12 +114,8 @@ class App extends Component {
         this.setState(stateCopy);
         return true;
     }
+    
 
-    updateGallery(g) {
-        let stateCopy = this.getCopyState(this.state);
-        stateCopy.galleryMode = g;
-        this.setState(stateCopy);
-    }
 
     render() {
 
@@ -131,8 +129,7 @@ class App extends Component {
 
                     <Route path="/" render={() => {
                         return (
-                            <LandingPage loginUser={this.loginUser} addUser={this.addUser}
-                                         updateGallery={this.updateGallery}/>
+                            <LandingPage loginUser={this.loginUser} addUser={this.addUser}/>
                         )
                     }
 
@@ -142,12 +139,23 @@ class App extends Component {
                         return (
                             <Dashboard user_id={this.state.user_id} users={this.state.users}
                                        logoutUser={this.logoutUser}
-                                       updateUser={this.updateUser} getCopyState={this.getCopyState}
-                                       updateGallery={this.updateGallery}/>
+                                       updateUser={this.updateUser} getCopyState={this.getCopyState}/>
                         );
                     }}/>
 
-                    <GalleryControl galleryMode={this.state.galleryMode}/>
+                    <Route path="/gallery" exact={true} render={() => {
+                        return (
+                            <PublicGallery/>
+                        );
+                    }}/>
+
+                    <Route path="/pieces/:id" exact={true} render={({match}) => {
+                        return (
+                            <Piece piece_id={match.params.id}/>
+                        );
+                    }}/>
+
+
 
 
                 </div>

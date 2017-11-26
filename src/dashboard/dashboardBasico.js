@@ -21,16 +21,16 @@ class MenuAsideBasico extends React.Component {
                 <aside id="sidebar">
                     <ul id="sidemenu" className="sidebar-nav">
                         <li>
-                            <a onClick={this.props.resetDashboard}>
+                            <Link to={"/dashboard"}>
                                 <span className="sidebar-icon"><i className="fa fa-dashboard"></i></span>
                                 <span className="sidebar-title">Home</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a onClick={this.props.updateGallery}>
+                            <Link to="/dashboard/gallery">
                                 <span className="sidebar-icon"><i className="fa fa-film"></i></span>
                                 <span className="sidebar-title">Galeria Pública</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a href="#">
@@ -53,24 +53,13 @@ class DashboardBasico extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            usermode: false
-        };
-
-        this.getInitialState = this.getInitialState.bind(this);
-
     }
 
-    getInitialState() {
-        return {
-            usermode: false
-        };
-    }
 
     render() {
         return (
             <div>
-                <MenuAsideBasico resetDashboard={this.props.resetDashboard} updateGallery={this.props.updateGallery}/>
+                <MenuAsideBasico/>
             </div>
         );
     }

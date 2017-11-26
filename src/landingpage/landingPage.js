@@ -2,9 +2,8 @@
  * Created by Tecnico on 09/11/2017.
  */
 import React from 'react';
-import {Route, Link} from 'react-router-dom'
+import {Route, Link, withRouter} from 'react-router-dom'
 import './landingPage.css';
-import PublicGallery from '../publicGallery/publicGallery';
 
 
 const Error = ({message}) =>
@@ -218,24 +217,18 @@ class MenuComponent extends React.Component {
         super(props);
         this.registerMode = this.registerMode.bind(this);
         this.loginMode = this.loginMode.bind(this);
-        this.galleryMode = this.galleryMode.bind(this);
     }
 
     registerMode() {
-        this.props.updateGallery(false);
         this.props.updateRegister(true);
 
     }
 
     loginMode() {
-        this.props.updateGallery(false);
         this.props.updateLogin(true);
 
     }
-
-    galleryMode() {
-        this.props.updateGallery(true);
-    }
+    
 
 
     render() {
@@ -263,7 +256,7 @@ class MenuComponent extends React.Component {
                                 <ul id="landing_nav" className="nav navbar-nav navbar-right">
                                     <li><a onClick={this.registerMode}> Registar</a></li>
                                     <li><a onClick={this.loginMode}>Login</a></li>
-                                    <li><a onClick={this.galleryMode}>Galeria Pública</a></li>
+                                    <li><Link to={"/gallery"}>Galeria Pública</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -300,6 +293,7 @@ class LandingPage extends React.Component {
     }
 
     getInitialState() {
+        this.props.history.push("/");
         return {
             added: false,
             register: false,
@@ -366,8 +360,15 @@ class LandingPage extends React.Component {
                                updateLogin={this.updateLogin}
                                updateGallery={this.updateGallery}/>
 
-                <RegisterControl added={s.added} register={s.register} addUser={this.addUser}/>
-                <LoginControl error={s.error} login={s.login} loginUser={this.loginUser}/>
+
+                <Route path="/" exact={true} render={() => {
+                    return (
+                        <div>
+                            <RegisterControl added={s.added} register={s.register} addUser={this.addUser}/>
+                            <LoginControl error={s.error} login={s.login} loginUser={this.loginUser}/>
+                        </div>
+                    );
+                }}/>
 
 
             </div>
@@ -376,4 +377,4 @@ class LandingPage extends React.Component {
 
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);

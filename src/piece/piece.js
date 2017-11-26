@@ -4,7 +4,10 @@
 import React from 'react';
 
 import './piece.css';
+import Config from '../config/config';
+import $ from 'jquery';
 
+const url = Config.url;
 
 class PieceArtista extends React.Component {
 
@@ -57,41 +60,19 @@ class PieceDetail extends React.Component {
     }
 
     render() {
+        let p = this.props.piece;
         return (
             <div>
                 <section className="content_piece">
 
                     <div className="row">
                         <div className="col-md-3 col-xs-12">
-                            <div id="PieceCaroussel" className="carousel slide" data-ride="carousel">
-                                <ol className="carousel-indicators">
-                                    <li data-target="#PieceCaroussel" data-slide-to="0" className="active"></li>
-                                    <li data-target="#PieceCaroussel" data-slide-to="1"></li>
-                                </ol>
-                                <div className="carousel-inner">
-                                    <div className="item active">
-                                        <img src="imgs/logo.png" alt="Los Angeles"/>
-                                    </div>
-
-                                    <div className="item">
-                                        <img src="imgs/body/body.jpg" alt="Chicago"/>
-                                    </div>
-
-                                </div>
-                                <a className="left carousel-control" href="#PieceCaroussel" data-slide="prev">
-                                    <span className="glyphicon glyphicon-chevron-left"></span>
-                                    <span className="sr-only">Previous</span>
-                                </a>
-                                <a className="right carousel-control" href="#PieceCaroussel" data-slide="next">
-                                    <span className="glyphicon glyphicon-chevron-right"></span>
-                                    <span className="sr-only">Next</span>
-                                </a>
-                            </div>
+                            <img src={p.multimedia}/>
 
                         </div>
                         <div className="col-md-9 col-xs-12">
                             <h2 className="font-bold m-b-xs">
-                                Desktop publishing software
+                                {p.name}
                             </h2>
                             <small>Many desktop publishing packages and web page editors now.</small>
                             <div className="m-t-md">
@@ -108,17 +89,49 @@ class PieceDetail extends React.Component {
     }
 }
 
+function PieceControl(props) {
+    if (props.user !== undefined && props.user != null) {
+        let u = props.user;
+        if (u.type == 1)
+            return (<PieceArtista/>);
+        else
+            return (<PieceBasico/>);
+    }
+    return null;
+
+}
+
 
 class Piece extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            piece: {}
+        };
+
+        this.getPiece(this.props.piece_id);
+        //this.getPiece = this.getPiece.bind(this);
+    }
+
+    componentDidMount(){
+        this.getPiece(this.props.piece_id);
+    }
+
+
+    getPiece(id) {
+        let t = this;
+        console.log(id);
+        $.get(url + "artwork/" + id, function (data) {
+            t.state.piece = data;
+            t.setState(t.state);
+        });
     }
 
     render() {
         return (
             <div>
-                <PieceDetail/>
-                {this.props.user !== undefined && this.props.user.type == 1 ? <PieceArtista/> : <PieceBasico/>}
+                <PieceDetail piece={this.state.piece}/>
+                <PieceControl user={this.props.user}/>
             </div>
         );
     }

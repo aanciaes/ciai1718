@@ -1,7 +1,7 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import {withRouter,Link} from 'react-router-dom'
+import {Route, withRouter, Link} from 'react-router-dom'
 import React from 'react';
 import './dashboard.css';
 import $ from 'jquery';
@@ -11,11 +11,13 @@ const url = Config.url;
 
 const PieceItem = ({piece}) =>
     <div>
-        <div>Nome: {piece.name} Data: {piece.date}</div>
-        <div>Técnicas: {piece.techniques}</div>
-        <div>Descrição: {piece.description}</div>
-        <div>Keywords: {piece.keywords.join(',')}</div>
-        <div>Multimedia : <img src={piece.multimedia}/></div>
+        <Link to={"/dashboard/pieces/" + piece.id}>
+            <div>Nome: {piece.name} Data: {piece.date}</div>
+            <div>Técnicas: {piece.techniques}</div>
+            <div>Descrição: {piece.description}</div>
+            <div>Keywords: {piece.keywords.join(',')}</div>
+            <div>Multimedia : <img src={piece.multimedia}/></div>
+        </Link>
     </div>;
 
 
@@ -26,7 +28,6 @@ class MinhaGaleria extends React.Component {
             pieces: []
 
         };
-        this.updatePieceMode = this.updatePieceMode.bind(this);
         this.getMyPieces(this.state);
     }
 
@@ -35,12 +36,9 @@ class MinhaGaleria extends React.Component {
         let t = this;
         $.get(url + "artwork/search/artist/" + this.props.user.id, function (data) {
             state.pieces = data;
+            console.log(data);
             t.setState(state);
         });
-    }
-
-    updatePieceMode() {
-        this.props.updatePieceMode();
     }
 
     render() {
@@ -52,8 +50,9 @@ class MinhaGaleria extends React.Component {
                         this.state.pieces.map(
                             (piece, index) =>
                                 (
-                                    <li className="list-group-item" key={index} onClick={this.updatePieceMode}>
-                                        <PieceItem piece={piece}/></li>
+                                    <li className="list-group-item" key={index}>
+                                        <PieceItem piece={piece}/>
+                                    </li>
                                 )
                         )
                     }
@@ -165,21 +164,7 @@ class MenuAsideArtista extends React.Component {
 
     constructor(props) {
         super(props);
-        this.updateCreatePiece = this.updateCreatePiece.bind(this);
-        this.updatePieceList = this.updatePieceList.bind(this);
     }
-
-    updateCreatePiece() {
-        this.props.updateCreatePiece(true);
-    }
-
-    updatePieceList() {
-        this.props.updatePieceList(true);
-    }
-    updateGallery() {
-        this.props.updateGallery();
-    }
-
 
     render() {
 
@@ -188,16 +173,16 @@ class MenuAsideArtista extends React.Component {
                 <aside id="sidebar">
                     <ul id="sidemenu" className="sidebar-nav">
                         <li>
-                            <a onClick={this.props.resetDashboard}>
+                            <Link to={"/dashboard"}>
                                 <span className="sidebar-icon"><i className="fa fa-dashboard"></i></span>
                                 <span className="sidebar-title">Home</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a onClick={this.props.updateGallery}>
+                            <Link to="/dashboard/gallery">
                                 <span className="sidebar-icon"><i className="fa fa-film"></i></span>
                                 <span className="sidebar-title">Galeria Pública</span>
-                            </a>
+                            </Link>
                         </li>
                         <li>
                             <a className="accordion-toggle collapsed toggle-switch" data-toggle="collapse"
@@ -207,9 +192,10 @@ class MenuAsideArtista extends React.Component {
                                 <b className="caret"></b>
                             </a>
                             <ul id="submenu-2" className="panel-collapse collapse panel-switch" role="menu">
-                                <li><a onClick={this.updateCreatePiece}><i className="fa fa-caret-right"></i>Nova
-                                    Peça</a></li>
-                                <li><a onClick={this.updatePieceList}><i className="fa fa-caret-right"></i>Minha Galeria</a>
+                                <li><Link to={"/dashboard/piece/create"}><i className="fa fa-caret-right"></i>Nova
+                                    Peça</Link></li>
+                                <li><Link to={"/dashboard/piece/mygallery"}><i className="fa fa-caret-right"></i>Minha
+                                    Galeria</Link>
                                 </li>
                             </ul>
                         </li>
@@ -230,65 +216,22 @@ class MenuAsideArtista extends React.Component {
 }
 
 
-function CriarPecaControl(props) {
-    if (props.createpiece) {
-        return (
-            <div>
-                <CriarPeca createPiece={props.createPiece}/>
-            </div>);
-    }
-    return null;
-
-}
-
-function MinhaGaleriaControl(props) {
-    if (props.piecelist) {
-
-        return (
-            <div>
-                <MinhaGaleria user={props.user} updatePieceMode={props.updatePieceMode}/>
-            </div>);
-    }
-    return null;
-
-}
-
-
 class DashboardArtista extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            usermode: false,
-            createpiece: false,
-            piecelist: false,
             pieces: []
         };
 
-
-        this.getInitialState = this.getInitialState.bind(this);
-        this.updateCreatePiece = this.updateCreatePiece.bind(this);
-        this.updatePieceList = this.updatePieceList.bind(this);
-        this.updateGallery = this.updateGallery.bind(this);
-        this.updatePieceMode = this.updatePieceMode.bind(this);
         this.createPiece = this.createPiece.bind(this);
 
+
     }
 
-
-    getInitialState() {
-        return {
-            usermode: false,
-            createpiece: false,
-            piecelist: false,
-            pieces: this.state.pieces
-        };
-    }
 
     createPiece(p) {
-        let s = this.getInitialState();
         p['author'] = this.props.user.id;
-        s.piecelist = true;
 
         let t = this;
 
@@ -299,7 +242,7 @@ class DashboardArtista extends React.Component {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(p),
             success: function (result) {
-                t.setState(s);
+                t.props.history.push("/dashboard/piece/mygallery");
             },
             error: function (status) {
                 alert("Erro a criar peça!!");
@@ -310,50 +253,24 @@ class DashboardArtista extends React.Component {
 
     }
 
-    updateCreatePiece(p) {
-        this.props.resetDashboard();
-        let s = this.getInitialState();
-        s.createpiece = p;
-        this.setState(s);
-    }
-
-    updatePieceList(p) {
-        this.props.resetDashboard();
-        let s = this.getInitialState();
-        s.piecelist = p;
-        this.setState(s);
-    }
-
-    updateGallery() {
-        this.props.updateGallery(true);
-
-    }
-
-    updatePieceMode() {
-        this.props.updatePieceMode(true);
-    }
-
 
     render() {
         return (
             <div>
-                {this.props.usermode == false
-                && this.props.gallery == false
-                && this.props.piecemode == false ?
-                    <CriarPecaControl createpiece={this.state.createpiece} createPiece={this.createPiece}/> : "" }
 
-                {this.props.usermode == false
-                && this.props.gallery == false
-                && this.props.piecemode == false ?
-                    <MinhaGaleriaControl updatePieceMode={this.updatePieceMode} pieces={this.state.pieces}
-                                         piecelist={this.state.piecelist}
-                                         user={this.props.user}/> : "" }
+                <Route path="/dashboard/piece/create" exact={true} render={() => {
+                    return (
+                        <CriarPeca createPiece={this.createPiece}/>
+                    );
+                }}/>
 
-                <MenuAsideArtista resetDashboard={this.props.resetDashboard}
-                                  updateGallery={this.updateGallery}
-                                  updateCreatePiece={this.updateCreatePiece} updatePieceList={this.updatePieceList}
-                                  route={this.props.route}/>
+                <Route path="/dashboard/piece/mygallery" exact={true} render={() => {
+                    return (
+                        <MinhaGaleria user={this.props.user}/>
+                    );
+                }}/>
 
+                <MenuAsideArtista/>
 
             </div>
         );
