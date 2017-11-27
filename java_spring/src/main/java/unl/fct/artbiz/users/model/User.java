@@ -26,17 +26,17 @@ public class User {
     //Security
 
     @JsonIgnore
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     @JsonIgnore
-    private boolean isLocked;
+    private boolean locked;
 
     @JsonIgnore
-    private boolean isExpired;
+    private boolean expired;
 
     @JsonIgnore
-    private boolean isEnable;
+    private boolean enable;
 
     @JsonIgnore
     private boolean credentialsExpired;
@@ -50,9 +50,9 @@ public class User {
         this.email = email;
         this.password = password;
         this.accountType = accountType;
-        this.isLocked = false;
-        this.isExpired = false;
-        this.isEnable = true;
+        this.locked = false;
+        this.expired = false;
+        this.enable = true;
         this.credentialsExpired = false;
         this.roles = new ArrayList<>();
 
@@ -104,28 +104,37 @@ public class User {
     }
 
     //Security
+
     public boolean isLocked() {
-        return isLocked;
+        return locked;
     }
 
     public void setLocked(boolean locked) {
-        isLocked = locked;
+        this.locked = locked;
     }
 
     public boolean isExpired() {
-        return isExpired;
+        return expired;
     }
 
     public void setExpired(boolean expired) {
-        isExpired = expired;
+        this.expired = expired;
     }
 
     public boolean isEnable() {
-        return isEnable;
+        return enable;
     }
 
     public void setEnable(boolean enable) {
-        isEnable = enable;
+        this.enable = enable;
+    }
+
+    public boolean isCredentialsExpired() {
+        return credentialsExpired;
+    }
+
+    public void setCredentialsExpired(boolean credentialsExpired) {
+        this.credentialsExpired = credentialsExpired;
     }
 
     public boolean areCredentialsExpired() {

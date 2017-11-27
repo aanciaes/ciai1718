@@ -15,6 +15,10 @@ public class UserPrincipal implements UserDetails {
         this.user = user;
     }
 
+    public long getUserId() {
+        return user.getId();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
@@ -22,27 +26,27 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getEmail();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return user.areCredentialsExpired();
+        return !user.isExpired();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return user.isLocked();
+        return !user.isLocked();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return user.isExpired();
+        return !user.areCredentialsExpired();
     }
 
     @Override
     public boolean isEnabled() {
-        return user.isEnable();
+        return !user.isEnable();
     }
 
     @Override

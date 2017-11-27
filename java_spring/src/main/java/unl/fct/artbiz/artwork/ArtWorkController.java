@@ -1,11 +1,13 @@
 package unl.fct.artbiz.artwork;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.services.ArtworkService;
+import unl.fct.artbiz.auth.service.AuthService;
 
 import java.util.*;
 
@@ -33,6 +35,7 @@ public class ArtWorkController {
         return artworkService.findById(id);
     }
 
+    @PreAuthorize("@authService.restrictedToMatchingUser(#artWork.getAuthor())")
     @RequestMapping(method = RequestMethod.POST)
     public ArtWork createArtwork(@RequestBody ArtWork artWork) {
         return artworkService.createPiece(artWork);

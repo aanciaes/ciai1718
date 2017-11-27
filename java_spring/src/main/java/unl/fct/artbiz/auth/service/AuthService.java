@@ -1,7 +1,7 @@
 package unl.fct.artbiz.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,11 +16,22 @@ public class AuthService implements UserDetailsService{
     UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getUserByName(username);
+    public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.getUserByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
         return new UserPrincipal(user);
+    }
+
+    public boolean restrictedToMatchingUser (long id){
+        Object user = SecurityContextHolder .getContext().getAuthentication().getPrincipal();
+        UserPrincipal authUser = null;
+
+        if(user instanceof UserPrincipal) {
+            authUser = (UserPrincipal) user;
+            return authUser.getUserId() == id;
+        }else
+            return false;
     }
 }
