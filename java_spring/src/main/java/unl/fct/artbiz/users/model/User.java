@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -22,6 +24,11 @@ public class User {
     private int accountType;
 
     //Security
+
+    @JsonIgnore
+    @ElementCollection
+    private List<Role> roles;
+
     @JsonIgnore
     private boolean isLocked;
 
@@ -47,6 +54,13 @@ public class User {
         this.isExpired = false;
         this.isEnable = true;
         this.credentialsExpired = false;
+        this.roles = new ArrayList<>();
+
+        if(accountType == 1)
+            roles.add (new Role ("ARTIST"));
+        else
+            roles.add (new Role("BASIC"));
+
     }
 
     public Long getId() {
@@ -122,5 +136,12 @@ public class User {
         this.credentialsExpired = credentialsExpired;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
     //
 }
