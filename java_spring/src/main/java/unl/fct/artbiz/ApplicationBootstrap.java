@@ -15,6 +15,7 @@ import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.model.UserRepository;
+import unl.fct.artbiz.users.services.UserService;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,9 @@ public class ApplicationBootstrap{
 
     @Autowired
     Environment env;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     UserRepository userRepository;
@@ -47,9 +51,9 @@ public class ApplicationBootstrap{
     }
 
     private long bootstrapUsers () {
-        userRepository.save(new User("Miguel", "miguel@mail.com", "g37fcbw8", 1));
-        userRepository.save(new User("Joao", "joao@mail.com", "qwerty", 1));
-        userRepository.save(new User("Tiago", "tiago@mail.com", "passwrd", 0));
+        userService.createUser(new User("Miguel", "miguel@mail.com", "g37fcbw8", 1));
+        userService.createUser(new User("Joao", "joao@mail.com", "qwerty", 1));
+        userService.createUser(new User("Tiago", "tiago@mail.com", "passwrd", 0));
 
         return userRepository.count();
     }

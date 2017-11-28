@@ -1,6 +1,7 @@
 package unl.fct.artbiz.users.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -20,7 +21,6 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    @JsonIgnore
     private String password;
 
     @Min(0)
@@ -67,6 +67,19 @@ public class User {
 
     }
 
+    public void setup () {
+        this.locked = false;
+        this.expired = false;
+        this.enable = true;
+        this.credentialsExpired = false;
+        this.roles = new ArrayList<>();
+
+        if(accountType == 1)
+            roles.add (new Role ("ARTIST"));
+        else
+            roles.add (new Role("BASIC"));
+    }
+
     public Long getId() {
         return id;
     }
@@ -91,6 +104,8 @@ public class User {
         this.email = email;
     }
 
+    @JsonIgnore
+    @JsonProperty(value = "password")
     public String getPassword() {
         return password;
     }

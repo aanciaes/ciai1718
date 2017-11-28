@@ -27,6 +27,7 @@ public class UserService {
     public User createUser(User user) {
         if (userRepository.exists(user.getId()))
             throw new DuplicatedUser();
+        user.setup();
         user.setPassword(hash(user.getPassword()));
         return userRepository.save(user);
     }
