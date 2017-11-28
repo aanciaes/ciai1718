@@ -8,9 +8,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@PreAuthorize(RestrictedToAuthor.accessCondition)
-public @interface RestrictedToAuthor {
+@PreAuthorize(RestrictedToMatchingUser.accessCondition)
+public @interface RestrictedToMatchingUser {
 
-    String accessCondition = "@authService.restrictedToMatchingUser(#artWork.getAuthor())";
-
+    String accessCondition = "@authService.restrictedToMatchingUser(#user.getId())";
 }

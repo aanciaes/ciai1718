@@ -7,6 +7,7 @@ import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.exceptions.DuplicateIdArtwork;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
+import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,8 +43,7 @@ public class ArtworkService {
         if (artworkRepository.exists(artWork.getId()))
             throw new DuplicateIdArtwork();
 
-        artworkRepository.save(artWork);
-        return artWork;
+        return artworkRepository.save(artWork);
     }
 
     public ArtWork updatePiece(ArtWork artWork) {

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
+import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 import unl.fct.artbiz.artwork.services.ArtworkService;
 import unl.fct.artbiz.auth.annotations.RestrictedToAuthor;
 import unl.fct.artbiz.auth.annotations.PieceIdRestrictedToAuthor;
@@ -30,8 +31,8 @@ public class ArtWorkController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ArtWork findById(@PathVariable long id) throws ArtWorkNotFound {
-        return artworkService.findById(id);
+    public ListArtworkSerializer findById(@PathVariable long id) throws ArtWorkNotFound {
+        return new ListArtworkSerializer(artworkService.findById(id));
     }
 
     @RestrictedToAuthor

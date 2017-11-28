@@ -3,6 +3,8 @@ package unl.fct.artbiz.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import unl.fct.artbiz.auth.annotations.RestrictedToAuthor;
+import unl.fct.artbiz.auth.annotations.RestrictedToMatchingUser;
 import unl.fct.artbiz.auth.model.UserPrincipal;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.services.UserService;
@@ -33,8 +35,9 @@ public class UserController {
         return userService.getUser (userId);
     }
 
+    @RestrictedToMatchingUser
     @RequestMapping(method = RequestMethod.PUT)
-    public User updateArtwork(@RequestBody User user) {
+    public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
 }

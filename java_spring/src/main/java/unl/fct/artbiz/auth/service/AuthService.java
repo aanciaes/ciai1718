@@ -31,7 +31,8 @@ public class AuthService implements UserDetailsService {
         return new UserPrincipal(user);
     }
 
-    public boolean restrictedToMatchingUserGivenPiece(Long userId) {
+
+    public boolean restrictedToMatchingUser(Long userId) {
         if(userId!=null) {
             Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             UserPrincipal authUser = null;

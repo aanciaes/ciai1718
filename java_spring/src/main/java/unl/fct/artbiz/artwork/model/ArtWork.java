@@ -30,9 +30,6 @@ public class ArtWork {
 
     private Long author;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private String authorName;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "author", insertable = false, updatable = false)
@@ -141,10 +138,6 @@ public class ArtWork {
 
     public User getAuthorObject() {
         return authorObject;
-    }
-
-    public String getAuthorName() {
-        return authorObject.getName();
     }
 
     @Override
