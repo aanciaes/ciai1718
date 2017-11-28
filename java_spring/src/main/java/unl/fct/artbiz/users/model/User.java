@@ -16,7 +16,11 @@ public class User {
     private long id;
 
     private String name;
+
+    @Column(unique = true)
     private String email;
+
+    @JsonIgnore
     private String password;
 
     @Min(0)
