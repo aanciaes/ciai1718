@@ -1,7 +1,7 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import {Route, withRouter, Link} from 'react-router-dom'
+import {Route, withRouter, Link, Redirect} from 'react-router-dom'
 
 import React, {Component} from 'react';
 import User from './user';
@@ -154,6 +154,13 @@ class Dashboard extends React.Component {
                         user={user}/> :
                     <DashboardBasico/> }
 
+
+                <Route path="/dashboard" exact={true} render={() => {
+                    return (
+                        <Redirect to="/dashboard/gallery"/>
+                    );
+                }}/>
+
                 <div className="content_wmenu">
                     <Route path="/dashboard/user" exact={true} render={() => {
                         return (
@@ -169,7 +176,7 @@ class Dashboard extends React.Component {
 
                     <Route path="/dashboard/pieces/:id" exact={true} render={({match}) => {
                         return (
-                            <Piece piece_id={match.params.id}/>
+                            <Piece piece_id={match.params.id} user={user}/>
                         );
                     }}/>
                 </div>

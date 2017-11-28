@@ -2,9 +2,38 @@
     background-color: white;
     border-radius: 2px;
     margin-top: 50px;
+    box-shadow: 0px 0px 1px 0px gray;
 }
 #PieceCaroussel{
 
     width: 100%;
     margin: 20px;
+}
+
+.img_content{
+    line-height: 300px;
+    width: 100%;
+    min-height: 400px;
+
+    padding: 25px;
+    border-right: solid 1px lightgray;
+
+}
+
+.img_content img {
+    max-width: 100%;
+    height: auto;
+    overflow-y: hidden;
+}
+
+
+.description_piece{
+    text-align: left;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.description_piece .title_piece{
+    font-size: 24pt ;
+    font-weight: bold;
+    color: grey;
 }

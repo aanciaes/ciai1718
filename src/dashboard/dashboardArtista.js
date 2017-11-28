@@ -216,6 +216,8 @@ class MenuAsideArtista extends React.Component {
 }
 
 
+
+
 class DashboardArtista extends React.Component {
 
     constructor(props) {

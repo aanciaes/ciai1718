@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import $ from 'jquery';
 
-import {Route, withRouter} from 'react-router-dom'
+import {Route, withRouter,Redirect} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import PublicGallery from './publicGallery/publicGallery';
@@ -43,6 +43,7 @@ class App extends Component {
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.getUsers();
+        this.props.history.push("/gallery");
     }
 
 
@@ -130,6 +131,7 @@ class App extends Component {
                     <Route path="/" render={() => {
                         return (
                             <LandingPage loginUser={this.loginUser} addUser={this.addUser}/>
+
                         )
                     }
 

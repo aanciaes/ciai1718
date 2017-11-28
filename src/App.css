@@ -1,5 +1,9 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
 
+a:hover{
+   text-decoration: none !important;
+}
+
 .App {
     text-align: center;
 }

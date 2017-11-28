@@ -10,8 +10,8 @@
     "id": 2,
     "name": "Tiago",
     "email": "tiago@mail.com",
-    "password": "password",
-    "type": 0
+    "password": "1",
+    "type": 1
   },
   {
     "id": 3,
