@@ -28,7 +28,6 @@ public class ArtWork {
     @ElementCollection
     private List<String> multimedia;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Long author;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
