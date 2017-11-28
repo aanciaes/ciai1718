@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                     .successHandler(successHandler())
-                    //.failureHandler(failureHandler())
+                    .failureHandler(failureHandler())
                 .and()
                 //.loginPage("/login")
                 .logout()
