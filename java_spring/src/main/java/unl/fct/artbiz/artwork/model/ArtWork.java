@@ -1,6 +1,7 @@
 package unl.fct.artbiz.artwork.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import unl.fct.artbiz.users.model.User;
 
 import javax.persistence.*;
@@ -28,6 +29,9 @@ public class ArtWork {
     private List<String> multimedia;
 
     private Long author;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String authorName;
 
     @JsonIgnore
     @ManyToOne
@@ -137,6 +141,10 @@ public class ArtWork {
 
     public User getAuthorObject() {
         return authorObject;
+    }
+
+    public String getAuthorName() {
+        return authorObject.getName();
     }
 
     @Override

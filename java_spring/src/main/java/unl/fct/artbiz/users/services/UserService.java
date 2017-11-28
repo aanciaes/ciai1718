@@ -1,6 +1,7 @@
 package unl.fct.artbiz.users.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import unl.fct.artbiz.users.exceptions.DuplicatedUser;
 import unl.fct.artbiz.users.exceptions.UserNotFoundException;
@@ -26,6 +27,7 @@ public class UserService {
     public User createUser(User user) {
         if (userRepository.exists(user.getId()))
             throw new DuplicatedUser();
+        user.setup();
         user.setPassword(hash(user.getPassword()));
         return userRepository.save(user);
     }
@@ -44,8 +46,11 @@ public class UserService {
     }
 
     private String hash (String base) {
-        MessageDigest digest = null;
-        try {
+        //MessageDigest digest = null;
+        ShaPasswordEncoder encoder = new ShaPasswordEncoder();
+        encoder.setEncodeHashAsBase64(true);
+        return encoder.encodePassword(base, null);
+        /*try {
             digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(base.getBytes(StandardCharsets.UTF_8));
             return Base64.getEncoder().encodeToString(hash);
@@ -53,6 +58,6 @@ public class UserService {
         } catch (NoSuchAlgorithmException e) {
             //Should never happen
             return Integer.toString(base.hashCode());
-        }
+        }*/
     }
 }

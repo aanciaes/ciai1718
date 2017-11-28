@@ -1,7 +1,9 @@
 package unl.fct.artbiz.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import unl.fct.artbiz.auth.model.UserPrincipal;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.services.UserService;
 
@@ -9,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/artist")
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired
@@ -21,7 +23,7 @@ public class UserController {
         return  userService.getAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User createUser (@RequestBody User user) {
         return userService.createUser(user);
     }
