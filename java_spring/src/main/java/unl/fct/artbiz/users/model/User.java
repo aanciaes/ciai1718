@@ -21,6 +21,7 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Min(0)
@@ -104,8 +105,6 @@ public class User {
         this.email = email;
     }
 
-    @JsonIgnore
-    @JsonProperty(value = "password")
     public String getPassword() {
         return password;
     }
