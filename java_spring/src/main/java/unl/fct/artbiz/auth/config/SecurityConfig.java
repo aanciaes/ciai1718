@@ -1,5 +1,6 @@
 package unl.fct.artbiz.auth.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,17 +15,21 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import unl.fct.artbiz.auth.model.UserPrincipal;
 import unl.fct.artbiz.auth.service.AuthService;
+import unl.fct.artbiz.users.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 @Configuration
@@ -32,8 +37,8 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String [] publicGetEndpoints = {"/artwork", "/artwork/{id}", "artwork/search/**"};
-    private static final String [] publicPostEndpoints = {"/user/register"};
+    private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "artwork/search/**"};
+    private static final String[] publicPostEndpoints = {"/user/register"};
 
     @Autowired
     private AuthService authService;
@@ -51,8 +56,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                    .successHandler(successHandler())
-                    .failureHandler(failureHandler())
+                .successHandler(successHandler())
+                .failureHandler(failureHandler())
                 .and()
                 //.loginPage("/login")
                 .logout()
@@ -87,7 +92,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private AuthenticationSuccessHandler successHandler() {
-        return (httpServletRequest, httpServletResponse, authentication) -> httpServletResponse.setStatus(200);
+        return (httpServletRequest, httpServletResponse, authentication) -> {
+            httpServletResponse.setStatus(200);
+            UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            httpServletResponse.setContentType("application/json");
+
+            PrintWriter out = httpServletResponse.getWriter();
+
+            ObjectMapper mapper = new ObjectMapper();
+            out.print(mapper.writeValueAsString(user.getUser()));
+            out.flush();
+        };
     }
 
     private AuthenticationFailureHandler failureHandler() {
