@@ -83,7 +83,7 @@ class CriarPeca extends React.Component {
     handleChange({target}) {
 
         let s = this.state;
-        if (target.name == 'keywords' || target.name == 'techniques') {
+        if (target.name == 'keywords' || target.name == 'techniques' || target.name == "multimedia") {
             if (target.value.indexOf(',') > -1) {
 
                 let k = target.value.split(',');
@@ -93,9 +93,6 @@ class CriarPeca extends React.Component {
                 });
                 s[target.name] = k;
             }
-        }
-        else if (target.name == 'multimedia') {
-            s[target.name].push(target.value);
         }
         else
             s[target.name] = target.value;

@@ -2,6 +2,7 @@
  * Created by Tecnico on 09/11/2017.
  */
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
 import './piece.css';
 import Config from '../config/config';
@@ -10,20 +11,71 @@ import $ from 'jquery';
 const url = Config.url;
 
 
+class PopupRemovePiece extends React.Component {
+    constructor(props) {
+        super(props);
+        this.removePiece = this.removePiece.bind(this);
+    }
+
+    removePiece(e, inputData) {
+        e.preventDefault();
+        this.props.removePiece();
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.removePiece}>
+                    <div className="modal fade" id="modalRemovePiece" role="dialog">
+                        <div className="modal-dialog modal-sm">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Remover peça de venda</h4>
+                                </div>
+
+                                <div className="modal-body">
+                                    <div>
+                                        <strong>Pretende remover Peça?</strong>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <div className="row">
+                                        <div className="col-md-6 col-xs-12">
+                                            <button type="submit" className="btn btn-success">
+                                                Sim
+                                            </button>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12">
+                                            <button type="button" className="btn btn-default" data-dismiss="modal">
+                                                Fechar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
 class PopupRemoveSale extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            price: null
-        };
         this.removeSalePiece = this.removeSalePiece.bind(this);
     }
-
 
     removeSalePiece(e, inputData) {
         e.preventDefault();
         this.props.removeSalePiece();
     }
+
 
     render() {
         return (
@@ -139,7 +191,11 @@ class PopupOnSale extends React.Component {
 class PieceEditar extends React.Component {
     constructor(props) {
         super(props);
-        this.state = this.props.piece;
+        let p = this.props.piece;
+        p["keywords"] = p.keywords.length > 0 ? p.keywords.join(",") : "";
+        p["multimedia"] = p.multimedia.length > 0 ? p.multimedia.join(",") : "";
+        p["techniques"] = p.techniques.length > 0 ? p.techniques.join(",") : "";
+        this.state = p;
 
         this.handleChange = this.handleChange.bind(this);
         this.updatePiece = this.updatePiece.bind(this);
@@ -158,23 +214,7 @@ class PieceEditar extends React.Component {
     handleChange({target}) {
 
         let s = this.state;
-        if (target.name == 'keywords' || target.name == 'techniques') {
-            if (target.value.indexOf(',') > -1) {
-
-                let k = target.value.split(',');
-                $.each(k, function (i, val) {
-                    if (k.indexOf(val) < 0)
-                        k.push(val);
-                });
-                s[target.name] = k;
-            } else
-                s[target.name].push(target.value);
-        }
-        else if (target.name == 'multimedia') {
-            s[target.name].push(target.value);
-        }
-        else
-            s[target.name] = target.value;
+        s[target.name] = target.value;
 
 
         this.setState(s);
@@ -183,10 +223,6 @@ class PieceEditar extends React.Component {
 
     render() {
         let p = this.state;
-        console.log(p);
-        let keywords = p.keywords.length > 0 ? p.keywords.join(",") : "q";
-        let multimedia = p.multimedia.length > 0 ? p.multimedia.join(",") : "q";
-        let techniques = p.techniques.length > 0 ? p.techniques.join(",") : "q";
         return (
             <div>
                 <section>
@@ -206,7 +242,7 @@ class PieceEditar extends React.Component {
                         <div className="form-group">
                             <label>Técnicas</label>
                             <input type="text" className="form-control" name="techniques"
-                                   placeholder="Inserir Técnicnas" value={techniques}
+                                   placeholder="Inserir Técnicnas" value={p.techniques}
                                    onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
@@ -216,13 +252,13 @@ class PieceEditar extends React.Component {
                         </div>
                         <div className="form-group">
                             <label>Keywords</label>
-                            <input type="text" name="keywords" value={keywords} className="form-control"
+                            <input type="text" name="keywords" value={p.keywords} className="form-control"
                                    onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
                             <label>Multimedia</label>
                             <input type="url" name="multimedia" className="form-control"
-                                   value={multimedia}
+                                   value={p.multimedia}
                                    onChange={this.handleChange}/>
                         </div>
                         <div>
@@ -252,6 +288,9 @@ class PieceArtista extends React.Component {
                     <div className="col-md-2 col-xs-12">
                         <div>
                             <button className="btn btn-primary" onClick={this.props.showEdit}>Editar</button>
+                            <button className="btn btn-danger" data-toggle="modal" data-target="#modalRemovePiece">
+                                Remover
+                            </button>
                             {this.props.piece.onSale ?
                                 <button className="btn btn-primary" data-toggle="modal" data-target="#modalRemoveSale">
                                     Tirar de Venda</button> :
@@ -261,6 +300,7 @@ class PieceArtista extends React.Component {
 
                             <PopupOnSale onSalePiece={this.props.onSalePiece}/>
                             <PopupRemoveSale removeSalePiece={this.props.removeSalePiece}/>
+                            <PopupRemovePiece removePiece={this.props.removePiece}/>
                         </div>
                     </div>
                     <div className="col-md-10 col-xs-12">
@@ -357,7 +397,8 @@ function PieceControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
         if (u.accountType == 1)
-            return (<PieceArtista onSalePiece={props.onSalePiece}  removeSalePiece={props.removeSalePiece} showEdit={props.showEdit} piece={props.piece}/>);
+            return (<PieceArtista onSalePiece={props.onSalePiece} removeSalePiece={props.removeSalePiece}
+                                  showEdit={props.showEdit} piece={props.piece} removePiece={props.removePiece}/>);
         else
             return (<PieceBasico/>);
     }
@@ -391,7 +432,8 @@ function PieceInitialized(props) {
                 </div>
                 <div className="col-md-2">
                     <PieceControl user={p.props.user} onSalePiece={p.onSalePiece} piece={p.state.piece}
-                                  showEdit={p.showEdit} removeSalePiece={p.removeSalePiece}/>
+                                  showEdit={p.showEdit} removeSalePiece={p.removeSalePiece}
+                                  removePiece={p.removePiece}/>
                 </div>
             </div>);
     }
@@ -408,8 +450,10 @@ class Piece extends React.Component {
             detail: true
         };
         //this.getPiece = this.getPiece.bind(this);
+        this.constructArray = this.constructArray.bind(this);
         this.onSalePiece = this.onSalePiece.bind(this);
         this.removeSalePiece = this.removeSalePiece.bind(this);
+        this.removePiece = this.removePiece.bind(this);
         this.showEdit = this.showEdit.bind(this);
         this.editPiece = this.editPiece.bind(this);
     }
@@ -426,8 +470,42 @@ class Piece extends React.Component {
         this.setState(s);
     }
 
+    constructArray(s) {
+        let arr = [];
+        if (s.indexOf(",") > -1) {
+            let k = s.split(',');
+            $.each(k, function (i, val) {
+                if (k.indexOf(val) < 0)
+                    arr.push(val);
+            });
+        } else
+            arr.push(s);
+        return arr;
+    }
+
     editPiece(p) {
         let t = this;
+        console.log(p);
+        p['multimedia'] = this.constructArray(p['multimedia']);
+
+        p['techniques'] = this.constructArray(p['techniques']);
+        p['keywords'] = this.constructArray(p['keywords']);
+
+
+        /*if (target.value.indexOf(',') > -1) {
+
+         let k = target.value.split(',');
+         $.each(k, function (i, val) {
+         if (k.indexOf(val) < 0)
+         k.push(val);
+         });
+         s[target.name] = k;
+         } else
+         s[target.name].push(target.value);*/
+
+        console.log(p);
+
+
         $.ajax({
             type: 'PUT',
             url: url + "artwork",
@@ -479,6 +557,25 @@ class Piece extends React.Component {
 
     }
 
+    removePiece() {
+        let t = this;
+        $.ajax({
+            type: 'DELETE',
+            url: url + "artwork/" + t.props.piece_id,
+            //contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                $('#modalRemovePiece').modal('hide');
+                t.props.history.push("/dashboard/mygallery");
+
+            },
+            error: function (status) {
+                alert("Erro " + status);
+                console.log("Failed	to	Put:	" + status);
+            }
+        });
+
+    }
+
     removeSalePiece() {
         let t = this;
         $.ajax({
@@ -507,4 +604,4 @@ class Piece extends React.Component {
     }
 }
 
-export default Piece;
+export default withRouter(Piece);
