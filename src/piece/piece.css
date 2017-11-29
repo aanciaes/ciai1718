@@ -37,3 +37,6 @@
     font-weight: bold;
     color: grey;
 }
+.description_piece .header_description{
+    border-bottom: solid grey 1px;
+}

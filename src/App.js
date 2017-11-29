@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import './App.css';
 import $ from 'jquery';
 
-import {Route, withRouter,Redirect} from 'react-router-dom'
+import {Route, withRouter, Redirect} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
 import PublicGallery from './publicGallery/publicGallery';
 import Piece from './piece/piece';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-
+import Config from './config/config';
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
@@ -16,12 +16,7 @@ const bootstrap = require('bootstrap');
 var Typeahead = require('react-bootstrap-typeahead').Typeahead;
 
 
-function GalleryControl(props) {
-    if (props.galleryMode) {
-        return (<PublicGallery/>)
-    }
-    return null;
-}
+const url = Config.url;
 
 
 class App extends Component {
@@ -29,12 +24,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedIn: false,
+            errorLogin: false,
             users: [],
-            user_id: "",
-            landingPageMode: true,
-            galleryMode: true,
-            piecemode: false,
+            user: "",
+            // landingPageMode: true,
+            //galleryMode: true,
+            // piecemode: false,
             piece_id: -1
         };
         this.getCopyState = this.getCopyState.bind(this);
@@ -42,19 +37,8 @@ class App extends Component {
         this.logoutUser = this.logoutUser.bind(this);
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
-        this.getUsers();
+        //this.getUsers();
         this.props.history.push("/gallery");
-    }
-
-
-    getUsers() {
-        let that = this;
-        $.getJSON('jsonSchemas/data/Users.json', function (data) {
-            let stateCopy = that.getCopyState(that.state);
-            stateCopy.users = data;
-            console.log(data);
-            that.setState(stateCopy);
-        });
     }
 
     getCopyState(state) {
@@ -69,39 +53,53 @@ class App extends Component {
     }
 
     loginUser(u) {
-
+        let that = this;
         let s = this.state;
-        let us = s.users;
+        //let us = s.users;
 
-        let found = false;
-        let user = null;
-        $.each(us, function (i, val) {
-            if (val.email == u.email)
-                if (val.password == u.password) {
-                    user = i;
-                    found = true;
-                    return false;
-                }
+        /*let found = false;
+         let user = null;
+         $.each(us, function (i, val) {
+         if (val.email == u.email)
+         if (val.password == u.password) {
+         user = i;
+         found = true;
+         return false;
+         }
+         });
+
+         if (!found) {
+         return false;
+         }*/
+
+        $.ajax({
+            type: 'POST',
+            url: url + "login?username=" + u.email + "&password=" + u.password,
+            //contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                let stateCopy = that.getCopyState(s);
+                stateCopy.user = result;
+                //stateCopy.loggedIn = true;
+                // stateCopy.landingPageMode = false;
+                that.setState(stateCopy);
+                that.props.history.push('/dashboard');
+            },
+            error: function (status) {
+                let stateCopy = that.getCopyState(s);
+                stateCopy.errorLogin = true;
+                console.log(status);
+                that.setState(stateCopy);
+            }
         });
 
-        if (!found) {
-            return false;
-        }
-
-        let stateCopy = this.getCopyState(this.state);
-        stateCopy.user_id = user;
-        stateCopy.loggedIn = true;
-        stateCopy.landingPageMode = false;
-        this.setState(stateCopy);
-        this.props.history.push('/dashboard');
         return true;
     }
 
     logoutUser() {
         let stateCopy = this.getCopyState(this.state);
-        stateCopy.user_id = "";
-        stateCopy.loggedIn = false;
-        stateCopy.landingPageMode = true;
+        /*stateCopy.user_id = "";
+         stateCopy.loggedIn = false;
+         stateCopy.landingPageMode = true;*/
         this.setState(stateCopy);
         this.props.history.push('/');
     }
@@ -115,7 +113,6 @@ class App extends Component {
         this.setState(stateCopy);
         return true;
     }
-    
 
 
     render() {
@@ -130,7 +127,7 @@ class App extends Component {
 
                     <Route path="/" render={() => {
                         return (
-                            <LandingPage loginUser={this.loginUser} addUser={this.addUser}/>
+                            <LandingPage loginUser={this.loginUser} addUser={this.addUser} errorLogin={this.state.errorLogin}/>
 
                         )
                     }
@@ -139,7 +136,7 @@ class App extends Component {
 
                     <Route path="/dashboard" render={() => {
                         return (
-                            <Dashboard user_id={this.state.user_id} users={this.state.users}
+                            <Dashboard user={this.state.user}
                                        logoutUser={this.logoutUser}
                                        updateUser={this.updateUser} getCopyState={this.getCopyState}/>
                         );
@@ -156,8 +153,6 @@ class App extends Component {
                             <Piece piece_id={match.params.id}/>
                         );
                     }}/>
-
-
 
 
                 </div>

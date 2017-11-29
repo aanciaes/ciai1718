@@ -34,7 +34,7 @@ class MinhaGaleria extends React.Component {
     getMyPieces(state) {
 
         let t = this;
-        $.get(url + "artwork/search/artist/" + this.props.user.id, function (data) {
+        $.get(url + "artwork/search/artist/" + this.props.user.id+"/list", function (data) {
             state.pieces = data;
             console.log(data);
             t.setState(state);
@@ -124,7 +124,7 @@ class CriarPeca extends React.Component {
                         </div>
                         <div className="form-group">
                             <label>Data:</label>
-                            <input type="date" className="form-control" name="date"
+                            <input type="date" className="form-control" name="dateOfCreation"
                                    placeholder="Inserir Data" onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
@@ -240,14 +240,17 @@ class DashboardArtista extends React.Component {
         $.ajax({
             type: 'POST',
             url: url + 'artwork',
-            processData: false,
-            contentType: "application/json; charset=utf-8",
+            processData:false,
+            dataType:"json",
+            contentType: "application/json;",
             data: JSON.stringify(p),
             success: function (result) {
+
                 t.props.history.push("/dashboard/piece/mygallery");
             },
             error: function (status) {
                 alert("Erro a criar peça!!");
+                console.log(status);
                 console.log("Failed	to	Post:	" + status);
             }
         });

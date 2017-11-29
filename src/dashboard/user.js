@@ -29,7 +29,7 @@ class DetalheUtilizador extends React.Component {
                     <a onClick={this.editMode}>Editar</a>
                     <p>Name:{this.props.user.name}</p>
                     <p>Email:{this.props.user.email}</p>
-                    <p>Tipo:{types[this.props.user.type]}</p>
+                    <p>Tipo:{types[this.props.user.accountType]}</p>
                 </div>
             </div>
 

@@ -10,6 +10,9 @@ import DashboardBasico from './dashboardBasico';
 import './dashboard.css';
 import PublicGallery from '../publicGallery/publicGallery';
 import Piece from '../piece/piece';
+import $ from 'jquery';
+import Config from '../config/config';
+const url = Config.url;
 
 class MenuDash extends React.Component {
     constructor(props) {
@@ -142,14 +145,16 @@ class Dashboard extends React.Component {
         super(props);
     }
 
+
     render() {
 
-        const user = this.props.users[this.props.user_id];
+
         const args = this.props;
+        const user = args.user;
         return (
             <div>
                 <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.type == 1 ?
+                {user.accountType == 1 ?
                     <DashboardArtista
                         user={user}/> :
                     <DashboardBasico/> }

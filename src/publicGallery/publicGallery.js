@@ -18,20 +18,23 @@ class PieceItem extends React.Component {
 
 
     render() {
+
+        let p = this.props.piece;
         return (
             <div>
                 <div className="piece_content">
                     <div className="img_piece">
-                        <img src={this.props.piece.multimedia}/>
+                        <img src={p.multimedia}/>
                     </div>
                     <div className="desc_piece">
-                        <span className="price_prod">10€</span>
+
+                        <span className={p.onSale ? "price_prod":""}> {p.onSale ? p.price + " €" : "" }</span>
                         <div>
-                            <small>Keywords: {this.props.piece.keywords.join(",")}</small>
+                            <small>Keywords: {p.keywords.join(",")}</small>
                         </div>
-                        <div><label>{this.props.piece.name}</label></div>
+                        <div><label>{p.name}</label></div>
                         <div>
-                            <small>{this.props.piece.description}</small>
+                            <small>{p.description}</small>
                         </div>
                         <div className="info_button">
                             <div>Info <i className="fa fa-arrow-circle-right"></i></div>

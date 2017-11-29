@@ -46,7 +46,7 @@ class PopupOnSale extends React.Component {
 
 
                                 <div className="modal-body">
-                                    <div>Preço: <input type="number" min="0" name="price" className="form-control"
+                                    <div>Preço: <input type="text" min="0" name="price" className="form-control"
                                                        onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -77,6 +77,109 @@ class PopupOnSale extends React.Component {
 }
 
 
+class PieceEditar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = this.props.piece;
+
+        this.handleChange = this.handleChange.bind(this);
+        this.updatePiece = this.updatePiece.bind(this);
+        this.back = this.back.bind(this);
+    }
+
+    back() {
+       window.history.back();
+    }
+
+    updatePiece(e, inputData) {
+        e.preventDefault();
+        this.props.editPiece(this.state);
+    }
+
+    handleChange({target}) {
+
+        let s = this.state;
+        if (target.name == 'keywords' || target.name == 'techniques') {
+            if (target.value.indexOf(',') > -1) {
+
+                let k = target.value.split(',');
+                $.each(k, function (i, val) {
+                    if (k.indexOf(val) < 0)
+                        k.push(val);
+                });
+                s[target.name] = k;
+            } else
+                s[target.name].push(target.value);
+        }
+        else if (target.name == 'multimedia') {
+            s[target.name].push(target.value);
+        }
+        else
+            s[target.name] = target.value;
+
+
+        this.setState(s);
+    }
+
+
+    render() {
+        let p = this.state;
+        console.log(p);
+        let keywords = p.keywords.length > 0 ? p.keywords.join(",") : "q";
+        let multimedia = p.multimedia.length > 0 ? p.multimedia.join(",") : "q";
+        let techniques = p.techniques.length > 0 ? p.techniques.join(",") : "q";
+        return (
+            <div>
+                <section>
+                    <button className="btn btn-info" onClick={this.back}><i className="fa fa-back"></i></button>
+
+                    <form id="form_create_piece" onSubmit={this.updatePiece}>
+                        <h2>Editar Peça</h2>
+                        <div className="form-group">
+                            <label>Nome:</label>
+                            <input type="text" className="form-control" name="name"
+                                   placeholder="Inserir nome" value={p.name} onChange={this.handleChange}
+                                   required="required"/>
+                        </div>
+                        <div className="form-group">
+                            <label>Data:</label>
+                            <input type="date" className="form-control" name="dateOfCreation"
+                                   placeholder="Inserir Data" value={p.dateOfCreation} onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Técnicas</label>
+                            <input type="text" className="form-control" name="techniques"
+                                   placeholder="Inserir Técnicnas" value={techniques}
+                                   onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Descrição textual</label>
+                            <textarea name="description" className="form-control"
+                                      onChange={this.handleChange} value={p.description}></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label>Keywords</label>
+                            <input type="text" name="keywords" value={keywords} className="form-control"
+                                   onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Multimedia</label>
+                            <input type="url" name="multimedia" className="form-control"
+                                   value={multimedia}
+                                   onChange={this.handleChange}/>
+                        </div>
+                        <div>
+                            <button type="submit" className="btn btn-primary">Editar</button>
+                        </div>
+
+                    </form>
+                </section>
+            </div>
+        )
+    }
+}
+
+
 class PieceArtista extends React.Component {
 
     constructor(props) {
@@ -91,7 +194,7 @@ class PieceArtista extends React.Component {
 
                     <div className="col-md-2 col-xs-12">
                         <div>
-                            <button className="btn btn-primary">Bids</button>
+                            <button className="btn btn-primary" onClick={this.props.showEdit}>Editar</button>
                             <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Colocar
                                 em
                                 Venda
@@ -145,7 +248,7 @@ class PieceDetail extends React.Component {
 
     render() {
         let p = this.props.piece;
-        console.log(p);
+
         return (
             <div>
                 <section className="content_piece">
@@ -161,15 +264,22 @@ class PieceDetail extends React.Component {
                         <div className="col-md-8 col-xs-12">
 
                             <div className="description_piece">
-                                <div className="title_piece">
-                                    {p.name}
+                                <div className="header_description">
+                                    <div className="title_piece">
+                                        {p.name}
+                                    </div>
+                                    <div>
+                                        <small>Autor: {p.authorName}</small>
+                                    </div>
+                                    <div>
+                                        <small>Keywords: {p.keywords !== undefined && p.keywords.join(",")}</small>
+                                    </div>
+                                    <div className="m-t-md">
+                                        <h4> {p.onSale ? "Em Venda: " + p.price + "€ " : ""}</h4>
+                                    </div>
                                 </div>
-
-                                <small>Keywords: {p.keywords.join(",")}</small>
-                                <div className="m-t-md">
-                                    <h2 className="product-main-price">$406,602
-                                        <small>Exclude Tax</small>
-                                    </h2>
+                                <div className="content">
+                                    <p>{p.description}</p>
                                 </div>
                             </div>
 
@@ -185,8 +295,8 @@ class PieceDetail extends React.Component {
 function PieceControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
-        if (u.type == 1)
-            return (<PieceArtista onSalePiece={props.onSalePiece}/>);
+        if (u.accountType == 1)
+            return (<PieceArtista onSalePiece={props.onSalePiece} showEdit={props.showEdit}/>);
         else
             return (<PieceBasico/>);
     }
@@ -195,16 +305,31 @@ function PieceControl(props) {
 }
 
 
-function PieceInitialized(props) {
-    if (props.piece != null) {
+function PieceDetailControl(props) {
+    if (props.detail) {
+        return (<PieceDetail piece={props.piece}/>)
+    }
+    return null;
+}
 
+function PieceEditControl(props) {
+    if (props.edit) {
+        return (<PieceEditar piece={props.piece} editPiece={props.editPiece}/>)
+    }
+    return null;
+}
+
+function PieceInitialized(props) {
+    if (props.parent.state.piece != null) {
+        let p = props.parent;
         return (
             <div className="row">
                 <div className="col-md-10">
-                    <PieceDetail piece={props.piece}/>
+                    <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
+                    <PieceEditControl piece={p.state.piece} edit={p.state.edit} editPiece={p.editPiece}/>
                 </div>
                 <div className="col-md-2">
-                    <PieceControl user={props.user} onSalePiece={props.onSalePiece}/>
+                    <PieceControl user={p.props.user} onSalePiece={p.onSalePiece} showEdit={p.showEdit}/>
                 </div>
             </div>);
     }
@@ -216,10 +341,14 @@ class Piece extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            piece: null
+            piece: null,
+            edit: false,
+            detail: true
         };
         //this.getPiece = this.getPiece.bind(this);
         this.onSalePiece = this.onSalePiece.bind(this);
+        this.showEdit = this.showEdit.bind(this);
+        this.editPiece = this.editPiece.bind(this);
     }
 
     componentDidMount() {
@@ -227,10 +356,42 @@ class Piece extends React.Component {
     }
 
 
+    showEdit() {
+        let s = this.state;
+        s.detail = false;
+        s.edit = true;
+        this.setState(s);
+    }
+
+    editPiece(p) {
+        let t = this;
+        $.ajax({
+            type: 'PUT',
+            url: url + "artwork",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(p),
+            success: function (result) {
+                console.log(result);
+                let s = t.state;
+                s.piece = result;
+                s.detail = true;
+                s.edit = false;
+                t.setState(s);
+            },
+            error: function (status) {
+                alert("Erro " + status);
+                console.log(status);
+            }
+        });
+
+    }
+
     getPiece(id) {
         let t = this;
         $.get(url + "artwork/" + id, function (data) {
-            t.state.piece = data;
+            let piece = data.artWork;
+            piece.authorName = data.authorName;
+            t.state.piece = piece;
             t.setState(t.state);
         });
     }
@@ -239,11 +400,8 @@ class Piece extends React.Component {
         let t = this;
         $.ajax({
             type: 'PUT',
-            url: url + t.props.piece_id + "/sell",
+            url: url + t.props.piece_id + "/sell?price=" + s.price,
             //contentType: "application/json; charset=utf-8",
-            data: {
-                price: s.price
-            },
             success: function (result) {
                 t.getPiece(t.props.piece_id);
             },
@@ -258,7 +416,7 @@ class Piece extends React.Component {
     render() {
         return (
             <div>
-                <PieceInitialized piece={this.state.piece} user ={this.props.user} onSalePiece={this.onSalePiece}/>
+                <PieceInitialized parent={this}/>
             </div>
         );
     }

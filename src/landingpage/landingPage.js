@@ -4,6 +4,8 @@
 import React from 'react';
 import {Route, Link, withRouter} from 'react-router-dom'
 import './landingPage.css';
+import Config from '../config/config';
+const url = Config.url;
 
 
 const Error = ({message}) =>
@@ -120,7 +122,7 @@ class LoginUtilizador extends React.Component {
             email: "",
             password: "",
             type: ""
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.login = this.login.bind(this);
@@ -228,7 +230,6 @@ class MenuComponent extends React.Component {
         this.props.updateLogin(true);
 
     }
-    
 
 
     render() {
@@ -254,8 +255,8 @@ class MenuComponent extends React.Component {
                             </div>
                             <div id="navbar" className="navbar-collapse collapse">
                                 <ul id="landing_nav" className="nav navbar-nav navbar-right">
-                                    <li><a onClick={this.registerMode}> Registar</a></li>
-                                    <li><a onClick={this.loginMode}>Login</a></li>
+                                    <li><Link to={"/register"}> Registar</Link></li>
+                                    <li><Link to={"/login"}>Login</Link></li>
                                     <li><Link to={"/gallery"}>Galeria Pública</Link></li>
                                 </ul>
                             </div>
@@ -336,16 +337,8 @@ class LandingPage extends React.Component {
     }
 
     loginUser(u) {
-        this.reset();
-
-
-        if (this.props.loginUser(u) == false) {
-            console.log(1);
-            let s = Object.assign({}, this.state);
-            s.error = true;
-            this.setState(s);
-        }
-
+        // this.reset();
+        this.props.loginUser(u);
     }
 
 
@@ -360,12 +353,27 @@ class LandingPage extends React.Component {
                                updateLogin={this.updateLogin}
                                updateGallery={this.updateGallery}/>
 
-
-                <Route path="/" exact={true} render={() => {
+                <Route path="/login" exact={true} render={() => {
                     return (
                         <div>
-                            <RegisterControl added={s.added} register={s.register} addUser={this.addUser}/>
-                            <LoginControl error={s.error} login={s.login} loginUser={this.loginUser}/>
+
+                            {
+                                (this.props.errorLogin ? <Error message="Email e password Errados!!!"/> : "" )
+                            }
+                            <LoginUtilizador loginUser={this.loginUser}/>
+
+                        </div>
+                    );
+                }}/>
+
+                <Route path="/register" exact={true} render={() => {
+                    return (
+                        <div>
+
+                            {
+                                (this.props.added ? <Sucesso message="Criação com sucesso!!"/> :
+                                    <RegistarUtilizador addUser={this.addUser}/> )
+                            }
                         </div>
                     );
                 }}/>
