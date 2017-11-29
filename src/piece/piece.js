@@ -10,6 +10,65 @@ import $ from 'jquery';
 const url = Config.url;
 
 
+class PopupRemoveSale extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            price: null
+        };
+        this.removeSalePiece = this.removeSalePiece.bind(this);
+    }
+
+
+    removeSalePiece(e, inputData) {
+        e.preventDefault();
+        this.props.removeSalePiece();
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.removeSalePiece}>
+                    <div className="modal fade" id="modalRemoveSale" role="dialog">
+                        <div className="modal-dialog modal-sm">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Remover peça de venda</h4>
+                                </div>
+
+                                <div className="modal-body">
+                                    <div>
+                                        <strong>Pretende retirar a peça de venda?</strong>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <div className="row">
+                                        <div className="col-md-6 col-xs-12">
+                                            <button type="submit" className="btn btn-success">
+                                                Sim
+                                            </button>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12">
+                                            <button type="button" className="btn btn-default" data-dismiss="modal">
+                                                Fechar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
+
 class PopupOnSale extends React.Component {
     constructor(props) {
         super(props);
@@ -59,7 +118,7 @@ class PopupOnSale extends React.Component {
                                         </div>
                                         <div className="col-md-6 col-xs-12">
                                             <button type="button" className="btn btn-default" data-dismiss="modal">
-                                                Close
+                                                Fechar
                                             </button>
                                         </div>
                                     </div>
@@ -88,7 +147,7 @@ class PieceEditar extends React.Component {
     }
 
     back() {
-       window.history.back();
+        window.history.back();
     }
 
     updatePiece(e, inputData) {
@@ -131,8 +190,6 @@ class PieceEditar extends React.Component {
         return (
             <div>
                 <section>
-                    <button className="btn btn-info" onClick={this.back}><i className="fa fa-back"></i></button>
-
                     <form id="form_create_piece" onSubmit={this.updatePiece}>
                         <h2>Editar Peça</h2>
                         <div className="form-group">
@@ -195,11 +252,15 @@ class PieceArtista extends React.Component {
                     <div className="col-md-2 col-xs-12">
                         <div>
                             <button className="btn btn-primary" onClick={this.props.showEdit}>Editar</button>
-                            <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Colocar
-                                em
-                                Venda
-                            </button>
+                            {this.props.piece.onSale ?
+                                <button className="btn btn-primary" data-toggle="modal" data-target="#modalRemoveSale">
+                                    Tirar de Venda</button> :
+                                <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Colocar
+                                    em Venda</button>
+                            }
+
                             <PopupOnSale onSalePiece={this.props.onSalePiece}/>
+                            <PopupRemoveSale removeSalePiece={this.props.removeSalePiece}/>
                         </div>
                     </div>
                     <div className="col-md-10 col-xs-12">
@@ -296,7 +357,7 @@ function PieceControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
         if (u.accountType == 1)
-            return (<PieceArtista onSalePiece={props.onSalePiece} showEdit={props.showEdit}/>);
+            return (<PieceArtista onSalePiece={props.onSalePiece}  removeSalePiece={props.removeSalePiece} showEdit={props.showEdit} piece={props.piece}/>);
         else
             return (<PieceBasico/>);
     }
@@ -329,7 +390,8 @@ function PieceInitialized(props) {
                     <PieceEditControl piece={p.state.piece} edit={p.state.edit} editPiece={p.editPiece}/>
                 </div>
                 <div className="col-md-2">
-                    <PieceControl user={p.props.user} onSalePiece={p.onSalePiece} showEdit={p.showEdit}/>
+                    <PieceControl user={p.props.user} onSalePiece={p.onSalePiece} piece={p.state.piece}
+                                  showEdit={p.showEdit} removeSalePiece={p.removeSalePiece}/>
                 </div>
             </div>);
     }
@@ -347,6 +409,7 @@ class Piece extends React.Component {
         };
         //this.getPiece = this.getPiece.bind(this);
         this.onSalePiece = this.onSalePiece.bind(this);
+        this.removeSalePiece = this.removeSalePiece.bind(this);
         this.showEdit = this.showEdit.bind(this);
         this.editPiece = this.editPiece.bind(this);
     }
@@ -371,6 +434,7 @@ class Piece extends React.Component {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(p),
             success: function (result) {
+                console.log("Arrived");
                 console.log(result);
                 let s = t.state;
                 s.piece = result;
@@ -400,10 +464,31 @@ class Piece extends React.Component {
         let t = this;
         $.ajax({
             type: 'PUT',
-            url: url + t.props.piece_id + "/sell?price=" + s.price,
+            url: url + "artwork/" + t.props.piece_id + "/sell?price=" + s.price,
             //contentType: "application/json; charset=utf-8",
             success: function (result) {
+                $('#myModal').modal('hide');
                 t.getPiece(t.props.piece_id);
+
+            },
+            error: function (status) {
+                alert("Erro " + status);
+                console.log("Failed	to	Put:	" + status);
+            }
+        });
+
+    }
+
+    removeSalePiece() {
+        let t = this;
+        $.ajax({
+            type: 'PUT',
+            url: url + "artwork/" + t.props.piece_id + "/keep",
+            //contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                $('#modalRemoveSale').modal('hide');
+                t.getPiece(t.props.piece_id);
+
             },
             error: function (status) {
                 alert("Erro " + status);

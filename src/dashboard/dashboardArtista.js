@@ -34,7 +34,7 @@ class MinhaGaleria extends React.Component {
     getMyPieces(state) {
 
         let t = this;
-        $.get(url + "artwork/search/artist/" + this.props.user.id+"/list", function (data) {
+        $.get(url + "artwork/artist/" + this.props.user.id+"/list", function (data) {
             state.pieces = data;
             console.log(data);
             t.setState(state);
