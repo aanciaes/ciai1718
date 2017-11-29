@@ -23,3 +23,8 @@ yarn-error.log*
 # IntelliJ
 .idea/
 *.iml
+
+# Ifml
+Definitions/ifml/workspace/.metadata
+Definitions/ifml/workspace/ciai/.Temp*
+Definitions/ifml/workspace/ciai/.project
