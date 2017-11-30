@@ -89,6 +89,7 @@ class CriarPeca extends React.Component {
 
     createPiece(e, inputData) {
 
+
         e.preventDefault();
         this.props.createPiece(this.state);
     }
@@ -233,7 +234,6 @@ class DashboardArtista extends React.Component {
         p['multimedia'] = t.constructArray(p['multimedia']);
         p['techniques'] = t.constructArray(p['techniques']);
         p['keywords'] = t.constructArray(p['keywords']);
-        console.log(p);
 
 
         $.ajax({
