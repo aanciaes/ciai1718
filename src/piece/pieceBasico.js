@@ -119,7 +119,7 @@ class PieceBasico extends React.Component {
                 <div className="menu_buttons">
                     {this.props.piece.onSale ?
                         <button className="btn btn-primary" data-toggle="modal" data-target="#modalBid">
-                            Bids
+                            Fazer Bid
                         </button> : ""
                     }
 

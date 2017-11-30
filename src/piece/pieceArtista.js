@@ -272,70 +272,7 @@ class PieceEditar extends React.Component {
 }
 
 
-class PieceBids extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            bids: []
-        };
-        this.getBidsPiece = this.getBidsPiece.bind(this);
-    }
 
-    getBidsPiece() {
-        let t = this;
-
-        $.ajax({
-            type: 'GET',
-            url: url + "bid/piece/" + t.props.piece.id,
-            success: function (result) {
-                t.state = result;
-                t.setState(t.state);
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log(status);
-            }
-        });
-
-    }
-
-    render() {
-        return (
-            <div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>BidId</th>
-                        <th>Bidder</th>
-                        <th>Valor</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.state.bids.map((bid, index) => (
-                            <tr>
-                                <td>{bid.bidId}</td>
-                                <td>{bid.userId}</td>
-                                <td>{bid.bidAmount}</td>
-                            </tr>
-                        ))
-                    }
-                    <tr>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
-}
-
-function PieceBidsController(props) {
-    if (props.bidsPiece)
-        return (<PieceBids/>)
-    else
-        return null;
-}
 
 
 

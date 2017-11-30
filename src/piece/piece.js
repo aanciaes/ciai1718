@@ -12,6 +12,79 @@ import $ from 'jquery';
 const url = Config.url;
 
 
+class PieceBids extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            bids: []
+        };
+        this.getBidsPiece = this.getBidsPiece.bind(this);
+    }
+
+    componentDidMount() {
+        this.getBidsPiece();
+    }
+
+    getBidsPiece() {
+        let t = this;
+
+        $.ajax({
+            type: 'GET',
+            url: url + "bid/piece/" + t.props.piece.id,
+            success: function (result) {
+                console.log(result);
+                t.state.bids = result;
+                t.setState(t.state);
+            },
+            error: function (status) {
+                alert("Erro " + status);
+                console.log(status);
+            }
+        });
+
+    }
+
+    render() {
+        console.log(this.state.bids);
+        return (
+            <div>
+                <h2>BIDS</h2>
+                <table className="table-striped table-bordered" width="100%">
+                    <thead>
+                    <tr>
+                        <th>BidId</th>
+                        <th>Bidder</th>
+                        <th>Valor</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        this.state.bids.map((bid, index) => (
+                            <tr key={index}>
+                                <td>{bid.bidId}</td>
+                                <td>{bid.userId}</td>
+                                <td>{bid.bidAmount}</td>
+                            </tr>
+                        ))
+                    }
+                    <tr>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        );
+    }
+}
+
+function PieceBidsController(props) {
+    if (props.bidsPiece)
+        return (<PieceBids piece={props.piece}/>)
+    else
+        return null;
+}
+
+
 class PieceDetail extends React.Component {
 
     constructor(props) {
@@ -97,10 +170,13 @@ function PieceInitialized(props) {
         let p = props.parent;
         return (
             <div className="row">
-                <div className="col-md-6">
-                    <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
+                <div className="col-md-8">
+                            <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
+                    <PieceBidsController bidsPiece={p.state.bidsPiece}
+                                         piece={p.state.piece}/>
+
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <PieceControl piece={p.state.piece} user={p.props.user} updatePiece={p.updatePiece}
                                   getPiece={p.getPiece}/>
                 </div>
@@ -115,7 +191,8 @@ class Piece extends React.Component {
         super(props);
         this.state = {
             piece: null,
-            detail: true
+            detail: true,
+            bidsPiece: true
         };
         this.getPiece = this.getPiece.bind(this);
         this.updatePiece = this.updatePiece.bind(this);
