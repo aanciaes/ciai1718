@@ -49,29 +49,32 @@ class PieceBids extends React.Component {
         return (
             <div>
                 <h2>BIDS</h2>
-                <table className="table-striped table-bordered" width="100%">
-                    <thead>
-                    <tr>
-                        <th>BidId</th>
-                        <th>Bidder</th>
-                        <th>Valor</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.state.bids.map((bid, index) => (
-                            <tr key={index}>
-                                <td>{bid.bidId}</td>
-                                <td>{bid.userId}</td>
-                                <td>{bid.bidAmount}</td>
-                            </tr>
-                        ))
-                    }
-                    <tr>
+                <div className="table-responsive">
+                    <table className="table-striped table-bordered table-hover table-condensed" width="100%">
+                        <thead>
+                        <tr>
+                            <th>BidId</th>
+                            <th>Bidder</th>
+                            <th>Valor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            this.state.bids.map((bid, index) => (
+                                <tr key={index}>
+                                    <td>{bid.bidId}</td>
+                                    <td>{bid.userId}</td>
+                                    <td>{bid.bidAmount}</td>
+                                </tr>
+                            ))
+                        }
+                        <tr>
 
-                    </tr>
-                    </tbody>
-                </table>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         );
     }

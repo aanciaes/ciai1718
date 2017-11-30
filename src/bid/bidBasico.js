@@ -3,61 +3,41 @@
  */
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-
-import './piece.css';
 import Config from '../config/config';
 import $ from 'jquery';
 
 const url = Config.url;
 
 
-class PopupBid extends React.Component {
+class PopupRemoveBid extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            bidAmount: null
-        };
-        this.handleChange = this.handleChange.bind(this);
-        this.makeBid = this.makeBid.bind(this);
+        this.removeBid = this.removeBid.bind(this);
     }
 
-    handleChange({target}) {
-        this.setState({
-                [target.name]: target.value
-            }
-        )
-    }
 
-    makeBid(e, inputData) {
+    removeBid(e, inputData) {
         e.preventDefault();
-        this.props.makeBid(this.state.bidAmount);
+        this.props.removeBid();
     }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.makeBid}>
-                    <div className="modal fade" id="modalBid" role="dialog">
+                <form onSubmit={this.removeBid}>
+                    <div className="modal fade" id="modalRemoveBid" role="dialog">
                         <div className="modal-dialog modal-sm">
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                    <h4 className="modal-title">Fazer Bid</h4>
-                                    <b>Têm que ser um valor maior que preço da peça!!</b>
-                                </div>
-
-
-                                <div className="modal-body">
-                                    <div>Valor Bid : <input type="text" min="0" name="bidAmount"
-                                                            className="form-control"
-                                                            onChange={this.handleChange} required="required"/>
-                                    </div>
+                                    <h4 className="modal-title">Anular Bid</h4>
+                                    <b>Pretende anular bid??</b>
                                 </div>
                                 <div className="modal-footer">
                                     <div className="row">
                                         <div className="col-md-6 col-xs-12">
                                             <button type="submit" className="btn btn-success">
-                                                Gravar
+                                                Sim
                                             </button>
                                         </div>
                                         <div className="col-md-6 col-xs-12">
@@ -82,29 +62,22 @@ class PopupBid extends React.Component {
 
 
 
-class PieceBasico extends React.Component {
+class BidBasico extends React.Component {
     constructor(props) {
         super(props);
-        this.makeBid = this.makeBid.bind(this);
+        this.removeBid = this.removeBid.bind(this);
 
     }
 
-    makeBid(amount) {
+    removeBid() {
         let t = this;
-        let b = {
-            bidAmount: amount,
-            pieceId: t.props.piece.id,
-            userId: t.props.user.id
-        };
-
         $.ajax({
-            type: 'POST',
-            url: url + "bid",
+            type: 'DELETE',
+            url: url + "bid/"+t.props.bid.bidId,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(b),
             success: function (result) {
                 console.log(result);
-                $('#modalBid').modal('hide');
+                $('#modalRemoveBid').modal('hide');
                 t.props.history.push("/dashboard/mybids");
             },
             error: function (status) {
@@ -118,13 +91,10 @@ class PieceBasico extends React.Component {
         return (
             <div>
                 <div className="menu_buttons">
-                    {this.props.piece.onSale ?
-                        <button className="btn btn-primary" data-toggle="modal" data-target="#modalBid">
-                            Fazer Bid
-                        </button> : ""
-                    }
-
-                    <PopupBid makeBid={this.makeBid}/>
+                    <button className="btn btn-danger" data-toggle="modal" data-target="#modalRemoveBid">
+                        Anular Bid
+                    </button>
+                    <PopupRemoveBid removeBid={this.removeBid}/>
                 </div>
 
             </div>
@@ -132,4 +102,4 @@ class PieceBasico extends React.Component {
     }
 }
 
-export default withRouter(PieceBasico);
+export default withRouter(BidBasico);

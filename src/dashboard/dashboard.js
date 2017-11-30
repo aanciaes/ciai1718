@@ -10,6 +10,7 @@ import DashboardBasico from './dashboardBasico';
 import './dashboard.css';
 import PublicGallery from '../publicGallery/publicGallery';
 import Piece from '../piece/piece';
+import Bid from '../bid/bid';
 import $ from 'jquery';
 import Config from '../config/config';
 const url = Config.url;
@@ -182,6 +183,12 @@ class Dashboard extends React.Component {
                     <Route path="/dashboard/pieces/:id" exact={true} render={({match}) => {
                         return (
                             <Piece piece_id={match.params.id} user={user}/>
+                        );
+                    }}/>
+
+                    <Route path="/dashboard/bid/:id" exact={true} render={({match}) => {
+                        return (
+                            <Bid bid_id={match.params.id} user={user}/>
                         );
                     }}/>
                 </div>

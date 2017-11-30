@@ -99,7 +99,7 @@ class CriarPeca extends React.Component {
             <div>
                 <section>
 
-                    <form id="form_create_piece" onSubmit={this.createPiece}>
+                    <form id="form_create_piece" className="form_normal" onSubmit={this.createPiece}>
                         <h2>Criar Peça</h2>
                         <div className="form-group">
                             <label>Nome:</label>

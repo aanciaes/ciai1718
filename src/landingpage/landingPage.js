@@ -56,7 +56,7 @@ class RegistarUtilizador extends React.Component {
                 <section>
 
 
-                    <form id="form_register" className="form-horizontal" onSubmit={this.recordUser}>
+                    <form id="form_register" className="form-horizontal form_normal" onSubmit={this.recordUser}>
                         <div className="form-group">
 
                             <div className="input-group form_input ">
@@ -145,7 +145,7 @@ class LoginUtilizador extends React.Component {
             <div className="forms">
                 <section>
 
-                    <form id="form_login" onSubmit={this.login}>
+                    <form id="form_login" className="form_normal" onSubmit={this.login}>
                         <div className="form-group">
 
                             <div className="input-group form_input">
