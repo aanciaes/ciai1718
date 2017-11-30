@@ -215,14 +215,13 @@ class PieceEditar extends React.Component {
 
         let s = this.state;
         s[target.name] = target.value;
-
-
         this.setState(s);
     }
 
 
     render() {
         let p = this.state;
+        console.log(p);
         return (
             <div>
                 <section>
@@ -373,7 +372,13 @@ class PieceDetail extends React.Component {
                                         <small>Autor: {p.authorName}</small>
                                     </div>
                                     <div>
+                                        <small>Data: {p.dateOfCreation}</small>
+                                    </div>
+                                    <div>
                                         <small>Keywords: {p.keywords !== undefined && p.keywords.join(",")}</small>
+                                    </div>
+                                    <div>
+                                        <small>Técnicas: {p.techniques !== undefined && p.techniques.join(",")}</small>
                                     </div>
                                     <div className="m-t-md">
                                         <h4> {p.onSale ? "Em Venda: " + p.price + "€ " : ""}</h4>
@@ -471,26 +476,25 @@ class Piece extends React.Component {
     }
 
     constructArray(s) {
+
+
         let arr = [];
         if (s.indexOf(",") > -1) {
             let k = s.split(',');
-            $.each(k, function (i, val) {
-                if (k.indexOf(val) < 0)
-                    arr.push(val);
-            });
+            console.log("k");
+            console.log(k);
+            arr = k;
         } else
             arr.push(s);
+        console.log(arr);
         return arr;
     }
 
     editPiece(p) {
         let t = this;
-        console.log(p);
         p['multimedia'] = this.constructArray(p['multimedia']);
-
         p['techniques'] = this.constructArray(p['techniques']);
         p['keywords'] = this.constructArray(p['keywords']);
-
 
         /*if (target.value.indexOf(',') > -1) {
 
@@ -565,7 +569,7 @@ class Piece extends React.Component {
             //contentType: "application/json; charset=utf-8",
             success: function (result) {
                 $('#modalRemovePiece').modal('hide');
-                t.props.history.push("/dashboard/mygallery");
+                t.props.history.push("/dashboard/piece/mygallery");
 
             },
             error: function (status) {

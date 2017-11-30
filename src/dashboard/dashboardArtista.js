@@ -10,7 +10,7 @@ import Config from '../config/config';
 const url = Config.url;
 
 const PieceItem = ({piece}) =>
-    <div>
+    <div className="piece_item">
         <Link to={"/dashboard/pieces/" + piece.id}>
             <div>Nome: {piece.name} Data: {piece.date}</div>
             <div>Técnicas: {piece.techniques}</div>
@@ -34,7 +34,7 @@ class MinhaGaleria extends React.Component {
     getMyPieces(state) {
 
         let t = this;
-        $.get(url + "artwork/artist/" + this.props.user.id+"/list", function (data) {
+        $.get(url + "artwork/artist/" + this.props.user.id + "/list", function (data) {
             state.pieces = data;
             console.log(data);
             t.setState(state);
@@ -70,10 +70,10 @@ class CriarPeca extends React.Component {
         this.state = {
             name: "",
             dateOfCreation: "",
-            techniques: [],
+            techniques: "",
             description: "",
-            keywords: [],
-            multimedia: []
+            keywords: "",
+            multimedia: ""
 
         };
         this.handleChange = this.handleChange.bind(this);
@@ -83,21 +83,7 @@ class CriarPeca extends React.Component {
     handleChange({target}) {
 
         let s = this.state;
-        if (target.name == 'keywords' || target.name == 'techniques' || target.name == "multimedia") {
-            if (target.value.indexOf(',') > -1) {
-
-                let k = target.value.split(',');
-                $.each(k, function (i, val) {
-                    if (k.indexOf(val) < 0)
-                        k.push(val);
-                });
-                s[target.name] = k;
-            }
-        }
-        else
-            s[target.name] = target.value;
-
-
+        s[target.name] = target.value;
         this.setState(s);
     }
 
@@ -213,8 +199,6 @@ class MenuAsideArtista extends React.Component {
 }
 
 
-
-
 class DashboardArtista extends React.Component {
 
     constructor(props) {
@@ -224,21 +208,39 @@ class DashboardArtista extends React.Component {
         };
 
         this.createPiece = this.createPiece.bind(this);
+        this.constructArray = this.constructArray.bind(this);
 
 
     }
 
+    constructArray(s) {
+        let arr = [];
+        if (s.indexOf(",") > -1) {
+            let k = s.split(',');
+            console.log("k");
+            console.log(k);
+            arr = k;
+        } else
+            arr.push(s);
+        console.log(arr);
+        return arr;
+    }
+
 
     createPiece(p) {
-        p['author'] = this.props.user.id;
-
         let t = this;
+        p['author'] = t.props.user.id;
+        p['multimedia'] = t.constructArray(p['multimedia']);
+        p['techniques'] = t.constructArray(p['techniques']);
+        p['keywords'] = t.constructArray(p['keywords']);
+        console.log(p);
+
 
         $.ajax({
             type: 'POST',
             url: url + 'artwork',
-            processData:false,
-            dataType:"json",
+            processData: false,
+            dataType: "json",
             contentType: "application/json;",
             data: JSON.stringify(p),
             success: function (result) {
