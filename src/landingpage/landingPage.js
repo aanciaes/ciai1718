@@ -31,8 +31,8 @@ class RegistarUtilizador extends React.Component {
             email: "",
             name: "",
             password: "",
-            type: ""
-        }
+            accountType: ""
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.recordUser = this.recordUser.bind(this);
@@ -87,11 +87,11 @@ class RegistarUtilizador extends React.Component {
                             <div className="input-group form_input ">
                                 <span className="input-group-addon"> Tipo de Utilizador</span>
                                 <div>
-                                    <label className="radio-inline"><input type="radio" name="type"
+                                    <label className="radio-inline"><input type="radio" name="accountType"
                                                                            value="0"
                                                                            onChange={this.handleChange}
                                                                            required="required"/>Básico</label>
-                                    <label className="radio-inline"><input type="radio" name="type"
+                                    <label className="radio-inline"><input type="radio" name="accountType"
                                                                            value="1"
                                                                            onChange={this.handleChange}
                                                                            required="required"/>Artista</label>
@@ -371,7 +371,8 @@ class LandingPage extends React.Component {
                         <div>
 
                             {
-                                (this.props.added ? <Sucesso message="Criação com sucesso!!"/> :
+                                (this.props.added != null && this.props.added ?
+                                    <Sucesso message="Criação com sucesso!!"/> :
                                     <RegistarUtilizador addUser={this.addUser}/> )
                             }
                         </div>

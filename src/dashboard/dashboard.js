@@ -157,7 +157,7 @@ class Dashboard extends React.Component {
                 {user.accountType == 1 ?
                     <DashboardArtista
                         user={user}/> :
-                    <DashboardBasico/> }
+                    <DashboardBasico user={user}/> }
 
 
                 <Route path="/dashboard" exact={true} render={() => {

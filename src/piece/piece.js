@@ -11,6 +11,75 @@ import $ from 'jquery';
 const url = Config.url;
 
 
+class PopupBid extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            bidAmount: null
+        };
+        this.handleChange = this.handleChange.bind(this);
+        this.makeBid = this.makeBid.bind(this);
+    }
+
+    handleChange({target}) {
+        this.setState({
+                [target.name]: target.value
+            }
+        )
+    }
+
+    makeBid(e, inputData) {
+        e.preventDefault();
+        this.props.makeBid(this.state.bidAmount);
+    }
+
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.makeBid}>
+                    <div className="modal fade" id="modalBid" role="dialog">
+                        <div className="modal-dialog modal-sm">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                    <h4 className="modal-title">Fazer Bid</h4>
+                                    <b>Têm que ser um valor maior que preço da peça!!</b>
+                                </div>
+
+
+                                <div className="modal-body">
+                                    <div>Valor Bid : <input type="text" min="0" name="bidAmount"
+                                                            className="form-control"
+                                                            onChange={this.handleChange} required="required"/>
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <div className="row">
+                                        <div className="col-md-6 col-xs-12">
+                                            <button type="submit" className="btn btn-success">
+                                                Gravar
+                                            </button>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12">
+                                            <button type="button" className="btn btn-default" data-dismiss="modal">
+                                                Fechar
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        )
+    }
+}
+
+
 class PopupRemovePiece extends React.Component {
     constructor(props) {
         super(props);
@@ -158,7 +227,7 @@ class PopupOnSale extends React.Component {
 
                                 <div className="modal-body">
                                     <div>Preço: <input type="text" min="0" name="price" className="form-control"
-                                                       onChange={this.handleChange}/>
+                                                       onChange={this.handleChange} required="required"/>
                                     </div>
                                 </div>
                                 <div className="modal-footer">
@@ -326,7 +395,8 @@ class PieceBasico extends React.Component {
 
                     <div className="col-md-2 col-xs-12">
                         <div>
-                            <button className="btn btn-primary">Bids</button>
+                            <button className="btn btn-primary" data-toggle="modal" data-target="#modalBid">Bids
+                            </button>
                         </div>
                     </div>
                     <div className="col-md-10 col-xs-12">
@@ -334,6 +404,7 @@ class PieceBasico extends React.Component {
 
                 </div>
 
+                <PopupBid makeBid={this.props.makeBid} />
             </div>
         )
     }
@@ -405,7 +476,7 @@ function PieceControl(props) {
             return (<PieceArtista onSalePiece={props.onSalePiece} removeSalePiece={props.removeSalePiece}
                                   showEdit={props.showEdit} piece={props.piece} removePiece={props.removePiece}/>);
         else
-            return (<PieceBasico/>);
+            return (<PieceBasico makeBid={props.makeBid}/>);
     }
     return null;
 
@@ -436,7 +507,7 @@ function PieceInitialized(props) {
                     <PieceEditControl piece={p.state.piece} edit={p.state.edit} editPiece={p.editPiece}/>
                 </div>
                 <div className="col-md-2">
-                    <PieceControl user={p.props.user} onSalePiece={p.onSalePiece} piece={p.state.piece}
+                    <PieceControl user={p.props.user} onSalePiece={p.onSalePiece} makeBid={p.makeBid} piece={p.state.piece}
                                   showEdit={p.showEdit} removeSalePiece={p.removeSalePiece}
                                   removePiece={p.removePiece}/>
                 </div>
@@ -461,6 +532,7 @@ class Piece extends React.Component {
         this.removePiece = this.removePiece.bind(this);
         this.showEdit = this.showEdit.bind(this);
         this.editPiece = this.editPiece.bind(this);
+        this.makeBid = this.makeBid.bind(this);
     }
 
     componentDidMount() {
@@ -495,20 +567,6 @@ class Piece extends React.Component {
         p['multimedia'] = this.constructArray(p['multimedia']);
         p['techniques'] = this.constructArray(p['techniques']);
         p['keywords'] = this.constructArray(p['keywords']);
-
-        /*if (target.value.indexOf(',') > -1) {
-
-         let k = target.value.split(',');
-         $.each(k, function (i, val) {
-         if (k.indexOf(val) < 0)
-         k.push(val);
-         });
-         s[target.name] = k;
-         } else
-         s[target.name].push(target.value);*/
-
-        console.log(p);
-
 
         $.ajax({
             type: 'PUT',
@@ -559,6 +617,31 @@ class Piece extends React.Component {
             }
         });
 
+    }
+
+    makeBid(amount) {
+        let t = this;
+        let b = {
+            bidAmount: amount,
+            pieceId: t.props.piece_id,
+            userId: t.props.user.id
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: url + "bid",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(b),
+            success: function (result) {
+                console.log(result);
+                $('#modalBid').modal('hide');
+                t.props.history.push("/dashboard/mybids");
+            },
+            error: function (status) {
+                alert("Erro " + status);
+                console.log(status);
+            }
+        });
     }
 
     removePiece() {

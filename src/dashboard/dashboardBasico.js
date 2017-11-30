@@ -3,8 +3,61 @@
  */
 import {Route, Link, withRouter} from 'react-router-dom'
 import React, {Component} from 'react';
-import User from './user';
 import './dashboard.css';
+import $ from 'jquery';
+import Config from '../config/config';
+const url = Config.url;
+
+
+const BidItem = ({bid})=>
+    <div>
+        <p>Id: {bid.bidId}</p>
+        <p>Amount:{bid.bidAmount}</p>
+        <p>Piece:{bid.pieceId}</p>
+    </div>;
+
+class MeusBids extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            bids: []
+        };
+
+        this.getMyBids(this.state);
+
+    }
+
+    getMyBids(state) {
+        let t = this;
+        $.get(url + "bid/user/" + this.props.user.id, function (data) {
+            state.bids = data;
+            console.log(data);
+            t.setState(state);
+        });
+    }
+
+    render() {
+
+        return (<div>
+
+            <ul>
+                {
+                    this.state.bids.map(
+                        (bid, index) =>
+                            (
+                                <li className="list-group-item" key={index}>
+                                    <BidItem bid={bid}/>
+                                </li>
+                            )
+                    )
+                }
+            </ul>
+
+        </div>);
+    }
+
+}
 
 
 class MenuAsideBasico extends React.Component {
@@ -33,10 +86,10 @@ class MenuAsideBasico extends React.Component {
                             </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/dashboard/mybids">
                                 <span className="sidebar-icon"><i className="fa fa-money"></i></span>
                                 <span className="sidebar-title">Bids</span>
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </aside>
@@ -60,6 +113,12 @@ class DashboardBasico extends React.Component {
         return (
             <div>
                 <MenuAsideBasico/>
+
+                <Route path="/dashboard/mybids" exact={true} render={() => {
+                    return (
+                        <MeusBids user={this.props.user}/>
+                    );
+                }}/>
             </div>
         );
     }

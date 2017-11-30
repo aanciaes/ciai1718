@@ -25,6 +25,7 @@ class App extends Component {
         super(props);
         this.state = {
             errorLogin: false,
+            added: null,
             users: [],
             user: "",
             // landingPageMode: true,
@@ -46,38 +47,38 @@ class App extends Component {
     }
 
     addUser(u) {
-        let stateCopy = this.getCopyState(this.state);
-        u.id = stateCopy.users.length;
-        stateCopy.users.push(u);
-        this.setState(stateCopy);
+        let that = this;
+        $.ajax({
+            type: 'POST',
+            url: url + "user/register",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(u),
+            success: function (result) {
+                let stateCopy = that.getCopyState(that.state);
+                stateCopy.user = result;
+                //stateCopy.loggedIn = true;
+                // stateCopy.landingPageMode = false;
+                stateCopy.added = true;
+                that.setState(stateCopy);
+                //that.props.history.push('/');
+            },
+            error: function (status) {
+                let stateCopy = that.getCopyState(that.state);
+                stateCopy.added = false;
+                console.log(status);
+                that.setState(stateCopy);
+            }
+        });
     }
 
     loginUser(u) {
         let that = this;
-        let s = this.state;
-        //let us = s.users;
-
-        /*let found = false;
-         let user = null;
-         $.each(us, function (i, val) {
-         if (val.email == u.email)
-         if (val.password == u.password) {
-         user = i;
-         found = true;
-         return false;
-         }
-         });
-
-         if (!found) {
-         return false;
-         }*/
-
         $.ajax({
             type: 'POST',
             url: url + "login?username=" + u.email + "&password=" + u.password,
             //contentType: "application/json; charset=utf-8",
             success: function (result) {
-                let stateCopy = that.getCopyState(s);
+                let stateCopy = that.getCopyState(that.state);
                 stateCopy.user = result;
                 //stateCopy.loggedIn = true;
                 // stateCopy.landingPageMode = false;
@@ -85,7 +86,7 @@ class App extends Component {
                 that.props.history.push('/dashboard');
             },
             error: function (status) {
-                let stateCopy = that.getCopyState(s);
+                let stateCopy = that.getCopyState(that.state);
                 stateCopy.errorLogin = true;
                 console.log(status);
                 that.setState(stateCopy);
@@ -127,7 +128,8 @@ class App extends Component {
 
                     <Route path="/" render={() => {
                         return (
-                            <LandingPage loginUser={this.loginUser} addUser={this.addUser} errorLogin={this.state.errorLogin}/>
+                            <LandingPage loginUser={this.loginUser} addUser={this.addUser}
+                                         errorLogin={this.state.errorLogin} added={this.state.added}/>
 
                         )
                     }
