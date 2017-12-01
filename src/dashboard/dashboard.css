@@ -41,7 +41,6 @@
     padding: 20px;
 }
 
-
 .content_form_big .form_title {
     border-bottom: solid 1px lightgray;
     text-align: left;
@@ -55,6 +54,23 @@
 
 .button_submit {
     width: 100px;
+}
+
+#list_my_gallery {
+    margin-left: 140px;
+}
+
+#list_my_gallery .description_list {
+    text-align: left;
+    color: black;
+
+}
+
+@media (max-width: 1312px) {
+
+    #list_my_gallery {
+        margin-left: 25px;
+    }
 }
 
 @media (max-width: 1312px) {

@@ -263,7 +263,7 @@ class PieceEditar extends React.Component {
                                     <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
                                     <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="valor,valor,.." pattern="([a-z]| [a-z],[a-z])"   value={p.techniques} onChange={this.handleChange}/>
+                                               placeholder="valor,valor,.."    value={p.techniques} onChange={this.handleChange}/>
                                     </div>
                                 </div>
 

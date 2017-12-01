@@ -9,16 +9,42 @@ import Config from '../config/config';
 
 const url = Config.url;
 
-const PieceItem = ({piece}) =>
-    <div className="piece_item">
-        <Link to={"/dashboard/pieces/" + piece.id}>
-            <div>Nome: {piece.name} Data: {piece.date}</div>
-            <div>Técnicas: {piece.techniques}</div>
-            <div>Descrição: {piece.description}</div>
-            <div>Keywords: {piece.keywords.join(',')}</div>
-            <div>Multimedia : <img src={piece.multimedia} alt={piece.multimedia}/></div>
-        </Link>
-    </div>;
+class PieceItem extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+
+    render() {
+
+        let p = this.props.piece;
+        return (
+            <div>
+                <div className="piece_content">
+                    <div className="img_piece">
+                        <div>
+                            <img src={p.multimedia}/>
+                        </div>
+                    </div>
+                    <div className="desc_piece">
+
+                        <span className={p.onSale ? "price_prod":""}> {p.onSale ? p.price + " €" : "" }</span>
+                        <div>
+                            <small>Keywords: {p.keywords.join(",")}</small>
+                        </div>
+                        <div><label>{p.name}</label></div>
+                        <div className="info_button">
+                            <div>Info <i className="fa fa-arrow-circle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+}
+
+
 
 
 class MinhaGaleria extends React.Component {
@@ -43,20 +69,21 @@ class MinhaGaleria extends React.Component {
 
     render() {
         return (
-            <div>
-                <ul className="list-group">
+            <div id="list_my_gallery">
+                <div className="row">
 
                     {
-                        this.state.pieces.map(
-                            (piece, index) =>
-                                (
-                                    <li className="list-group-item" key={index}>
-                                        <PieceItem piece={piece}/>
-                                    </li>
-                                )
+                        this.state.pieces.map((piece, index)=>
+                            (<div key={index} className="col-md-3 col-xs-12">
+                                <Link to={ "/dashboard/pieces/" + piece.id}>
+                                    <PieceItem piece={piece}/>
+                                </Link>
+                            </div>)
                         )
+
                     }
-                </ul>
+
+                </div>
             </div>
         )
     }
@@ -122,7 +149,8 @@ class CriarPeca extends React.Component {
 
                                     <div className="col-sm-4">
                                         <div className="input-group">
-                                            <span className="input-group-addon"><i className="fa fa-calendar"></i></span>
+                                            <span className="input-group-addon"><i
+                                                className="fa fa-calendar"></i></span>
                                             <input type="date" id="dateOfCreation" className="form-control"
                                                    name="dateOfCreation"
                                                    placeholder="Inserir Data" onChange={this.handleChange}/>
@@ -144,7 +172,8 @@ class CriarPeca extends React.Component {
 
                                     <label for="keywords" className="col-sm-2 col-form-label">Keywords:</label>
                                     <div className="col-sm-10">
-                                        <input type="text" name="keywords" id="keywords" placeholder="valor,valor,.."  className="form-control"
+                                        <input type="text" name="keywords" id="keywords" placeholder="valor,valor,.."
+                                               className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -153,7 +182,8 @@ class CriarPeca extends React.Component {
 
                                     <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
                                     <div className="col-sm-10">
-                                        <input type="url" name="multimedia" id="multimedia"   placeholder="valor,valor,.."  className="form-control"
+                                        <input type="url" name="multimedia" id="multimedia" placeholder="valor,valor,.."
+                                               className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -161,7 +191,7 @@ class CriarPeca extends React.Component {
                             <div className="col-sm-6 col-md-6 col-xs-12">
                                 <div className="form-group left_text">
                                     <label>Descrição textual</label>
-                                    <textarea name="description"  className="form-control"
+                                    <textarea name="description" className="form-control"
                                               onChange={this.handleChange}></textarea>
                                 </div>
 
