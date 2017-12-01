@@ -71,6 +71,21 @@ class MinhaGaleria extends React.Component {
         return (
             <div id="list_my_gallery">
                 <div className="row">
+                    <div className="col-md-2 col-xs-12">
+                    </div>
+                    <div className="col-md-7 col-xs-12">
+                        <div id="search_field">
+                            <div className="input-group">
+                                <span className="input-group-addon"><i className="fa fa-search"></i></span>
+                                <input id="search" type="search" className="form-control" name="search"
+                                       placeholder="Procurar"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-xs-12">
+                    </div>
+                </div>
+                <div className="row">
 
                     {
                         this.state.pieces.map((piece, index)=>
