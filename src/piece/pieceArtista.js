@@ -225,7 +225,7 @@ class PieceEditar extends React.Component {
         return (
             <div>
                 <section>
-                    <form id="form_edit_piece" onSubmit={this.updatePiece}>
+                    <form id="form_edit_piece"  className="form_normal" onSubmit={this.updatePiece}>
                         <h2>Editar Peça</h2>
                         <div className="form-group">
                             <label>Nome:</label>
@@ -272,11 +272,6 @@ class PieceEditar extends React.Component {
 }
 
 
-
-
-
-
-
 function PieceEditControl(props) {
     if (props.edit) {
         return (<PieceEditar piece={props.piece} editPiece={props.editPiece}/>)
@@ -301,6 +296,7 @@ class PieceArtista extends React.Component {
     }
 
     showEdit() {
+        this.props.hideDetail();
         let s = this.state;
         s.edit = true;
         this.setState(s);

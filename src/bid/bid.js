@@ -13,9 +13,6 @@ const url = Config.url;
 
 class BidDetail extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         let b = this.props.bid;

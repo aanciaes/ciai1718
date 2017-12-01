@@ -16,7 +16,7 @@ const PieceItem = ({piece}) =>
             <div>Técnicas: {piece.techniques}</div>
             <div>Descrição: {piece.description}</div>
             <div>Keywords: {piece.keywords.join(',')}</div>
-            <div>Multimedia : <img src={piece.multimedia}/></div>
+            <div>Multimedia : <img src={piece.multimedia} alt={piece.multimedia}/></div>
         </Link>
     </div>;
 
@@ -97,38 +97,61 @@ class CriarPeca extends React.Component {
     render() {
         return (
             <div>
-                <section>
+                <section className="content_form_big">
 
-                    <form id="form_create_piece" className="form_normal" onSubmit={this.createPiece}>
+                    <form id="form_create_piece" onSubmit={this.createPiece}>
                         <h2>Criar Peça</h2>
-                        <div className="form-group">
-                            <label>Nome:</label>
-                            <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" onChange={this.handleChange} required="required"/>
+                        <div className="row">
+                            <div className="col-sm-8 col-md-8 col-xs-12">
+
+                                <div className="form-group row">
+
+                                    <label for="name" className="col-sm-2 col-form-label">Nome</label>
+                                    <div className="col-sm-10">
+                                        <input type="text" id="name" className="form-control" name="name"
+                                               placeholder="Inserir nome" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+
+                                </div>
+                                <div className="form-group row">
+                                    <label for="dateOfCreation" className="col-sm-2 col-form-label">Data:</label>
+                                    <div className="col-sm-4">
+                                        <input type="date" id="dateOfCreation" className="form-control"
+                                               name="dateOfCreation"
+                                               placeholder="Inserir Data" onChange={this.handleChange}/>
+                                    </div>
+                                    <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
+                                    <div className="col-sm-4">
+                                        <input type="text" className="form-control" id="techniques" name="techniques"
+                                               placeholder="Inserir Técnicnas" onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+
+                                <div className="form-group row">
+                                    <label for="keywords" className="col-sm-2 col-form-label">Keywords:</label>
+                                    <div className="col-sm-4">
+                                        <input type="text" name="keywords" id="keywords" className="form-control"
+                                               onChange={this.handleChange}/>
+                                    </div>
+                                    <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
+                                    <div className="col-sm-4">
+                                        <input type="url" name="multimedia" id="multimedia" className="form-control"
+                                               onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-4 col-md-4 col-xs-12">
+                                <div className="form-group">
+                                    <label>Descrição textual</label>
+                                    <textarea name="description" className="form-control"
+                                              onChange={this.handleChange}></textarea>
+                                </div>
+
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label>Data:</label>
-                            <input type="date" className="form-control" name="dateOfCreation"
-                                   placeholder="Inserir Data" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Técnicas</label>
-                            <input type="text" className="form-control" name="techniques"
-                                   placeholder="Inserir Técnicnas" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Descrição textual</label>
-                            <textarea name="description" className="form-control"
-                                      onChange={this.handleChange}></textarea>
-                        </div>
-                        <div className="form-group">
-                            <label>Keywords</label>
-                            <input type="text" name="keywords" className="form-control" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Multimedia</label>
-                            <input type="url" name="multimedia" className="form-control" onChange={this.handleChange}/>
-                        </div>
+
+
                         <div>
                             <button type="submit" className="btn btn-primary">Criar</button>
                         </div>
@@ -146,9 +169,6 @@ class CriarPeca extends React.Component {
 
 class MenuAsideArtista extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
 
     render() {
 

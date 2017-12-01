@@ -24,7 +24,9 @@ class PieceItem extends React.Component {
             <div>
                 <div className="piece_content">
                     <div className="img_piece">
-                        <img src={p.multimedia}/>
+                        <div>
+                            <img src={p.multimedia}/>
+                        </div>
                     </div>
                     <div className="desc_piece">
 

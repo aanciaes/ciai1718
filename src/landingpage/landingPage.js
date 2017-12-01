@@ -5,6 +5,7 @@ import React from 'react';
 import {Route, Link, withRouter} from 'react-router-dom'
 import './landingPage.css';
 import Config from '../config/config';
+import $ from 'jquery';
 const url = Config.url;
 
 
@@ -55,55 +56,64 @@ class RegistarUtilizador extends React.Component {
             <div className="forms">
                 <section>
 
+                    <div className="content_form">
 
-                    <form id="form_register" className="form-horizontal form_normal" onSubmit={this.recordUser}>
-                        <div className="form-group">
-
-                            <div className="input-group form_input ">
-                                <span className="input-group-addon">  Nome</span>
-                                <input type="text" className="form-control" name="name"
-                                       placeholder="Inserir nome" onChange={this.handleChange}/>
-                            </div>
+                        <div className="header_form">
+                            <h5>Registar <i className="fa fa-user"></i></h5>
                         </div>
-                        <div className="form-group">
+                        <div className="content">
+                            <form id="form_register" className="form-horizontal form_normal" onSubmit={this.recordUser}>
+                                <div className="form-group">
 
-                            <div className="input-group form_input ">
-                                <span className="input-group-addon"> Email</span>
-                                <input type="email" className="form-control" name="email"
-                                       aria-describedby="emailHelp"
-                                       placeholder="Inserir email" onChange={this.handleChange} required="required"/>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="input-group form_input ">
-                                <span className="input-group-addon">Password</span>
-                                <input type="password" className="form-control" name="password"
-                                       placeholder="Inserir Password" onChange={this.handleChange} required="required"/>
-                            </div>
-                        </div>
-                        <div className="form-group">
-
-
-                            <div className="input-group form_input ">
-                                <span className="input-group-addon"> Tipo de Utilizador</span>
-                                <div>
-                                    <label className="radio-inline"><input type="radio" name="accountType"
-                                                                           value="0"
-                                                                           onChange={this.handleChange}
-                                                                           required="required"/>Básico</label>
-                                    <label className="radio-inline"><input type="radio" name="accountType"
-                                                                           value="1"
-                                                                           onChange={this.handleChange}
-                                                                           required="required"/>Artista</label>
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon">  Nome</span>
+                                        <input type="text" className="form-control" name="name"
+                                               placeholder="Inserir nome" onChange={this.handleChange}/>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="form-group">
+
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon"> Email</span>
+                                        <input type="email" className="form-control" name="email"
+                                               aria-describedby="emailHelp"
+                                               placeholder="Inserir email" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon">Password</span>
+                                        <input type="password" className="form-control" name="password"
+                                               placeholder="Inserir Password" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+
+
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon"> Tipo de Utilizador</span>
+                                        <div>
+
+                                            <label className="radio-inline"><input type="radio" name="accountType"
+                                                                                   value="0"
+                                                                                   onChange={this.handleChange}
+                                                                                   required="required"/>Básico</label>
+                                            <label className="radio-inline"><input type="radio" name="accountType"
+                                                                                   value="1"
+                                                                                   onChange={this.handleChange}
+                                                                                   required="required"/>Artista</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <button className="btn btn-primary" type="submit">Registar</button>
+                                </div>
+                            </form>
                         </div>
-                        <div className="form-group">
-                            <div className="buttons_label">
-                                <button className="btn btn-gray" type="submit">Registar</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
+
                 </section>
 
             </div>
@@ -145,37 +155,47 @@ class LoginUtilizador extends React.Component {
             <div className="forms">
                 <section>
 
-                    <form id="form_login" className="form_normal" onSubmit={this.login}>
-                        <div className="form-group">
-
-                            <div className="input-group form_input">
-                                <span className="input-group-addon">Email</span>
-                                <input type="email" className="form-control" name="email"
-                                       aria-describedby="emailHelp"
-                                       placeholder="Enter email" onChange={this.handleChange} required="required"/>
-                            </div>
+                    <div className="content_form">
+                        <div className="header_form">
+                            <h5>Login  <i className="fa fa-sign-in"></i></h5>
                         </div>
-                        <div className="form-group">
+                        <div className="content">
+                            <form id="form_login" className="form_normal" onSubmit={this.login}>
+                                <div className="form-group">
 
-                            <div className="input-group form_input ">
-                                <span className="input-group-addon">Password</span>
-                                <input type="password" className="form-control" name="password"
-                                       placeholder="Password" onChange={this.handleChange} required="required"/>
-                            </div>
-
-
-                        </div>
-                        <div className="form-group">
-                            <div className="row">
-
-                                <div className="col-md-12 col-xs-12">
-                                    <button type="submit" className="btn btn-primary">Entrar</button>
+                                    <div className="input-group form_input">
+                                        <span className="input-group-addon">Email</span>
+                                        <input type="email" className="form-control" name="email"
+                                               aria-describedby="emailHelp"
+                                               placeholder="Enter email" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
                                 </div>
-                            </div>
+                                <div className="form-group">
 
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon">Password</span>
+                                        <input type="password" className="form-control" name="password"
+                                               placeholder="Password" onChange={this.handleChange} required="required"/>
+                                    </div>
+
+
+                                </div>
+                                <div className="form-group">
+                                    <div className="row">
+
+                                        <div className="col-md-12 col-xs-12">
+                                            <button type="submit" className="btn btn-primary">Entrar</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
                         </div>
+                    </div>
 
-                    </form>
+
                 </section>
 
             </div>
@@ -232,6 +252,7 @@ class MenuComponent extends React.Component {
     }
 
 
+
     render() {
         return ( <div>
 
@@ -255,7 +276,7 @@ class MenuComponent extends React.Component {
                             </div>
                             <div id="navbar" className="navbar-collapse collapse">
                                 <ul id="landing_nav" className="nav navbar-nav navbar-right">
-                                    <li><Link to={"/register"}> Registar</Link></li>
+                                    <li className="active"><Link to={"/register"}> Registar</Link></li>
                                     <li><Link to={"/login"}>Login</Link></li>
                                     <li><Link to={"/gallery"}>Galeria Pública</Link></li>
                                 </ul>

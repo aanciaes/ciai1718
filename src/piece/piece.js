@@ -46,11 +46,16 @@ class PieceBids extends React.Component {
 
     render() {
         console.log(this.state.bids);
+        let columns = [
+            { title: 'BidId', prop: 'bidId'  },
+            { title: 'Bidder', prop: 'userId' },
+            { title: 'Valor', prop: 'bidAmount' },
+        ];
         return (
             <div>
                 <h2>BIDS</h2>
                 <div className="table-responsive">
-                    <table className="table-striped table-bordered table-hover table-condensed" width="100%">
+                    <table className="table-striped table-bordered table-hover table-condensed" id="bids" width="100%">
                         <thead>
                         <tr>
                             <th>BidId</th>
@@ -78,13 +83,6 @@ class PieceBids extends React.Component {
             </div>
         );
     }
-}
-
-function PieceBidsController(props) {
-    if (props.bidsPiece)
-        return (<PieceBids piece={props.piece}/>)
-    else
-        return null;
 }
 
 
@@ -151,7 +149,7 @@ function PieceControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
         if (u.accountType == 1)
-            return (<PieceArtista piece={props.piece} updatePiece={props.updatePiece} getPiece={props.getPiece}/>);
+            return (<PieceArtista piece={props.piece} updatePiece={props.updatePiece} getPiece={props.getPiece} hideDetail={props.hideDetail}/>);
         else if (u.accountType == 0)
             return (<PieceBasico piece={props.piece} user={u}/>);
     }
@@ -162,7 +160,16 @@ function PieceControl(props) {
 
 function PieceDetailControl(props) {
     if (props.detail) {
-        return (<PieceDetail piece={props.piece}/>)
+        return (<div>
+            <div className="row">
+                <div className="col-md-8">
+                    <PieceDetail piece={props.piece}/>
+                </div>
+                <div className="col-md-4">
+                    <PieceBids piece={props.piece}/>
+                </div>
+            </div>
+        </div>)
     }
     return null;
 }
@@ -172,16 +179,14 @@ function PieceInitialized(props) {
     if (props.parent.state.piece != null) {
         let p = props.parent;
         return (
-            <div className="row">
-                <div className="col-md-8">
-                            <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
-                    <PieceBidsController bidsPiece={p.state.bidsPiece}
-                                         piece={p.state.piece}/>
 
-                </div>
-                <div className="col-md-4">
+            <div>
+                <div>
                     <PieceControl piece={p.state.piece} user={p.props.user} updatePiece={p.updatePiece}
-                                  getPiece={p.getPiece}/>
+                                  getPiece={p.getPiece} hideDetail={p.hideDetail}/>
+                </div>
+                <div>
+                    <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
                 </div>
             </div>);
     }
@@ -194,15 +199,21 @@ class Piece extends React.Component {
         super(props);
         this.state = {
             piece: null,
-            detail: true,
-            bidsPiece: true
+            detail: true
         };
         this.getPiece = this.getPiece.bind(this);
         this.updatePiece = this.updatePiece.bind(this);
+        this.hideDetail = this.hideDetail.bind(this);
     }
 
     componentDidMount() {
         this.getPiece(this.props.piece_id);
+    }
+
+    hideDetail() {
+        let s = this.state;
+        s.detail = false;
+        this.setState(s);
     }
 
 
@@ -222,8 +233,10 @@ class Piece extends React.Component {
 
     updatePiece(p) {
 
-        let s = this.state.piece;
+        let s = this.state;
         s.piece = p;
+        s.detail = true;
+
         this.setState(s);
     }
 

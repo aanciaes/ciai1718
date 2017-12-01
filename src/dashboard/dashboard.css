@@ -29,9 +29,21 @@
 }
 
 .content_wmenu{
-    margin-left: 22%;
+    margin-left: 15%;
 }
 
+.content_form_big{
+    background-color: white;
+    border-radius:1px ;
+    box-shadow: 0px 0px 1px 0px lightgray;
+    margin-left: 150px;
+}
+
+@media (max-width: 1312px){
+    .content_form_big{
+        margin-left: 30px;
+    }
+}
 /*bootstrap aside menu*/
 
 body {
@@ -161,7 +173,7 @@ body {
     text-indent: 15px;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 1312px) {
     #wrapper #sidebar-wrapper {
         width: 45px;
     }

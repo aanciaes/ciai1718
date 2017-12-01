@@ -40,7 +40,10 @@ class App extends Component {
         this.updateUser = this.updateUser.bind(this);
         //this.getUsers();
         this.props.history.push("/gallery");
+
     }
+
+
 
     getCopyState(state) {
         return Object.assign({}, state);
