@@ -1,4 +1,5 @@
-.piece_item img{
+
+.piece_item img {
     max-width: 300px;
     width: auto;
 }
@@ -8,16 +9,16 @@
     padding: 0px;
 }
 
-
-.clear{
+.clear {
     clear: both;
 }
 
-.count{
+.count {
     position: absolute;
     right: 6px;
-    top:12px;
+    top: 12px;
 }
+
 .well {
     width: 300px;
     padding: 8px 0;
@@ -28,22 +29,40 @@
     top: 50px;
 }
 
-.content_wmenu{
+.content_wmenu {
     margin-left: 15%;
 }
 
-.content_form_big{
+.content_form_big {
     background-color: white;
-    border-radius:1px ;
+    border-radius: 1px;
     box-shadow: 0px 0px 1px 0px lightgray;
     margin-left: 150px;
+    padding: 20px;
 }
 
-@media (max-width: 1312px){
-    .content_form_big{
+
+.content_form_big .form_title {
+    border-bottom: solid 1px lightgray;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.content_form_big label {
+    font-weight: normal;
+    color: #959595;
+}
+
+.button_submit {
+    width: 100px;
+}
+
+@media (max-width: 1312px) {
+    .content_form_big {
         margin-left: 30px;
     }
 }
+
 /*bootstrap aside menu*/
 
 body {

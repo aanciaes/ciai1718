@@ -1,5 +1,19 @@
 @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
 
+.header_form{
+    margin-left: 5px;
+}
+
+.tangerine{
+    font-family: "Tangerine", serif;
+}
+.subtitle{
+    font-size: 30pt;
+}
+.left_text{
+    text-align: left;
+}
 a:hover{
    text-decoration: none !important;
 }

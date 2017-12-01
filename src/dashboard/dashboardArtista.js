@@ -100,9 +100,11 @@ class CriarPeca extends React.Component {
                 <section className="content_form_big">
 
                     <form id="form_create_piece" onSubmit={this.createPiece}>
-                        <h2>Criar Peça</h2>
+                        <div className="form_title">
+                            <h5 className="tangerine subtitle">Criar Peça</h5>
+                        </div>
                         <div className="row">
-                            <div className="col-sm-8 col-md-8 col-xs-12">
+                            <div className="col-sm-6 col-md-6 col-xs-12">
 
                                 <div className="form-group row">
 
@@ -114,37 +116,52 @@ class CriarPeca extends React.Component {
                                     </div>
 
                                 </div>
+
                                 <div className="form-group row">
                                     <label for="dateOfCreation" className="col-sm-2 col-form-label">Data:</label>
+
                                     <div className="col-sm-4">
-                                        <input type="date" id="dateOfCreation" className="form-control"
-                                               name="dateOfCreation"
-                                               placeholder="Inserir Data" onChange={this.handleChange}/>
+                                        <div className="input-group">
+                                            <span className="input-group-addon"><i className="fa fa-calendar"></i></span>
+                                            <input type="date" id="dateOfCreation" className="form-control"
+                                                   name="dateOfCreation"
+                                                   placeholder="Inserir Data" onChange={this.handleChange}/>
+                                        </div>
                                     </div>
+
+                                </div>
+
+                                <div className="form-group row">
+
                                     <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
-                                    <div className="col-sm-4">
+                                    <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="Inserir Técnicnas" onChange={this.handleChange}/>
+                                               placeholder="valor,valor,.." onChange={this.handleChange}/>
                                     </div>
                                 </div>
 
                                 <div className="form-group row">
+
                                     <label for="keywords" className="col-sm-2 col-form-label">Keywords:</label>
-                                    <div className="col-sm-4">
-                                        <input type="text" name="keywords" id="keywords" className="form-control"
+                                    <div className="col-sm-10">
+                                        <input type="text" name="keywords" id="keywords" placeholder="valor,valor,.."  className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
+                                </div>
+
+                                <div className="form-group row">
+
                                     <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
-                                    <div className="col-sm-4">
-                                        <input type="url" name="multimedia" id="multimedia" className="form-control"
+                                    <div className="col-sm-10">
+                                        <input type="url" name="multimedia" id="multimedia"   placeholder="valor,valor,.."  className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-4 col-md-4 col-xs-12">
-                                <div className="form-group">
+                            <div className="col-sm-6 col-md-6 col-xs-12">
+                                <div className="form-group left_text">
                                     <label>Descrição textual</label>
-                                    <textarea name="description" className="form-control"
+                                    <textarea name="description"  className="form-control"
                                               onChange={this.handleChange}></textarea>
                                 </div>
 
@@ -152,7 +169,7 @@ class CriarPeca extends React.Component {
                         </div>
 
 
-                        <div>
+                        <div className="button_submit">
                             <button type="submit" className="btn btn-primary">Criar</button>
                         </div>
 

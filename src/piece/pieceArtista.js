@@ -224,44 +224,80 @@ class PieceEditar extends React.Component {
         console.log(p);
         return (
             <div>
-                <section>
-                    <form id="form_edit_piece"  className="form_normal" onSubmit={this.updatePiece}>
-                        <h2>Editar Peça</h2>
-                        <div className="form-group">
-                            <label>Nome:</label>
-                            <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" value={p.name} onChange={this.handleChange}
-                                   required="required"/>
+                <section className="content_form_big" id="section_edit">
+
+                    <form id="form_edit_piece" onSubmit={this.updatePiece}>
+                        <div className="form_title">
+                            <h5 className="tangerine subtitle">Editar Peça</h5>
                         </div>
-                        <div className="form-group">
-                            <label>Data:</label>
-                            <input type="date" className="form-control" name="dateOfCreation"
-                                   placeholder="Inserir Data" value={p.dateOfCreation} onChange={this.handleChange}/>
+                        <div className="row">
+                            <div className="col-sm-6 col-md-6 col-xs-12">
+
+                                <div className="form-group row">
+
+                                    <label for="name" className="col-sm-2 col-form-label">Nome</label>
+                                    <div className="col-sm-10">
+                                        <input type="text" id="name" className="form-control" name="name"
+                                               placeholder="Inserir nome" value={p.name} onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+
+                                </div>
+
+                                <div className="form-group row">
+                                    <label for="dateOfCreation" className="col-sm-2 col-form-label">Data:</label>
+
+                                    <div className="col-sm-4">
+                                        <div className="input-group">
+                                            <span className="input-group-addon"><i className="fa fa-calendar"></i></span>
+                                            <input type="date" id="dateOfCreation" className="form-control"
+                                                   name="dateOfCreation"
+                                                   placeholder="Inserir Data" value={p.dateOfCreation} onChange={this.handleChange}/>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div className="form-group row">
+
+                                    <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
+                                    <div className="col-sm-10">
+                                        <input type="text" className="form-control" id="techniques" name="techniques"
+                                               placeholder="valor,valor,.." pattern="([a-z]| [a-z],[a-z])"   value={p.techniques} onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+
+                                <div className="form-group row">
+
+                                    <label for="keywords" className="col-sm-2 col-form-label">Keywords:</label>
+                                    <div className="col-sm-10">
+                                        <input type="text" name="keywords" id="keywords"   placeholder="valor,valor,.."  value={p.keywords} className="form-control"
+                                               onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+
+                                <div className="form-group row">
+
+                                    <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
+                                    <div className="col-sm-10">
+                                        <input type="url" name="multimedia" id="multimedia"   placeholder="valor,valor,.."   value={p.multimedia} className="form-control"
+                                               onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-6 col-md-6 col-xs-12">
+                                <div className="form-group left_text">
+                                    <label>Descrição textual</label>
+                                    <textarea name="description"  className="form-control"
+                                              onChange={this.handleChange}  value={p.description}></textarea>
+                                </div>
+
+                            </div>
                         </div>
-                        <div className="form-group">
-                            <label>Técnicas</label>
-                            <input type="text" className="form-control" name="techniques"
-                                   placeholder="Inserir Técnicnas" value={p.techniques}
-                                   onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Descrição textual</label>
-                            <textarea name="description" className="form-control"
-                                      onChange={this.handleChange} value={p.description}></textarea>
-                        </div>
-                        <div className="form-group">
-                            <label>Keywords</label>
-                            <input type="text" name="keywords" value={p.keywords} className="form-control"
-                                   onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Multimedia</label>
-                            <input type="url" name="multimedia" className="form-control"
-                                   value={p.multimedia}
-                                   onChange={this.handleChange}/>
-                        </div>
-                        <div>
-                            <button type="submit" className="btn btn-primary">Editar</button>
+
+
+                        <div className="button_submit">
+                            <button type="submit" className="btn btn-primary">Gravar</button>
                         </div>
 
                     </form>

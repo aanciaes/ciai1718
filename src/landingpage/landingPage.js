@@ -1,7 +1,7 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import React from 'react';
+import React, {Component, PropTypes}from 'react';
 import {Route, Link, withRouter} from 'react-router-dom'
 import './landingPage.css';
 import Config from '../config/config';
@@ -59,7 +59,7 @@ class RegistarUtilizador extends React.Component {
                     <div className="content_form">
 
                         <div className="header_form">
-                            <h5>Registar <i className="fa fa-user"></i></h5>
+                            <h5 className="tangerine">Registar</h5>
                         </div>
                         <div className="content">
                             <form id="form_register" className="form-horizontal form_normal" onSubmit={this.recordUser}>
@@ -89,21 +89,28 @@ class RegistarUtilizador extends React.Component {
                                                required="required"/>
                                     </div>
                                 </div>
+
+
                                 <div className="form-group">
 
 
                                     <div className="input-group form_input ">
                                         <span className="input-group-addon"> Tipo de Utilizador</span>
                                         <div>
-
-                                            <label className="radio-inline"><input type="radio" name="accountType"
-                                                                                   value="0"
-                                                                                   onChange={this.handleChange}
-                                                                                   required="required"/>Básico</label>
-                                            <label className="radio-inline"><input type="radio" name="accountType"
-                                                                                   value="1"
-                                                                                   onChange={this.handleChange}
-                                                                                   required="required"/>Artista</label>
+                                            <div className="btn-group" data-toggle="buttons">
+                                                <label class="btn btn-light active">
+                                                    <input type="radio" name="accountType"
+                                                           value="0"
+                                                           onChange={this.handleChange}
+                                                           required="required" checked="checked"/> Básico
+                                                </label>
+                                                <label class="btn btn-light">
+                                                    <input type="radio" name="accountType"
+                                                           value="1"
+                                                           onChange={this.handleChange}
+                                                           required="required"/> Artista
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -157,7 +164,7 @@ class LoginUtilizador extends React.Component {
 
                     <div className="content_form">
                         <div className="header_form">
-                            <h5>Login  <i className="fa fa-sign-in"></i></h5>
+                            <h5 className="tangerine">Login</h5>
                         </div>
                         <div className="content">
                             <form id="form_login" className="form_normal" onSubmit={this.login}>
@@ -250,7 +257,6 @@ class MenuComponent extends React.Component {
         this.props.updateLogin(true);
 
     }
-
 
 
     render() {

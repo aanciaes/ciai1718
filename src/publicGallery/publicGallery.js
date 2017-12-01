@@ -35,9 +35,6 @@ class PieceItem extends React.Component {
                             <small>Keywords: {p.keywords.join(",")}</small>
                         </div>
                         <div><label>{p.name}</label></div>
-                        <div>
-                            <small>{p.description}</small>
-                        </div>
                         <div className="info_button">
                             <div>Info <i className="fa fa-arrow-circle-right"></i></div>
                         </div>
