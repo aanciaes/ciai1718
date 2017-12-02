@@ -9,6 +9,7 @@ import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
 import unl.fct.artbiz.bids.exceptions.LowerBidException;
 import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
 import unl.fct.artbiz.bids.model.Bid;
+import unl.fct.artbiz.bids.serializers.ListBidSerializer;
 import unl.fct.artbiz.bids.services.BidService;
 
 import java.util.List;
@@ -39,8 +40,8 @@ public class BidController {
     }
 
     @RequestMapping (value = "/{bidId}", method = RequestMethod.GET)
-    public Bid getBidById (@PathVariable long bidId) {
-        return bidService.findById(bidId);
+    public ListBidSerializer getBidById (@PathVariable long bidId) {
+        return new ListBidSerializer(bidService.findById(bidId));
     }
 
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
