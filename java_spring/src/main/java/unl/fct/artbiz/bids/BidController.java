@@ -62,4 +62,9 @@ public class BidController {
     public Bid rejectBid (@PathVariable Long bidId) {
         return bidService.reject(bidId);
     }
+
+    @RequestMapping(value = "/{bidId}/finalize", method = RequestMethod.PUT)
+    public Bid finalizeBid (@PathVariable Long bidId) {
+        return bidService.finalizeBid(bidId);
+    }
 }

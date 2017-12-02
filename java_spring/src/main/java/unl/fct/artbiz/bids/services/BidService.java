@@ -65,7 +65,7 @@ public class BidService {
     }
 
     public List<Bid> getBidsOfUser (long id) {
-        return bidRepository.getBidsByUserId(id);
+        return bidRepository.getBidsBybidderId(id);
     }
 
     public List<Bid> getBidsOfPiece(long pieceId) {
@@ -81,6 +81,8 @@ public class BidService {
         if(bid.getBidState()!= BidState.OPEN){
             throw new BidStateNotOpenException();
         }else{
+            if(bidRepository.countBidsByBidStateAndAndPieceId(BidState.ACCEPTED, bid.getPieceId())!=0)
+                throw new BidAlreadyAccepted ();
             bid.setBidState(BidState.ACCEPTED);
             return bid;
         }
@@ -88,10 +90,22 @@ public class BidService {
 
     public Bid reject(Long bidId) {
         Bid bid = bidRepository.findOne(bidId);
-        if(bid.getBidState()!= BidState.OPEN){
+        if (bid.getBidState() != BidState.OPEN) {
             throw new BidStateNotOpenException();
-        }else{
+        } else {
             bid.setBidState(BidState.REJECTED);
+            return bid;
+        }
+    }
+
+    public Bid finalizeBid (Long bidId) {
+        Bid bid = bidRepository.findOne(bidId);
+        if(bid.getBidState()!= BidState.ACCEPTED){
+            throw new BidStateNotAcceptedException();
+        }else{
+            if(bidRepository.countBidsByBidStateAndAndPieceId(BidState.FINALIZED, bid.getPieceId())!=0)
+                throw new BidAlreadyFinalize ();
+            bid.setBidState(BidState.ACCEPTED);
             return bid;
         }
     }

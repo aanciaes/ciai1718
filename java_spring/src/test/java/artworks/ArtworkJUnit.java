@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +39,15 @@ public class ArtworkJUnit {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    Environment environment;
+
     @Before
     public void setUp() {
+        environment.acceptsProfiles("tests");
+        System.out.println(environment.getActiveProfiles());
         for(int i = 0; i<2; i++)
-            userRepository.save(new User("User" + 1, "user@mail.com", "qwerty", 0));
+            userRepository.save(new User("User" + 1, "user"+i+"@mail.com", "qwerty", 0));
     }
 
     @Test
