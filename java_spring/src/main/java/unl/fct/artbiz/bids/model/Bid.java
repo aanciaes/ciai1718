@@ -18,20 +18,23 @@ public class Bid {
     @JoinColumn(name = "peiceId", insertable = false, updatable = false)
     private ArtWork artWorkObject;
 
-    private Long userId;
+    private Long bidderId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
-    private User authorObject;
+    @JoinColumn(name = "bidderId", insertable = false, updatable = false)
+    private User bidderObject;
 
     private double bidAmount;
 
+    private BidState bidState;
+
     public Bid () {}
 
-    public Bid(long pieceId, long userId, double bidAmount) {
+    public Bid(long pieceId, long bidderId, double bidAmount) {
         this.pieceId = pieceId;
-        this.userId = userId;
+        this.bidderId = bidderId;
         this.bidAmount = bidAmount;
+        this.bidState = BidState.OPEN;
     }
 
     public long getBidId() {
@@ -50,12 +53,12 @@ public class Bid {
         this.pieceId = pieceId;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getBidderId() {
+        return bidderId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setBidderId(long bidderId) {
+        this.bidderId = bidderId;
     }
 
     public double getBidAmount() {
@@ -64,5 +67,17 @@ public class Bid {
 
     public void setBidAmount(double bidAmount) {
         this.bidAmount = bidAmount;
+    }
+
+    public BidState getBidState() {
+        return bidState;
+    }
+
+    public void setBidState(BidState bidState) {
+        this.bidState = bidState;
+    }
+
+    public User getBidderObject() {
+        return bidderObject;
     }
 }
