@@ -12,13 +12,13 @@ import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.serializers.ListBidSerializer;
 import unl.fct.artbiz.bids.services.BidService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/bid")
 public class BidController {
-
 
     @Autowired
     BidService bidService;
@@ -35,8 +35,10 @@ public class BidController {
     }
 
     @RequestMapping (value = "/piece/{pieceId}", method = RequestMethod.GET)
-    public List<Bid> getBidsOfPiece (@PathVariable long pieceId) {
-        return bidService.getBidsOfPiece(pieceId);
+    public List<ListBidSerializer> getBidsOfPiece (@PathVariable long pieceId) {
+        List<ListBidSerializer> bids = new ArrayList<>();
+        bidService.getBidsOfPiece(pieceId).stream().forEach(bid -> bids.add(new ListBidSerializer(bid)));
+        return bids;
     }
 
     @RequestMapping (value = "/{bidId}", method = RequestMethod.GET)
