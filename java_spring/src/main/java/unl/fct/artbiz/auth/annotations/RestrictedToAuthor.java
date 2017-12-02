@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 @PreAuthorize(RestrictedToAuthor.accessCondition)
 public @interface RestrictedToAuthor {
 
-    String accessCondition = "@authService.restrictedToMatchingUser(#artWork.getAuthor())";
+    String accessCondition = "@authService.restrictedToMatchingUser(#artWork.getAuthor()) " +
+            "AND hasRole('ARTIST')";
 
 }

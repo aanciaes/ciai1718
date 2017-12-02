@@ -2,6 +2,8 @@ package unl.fct.artbiz.users.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -32,7 +34,7 @@ public class User {
 
     @JsonIgnore
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Role> roles;
+    private List<GrantedAuthority> roles;
 
     @JsonIgnore
     private boolean locked;
@@ -62,9 +64,9 @@ public class User {
         this.roles = new ArrayList<>();
 
         if(accountType == 1)
-            roles.add (new Role ("ARTIST"));
+            roles.add (new Role ("ROLE_ARTIST"));
         else
-            roles.add (new Role("BASIC"));
+            roles.add (new Role("ROLE_BASIC"));
 
     }
 
@@ -76,9 +78,9 @@ public class User {
         this.roles = new ArrayList<>();
 
         if(accountType == 1)
-            roles.add (new Role ("ARTIST"));
+            roles.add (new Role ("ROLE_ARTIST"));
         else
-            roles.add (new Role("BASIC"));
+            roles.add (new Role("ROLE_BASIC"));
     }
 
     public Long getId() {
@@ -163,11 +165,11 @@ public class User {
         this.credentialsExpired = credentialsExpired;
     }
 
-    public List<Role> getRoles() {
+    public List<GrantedAuthority> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<GrantedAuthority> roles) {
         this.roles = roles;
     }
     //
