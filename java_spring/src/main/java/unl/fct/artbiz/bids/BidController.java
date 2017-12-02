@@ -12,6 +12,7 @@ import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.serializers.ListBidSerializer;
 import unl.fct.artbiz.bids.services.BidService;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +24,16 @@ public class BidController {
     @Autowired
     BidService bidService;
 
-
     @RequestMapping(method = RequestMethod.POST)
     public Bid makeBid (@RequestBody Bid incoming) {
         return bidService.createBid(incoming);
     }
 
     @RequestMapping (value = "/user/{userId}", method = RequestMethod.GET)
-    public List<Bid> getBidsOfUser (@PathVariable long userId) {
-        return bidService.getBidsOfUser(userId);
+    public List<ListBidSerializer> getBidsOfUser (@PathVariable long userId) {
+        List<ListBidSerializer> bids = new ArrayList<>();
+        bidService.getBidsOfUser(userId).stream().forEach(bid -> bids.add(new ListBidSerializer(bid)));
+        return bids;
     }
 
     @RequestMapping (value = "/piece/{pieceId}", method = RequestMethod.GET)
@@ -49,5 +51,15 @@ public class BidController {
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
     public void deleteBid (@PathVariable long bidId) {
         bidService.delete(bidId);
+    }
+
+    @RequestMapping(value = "/{bidId}/accept", method = RequestMethod.PUT)
+    public Bid acceptBid (@PathVariable Long bidId) {
+        return bidService.accept(bidId);
+    }
+
+    @RequestMapping(value = "/{bidId}/reject", method = RequestMethod.PUT)
+    public Bid rejectBid (@PathVariable Long bidId) {
+        return bidService.reject(bidId);
     }
 }

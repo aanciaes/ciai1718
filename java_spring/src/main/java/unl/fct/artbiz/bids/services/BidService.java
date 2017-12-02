@@ -5,12 +5,10 @@ import org.springframework.stereotype.Repository;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
-import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
-import unl.fct.artbiz.bids.exceptions.BidNotFoundException;
-import unl.fct.artbiz.bids.exceptions.LowerBidException;
-import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
+import unl.fct.artbiz.bids.exceptions.*;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.model.BidRepository;
+import unl.fct.artbiz.bids.model.BidState;
 
 import java.util.HashMap;
 import java.util.List;
@@ -76,5 +74,25 @@ public class BidService {
 
     public void delete(long bidId) {
         bidRepository.delete(bidId);
+    }
+
+    public Bid accept(Long bidId) {
+        Bid bid = bidRepository.findOne(bidId);
+        if(bid.getBidState()!= BidState.OPEN){
+            throw new BidStateNotOpenException();
+        }else{
+            bid.setBidState(BidState.ACCEPTED);
+            return bid;
+        }
+    }
+
+    public Bid reject(Long bidId) {
+        Bid bid = bidRepository.findOne(bidId);
+        if(bid.getBidState()!= BidState.OPEN){
+            throw new BidStateNotOpenException();
+        }else{
+            bid.setBidState(BidState.REJECTED);
+            return bid;
+        }
     }
 }
