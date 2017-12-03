@@ -1,6 +1,7 @@
 package unl.fct.artbiz.bids.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
@@ -94,8 +95,8 @@ public class BidService {
 
     public Bid reject(Long bidId) {
         Bid bid = bidRepository.findOne(bidId);
-        if (bid.getBidState() != BidState.OPEN) {
-            throw new BidStateNotOpenException();
+        if (bid.getBidState() == BidState.FINALIZED) {
+            throw new BidAlreadyFinalize();
         } else {
             bid.setBidState(BidState.REJECTED);
             bidRepository.save(bid);
