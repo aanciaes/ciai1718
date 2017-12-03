@@ -47,13 +47,13 @@ class PieceBids extends React.Component {
     render() {
         console.log(this.state.bids);
         let columns = [
-            { title: 'BidId', prop: 'bidId'  },
-            { title: 'Bidder', prop: 'userId' },
-            { title: 'Valor', prop: 'bidAmount' },
+            {title: 'BidId', prop: 'bidId'},
+            {title: 'Bidder', prop: 'userId'},
+            {title: 'Valor', prop: 'bidAmount'},
         ];
         return (
             <div>
-                <h2>BIDS</h2>
+                <h2 className="subtitle40 tangerine">Bids</h2>
                 <div className="table-responsive">
                     <table className="table-striped table-bordered table-hover table-condensed" id="bids" width="100%">
                         <thead>
@@ -99,20 +99,51 @@ class PieceDetail extends React.Component {
             <div>
                 <section className="content_piece">
 
+
                     <div className="row">
-                        <div className="col-md-4 col-xs-12">
+                        <div className="col-md-6 col-xs-12">
 
                             <div className="img_content">
-                                <img src={p.multimedia}/>
+                                <div id="caroussel_piece" className="carousel slide img_content" data-ride="carousel">
+
+                                    <div className="carousel-inner">
+
+                                        {
+                                            p.multimedia.map((image, index)=>(
+                                                <div key={index} className={index == 0 ? "item active" : "item"}>
+                                                    <img src={image} alt={image}/>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+
+                                    <a className="left carousel-control" href="#caroussel_piece" data-slide="prev">
+                                        <span className="glyphicon glyphicon-chevron-left"></span>
+                                        <span className="sr-only">Previous</span>
+                                    </a>
+                                    <a className="right carousel-control" href="#caroussel_piece" data-slide="next">
+                                        <span className="glyphicon glyphicon-chevron-right"></span>
+                                        <span className="sr-only">Next</span>
+                                    </a>
+                                </div>
                             </div>
 
+
                         </div>
-                        <div className="col-md-8 col-xs-12">
+                        <div className="col-md-6 col-xs-12">
 
                             <div className="description_piece">
                                 <div className="header_description">
-                                    <div className="title_piece">
-                                        {p.name}
+                                    <div className="row">
+                                        <div className="col-md-3 col-xs-12">
+                                            <div className="title_piece">
+                                                {p.name}
+                                            </div>
+                                        </div>
+                                        <div className="col-md-6 col-xs-12"></div>
+                                        <div className="col-md-3 col-xs-12">
+                                            <h4 className="onSale"> {p.onSale ? "Em Venda: " + p.price + "€ " : ""}</h4>
+                                        </div>
                                     </div>
                                     <div>
                                         <small>Autor: {p.authorName}</small>
@@ -127,16 +158,19 @@ class PieceDetail extends React.Component {
                                         <small>
                                             Técnicas: {p.techniques !== undefined ? p.techniques.join(",") : ""}</small>
                                     </div>
-                                    <div className="m-t-md">
-                                        <h4> {p.onSale ? "Em Venda: " + p.price + "€ " : ""}</h4>
-                                    </div>
                                 </div>
-                                <div className="content">
-                                    <p>{p.description}</p>
-                                </div>
+
+                                <PieceBids piece={p}/>
+
                             </div>
 
                         </div>
+                    </div>
+
+
+                    <div className="content content_description">
+                        <h2>Descrição</h2>
+                        <p>{p.description}</p>
                     </div>
 
                 </section>
@@ -148,8 +182,9 @@ class PieceDetail extends React.Component {
 function PieceControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
-        if (u.accountType == 1)
-            return (<PieceArtista piece={props.piece} updatePiece={props.updatePiece} getPiece={props.getPiece} hideDetail={props.hideDetail}/>);
+        if (u.accountType == 1 && props.piece.author == u.id)
+            return (<PieceArtista piece={props.piece} updatePiece={props.updatePiece} getPiece={props.getPiece}
+                                  hideDetail={props.hideDetail}/>);
         else if (u.accountType == 0)
             return (<PieceBasico piece={props.piece} user={u}/>);
     }
@@ -161,14 +196,7 @@ function PieceControl(props) {
 function PieceDetailControl(props) {
     if (props.detail) {
         return (<div>
-            <div className="row">
-                <div className="col-md-8">
-                    <PieceDetail piece={props.piece}/>
-                </div>
-                <div className="col-md-4">
-                    <PieceBids piece={props.piece}/>
-                </div>
-            </div>
+            <PieceDetail piece={props.piece}/>
         </div>)
     }
     return null;

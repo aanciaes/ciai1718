@@ -25,12 +25,15 @@ class PieceItem extends React.Component {
                 <div className="piece_content">
                     <div className="img_piece">
                         <div>
-                            <img src={p.multimedia}/>
+                            <img src={p.multimedia[0]}/>
                         </div>
                     </div>
                     <div className="desc_piece">
 
-                        <span className={p.onSale ? "price_prod":""}> {p.onSale ? p.price + " €" : "" }</span>
+                        <span className={p.onSale ? "price_prod" : ""}> {p.onSale ? p.price + " €" : "" }</span>
+                        <div>
+                            <small>Autor:{p.authorName}</small>
+                        </div>
                         <div>
                             <small>Keywords: {p.keywords.join(",")}</small>
                         </div>
@@ -50,11 +53,6 @@ class PiecesList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            pieces: []
-        };
-
-        this.getPieces(this.state);
         this.updatePiece = this.updatePiece.bind(this);
 
     }
@@ -63,16 +61,6 @@ class PiecesList extends React.Component {
         this.props.updatePiece(true, piece_id);
     }
 
-    getPieces(state) {
-
-
-        let t = this;
-        $.get(url + "artwork", function (data) {
-
-            state.pieces = data;
-            t.setState(state);
-        });
-    }
 
     render() {
         let currentLocation = window.location.pathname;
@@ -85,7 +73,7 @@ class PiecesList extends React.Component {
             <div className="row">
 
                 {
-                    this.state.pieces.map((piece, index)=>
+                    this.props.pieces.map((piece, index)=>
                         (<div key={index} className="col-md-3 col-xs-12">
                             <Link to={parent + "/pieces/" + piece.id}>
                                 <PieceItem piece={piece} updatePiece={this.props.updatePiece}/>
@@ -104,6 +92,34 @@ class Gallery extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            pieces: []
+        };
+        this.getPieces = this.getPieces.bind(this);
+        this.search = this.search.bind(this);
+    }
+
+    componentDidMount() {
+        this.getPieces();
+    }
+
+    getPieces() {
+
+        let t = this;
+        $.get(url + "artwork", function (data) {
+            t.state.pieces = data;
+            t.setState(t.state);
+        });
+    }
+
+
+    search({target}) {
+        let st = this;
+        $.get(url + "artwork/search?searchQuery=" + target.value, function (data) {
+            st.state.pieces = data;
+            st.setState(st.state);
+        });
+
     }
 
     render() {
@@ -118,14 +134,15 @@ class Gallery extends React.Component {
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="fa fa-search"></i></span>
                                     <input id="search" type="search" className="form-control" name="search"
-                                           placeholder="Procurar"/>
+                                           placeholder="keywords,autor" onChange={this.search}/>
                                 </div>
                             </div>
                         </div>
                         <div className="col-md-4 col-xs-12">
+
                         </div>
                     </div>
-                    <PiecesList updatePiece={this.props.updatePiece}/>
+                    <PiecesList updatePiece={this.props.updatePiece} pieces={this.state.pieces}/>
                 </section>
 
 
@@ -155,12 +172,14 @@ class PublicGallery extends React.Component {
         super(props);
         this.state = {
             gallery: true,
-            piece: false
+            piece: false,
+            pieces: []
         };
 
         this.getInitialState = this.getInitialState.bind(this);
         this.updateGallery = this.updateGallery.bind(this);
         this.updatePiece = this.updatePiece.bind(this);
+        this.getPieces = this.getPieces.bind(this);
     }
 
     getInitialState() {
@@ -184,6 +203,17 @@ class PublicGallery extends React.Component {
         s.piece = p;
         s.piece_id = piece_id;
         this.setState(s);
+    }
+
+    getPieces(state) {
+
+
+        let t = this;
+        $.get(url + "artwork", function (data) {
+
+            state.pieces = data;
+            t.setState(state);
+        });
     }
 
     render() {

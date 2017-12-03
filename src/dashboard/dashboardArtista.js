@@ -23,12 +23,12 @@ class PieceItem extends React.Component {
                 <div className="piece_content">
                     <div className="img_piece">
                         <div>
-                            <img src={p.multimedia}/>
+                            <img src={p.multimedia[0]}/>
                         </div>
                     </div>
                     <div className="desc_piece">
 
-                        <span className={p.onSale ? "price_prod":""}> {p.onSale ? p.price + " €" : "" }</span>
+                        <span className={p.onSale ? "price_prod" : ""}> {p.onSale ? p.price + " €" : "" }</span>
                         <div>
                             <small>Keywords: {p.keywords.join(",")}</small>
                         </div>
@@ -43,8 +43,6 @@ class PieceItem extends React.Component {
     }
 
 }
-
-
 
 
 class MinhaGaleria extends React.Component {
@@ -179,7 +177,8 @@ class CriarPeca extends React.Component {
                                     <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
                                     <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="valor,valor,.." onChange={this.handleChange}/>
+                                               placeholder="valor,valor,.." pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$"
+                                               onChange={this.handleChange}/>
                                     </div>
                                 </div>
 
@@ -189,6 +188,7 @@ class CriarPeca extends React.Component {
                                     <div className="col-sm-10">
                                         <input type="text" name="keywords" id="keywords" placeholder="valor,valor,.."
                                                className="form-control"
+                                               pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -197,9 +197,9 @@ class CriarPeca extends React.Component {
 
                                     <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
                                     <div className="col-sm-10">
-                                        <input type="url" name="multimedia" id="multimedia" placeholder="valor,valor,.."
-                                               className="form-control"
-                                               onChange={this.handleChange}/>
+
+                                        <textarea name="multimedia" id="multimedia" className="form-control"
+                                                  onChange={this.handleChange}></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -300,12 +300,14 @@ class DashboardArtista extends React.Component {
         let arr = [];
         if (s.indexOf(",") > -1) {
             let k = s.split(',');
-            console.log("k");
-            console.log(k);
             arr = k;
-        } else
+
+        } else if (s.indexOf("\n") > -1) {
+            let k = s.split('\n');
+            arr = k;
+        }
+        else
             arr.push(s);
-        console.log(arr);
         return arr;
     }
 

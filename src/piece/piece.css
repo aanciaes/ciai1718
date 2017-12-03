@@ -15,24 +15,38 @@
 
 }
 
+.onSale{
+    color: green;
+}
+
 
 .img_content{
     line-height: 300px;
     width: 100%;
     min-height: 400px;
-
     padding: 25px;
     border-right: solid 1px lightgray;
 
 }
 
 .img_content img {
+
     max-width: 100%;
     height: auto;
     overflow-y: hidden;
 }
 
+.content_description{
+    text-align: left;
+    margin-left: 10px;
+    border-top: 1px solid lightgray;
+    padding-bottom: 10px;
 
+}
+.content_description h2{
+    font-family: "Tangerine", serif;
+    font-size: 50px;
+}
 .description_piece{
     text-align: left;
     margin-left: 5px;

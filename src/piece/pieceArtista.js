@@ -193,7 +193,7 @@ class PieceEditar extends React.Component {
         super(props);
         let p = this.props.piece;
         p["keywords"] = p.keywords.length > 0 ? p.keywords.join(",") : "";
-        p["multimedia"] = p.multimedia.length > 0 ? p.multimedia.join(",") : "";
+        p["multimedia"] = p.multimedia.length > 0 ? p.multimedia.join("\n") : "";
         p["techniques"] = p.techniques.length > 0 ? p.techniques.join(",") : "";
         this.state = p;
 
@@ -214,6 +214,7 @@ class PieceEditar extends React.Component {
     handleChange({target}) {
 
         let s = this.state;
+
         s[target.name] = target.value;
         this.setState(s);
     }
@@ -249,10 +250,12 @@ class PieceEditar extends React.Component {
 
                                     <div className="col-sm-4">
                                         <div className="input-group">
-                                            <span className="input-group-addon"><i className="fa fa-calendar"></i></span>
+                                            <span className="input-group-addon"><i
+                                                className="fa fa-calendar"></i></span>
                                             <input type="date" id="dateOfCreation" className="form-control"
                                                    name="dateOfCreation"
-                                                   placeholder="Inserir Data" value={p.dateOfCreation} onChange={this.handleChange}/>
+                                                   placeholder="Inserir Data" value={p.dateOfCreation}
+                                                   onChange={this.handleChange}/>
                                         </div>
                                     </div>
 
@@ -263,7 +266,8 @@ class PieceEditar extends React.Component {
                                     <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
                                     <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="valor,valor,.."    value={p.techniques} onChange={this.handleChange}/>
+                                               placeholder="valor,valor,.." pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$"
+                                               value={p.techniques} onChange={this.handleChange}/>
                                     </div>
                                 </div>
 
@@ -271,7 +275,9 @@ class PieceEditar extends React.Component {
 
                                     <label for="keywords" className="col-sm-2 col-form-label">Keywords:</label>
                                     <div className="col-sm-10">
-                                        <input type="text" name="keywords" id="keywords"   placeholder="valor,valor,.."  value={p.keywords} className="form-control"
+                                        <input type="text" name="keywords" id="keywords"
+                                               pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$" placeholder="valor,valor,.."
+                                               value={p.keywords} className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -280,16 +286,16 @@ class PieceEditar extends React.Component {
 
                                     <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
                                     <div className="col-sm-10">
-                                        <input type="url" name="multimedia" id="multimedia"   placeholder="valor,valor,.."   value={p.multimedia} className="form-control"
-                                               onChange={this.handleChange}/>
+                                       <textarea name="multimedia" id="multimedia" className="form-control"
+                                                 onChange={this.handleChange} value={p.multimedia}></textarea>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-6 col-md-6 col-xs-12">
                                 <div className="form-group left_text">
                                     <label>Descrição textual</label>
-                                    <textarea name="description"  className="form-control"
-                                              onChange={this.handleChange}  value={p.description}></textarea>
+                                    <textarea name="description" className="form-control"
+                                              onChange={this.handleChange} value={p.description}></textarea>
                                 </div>
 
                             </div>
@@ -346,6 +352,9 @@ class PieceArtista extends React.Component {
             let k = s.split(',');
             console.log("k");
             console.log(k);
+            arr = k;
+        } else if (s.indexOf("\n") > -1) {
+            let k = s.split('\n');
             arr = k;
         } else
             arr.push(s);

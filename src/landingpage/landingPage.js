@@ -43,7 +43,9 @@ class RegistarUtilizador extends React.Component {
         this.setState({
                 [target.name]: target.value
             }
-        )
+        );
+
+
     }
 
     recordUser(e, inputData) {
@@ -52,6 +54,7 @@ class RegistarUtilizador extends React.Component {
     }
 
     render() {
+        console.log(this.state);
         return (
             <div className="forms">
                 <section>
@@ -97,20 +100,14 @@ class RegistarUtilizador extends React.Component {
                                     <div className="input-group form_input ">
                                         <span className="input-group-addon"> Tipo de Utilizador</span>
                                         <div>
-                                            <div className="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-light active">
-                                                    <input type="radio" name="accountType"
-                                                           value="0"
-                                                           onChange={this.handleChange}
-                                                           required="required" checked="checked"/> Básico
-                                                </label>
-                                                <label class="btn btn-light">
-                                                    <input type="radio" name="accountType"
-                                                           value="1"
-                                                           onChange={this.handleChange}
-                                                           required="required"/> Artista
-                                                </label>
-                                            </div>
+
+                                            <label className="radio-inline">
+                                                <input type="radio" name="accountType" value="0" onChange={this.handleChange} checked="checked"/>Básico
+                                            </label>
+                                            <label className="radio-inline">
+                                                <input type="radio" name="accountType" onChange={this.handleChange} value="1"/>Artista
+                                            </label>
+
                                         </div>
                                     </div>
                                 </div>
@@ -244,8 +241,12 @@ function LoginControl(props) {
 class MenuComponent extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            active: "3"
+        };
         this.registerMode = this.registerMode.bind(this);
         this.loginMode = this.loginMode.bind(this);
+        this.changeActive = this.changeActive.bind(this);
     }
 
     registerMode() {
@@ -256,6 +257,12 @@ class MenuComponent extends React.Component {
     loginMode() {
         this.props.updateLogin(true);
 
+    }
+
+    changeActive(i) {
+        let s = this.state;
+        s.active = i;
+        this.setState(s);
     }
 
 
@@ -282,9 +289,16 @@ class MenuComponent extends React.Component {
                             </div>
                             <div id="navbar" className="navbar-collapse collapse">
                                 <ul id="landing_nav" className="nav navbar-nav navbar-right">
-                                    <li className="active"><Link to={"/register"}> Registar</Link></li>
-                                    <li><Link to={"/login"}>Login</Link></li>
-                                    <li><Link to={"/gallery"}>Galeria Pública</Link></li>
+                                    <li className={this.state.active == 1 ? "active" : ""}>
+                                        <Link to={"/register"}
+                                              onClick={() => this.changeActive(1)}>
+                                            Registar</Link></li>
+                                    <li className={this.state.active == 2 ? "active" : ""}><Link to={"/login"}
+                                                                                                 onClick={() => this.changeActive(2)}>Login</Link>
+                                    </li>
+                                    <li className={this.state.active == 3 ? "active" : ""}><Link to={"/gallery"}
+                                                                                                 onClick={() => this.changeActive(3)}>Galeria
+                                        Pública</Link></li>
                                 </ul>
                             </div>
                         </div>
