@@ -44,7 +44,6 @@ class App extends Component {
     }
 
 
-
     getCopyState(state) {
         return Object.assign({}, state);
     }
@@ -105,17 +104,30 @@ class App extends Component {
          stateCopy.loggedIn = false;
          stateCopy.landingPageMode = true;*/
         this.setState(stateCopy);
-        this.props.history.push('/');
+        this.props.history.push('/gallery');
     }
 
-    updateUser(i, u) {
-        let stateCopy = this.getCopyState(this.state);
-        let us = stateCopy.users;
-        us[i] = u;
-        stateCopy.users = us;
-        stateCopy.user = u;
-        this.setState(stateCopy);
-        return true;
+    updateUser(u) {
+        let t = this;
+        $.ajax({
+            type: 'PUT',
+            url: url + "user",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(u),
+            success: function (result) {
+                let s = t.state;
+                s.user = result;
+                t.setState(s);
+                /* let s = t.state;
+                 s.piece = result;
+                 s.edit = false;
+                 t.setState(s);*/
+            },
+            error: function (status) {
+                alert("Erro " + status);
+                console.log(status);
+            }
+        });
     }
 
 

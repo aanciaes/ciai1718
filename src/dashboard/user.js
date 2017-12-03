@@ -3,6 +3,7 @@
  */
 
 import React, {Component} from 'react';
+import './user.css';
 
 
 const types = {
@@ -24,12 +25,23 @@ class DetalheUtilizador extends React.Component {
     render() {
         return (
             <div>
-                <h2>Perfil</h2>
-                <div>
-                    <a onClick={this.editMode}>Editar</a>
-                    <p>Name:{this.props.user.name}</p>
-                    <p>Email:{this.props.user.email}</p>
-                    <p>Tipo:{types[this.props.user.accountType]}</p>
+
+                <div id="user_profile">
+                    <div className="profile_title tangerine subtitle">Perfil</div>
+                    <div className="row">
+                        <div className="col-md-3 col-xs-12">
+                            <img
+                                src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm"
+                                className="img-circle"/>
+                        </div>
+                        <div className="col-md-9 col-xs-12">
+                            <a onClick={this.editMode}><i className="fa fa-edit"></i>Editar</a>
+                            <h6>Name:{this.props.user.name}</h6>
+                            <h6>Email:{this.props.user.email}</h6>
+                            <h6>Tipo:{types[this.props.user.accountType]}</h6>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -70,12 +82,14 @@ class EditarUtilizador extends React.Component {
                         <div className="form-group">
                             <label>Name:</label>
                             <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" value={this.state.user.name} onChange={this.handleChange}/>
+                                   placeholder="Inserir nome" value={this.state.user.name}
+                                   onChange={this.handleChange}/>
                         </div>
                         <div className="form-group">
                             <label>Email</label>
                             <input type="email" className="form-control" name="email"
-                                   placeholder="Inserir email" value={this.state.user.email} onChange={this.handleChange} required="required"/>
+                                   placeholder="Inserir email" value={this.state.user.email}
+                                   onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
@@ -88,9 +102,13 @@ class EditarUtilizador extends React.Component {
                             </div>
                             <div>
                                 <label className="radio-inline">
-                                    <input type="radio" name="type" value="0" checked={this.state.user.type == 0 ?'checked':''} onChange={this.handleChange} required="required"/>Básico</label>
+                                    <input type="radio" name="accountType" value="0"
+                                           checked={this.state.user.accountType == 0 ? 'checked' : ''}
+                                           onChange={this.handleChange} required="required"/>Básico</label>
                                 <label className="radio-inline">
-                                    <input type="radio" name="type" value="1" checked={this.state.user.type == 1 ?'checked':''} onChange={this.handleChange} required="required"/>Artista</label>
+                                    <input type="radio" name="accountType" value="1"
+                                           checked={this.state.user.accountType == 1 ? 'checked' : ''}
+                                           onChange={this.handleChange} required="required"/>Artista</label>
                             </div>
 
                         </div>
@@ -121,7 +139,7 @@ class User extends React.Component {
         super(props);
         this.state = {
             edit: false
-        }
+        };
         this.updateEdit = this.updateEdit.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
         this.updateUser = this.updateUser.bind(this);
@@ -147,9 +165,8 @@ class User extends React.Component {
     }
 
     updateUser(u) {
-        if (this.props.updateUser(u.id, u) == true) {
-            this.reset();
-        }
+        this.reset();
+        this.props.updateUser(u);
     }
 
     render() {
