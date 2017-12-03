@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.auth.model.UserPrincipal;
+import unl.fct.artbiz.bids.model.Bid;
+import unl.fct.artbiz.bids.model.BidRepository;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.model.UserRepository;
 
@@ -22,6 +24,9 @@ public class AuthService implements UserDetailsService {
     @Autowired
     ArtworkRepository artworkRepository;
 
+    @Autowired
+    BidRepository bidRepository;
+
     @Override
     public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.getUserByEmail(username);
@@ -33,7 +38,7 @@ public class AuthService implements UserDetailsService {
 
 
     public boolean restrictedToMatchingUser(Long userId) {
-        if(userId!=null) {
+        if (userId != null) {
             Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             UserPrincipal authUser = null;
 
@@ -42,26 +47,65 @@ public class AuthService implements UserDetailsService {
                 return authUser.getUserId() == userId;
             } else
                 return false;
-        }else
+        } else
             return false;
     }
 
-    public boolean restrictedToMatchingUserGivenPieceId (Long pieceId){
-        if(pieceId!=null) {
+    public boolean restrictedToMatchingUserGivenPieceId(Long pieceId) {
+        if (pieceId != null) {
             Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             UserPrincipal authUser = null;
 
             if (user instanceof UserPrincipal) {
                 authUser = (UserPrincipal) user;
                 List<ArtWork> artWorks = artworkRepository.getArtWorksByAuthor(authUser.getUserId());
-                for(ArtWork a : artWorks){
-                    if (a.getAuthor()==pieceId)
+                for (ArtWork a : artWorks) {
+                    if (a.getAuthor() == pieceId)
                         return true;
                 }
                 return false;
             } else
                 return false;
-        }else
+        } else
+            return false;
+    }
+
+    public boolean isBidOwner(Long bidId) {
+        if (bidId != null) {
+            Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserPrincipal authUser = null;
+
+            if (user instanceof UserPrincipal) {
+                authUser = (UserPrincipal) user;
+                Bid bid = bidRepository.findOne(bidId);
+                if (bid.getBidderId() == authUser.getUserId()) {
+                    return true;
+                }
+                return false;
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    public boolean isPieceOnBidOwner(Long bidId) {
+        if (bidId != null) {
+            Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserPrincipal authUser = null;
+
+            if (user instanceof UserPrincipal) {
+                authUser = (UserPrincipal) user;
+                Bid bid = bidRepository.findOne(bidId);
+                long ownerId = bidRepository.findOne(bidId).getArtWorkObject().getAuthor();
+
+                if (ownerId == authUser.getUserId()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else
+                return false;
+        } else
             return false;
     }
 }

@@ -2,15 +2,12 @@ package unl.fct.artbiz.artwork.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.provider.certpath.OCSPResponse;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.exceptions.DuplicateIdArtwork;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
-import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtworkService {
@@ -59,7 +56,7 @@ public class ArtworkService {
 
 
     public void deletePiece(long pieceId) {
-        if(!artworkRepository.exists(pieceId))
+        if (!artworkRepository.exists(pieceId))
             throw new ArtWorkNotFound();
         artworkRepository.delete(pieceId);
     }

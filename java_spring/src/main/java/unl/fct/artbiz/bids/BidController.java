@@ -1,10 +1,13 @@
 package unl.fct.artbiz.bids;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
+import unl.fct.artbiz.auth.annotations.RestrictedToBidOwner;
+import unl.fct.artbiz.auth.annotations.RestrictedToPieceOwner;
 import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
 import unl.fct.artbiz.bids.exceptions.LowerBidException;
 import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
@@ -25,6 +28,7 @@ public class BidController {
     BidService bidService;
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyRole('BASIC', 'ARTIST', 'ADMIN')")
     public Bid makeBid (@RequestBody Bid incoming) {
         return bidService.createBid(incoming);
     }
@@ -49,21 +53,25 @@ public class BidController {
     }
 
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
+    @RestrictedToBidOwner
     public void deleteBid (@PathVariable long bidId) {
         bidService.delete(bidId);
     }
 
     @RequestMapping(value = "/{bidId}/accept", method = RequestMethod.PUT)
+    @RestrictedToPieceOwner
     public Bid acceptBid (@PathVariable Long bidId) {
         return bidService.accept(bidId);
     }
 
     @RequestMapping(value = "/{bidId}/reject", method = RequestMethod.PUT)
+    @RestrictedToPieceOwner
     public Bid rejectBid (@PathVariable Long bidId) {
         return bidService.reject(bidId);
     }
 
     @RequestMapping(value = "/{bidId}/finalize", method = RequestMethod.PUT)
+    @RestrictedToPieceOwner
     public Bid finalizeBid (@PathVariable Long bidId) {
         return bidService.finalizeBid(bidId);
     }

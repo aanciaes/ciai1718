@@ -40,14 +40,16 @@ public class ApplicationBootstrap{
         for (String profile : env.getActiveProfiles())
             activeProfile += profile + " ";
 
-        long numberOfUsers = bootstrapUsers();
-        long numberOfArtworks = bootstrapArtworks();
+        if(!activeProfile.contains("prod") && !activeProfile.contains("tests")) {
+            long numberOfUsers = bootstrapUsers();
+            long numberOfArtworks = bootstrapArtworks();
 
-        System.out.println("Active Profiles: " + activeProfile);
-        System.out.println("----- Bootstraping data -----");
-        System.out.println("- Number of user deployed: " + numberOfUsers);
-        System.out.println("- Number of artworks deployed: " + numberOfArtworks);
-        System.out.println("---------------------------");
+            System.out.println("Active Profiles: " + activeProfile);
+            System.out.println("----- Bootstraping data -----");
+            System.out.println("- Number of user deployed: " + numberOfUsers);
+            System.out.println("- Number of artworks deployed: " + numberOfArtworks);
+            System.out.println("---------------------------");
+        }
     }
 
     private long bootstrapUsers () {

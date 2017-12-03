@@ -6,10 +6,10 @@ import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 import unl.fct.artbiz.artwork.services.ArtworkService;
-import unl.fct.artbiz.auth.annotations.RestrictedToAuthor;
 import unl.fct.artbiz.auth.annotations.PieceIdRestrictedToAuthor;
+import unl.fct.artbiz.auth.annotations.RestrictedToAuthor;
 
-import java.util.*;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -48,13 +48,13 @@ public class ArtWorkController {
     }
 
     @RequestMapping(value = "/artist/{userId}/list", method = RequestMethod.GET)
-    public List<ArtWork> listByArtist (@PathVariable long userId) {
-        return  artworkService.getPiecesByArtist(userId);
+    public List<ArtWork> listByArtist(@PathVariable long userId) {
+        return artworkService.getPiecesByArtist(userId);
     }
 
     @PieceIdRestrictedToAuthor
     @RequestMapping(value = "/{pieceId}/sell", method = RequestMethod.PUT)
-    public double sellPiece (@PathVariable long pieceId, @RequestParam("price") double price) {
+    public double sellPiece(@PathVariable long pieceId, @RequestParam("price") double price) {
         ArtWork artWork = artworkService.findById(pieceId);
         artWork.setOnSale(true);
         artWork.setPrice(price);
@@ -63,15 +63,15 @@ public class ArtWorkController {
 
     @PieceIdRestrictedToAuthor
     @RequestMapping(value = "/{pieceId}/keep", method = RequestMethod.PUT)
-    public boolean keepPiece (@PathVariable long pieceId) {
+    public boolean keepPiece(@PathVariable long pieceId) {
         ArtWork artWork = artworkService.findById(pieceId);
         artWork.setOnSale(false);
         return artworkService.updatePiece(artWork).isOnSale();
     }
 
     @PieceIdRestrictedToAuthor
-    @RequestMapping (value = "/{pieceId}", method = RequestMethod.DELETE)
-    public void deletePiece (@PathVariable long pieceId) {
+    @RequestMapping(value = "/{pieceId}", method = RequestMethod.DELETE)
+    public void deletePiece(@PathVariable long pieceId) {
         artworkService.deletePiece(pieceId);
     }
 }

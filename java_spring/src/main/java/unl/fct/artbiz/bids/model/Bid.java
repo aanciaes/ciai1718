@@ -1,5 +1,6 @@
 package unl.fct.artbiz.bids.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.users.model.User;
 
@@ -14,12 +15,14 @@ public class Bid {
 
     private long pieceId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "peiceId", insertable = false, updatable = false)
     private ArtWork artWorkObject;
 
     private Long bidderId;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "bidderId", insertable = false, updatable = false)
     private User bidderObject;
@@ -79,5 +82,13 @@ public class Bid {
 
     public User getBidderObject() {
         return bidderObject;
+    }
+
+    public ArtWork getArtWorkObject() {
+        return artWorkObject;
+    }
+
+    public void setArtWorkObject(ArtWork artWorkObject) {
+        this.artWorkObject = artWorkObject;
     }
 }

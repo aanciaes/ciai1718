@@ -11,5 +11,6 @@ import java.lang.annotation.*;
 @PreAuthorize(RestrictedToMatchingUser.accessCondition)
 public @interface RestrictedToMatchingUser {
 
-    String accessCondition = "@authService.restrictedToMatchingUser(#user.getId())";
+    String accessCondition = "@authService.restrictedToMatchingUser(#user.getId())" +
+            "AND hasAnyRole('BASIC', 'ARTIST', 'ADMIN')";
 }

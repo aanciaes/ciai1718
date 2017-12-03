@@ -11,7 +11,7 @@ public class ListArtworkSerializer {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String authorName;
 
-    public ListArtworkSerializer (ArtWork artWork){
+    public ListArtworkSerializer(ArtWork artWork) {
         this.artWork = artWork;
         this.authorName = artWork.getAuthorObject().getName();
     }

@@ -1,7 +1,6 @@
 package unl.fct.artbiz.artwork.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import unl.fct.artbiz.users.model.User;
 
 import javax.persistence.*;
@@ -141,11 +140,11 @@ public class ArtWork {
     }
 
     @Override
-    public boolean equals (Object object) {
-        if(!(object instanceof ArtWork))
+    public boolean equals(Object object) {
+        if (!(object instanceof ArtWork))
             return false;
         else {
-            if(((ArtWork) object).getId() == this.getId())
+            if (((ArtWork) object).getId() == this.getId())
                 return true;
         }
         return false;

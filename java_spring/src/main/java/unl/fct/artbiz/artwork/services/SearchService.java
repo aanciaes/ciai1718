@@ -15,7 +15,7 @@ public class SearchService {
     @Autowired
     ArtworkRepository artworkRepository;
 
-    public List<ArtWork> getAll () {
+    public List<ArtWork> getAll() {
         return artworkRepository.findAll();
     }
 
@@ -24,19 +24,19 @@ public class SearchService {
 
         return (artworkRepository.getArtWorksByKeywordsIsIn(keywordsAsList))
                 .stream().filter(artWork -> artWork.getKeywords().
-                containsAll(keywordsAsList)).distinct()
+                        containsAll(keywordsAsList)).distinct()
                 .collect(Collectors.toList());
     }
 
     public List<ArtWork> searchByArtists(String artists) {
         List<String> artistsAsList = Arrays.asList(artists.split("\\s"));
         System.out.println("Search by artists");
-        for (String x : artistsAsList){
+        for (String x : artistsAsList) {
             System.out.println("Query: " + x);
         }
 
         return artworkRepository.findAll().stream()
-                .filter(artWork ->  {
+                .filter(artWork -> {
                     for (String query : artistsAsList) {
                         if (artWork.getAuthorObject().getName().toLowerCase().contains(query.toLowerCase()))
                             return true;
@@ -46,13 +46,13 @@ public class SearchService {
                 .collect(Collectors.toList());
     }
 
-    public List<ArtWork> searchByInDescription (String query) {
+    public List<ArtWork> searchByInDescription(String query) {
         List<String> queryAsList = Arrays.asList(query.split("\\s"));
 
         return (artworkRepository.findAll())
                 .stream().filter(artWork -> {
-                    for (String queryWord : queryAsList){
-                        if(artWork.getDescription().contains(queryWord))
+                    for (String queryWord : queryAsList) {
+                        if (artWork.getDescription().contains(queryWord))
                             return true;
                     }
                     return false;

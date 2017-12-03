@@ -12,6 +12,6 @@ import java.lang.annotation.*;
 public @interface RestrictedToAuthor {
 
     String accessCondition = "@authService.restrictedToMatchingUser(#artWork.getAuthor()) " +
-            "AND hasRole('ARTIST')";
+            "AND hasAnyRole('ARTIST', 'ADMIN')";
 
 }
