@@ -1,6 +1,7 @@
 package unl.fct.artbiz.bids.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.users.model.User;
 
@@ -17,7 +18,7 @@ public class Bid {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "peiceId", insertable = false, updatable = false)
+    @JoinColumn(name = "pieceId", insertable = false, updatable = false)
     private ArtWork artWorkObject;
 
     private Long bidderId;
@@ -29,6 +30,7 @@ public class Bid {
 
     private double bidAmount;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BidState bidState;
 
     public Bid () {}

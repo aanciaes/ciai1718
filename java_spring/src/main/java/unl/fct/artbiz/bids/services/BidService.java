@@ -39,7 +39,9 @@ public class BidService {
         if(exist(incoming.getBidId())){
             Bid lastBid = findById(incoming.getBidId());
             if(lastBid.getBidAmount()< incoming.getBidAmount()) {
+                incoming.setBidState(BidState.OPEN);
                 bidRepository.save(incoming);
+
                 return incoming;
             }else{
                 throw new LowerBidException();
@@ -50,6 +52,7 @@ public class BidService {
 
                 if (artWork.isOnSale()) {
                     if (artWork.getPrice() <= incoming.getBidAmount()) {
+                        incoming.setBidState(BidState.OPEN);
                         bidRepository.save(incoming);
                         return incoming;
                     } else {
@@ -84,6 +87,7 @@ public class BidService {
             if(bidRepository.countBidsByBidStateAndAndPieceId(BidState.ACCEPTED, bid.getPieceId())!=0)
                 throw new BidAlreadyAccepted ();
             bid.setBidState(BidState.ACCEPTED);
+            bidRepository.save(bid);
             return bid;
         }
     }
@@ -94,6 +98,7 @@ public class BidService {
             throw new BidStateNotOpenException();
         } else {
             bid.setBidState(BidState.REJECTED);
+            bidRepository.save(bid);
             return bid;
         }
     }
@@ -106,6 +111,7 @@ public class BidService {
             if(bidRepository.countBidsByBidStateAndAndPieceId(BidState.FINALIZED, bid.getPieceId())!=0)
                 throw new BidAlreadyFinalize ();
             bid.setBidState(BidState.ACCEPTED);
+            bidRepository.save(bid);
             return bid;
         }
     }

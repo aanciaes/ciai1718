@@ -7,6 +7,7 @@ import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.auth.annotations.RestrictedToBidOwner;
+import unl.fct.artbiz.auth.annotations.RestrictedToBidderId;
 import unl.fct.artbiz.auth.annotations.RestrictedToPieceOwner;
 import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
 import unl.fct.artbiz.bids.exceptions.LowerBidException;
@@ -28,7 +29,7 @@ public class BidController {
     BidService bidService;
 
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAnyRole('BASIC', 'ARTIST', 'ADMIN')")
+    @RestrictedToBidderId
     public Bid makeBid (@RequestBody Bid incoming) {
         return bidService.createBid(incoming);
     }
