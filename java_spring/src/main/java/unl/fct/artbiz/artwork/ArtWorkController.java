@@ -9,6 +9,7 @@ import unl.fct.artbiz.artwork.services.ArtworkService;
 import unl.fct.artbiz.auth.annotations.PieceIdRestrictedToAuthor;
 import unl.fct.artbiz.auth.annotations.RestrictedToAuthor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,13 +22,17 @@ public class ArtWorkController {
     private ArtworkService artworkService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<ArtWork> getAllArtWorks() {
-        return artworkService.getAllPieces();
+    public List<ListArtworkSerializer> getAllArtWorks() {
+        List<ListArtworkSerializer> lst = new ArrayList<>();
+        artworkService.getAllPieces().stream().forEach(artWork -> lst.add(new ListArtworkSerializer(artWork)));
+        return lst;
     }
 
     @RequestMapping(value = "/onsale", method = RequestMethod.GET)
-    public List<ArtWork> getOnSalePieces() {
-        return artworkService.getPiecesOnSalePieces();
+    public List<ListArtworkSerializer> getOnSalePieces() {
+        List<ListArtworkSerializer> lst = new ArrayList<>();
+        artworkService.getPiecesOnSalePieces().stream().forEach(artWork -> lst.add(new ListArtworkSerializer(artWork)));
+        return lst;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
