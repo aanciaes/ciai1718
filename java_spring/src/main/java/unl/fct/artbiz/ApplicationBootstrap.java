@@ -65,11 +65,11 @@ public class ApplicationBootstrap{
                 new ArrayList<String>(), "description",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, true, 120));
-        artworkRepository.save(new ArtWork("FakeArtwork2", "1995-07-27",
+        artworkRepository.save(new ArtWork("FakeArtwork2", "1994-07-27",
                 new ArrayList<String>(), "description2",
                 new ArrayList<>(),
                 new ArrayList<>(), 2l, true, 100));
-        artworkRepository.save(new ArtWork("FakeArtwork3", "1995-07-27",
+        artworkRepository.save(new ArtWork("FakeArtwork3", "1993-07-27",
                 new ArrayList<String>(), "description3",
                 new ArrayList<>(),
                 new ArrayList<>(), 1l, false, 0));

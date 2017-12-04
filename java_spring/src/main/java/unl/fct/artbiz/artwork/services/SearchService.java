@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.model.ArtworkRepository;
+import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -66,7 +70,7 @@ public class SearchService {
                 .collect(Collectors.toList());
     }
 
-    public List<ArtWork> searchByName (String query) {
+    public List<ArtWork> searchByName(String query) {
         if (query.equals("null"))
             return null;
 
@@ -139,6 +143,27 @@ public class SearchService {
             }
         }
 
+        return result;
+    }
+
+    public List<ListArtworkSerializer> orderBy(String orderBy, List<ListArtworkSerializer> result) {
+
+        //TODO: Order by personList.sort((p1, p2) -> p1.firstName.compareTo(p2.firstName));
+
+        if (orderBy.equals("date")) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+            result.sort((a1, a2) -> {
+                try {
+                    Date d1 = sdf.parse(a1.getArtWork().getDateOfCreation());
+                    Date d2 = sdf.parse(a2.getArtWork().getDateOfCreation());
+                    return d1.compareTo(d2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            });
+        }
         return result;
     }
 }

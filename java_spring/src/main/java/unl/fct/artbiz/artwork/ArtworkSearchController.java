@@ -24,7 +24,8 @@ public class ArtworkSearchController {
     public List<ListArtworkSerializer> advanceSearch(@RequestParam(required = false, defaultValue = "null") String searchQuery,
                                        @RequestParam(required = false, defaultValue = "null") String artist,
                                        @RequestParam(required = false, defaultValue = "null") String keywords,
-                                       @RequestParam(required = false, defaultValue = "null") String techniques) {
+                                       @RequestParam(required = false, defaultValue = "null") String techniques,
+                                       @RequestParam (required = false, defaultValue = "noorder") String orderBy ) {
 
         List<ListArtworkSerializer> result = new ArrayList<>();
         if(!searchQuery.equals("null")) {
@@ -35,6 +36,10 @@ public class ArtworkSearchController {
                     .forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));;
         }
 
-        return result;
+        if(orderBy.equals("noorder")) {
+            return result;
+        } else {
+            return searchService.orderBy(orderBy, result);
+        }
     }
 }
