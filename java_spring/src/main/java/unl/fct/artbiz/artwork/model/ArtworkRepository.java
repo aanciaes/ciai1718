@@ -16,4 +16,8 @@ public interface ArtworkRepository extends CrudRepository<ArtWork, Long> {
 
     List<ArtWork> getArtWorksByKeywordsIsIn(List<String> keywords);
 
+    List<ArtWork> getArtWorksByTechniquesIsIn (List<String> techniques);
+
+    List<ArtWork> getArtWorksByNameContains (String name);
+
 }
