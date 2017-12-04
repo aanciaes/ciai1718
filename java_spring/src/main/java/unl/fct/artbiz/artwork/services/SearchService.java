@@ -8,10 +8,7 @@ import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,9 +35,6 @@ public class SearchService {
             return null;
 
         List<String> artistsAsList = Arrays.asList(artists.split("\\s"));
-        for (String x : artistsAsList) {
-            System.out.println("Query: " + x);
-        }
 
         return artworkRepository.findAll().stream()
                 .filter(artWork -> {
@@ -148,8 +142,6 @@ public class SearchService {
 
     public List<ListArtworkSerializer> orderBy(String orderBy, List<ListArtworkSerializer> result) {
 
-        //TODO: Order by personList.sort((p1, p2) -> p1.firstName.compareTo(p2.firstName));
-
         if (orderBy.equals("date")) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -164,6 +156,15 @@ public class SearchService {
                 }
             });
         }
+
+        if(orderBy.equals("name")){
+            result.sort(Comparator.comparing(a -> a.getArtWork().getName().toLowerCase()));
+        }
+
+        if(orderBy.equals("author")){
+            result.sort(Comparator.comparing(a -> a.getAuthorName().toLowerCase()));
+        }
+
         return result;
     }
 }
