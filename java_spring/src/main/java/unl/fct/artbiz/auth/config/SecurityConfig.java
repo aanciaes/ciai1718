@@ -18,6 +18,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -26,6 +28,7 @@ import unl.fct.artbiz.auth.service.AuthService;
 import unl.fct.artbiz.users.model.User;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -95,6 +98,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler successHandler() {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             httpServletResponse.setStatus(200);
+            String sessionid = RequestContextHolder.currentRequestAttributes().getSessionId();
+
+            System.out.println("Session: " + sessionid);
+            httpServletResponse.addCookie(new Cookie("JSESSIONID", sessionid));
+
             UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             httpServletResponse.setContentType("application/json");
 
