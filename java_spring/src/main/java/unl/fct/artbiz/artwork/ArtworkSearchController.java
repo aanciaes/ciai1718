@@ -2,9 +2,8 @@ package unl.fct.artbiz.artwork;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import unl.fct.artbiz.artwork.model.ArtWork;
-import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
+import unl.fct.artbiz.artwork.common.OrderLists;
 import unl.fct.artbiz.artwork.services.SearchService;
 
 import java.util.ArrayList;
@@ -25,7 +24,8 @@ public class ArtworkSearchController {
                                        @RequestParam(required = false, defaultValue = "null") String artist,
                                        @RequestParam(required = false, defaultValue = "null") String keywords,
                                        @RequestParam(required = false, defaultValue = "null") String techniques,
-                                       @RequestParam (required = false, defaultValue = "noorder") String orderBy ) {
+                                       @RequestParam (required = false, defaultValue = "noorder") String orderBy,
+                                       @RequestParam (required = false) boolean reverse) {
 
         List<ListArtworkSerializer> result = new ArrayList<>();
         if(!searchQuery.equals("null")) {
@@ -36,10 +36,6 @@ public class ArtworkSearchController {
                     .forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));;
         }
 
-        if(orderBy.equals("noorder")) {
-            return result;
-        } else {
-            return searchService.orderBy(orderBy, result);
-        }
+        return OrderLists.order(orderBy, result, reverse);
     }
 }

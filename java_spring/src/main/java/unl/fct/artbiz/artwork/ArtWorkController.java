@@ -6,6 +6,7 @@ import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
 import unl.fct.artbiz.artwork.model.ArtWork;
 import unl.fct.artbiz.artwork.serializer.ListArtworkSerializer;
 import unl.fct.artbiz.artwork.services.ArtworkService;
+import unl.fct.artbiz.artwork.common.OrderLists;
 import unl.fct.artbiz.auth.annotations.PieceIdRestrictedToAuthor;
 import unl.fct.artbiz.auth.annotations.RestrictedToAuthor;
 
@@ -22,17 +23,22 @@ public class ArtWorkController {
     private ArtworkService artworkService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<ListArtworkSerializer> getAllArtWorks() {
+    public List<ListArtworkSerializer> getAllArtWorks(@RequestParam (required = false, defaultValue = "noorder") String orderBy,
+                                                       @RequestParam (required = false) boolean reverse) {
         List<ListArtworkSerializer> lst = new ArrayList<>();
+
         artworkService.getAllPieces().stream().forEach(artWork -> lst.add(new ListArtworkSerializer(artWork)));
-        return lst;
+
+        return OrderLists.order(orderBy, lst, reverse);
     }
 
     @RequestMapping(value = "/onsale", method = RequestMethod.GET)
-    public List<ListArtworkSerializer> getOnSalePieces() {
+    public List<ListArtworkSerializer> getOnSalePieces(@RequestParam (required = false, defaultValue = "noorder") String orderBy,
+                                                       @RequestParam (required = false) boolean reverse) {
         List<ListArtworkSerializer> lst = new ArrayList<>();
         artworkService.getPiecesOnSalePieces().stream().forEach(artWork -> lst.add(new ListArtworkSerializer(artWork)));
-        return lst;
+
+        return OrderLists.order(orderBy, lst, reverse);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
