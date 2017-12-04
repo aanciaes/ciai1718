@@ -28,7 +28,6 @@ public class ArtworkSearchController {
 
         List<ListArtworkSerializer> result = new ArrayList<>();
         if(!searchQuery.equals("null")) {
-
             searchService.search(searchQuery).stream()
                     .forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));
         }else {
@@ -37,16 +36,5 @@ public class ArtworkSearchController {
         }
 
         return result;
-        /*if (searchQuery.equals("") && artist.equals("") && keywords.equals("")) {
-            return searchService.getAll();
-        } else {
-            if (!artist.equals("") && keywords.equals(""))
-                return searchService.searchByArtists(artist);
-            if (artist.equals("") && !keywords.equals(""))
-                return searchService.searchByKeywords(keywords);
-            if (!artist.equals("") && !keywords.equals(""))
-                return searchService.searchByArtistsAndKeywords(artist, keywords);
-            return searchService.searchByAll(searchQuery);
-        }*/
     }
 }

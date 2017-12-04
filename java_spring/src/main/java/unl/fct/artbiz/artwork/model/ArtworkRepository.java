@@ -1,5 +1,6 @@
 package unl.fct.artbiz.artwork.model;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +18,5 @@ public interface ArtworkRepository extends CrudRepository<ArtWork, Long> {
     List<ArtWork> getArtWorksByKeywordsIsIn(List<String> keywords);
 
     List<ArtWork> getArtWorksByTechniquesIsIn (List<String> techniques);
-
-    List<ArtWork> getArtWorksByNameContains (String name);
 
 }
