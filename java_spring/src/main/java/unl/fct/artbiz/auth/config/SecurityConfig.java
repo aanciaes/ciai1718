@@ -98,10 +98,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationSuccessHandler successHandler() {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             httpServletResponse.setStatus(200);
-            String sessionid = RequestContextHolder.currentRequestAttributes().getSessionId();
-
-            System.out.println("Session: " + sessionid);
-            httpServletResponse.addCookie(new Cookie("JSESSIONID", sessionid));
 
             UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             httpServletResponse.setContentType("application/json");
