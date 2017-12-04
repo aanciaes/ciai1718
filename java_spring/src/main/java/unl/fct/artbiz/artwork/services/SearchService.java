@@ -23,9 +23,9 @@ public class SearchService {
 
         List<String> keywordsAsList = Arrays.asList(keywords.split("\\s"));
 
-        return artworkRepository.getArtWorksByKeywordsIsIn(keywordsAsList)
+        return artworkRepository.findAll()
                 .stream()
-                .filter(artWork -> artWork.getKeywords().containsAll(keywordsAsList))
+                .filter(artWork -> listContainsKeywords (artWork.getKeywords(), keywordsAsList))
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -85,11 +85,11 @@ public class SearchService {
         if (techniques.equals("null"))
             return null;
 
-        List<String> queryAsList = Arrays.asList(techniques.split("\\s"));
+        List<String> techinquesAsList = Arrays.asList(techniques.split("\\s"));
 
-        return artworkRepository.getArtWorksByTechniquesIsIn(queryAsList)
+        return artworkRepository.findAll()
                 .stream()
-                .filter(artWork -> artWork.getTechniques().containsAll(queryAsList))
+                .filter(artWork -> listContainsKeywords (artWork.getTechniques(), techinquesAsList))
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -166,5 +166,21 @@ public class SearchService {
         }
 
         return result;
+    }
+
+
+
+    private boolean listContainsKeywords (List<String> list, List<String> search) {
+        int counter = 0;
+
+        for(String x : search){
+            for (String keyword : list){
+                if(keyword.contains(x)) {
+                    counter++;
+                    break;
+                }
+            }
+        }
+        return counter==search.size();
     }
 }
