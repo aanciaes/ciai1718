@@ -10,6 +10,7 @@ import java.util.Collection;
 public class UserPrincipal implements UserDetails {
 
     private User user;
+    private String sessionId;
 
     public UserPrincipal(User user) {
         this.user = user;
@@ -56,5 +57,13 @@ public class UserPrincipal implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles();
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

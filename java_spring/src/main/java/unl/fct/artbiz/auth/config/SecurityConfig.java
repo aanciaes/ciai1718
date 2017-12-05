@@ -99,13 +99,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             httpServletResponse.setStatus(200);
 
+            String session = RequestContextHolder.getRequestAttributes().getSessionId();
+
             UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             httpServletResponse.setContentType("application/json");
 
             PrintWriter out = httpServletResponse.getWriter();
+            user.setSessionId(session);
 
             ObjectMapper mapper = new ObjectMapper();
-            out.print(mapper.writeValueAsString(user.getUser()));
+            out.print(mapper.writeValueAsString(user));
             out.flush();
         };
     }
@@ -121,6 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
