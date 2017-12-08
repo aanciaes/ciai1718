@@ -40,4 +40,9 @@ public class UserController {
     public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public User login (@PathVariable String email) {
+        return userService.getUerByEmail(email);
+    }
 }

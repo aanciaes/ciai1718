@@ -38,6 +38,10 @@ public class UserService {
         return userRepository.findOne(userId);
     }
 
+    public User getUerByEmail (String email){
+        return userRepository.getUserByEmail(email);
+    }
+
     public User updateUser(User user) {
         if (!userRepository.exists(user.getId())) {
             throw new UserNotFoundException();

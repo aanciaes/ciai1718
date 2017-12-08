@@ -37,7 +37,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "/artwork/search/**", "/artwork/artist/**"};
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, publicGetEndpoints).permitAll()
+                /*.antMatchers(HttpMethod.GET, publicGetEndpoints).permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, publicPostEndpoints).permitAll()
@@ -64,8 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //.loginPage("/login")
                 .logout()
-                .permitAll();
-        //.antMatchers("/**").permitAll();
+                .permitAll();*/
+        .antMatchers("/**").permitAll();
     }
 
     @Override
@@ -99,13 +99,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return (httpServletRequest, httpServletResponse, authentication) -> {
             httpServletResponse.setStatus(200);
 
-            String session = RequestContextHolder.getRequestAttributes().getSessionId();
-
             UserPrincipal user = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             httpServletResponse.setContentType("application/json");
 
             PrintWriter out = httpServletResponse.getWriter();
-            user.setSessionId(session);
 
             ObjectMapper mapper = new ObjectMapper();
             out.print(mapper.writeValueAsString(user));
