@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public User login (@PathVariable String email) {
+    public User login (@RequestParam String email) {
         return userService.getUerByEmail(email);
     }
 }
