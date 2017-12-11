@@ -40,7 +40,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = false)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "/artwork/search/**", "/artwork/artist/**"};
+    private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "artwork/search", "/artwork/search/**", "/artwork/artist/**"};
     private static final String[] publicPostEndpoints = {"/user/register"};
 
     @Autowired

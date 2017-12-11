@@ -32,8 +32,12 @@ public class ArtworkSearchController {
             searchService.search(searchQuery).stream()
                     .forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));
         }else {
-            searchService.advancedSearch(artist, keywords, techniques)
-                    .forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));;
+            if(artist.equals("null") && keywords.equals("null") && techniques.equals("null")){
+                searchService.findAll().forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));
+            }else{
+                searchService.advancedSearch(artist, keywords, techniques)
+                        .forEach(artWork -> result.add(new ListArtworkSerializer(artWork)));
+            }
         }
 
         return OrderLists.order(orderBy, result, reverse);

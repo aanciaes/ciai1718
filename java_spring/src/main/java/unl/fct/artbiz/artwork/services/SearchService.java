@@ -17,6 +17,10 @@ public class SearchService {
     @Autowired
     ArtworkRepository artworkRepository;
 
+    public List<ArtWork> findAll () {
+        return artworkRepository.findAll();
+    }
+
     public List<ArtWork> searchByKeywords(String keywords) {
         if (keywords.equals("null"))
             return null;
