@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
 import unl.fct.artbiz.users.exceptions.DuplicatedUser;
+import unl.fct.artbiz.users.exceptions.EmailAlreadyExistsException;
 import unl.fct.artbiz.users.exceptions.UserNotFoundException;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.model.UserRepository;
@@ -27,6 +28,10 @@ public class UserService {
     public User createUser(User user) {
         if (userRepository.exists(user.getId()))
             throw new DuplicatedUser();
+
+        if(userRepository.existsByEmail(user.getEmail()))
+            throw new EmailAlreadyExistsException();
+
         user.setup();
         user.setPassword(hash(user.getPassword()));
         return userRepository.save(user);
