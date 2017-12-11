@@ -10,7 +10,11 @@ import unl.fct.artbiz.bids.exceptions.*;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.model.BidRepository;
 import unl.fct.artbiz.bids.model.BidState;
+import unl.fct.artbiz.sales.model.Sale;
+import unl.fct.artbiz.sales.model.SalesRepository;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,9 @@ public class BidService {
 
     @Autowired
     ArtworkRepository artworkRepository;
+
+    @Autowired
+    SalesRepository salesRepository;
 
     public boolean exist (long id){
         return bidRepository.exists(id);
@@ -113,6 +120,11 @@ public class BidService {
                 throw new BidAlreadyFinalize ();
             bid.setBidState(BidState.ACCEPTED);
             bidRepository.save(bid);
+
+            //create a sale record
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            salesRepository.save(new Sale(bid.getBidId(), timeStamp));
+
             return bid;
         }
     }
