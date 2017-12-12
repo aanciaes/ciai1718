@@ -37,7 +37,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = false)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "artwork/search", "/artwork/search/**", "/artwork/artist/**"};
@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                /*.antMatchers(HttpMethod.GET, publicGetEndpoints).permitAll()
+                .antMatchers(HttpMethod.GET, publicGetEndpoints).permitAll()
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, publicPostEndpoints).permitAll()
@@ -64,8 +64,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //.loginPage("/login")
                 .logout()
-                .permitAll();*/
-        .antMatchers("/**").permitAll();
+                .permitAll();
+        //.antMatchers("/**").permitAll();
     }
 
     @Override
