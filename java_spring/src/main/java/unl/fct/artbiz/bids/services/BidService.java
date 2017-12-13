@@ -76,7 +76,7 @@ public class BidService {
     }
 
     public List<Bid> getBidsMadeByUser (long id) {
-        return bidRepository.getBidsBybidderId(id);
+        return bidRepository.getBidsByBidderId(id);
     }
 
     public List<Bid> getBidsOfArtist (long artistId) {

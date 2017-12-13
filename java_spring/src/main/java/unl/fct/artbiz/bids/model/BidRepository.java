@@ -9,7 +9,7 @@ public interface BidRepository extends CrudRepository<Bid, Long> {
 
     List<Bid> findAll ();
 
-    List<Bid> getBidsBybidderId (long bidderId);
+    List<Bid> getBidsByBidderId (long bidderId);
 
     List<Bid> getBidsByPieceId (long pieceId);
 
