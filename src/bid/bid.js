@@ -4,6 +4,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import Config from '../config/config';
+import Utils from '../utils/utils';
 import './bid.css';
 import BidBasico from './bidBasico';
 import $ from 'jquery';
@@ -85,12 +86,24 @@ class Bid extends React.Component {
 
     getBid(id) {
         let t = this;
-        $.get(url + "bid/" + id, function (data) {
+
+        Utils.ajaxRequest('GET',
+            url + "bid/" + id,
+            function (data) {
+                let s = t.state;
+                s.bid = data;
+                console.log(s);
+                t.setState(s);
+            },
+            true,
+            {}
+        );
+       /* $.get(url + "bid/" + id, function (data) {
             let s = t.state;
             s.bid = data;
             console.log(s);
             t.setState(s);
-        });
+        });*/
     }
 
     updateBid(b) {

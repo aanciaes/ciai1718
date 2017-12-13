@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 import './piece.css';
 import Config from '../config/config';
+import Utils from '../utils/utils';
 import $ from 'jquery';
 
 const url = Config.url;
@@ -94,10 +95,25 @@ class PieceBasico extends React.Component {
         let b = {
             bidAmount: amount,
             pieceId: t.props.piece.id,
-            bidderId: t.props.user.id
+            bidderId: t.props.user.id,
+            bidderEmail:t.props.user.email
         };
 
-        $.ajax({
+        Utils.ajaxRequest('POST',
+            url + "bid",
+            function (result) {
+                console.log(result);
+                $('#modalBid').modal('hide');
+                t.props.history.push("/dashboard/mybids");
+            },
+            true,
+            {
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(b),
+            }
+        );
+
+       /* $.ajax({
             type: 'POST',
             url: url + "bid",
             contentType: "application/json; charset=utf-8",
@@ -112,7 +128,7 @@ class PieceBasico extends React.Component {
                 alert("Erro " + status);
                 console.log(status);
             }
-        });
+        });*/
     }
 
     render() {
