@@ -8,9 +8,10 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-@PreAuthorize(RestrictedToPieceOwner.accessCondition)
-public @interface RestrictedToPieceOwner {
+@PreAuthorize(RestrictedToAuthorGivenPieceId.accessCondition)
+public @interface RestrictedToAuthorGivenPieceId {
 
-    String accessCondition = "@authService.isPieceOnBidOwner(#bidId)" +
+    String accessCondition = "@authService.restrictedToMatchingUserGivenPieceId(#pieceId)" +
             "AND hasAnyRole('ARTIST', 'ADMIN')";
+
 }

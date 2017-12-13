@@ -13,25 +13,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import unl.fct.artbiz.auth.model.UserPrincipal;
 import unl.fct.artbiz.auth.service.AuthService;
-import unl.fct.artbiz.users.model.User;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
 
@@ -105,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             PrintWriter out = httpServletResponse.getWriter();
 
             ObjectMapper mapper = new ObjectMapper();
-            out.print(mapper.writeValueAsString(user));
+            out.print(mapper.writeValueAsString(user.getUser()));
             out.flush();
         };
     }
