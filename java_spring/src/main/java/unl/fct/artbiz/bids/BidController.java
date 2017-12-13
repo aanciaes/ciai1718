@@ -35,10 +35,13 @@ public class BidController {
     }
 
     @RequestMapping (value = "/user/{userId}", method = RequestMethod.GET)
-    public List<ListBidSerializer> getBidsOfUser (@PathVariable long userId) {
-        List<ListBidSerializer> bids = new ArrayList<>();
-        bidService.getBidsOfUser(userId).stream().forEach(bid -> bids.add(new ListBidSerializer(bid)));
-        return bids;
+    public List<Bid> getBidsMadeByUser (@PathVariable long userId) {
+        return bidService.getBidsMadeByUser(userId);
+    }
+
+    @RequestMapping(value = "/artist/{artistId}", method = RequestMethod.GET)
+    public List<Bid> getBidsOfArtist (@PathVariable long artistId) {
+        return bidService.getBidsOfArtist(artistId);
     }
 
     @RequestMapping (value = "/piece/{pieceId}", method = RequestMethod.GET)

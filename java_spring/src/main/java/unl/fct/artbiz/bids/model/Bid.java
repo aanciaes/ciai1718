@@ -28,6 +28,13 @@ public class Bid {
     @JoinColumn(name = "bidderId", insertable = false, updatable = false)
     private User bidderObject;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String bidderEmail;
+
+    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private long ownerId;
+
     private double bidAmount;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
@@ -92,5 +99,13 @@ public class Bid {
 
     public void setArtWorkObject(ArtWork artWorkObject) {
         this.artWorkObject = artWorkObject;
+    }
+
+    public String getBidderEmail() {
+        return bidderObject.getEmail();
+    }
+
+    public long getOwnerId() {
+        return getArtWorkObject().getAuthor();
     }
 }

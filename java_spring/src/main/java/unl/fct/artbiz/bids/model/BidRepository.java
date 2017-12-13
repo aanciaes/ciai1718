@@ -13,4 +13,6 @@ public interface BidRepository extends CrudRepository<Bid, Long> {
 
     int countBidsByBidStateAndAndPieceId (BidState bidState, long pieceId);
 
+    List<Bid> getBidsByOwnerId (long ownerId);
+
 }

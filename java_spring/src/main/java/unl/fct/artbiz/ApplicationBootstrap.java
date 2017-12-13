@@ -40,7 +40,7 @@ public class ApplicationBootstrap{
         for (String profile : env.getActiveProfiles())
             activeProfile += profile + " ";
 
-        if(!activeProfile.contains("prod") && !activeProfile.contains("tests")) {
+        if(!activeProfile.contains("prod")) {
             long numberOfUsers = bootstrapUsers();
             long numberOfArtworks = bootstrapArtworks();
 

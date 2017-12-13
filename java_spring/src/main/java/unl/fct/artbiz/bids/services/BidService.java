@@ -75,8 +75,12 @@ public class BidService {
         }
     }
 
-    public List<Bid> getBidsOfUser (long id) {
+    public List<Bid> getBidsMadeByUser (long id) {
         return bidRepository.getBidsBybidderId(id);
+    }
+
+    public List<Bid> getBidsOfArtist (long artistId) {
+        return bidRepository.getBidsByOwnerId(artistId);
     }
 
     public List<Bid> getBidsOfPiece(long pieceId) {
