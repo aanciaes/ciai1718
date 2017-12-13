@@ -5,6 +5,7 @@ import {Route, withRouter, Link} from 'react-router-dom'
 import React from 'react';
 import './dashboard.css';
 import $ from 'jquery';
+import Utils from '../utils/utils';
 import Config from '../config/config';
 
 const url = Config.url;
@@ -323,7 +324,20 @@ class DashboardArtista extends React.Component {
         p['keywords'] = t.constructArray(p['keywords']);
 
 
-        $.ajax({
+        Utils.ajaxRequest('POST',
+            url + 'artwork',
+            function (result) {
+                t.props.history.push("/dashboard/piece/mygallery");
+            },
+            true,
+            {
+                contentType: "application/json;",
+                data: JSON.stringify(p)
+            }
+        );
+
+
+        /*$.ajax({
             type: 'POST',
             url: url + 'artwork',
             xhrFields: {
@@ -342,7 +356,7 @@ class DashboardArtista extends React.Component {
                 console.log(status);
                 console.log("Failed	to	Post:	" + status);
             }
-        });
+        });*/
 
 
     }

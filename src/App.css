@@ -2,7 +2,14 @@
 @import url('https://fonts.googleapis.com/css?family=Tangerine');
 
 
-
+#loading{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    display: none;
+    z-index: 10;
+    margin-bottom: 59px;
+}
 .header_form{
     margin-left: 5px;
 }

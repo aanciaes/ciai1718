@@ -8,6 +8,7 @@ import Dashboard from './dashboard/dashboard';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Config from './config/config';
+import Utils from './utils/utils';
 const $ = require('jquery');
 window.jQuery = $;
 window.$ = $;
@@ -43,7 +44,6 @@ class App extends Component {
     }
 
 
-
     changeState(s) {
         let st = this.state;
         $.each(s, function (i, val) {
@@ -59,95 +59,144 @@ class App extends Component {
 
     addUser(u) {
         let that = this;
-        $.ajax({
-            type: 'POST',
-            url: url + "user/register",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(u),
-            success: function (result) {
+
+        Utils.ajaxRequest('POST',
+            url + "user/register",
+            function (result) {
                 let stateCopy = that.getCopyState(that.state);
                 stateCopy.user = result;
                 stateCopy.added = true;
                 that.setState(stateCopy);
-
             },
-            error: function (status) {
-                let stateCopy = that.getCopyState(that.state);
-                stateCopy.added = false;
-                console.log(status);
-                that.setState(stateCopy);
+            true,
+            {
+                error: function (status) {
+                    let stateCopy = that.getCopyState(that.state);
+                    stateCopy.added = false;
+                    console.log(status);
+                    that.setState(stateCopy);
+                },
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(u)
             }
-        });
+        );
+        /* $.ajax({
+         type: 'POST',
+         url: url + "user/register",
+         contentType: "application/json; charset=utf-8",
+         data: JSON.stringify(u),
+         success: function (result) {
+         let stateCopy = that.getCopyState(that.state);
+         stateCopy.user = result;
+         stateCopy.added = true;
+         that.setState(stateCopy);
+
+         },
+         error: function (status) {
+         let stateCopy = that.getCopyState(that.state);
+         stateCopy.added = false;
+         console.log(status);
+         that.setState(stateCopy);
+         }
+         });*/
     }
 
     loginUser(u) {
         let that = this;
-        $.ajax({
-            type: 'POST',
-            xhrFields: {withCredentials: true},
-            url: url + "login?username=" + u.email + "&password=" + u.password,
-            //contentType: "application/json; charset=utf-8",
-            success: function (result, textStatus, request) {
+
+        Utils.ajaxRequest('POST',
+            url + "login?username=" + u.email + "&password=" + u.password,
+            function (result, textStatus, request) {
 
                 let stateCopy = that.getCopyState(that.state);
                 stateCopy.user = result.user;
                 that.setState(stateCopy);
                 that.props.history.push('/dashboard');
             },
-            error: function (status) {
-                let stateCopy = that.getCopyState(that.state);
-                stateCopy.errorLogin = true;
-                that.setState(stateCopy);
+            true,
+            {
+                error: function (status) {
+                    let stateCopy = that.getCopyState(that.state);
+                    stateCopy.errorLogin = true;
+                    that.setState(stateCopy);
+                }
             }
-        });
+        );
 
-        return true;
+        /*$.ajax({
+         type: 'POST',
+         xhrFields: {withCredentials: true},
+         url: url + "login?username=" + u.email + "&password=" + u.password,
+         //contentType: "application/json; charset=utf-8",
+         success: function (result, textStatus, request) {
+
+         let stateCopy = that.getCopyState(that.state);
+         stateCopy.user = result.user;
+         that.setState(stateCopy);
+         that.props.history.push('/dashboard');
+         },
+         error: function (status) {
+         let stateCopy = that.getCopyState(that.state);
+         stateCopy.errorLogin = true;
+         that.setState(stateCopy);
+         }
+         });*/
+
     }
 
     logoutUser() {
         let that = this;
-        $.ajax({
-            type: 'POST',
-            xhrFields: {withCredentials: true},
-            url: url + "logout",
-            //contentType: "application/json; charset=utf-8",
-            success: function (result, textStatus, request) {
+
+        Utils.ajaxRequest('POST',
+            url + "logout",
+            function (result, textStatus, request) {
                 let stateCopy = that.getCopyState(that.state);
                 stateCopy.user = "";
                 that.setState(stateCopy);
                 that.props.history.push('/landing/gallery');
             },
-            error: function (status) {
-                let stateCopy = that.getCopyState(that.state);
-                stateCopy.errorLogin = true;
-                that.setState(stateCopy);
-            }
-        });
+            true,
+            {}
+        );
+
+        /* $.ajax({
+         type: 'POST',
+         xhrFields: {withCredentials: true},
+         url: url + "logout",
+         //contentType: "application/json; charset=utf-8",
+         success: function (result, textStatus, request) {
+         let stateCopy = that.getCopyState(that.state);
+         stateCopy.user = "";
+         that.setState(stateCopy);
+         that.props.history.push('/landing/gallery');
+         },
+         error: function (status) {
+         let stateCopy = that.getCopyState(that.state);
+         stateCopy.errorLogin = true;
+         that.setState(stateCopy);
+         }
+         });*/
     }
 
     updateUser(u) {
         let t = this;
-        $.ajax({
-            type: 'PUT',
-            url: url + "user",
-            xhrFields: {withCredentials: true},
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(u),
-            success: function (result) {
-                console.log(result);
+
+        Utils.ajaxRequest('PUT',
+            url + "user",
+            function (result) {
+
                 let s = t.state;
                 s.user = result;
                 t.setState(s);
-                /* let s = t.state;
-                 s.piece = result;
-                 s.edit = false;
-                 t.setState(s);*/
             },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log(status);
+            true,
+            {
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(u)
             }
-        });
+        );
+
+
     }
 
 

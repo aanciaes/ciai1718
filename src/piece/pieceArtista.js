@@ -6,6 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 import './piece.css';
 import Config from '../config/config';
+import Utils from '../utils/utils';
 import $ from 'jquery';
 
 const url = Config.url;
@@ -365,7 +366,22 @@ class PieceArtista extends React.Component {
         p['techniques'] = this.constructArray(p['techniques']);
         p['keywords'] = this.constructArray(p['keywords']);
 
-        $.ajax({
+        Utils.ajaxRequest('PUT',
+            url + "artwork",
+            function (result) {
+                t.props.updatePiece(result);
+                let s = t.state;
+                s.edit = false;
+                t.setState(s);
+            },
+            true,
+            {
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(p)
+            }
+        );
+
+        /*$.ajax({
             type: 'PUT',
             url: url + "artwork",
             xhrFields: {withCredentials: true},
@@ -379,19 +395,29 @@ class PieceArtista extends React.Component {
                 /* let s = t.state;
                  s.piece = result;
                  s.edit = false;
-                 t.setState(s);*/
+                 t.setState(s);
             },
             error: function (status) {
                 alert("Erro " + status);
                 console.log(status);
             }
-        });
+        });*/
 
     }
 
     onSalePiece(s) {
         let t = this;
-        $.ajax({
+
+        Utils.ajaxRequest('PUT',
+            url + "artwork/" + t.props.piece.id + "/sell?price=" + s.price,
+            function (result) {
+                $('#myModal').modal('hide');
+                t.props.getPiece(t.props.piece.id);
+            },
+            true,
+            {}
+        );
+        /*$.ajax({
             type: 'PUT',
             url: url + "artwork/" + t.props.piece.id + "/sell?price=" + s.price,
             xhrFields: {withCredentials: true},
@@ -405,13 +431,25 @@ class PieceArtista extends React.Component {
                 alert("Erro " + status.responseJSON.exception);
                 console.log(status.responseJSON.exception);
             }
-        });
+        });*/
 
     }
 
     removePiece() {
         let t = this;
-        $.ajax({
+
+        Utils.ajaxRequest('DELETE',
+            url + "artwork/" + t.props.piece.id,
+            function (result) {
+                $('#modalRemovePiece').modal('hide');
+                t.props.history.push("/dashboard/piece/mygallery");
+
+            },
+            true,
+            {}
+        );
+
+       /* $.ajax({
             type: 'DELETE',
             url: url + "artwork/" + t.props.piece.id,
             xhrFields: {withCredentials: true},
@@ -425,13 +463,25 @@ class PieceArtista extends React.Component {
                 alert("Erro " + status);
                 console.log("Failed	to	Put:	" + status);
             }
-        });
+        });*/
 
     }
 
     removeSalePiece() {
         let t = this;
-        $.ajax({
+
+        Utils.ajaxRequest('PUT',
+            url + "artwork/" + t.props.piece.id + "/keep",
+            function (result) {
+                $('#modalRemoveSale').modal('hide');
+                t.props.getPiece(t.props.piece.id);
+
+            },
+            true,
+            {}
+        );
+
+        /*$.ajax({
             type: 'PUT',
             url: url + "artwork/" + t.props.piece.id + "/keep",
             xhrFields: {withCredentials: true},
@@ -445,7 +495,7 @@ class PieceArtista extends React.Component {
                 alert("Erro " + status);
                 console.log("Failed	to	Put:	" + status);
             }
-        });
+        });*/
 
     }
 

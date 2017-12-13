@@ -7,6 +7,7 @@ import PieceArtista from './pieceArtista';
 import PieceBasico from './pieceBasico';
 import './piece.css';
 import Config from '../config/config';
+import Utils from '../utils/utils';
 import $ from 'jquery';
 
 const url = Config.url;
@@ -58,7 +59,18 @@ class PieceBids extends React.Component {
     getBidsPiece() {
         let t = this;
 
-        $.ajax({
+
+        Utils.ajaxRequest('GET',
+            url + "bid/piece/" + t.props.piece.id,
+            function (result) {
+                t.state.bids = result;
+                t.setState(t.state);
+            },
+            false,
+            {}
+        );
+
+       /* $.ajax({
             type: 'GET',
             url: url + "bid/piece/" + t.props.piece.id,
 
@@ -73,13 +85,13 @@ class PieceBids extends React.Component {
                 alert("Erro " + status);
                 console.log(status);
             }
-        });
+        });*/
 
     }
 
     render() {
 
-        this.reloadTableData(this.state.bids);
+        //this.reloadTableData(this.state.bids);
         return (
             <div>
                 <h2 className="subtitle40 tangerine">Bids</h2>
@@ -255,7 +267,21 @@ class Piece extends React.Component {
 
     getPiece(id) {
         let t = this;
-        $.ajax({
+
+        Utils.ajaxRequest('GET',
+            url + "artwork/" + id,
+            function (data) {
+                let piece = data.artWork;
+                piece.authorName = data.authorName;
+                let s = t.state;
+                s.piece = piece;
+                t.setState(s);
+            },
+            true,
+            {}
+        );
+
+        /*$.ajax({
             type: 'GET',
             xhrFields: {withCredentials: true},
             url: url + "artwork/" + id,
@@ -271,7 +297,7 @@ class Piece extends React.Component {
                 alert("Erro");
                 console.log(status);
             }
-        });
+        });*/
     }
 
     updatePiece(p) {

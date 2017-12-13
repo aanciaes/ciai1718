@@ -6,6 +6,7 @@ import './publicGallery.css';
 import { Link} from 'react-router-dom'
 import $ from 'jquery';
 import Config from '../config/config';
+import Utils from '../utils/utils';
 import Piece from '../piece/piece';
 
 const url = Config.url;
@@ -107,20 +108,40 @@ class Gallery extends React.Component {
     getPieces() {
 
         let t = this;
-        $.get(url + "artwork", function (data) {
+
+        Utils.ajaxRequest('GET',
+            url + "artwork",
+            function (data) {
+                t.state.pieces = data;
+                t.setState(t.state);
+            },
+            false,
+            {}
+        );
+       /* $.get(url + "artwork", function (data) {
 
             t.state.pieces = data;
             t.setState(t.state);
-        });
+        });*/
     }
 
 
     search({target}) {
         let st = this;
-        $.get(url + "artwork/search?searchQuery=" + target.value, function (data) {
+
+        Utils.ajaxRequest('GET',
+            url + "artwork/search?searchQuery=" + target.value,
+            function (data) {
+                st.state.pieces = data;
+                st.setState(st.state);
+            },
+            false,
+            {}
+        );
+       /* $.get(url + "artwork/search?searchQuery=" + target.value, function (data) {
             st.state.pieces = data;
             st.setState(st.state);
-        });
+        });*/
 
     }
 

@@ -6,6 +6,7 @@ import React, {Component} from 'react';
 import './dashboard.css';
 import $ from 'jquery';
 import Config from '../config/config';
+import Utils from '../utils/utils';
 const url = Config.url;
 
 
@@ -30,11 +31,22 @@ class MeusBids extends React.Component {
 
     getMyBids(state) {
         let t = this;
-        $.get(url + "bid/user/" + this.props.user.id, function (data) {
+
+        Utils.ajaxRequest('GET',
+            url + "bid/user/" + this.props.user.id,
+            function (data) {
+                state.bids = data;
+                console.log(data);
+                t.setState(state);
+            },
+            true,
+            {}
+        );
+       /* $.get(url + "bid/user/" + this.props.user.id, function (data) {
             state.bids = data;
             console.log(data);
             t.setState(state);
-        });
+        });*/
     }
 
     render() {
