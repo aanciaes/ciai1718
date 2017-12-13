@@ -1,23 +1,13 @@
 package unl.fct.artbiz.bids;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import unl.fct.artbiz.artwork.exceptions.ArtWorkNotFound;
-import unl.fct.artbiz.artwork.model.ArtWork;
-import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.auth.annotations.RestrictedToBidOwner;
 import unl.fct.artbiz.auth.annotations.RestrictedToBidderId;
 import unl.fct.artbiz.auth.annotations.RestrictedToPieceOwner;
-import unl.fct.artbiz.bids.exceptions.BidIsToLowException;
-import unl.fct.artbiz.bids.exceptions.LowerBidException;
-import unl.fct.artbiz.bids.exceptions.PieceNotOnSaleException;
 import unl.fct.artbiz.bids.model.Bid;
-import unl.fct.artbiz.bids.serializers.ListBidSerializer;
 import unl.fct.artbiz.bids.services.BidService;
 
-import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,15 +35,13 @@ public class BidController {
     }
 
     @RequestMapping (value = "/piece/{pieceId}", method = RequestMethod.GET)
-    public List<ListBidSerializer> getBidsOfPiece (@PathVariable long pieceId) {
-        List<ListBidSerializer> bids = new ArrayList<>();
-        bidService.getBidsOfPiece(pieceId).stream().forEach(bid -> bids.add(new ListBidSerializer(bid)));
-        return bids;
+    public List<Bid> getBidsOfPiece (@PathVariable long pieceId) {
+        return bidService.getBidsOfPiece(pieceId);
     }
 
     @RequestMapping (value = "/{bidId}", method = RequestMethod.GET)
-    public ListBidSerializer getBidById (@PathVariable long bidId) {
-        return new ListBidSerializer(bidService.findById(bidId));
+    public Bid getBidById (@PathVariable long bidId) {
+        return bidService.findById(bidId);
     }
 
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
