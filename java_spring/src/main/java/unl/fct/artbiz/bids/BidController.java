@@ -1,6 +1,7 @@
 package unl.fct.artbiz.bids;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import unl.fct.artbiz.auth.annotations.*;
 import unl.fct.artbiz.bids.model.Bid;
@@ -18,8 +19,10 @@ public class BidController {
 
     @RequestMapping(method = RequestMethod.POST)
     @RestrictedToBidderId
-    public Bid makeBid (@RequestBody Bid incoming) {
-        return bidService.createBid(incoming);
+    //if an error occured it wont return 200
+    @ResponseStatus(value = HttpStatus.OK, reason = "Bid created successfully")
+    public void makeBid (@RequestBody Bid incoming) {
+         bidService.createBid(incoming);
     }
 
     @RestrictedToMatchingUserGivenId
@@ -47,6 +50,7 @@ public class BidController {
 
     @RequestMapping(value = "/{bidId}", method = RequestMethod.DELETE)
     @RestrictedToBidOwner
+    @ResponseStatus(value = HttpStatus.OK, reason = "Bid deleted")
     public void deleteBid (@PathVariable long bidId) {
         bidService.delete(bidId);
     }

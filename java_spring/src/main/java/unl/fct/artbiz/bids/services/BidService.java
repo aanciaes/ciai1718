@@ -43,14 +43,14 @@ public class BidService {
 
     }
 
-    public Bid createBid (Bid incoming) {
+    public void createBid (Bid incoming) {
         if(exist(incoming.getBidId())){
             Bid lastBid = findById(incoming.getBidId());
             if(lastBid.getBidAmount()< incoming.getBidAmount()) {
                 incoming.setBidState(BidState.OPEN);
                 bidRepository.save(incoming);
 
-                return incoming;
+                //return incoming;
             }else{
                 throw new LowerBidException();
             }
@@ -62,7 +62,7 @@ public class BidService {
                     if (artWork.getPrice() <= incoming.getBidAmount()) {
                         incoming.setBidState(BidState.OPEN);
                         bidRepository.save(incoming);
-                        return incoming;
+                        //return incoming;
                     } else {
                         throw new BidIsToLowException();
                     }
@@ -80,7 +80,11 @@ public class BidService {
     }
 
     public List<Bid> getBidsOfArtist (long artistId) {
-        return bidRepository.getBidsByOwnerId(artistId);
+        return bidRepository.findAll().stream().filter(bid -> {
+            if(bid.getArtWorkObject().getAuthor()==artistId)
+                return true;
+            return false;
+        }).collect(Collectors.toList());
     }
 
     public List<Bid> getBidsOfPiece(long pieceId) {

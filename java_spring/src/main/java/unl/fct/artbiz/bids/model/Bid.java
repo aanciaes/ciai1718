@@ -31,7 +31,6 @@ public class Bid {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String bidderEmail;
 
-    @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private long ownerId;
 
@@ -103,6 +102,10 @@ public class Bid {
 
     public String getBidderEmail() {
         return bidderObject.getEmail();
+    }
+
+    public void setBidderEmail(String bidderEmail) {
+        this.bidderEmail = bidderEmail;
     }
 
     public long getOwnerId() {
