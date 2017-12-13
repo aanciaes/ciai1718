@@ -34,7 +34,9 @@ class PieceItem extends React.Component {
                         </div>
                         <div><label>{p.name}</label></div>
                         <div className="info_button">
-                            <div>Info <i className="fa fa-arrow-circle-right"></i></div>
+                            <Link to={ "/dashboard/pieces/" + p.id}>
+                                <div>Info <i className="fa fa-arrow-circle-right"></i></div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -88,9 +90,9 @@ class MinhaGaleria extends React.Component {
                     {
                         this.state.pieces.map((piece, index)=>
                             (<div key={index} className="col-md-3 col-xs-12">
-                                <Link to={ "/dashboard/pieces/" + piece.id}>
-                                    <PieceItem piece={piece}/>
-                                </Link>
+
+                                <PieceItem piece={piece}/>
+
                             </div>)
                         )
 
@@ -177,7 +179,8 @@ class CriarPeca extends React.Component {
                                     <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
                                     <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="valor,valor,.." pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$"
+                                               placeholder="valor,valor,.."
+                                               pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -188,7 +191,7 @@ class CriarPeca extends React.Component {
                                     <div className="col-sm-10">
                                         <input type="text" name="keywords" id="keywords" placeholder="valor,valor,.."
                                                className="form-control"
-                                               pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$"
+                                               pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$"
                                                onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -323,6 +326,9 @@ class DashboardArtista extends React.Component {
         $.ajax({
             type: 'POST',
             url: url + 'artwork',
+            xhrFields: {
+                withCredentials: true
+            },
             processData: false,
             dataType: "json",
             contentType: "application/json;",

@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import './publicGallery.css';
-import {Route, Link, withRouter} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import $ from 'jquery';
 import Config from '../config/config';
 import Piece from '../piece/piece';
@@ -19,13 +19,13 @@ class PieceItem extends React.Component {
 
     render() {
 
-        let p = this.props.piece;
+        let p = this.props.piece.artWork;
         return (
             <div>
                 <div className="piece_content">
                     <div className="img_piece">
                         <div>
-                            <img src={p.multimedia[0]}/>
+                            <img src={ p.multimedia.length > 0 ? p.multimedia[0] : ""}/>
                         </div>
                     </div>
                     <div className="desc_piece">
@@ -39,7 +39,9 @@ class PieceItem extends React.Component {
                         </div>
                         <div><label>{p.name}</label></div>
                         <div className="info_button">
-                            <div>Info <i className="fa fa-arrow-circle-right"></i></div>
+                            <Link to={this.props.parent + "/pieces/" + p.id}>
+                                <div>Info <i className="fa fa-arrow-circle-right"></i></div>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -69,15 +71,14 @@ class PiecesList extends React.Component {
             parent = "/dashboard";
         }
 
+
         return (
             <div className="row">
 
                 {
                     this.props.pieces.map((piece, index)=>
                         (<div key={index} className="col-md-3 col-xs-12">
-                            <Link to={parent + "/pieces/" + piece.id}>
-                                <PieceItem piece={piece} updatePiece={this.props.updatePiece}/>
-                            </Link>
+                            <PieceItem piece={piece} parent={parent} updatePiece={this.props.updatePiece}/>
                         </div>)
                     )
 
@@ -107,6 +108,7 @@ class Gallery extends React.Component {
 
         let t = this;
         $.get(url + "artwork", function (data) {
+
             t.state.pieces = data;
             t.setState(t.state);
         });
@@ -123,6 +125,8 @@ class Gallery extends React.Component {
     }
 
     render() {
+
+        
         return (
             <div>
                 <section className="gallery">
@@ -142,7 +146,9 @@ class Gallery extends React.Component {
 
                         </div>
                     </div>
-                    <PiecesList updatePiece={this.props.updatePiece} pieces={this.state.pieces}/>
+                    { this.state.pieces.length > 0 ?
+                        <PiecesList updatePiece={this.props.updatePiece} pieces={this.state.pieces}/> : ""}
+
                 </section>
 
 
@@ -172,14 +178,12 @@ class PublicGallery extends React.Component {
         super(props);
         this.state = {
             gallery: true,
-            piece: false,
-            pieces: []
+            piece: false
         };
 
         this.getInitialState = this.getInitialState.bind(this);
         this.updateGallery = this.updateGallery.bind(this);
         this.updatePiece = this.updatePiece.bind(this);
-        this.getPieces = this.getPieces.bind(this);
     }
 
     getInitialState() {
@@ -203,17 +207,6 @@ class PublicGallery extends React.Component {
         s.piece = p;
         s.piece_id = piece_id;
         this.setState(s);
-    }
-
-    getPieces(state) {
-
-
-        let t = this;
-        $.get(url + "artwork", function (data) {
-
-            state.pieces = data;
-            t.setState(state);
-        });
     }
 
     render() {

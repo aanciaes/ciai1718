@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import './App.css';
-import $ from 'jquery';
+
 
 import {Route, withRouter, Redirect} from 'react-router-dom'
 import LandingPage from './landingpage/landingPage';
 import Dashboard from './dashboard/dashboard';
-import PublicGallery from './publicGallery/publicGallery';
-import Piece from './piece/piece';
+
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import Config from './config/config';
+const $ = require('jquery');
 window.jQuery = $;
 window.$ = $;
 global.jQuery = $;
 const bootstrap = require('bootstrap');
-var Typeahead = require('react-bootstrap-typeahead').Typeahead;
+$.DataTable = require('datatables.net');
 
 
 const url = Config.url;
@@ -38,9 +38,18 @@ class App extends Component {
         this.logoutUser = this.logoutUser.bind(this);
         this.addUser = this.addUser.bind(this);
         this.updateUser = this.updateUser.bind(this);
-        //this.getUsers();
-        this.props.history.push("/gallery");
+        this.changeState = this.changeState.bind(this);
 
+    }
+
+
+
+    changeState(s) {
+        let st = this.state;
+        $.each(s, function (i, val) {
+            st[i] = val;
+        });
+        this.setState(st);
     }
 
 
@@ -58,11 +67,9 @@ class App extends Component {
             success: function (result) {
                 let stateCopy = that.getCopyState(that.state);
                 stateCopy.user = result;
-                //stateCopy.loggedIn = true;
-                // stateCopy.landingPageMode = false;
                 stateCopy.added = true;
                 that.setState(stateCopy);
-                //that.props.history.push('/');
+
             },
             error: function (status) {
                 let stateCopy = that.getCopyState(that.state);
@@ -77,20 +84,19 @@ class App extends Component {
         let that = this;
         $.ajax({
             type: 'POST',
+            xhrFields: {withCredentials: true},
             url: url + "login?username=" + u.email + "&password=" + u.password,
             //contentType: "application/json; charset=utf-8",
-            success: function (result) {
+            success: function (result, textStatus, request) {
+
                 let stateCopy = that.getCopyState(that.state);
-                stateCopy.user = result;
-                //stateCopy.loggedIn = true;
-                // stateCopy.landingPageMode = false;
+                stateCopy.user = result.user;
                 that.setState(stateCopy);
                 that.props.history.push('/dashboard');
             },
             error: function (status) {
                 let stateCopy = that.getCopyState(that.state);
                 stateCopy.errorLogin = true;
-                console.log(status);
                 that.setState(stateCopy);
             }
         });
@@ -99,12 +105,24 @@ class App extends Component {
     }
 
     logoutUser() {
-        let stateCopy = this.getCopyState(this.state);
-        /*stateCopy.user_id = "";
-         stateCopy.loggedIn = false;
-         stateCopy.landingPageMode = true;*/
-        this.setState(stateCopy);
-        this.props.history.push('/gallery');
+        let that = this;
+        $.ajax({
+            type: 'POST',
+            xhrFields: {withCredentials: true},
+            url: url + "logout",
+            //contentType: "application/json; charset=utf-8",
+            success: function (result, textStatus, request) {
+                let stateCopy = that.getCopyState(that.state);
+                stateCopy.user = "";
+                that.setState(stateCopy);
+                that.props.history.push('/landing/gallery');
+            },
+            error: function (status) {
+                let stateCopy = that.getCopyState(that.state);
+                stateCopy.errorLogin = true;
+                that.setState(stateCopy);
+            }
+        });
     }
 
     updateUser(u) {
@@ -112,9 +130,11 @@ class App extends Component {
         $.ajax({
             type: 'PUT',
             url: url + "user",
+            xhrFields: {withCredentials: true},
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(u),
             success: function (result) {
+                console.log(result);
                 let s = t.state;
                 s.user = result;
                 t.setState(s);
@@ -141,10 +161,20 @@ class App extends Component {
                 <div className="container">
                     <img id="body_img" src="imgs/body/body.jpg"/>
 
-                    <Route path="/" render={() => {
+                    <Route path="/" exact={true} render={() => {
+                        return (
+                            <Redirect to="/landing"/>
+
+                        )
+                    }
+
+                    }/>
+
+                    <Route path="/landing" render={() => {
                         return (
                             <LandingPage loginUser={this.loginUser} addUser={this.addUser}
-                                         errorLogin={this.state.errorLogin} added={this.state.added}/>
+                                         errorLogin={this.state.errorLogin} added={this.state.added}
+                                         changeState={this.changeState}/>
 
                         )
                     }
@@ -156,18 +186,6 @@ class App extends Component {
                             <Dashboard user={this.state.user}
                                        logoutUser={this.logoutUser}
                                        updateUser={this.updateUser} getCopyState={this.getCopyState}/>
-                        );
-                    }}/>
-
-                    <Route path="/gallery" exact={true} render={() => {
-                        return (
-                            <PublicGallery/>
-                        );
-                    }}/>
-
-                    <Route path="/pieces/:id" exact={true} render={({match}) => {
-                        return (
-                            <Piece piece_id={match.params.id}/>
                         );
                     }}/>
 

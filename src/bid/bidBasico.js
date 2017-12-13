@@ -73,7 +73,7 @@ class BidBasico extends React.Component {
         let t = this;
         $.ajax({
             type: 'DELETE',
-            url: url + "bid/"+t.props.bid.bidId,
+            url: url + "bid/"+t.props.bid.bid.bidId,
             contentType: "application/json; charset=utf-8",
             success: function (result) {
                 console.log(result);

@@ -6,6 +6,9 @@ import {Route, Link, withRouter} from 'react-router-dom'
 import './landingPage.css';
 import Config from '../config/config';
 import $ from 'jquery';
+
+import PublicGallery from '../publicGallery/publicGallery';
+import Piece from '../piece/piece';
 const url = Config.url;
 
 
@@ -102,10 +105,12 @@ class RegistarUtilizador extends React.Component {
                                         <div>
 
                                             <label className="radio-inline">
-                                                <input type="radio" name="accountType" value="0" onChange={this.handleChange} checked="checked"/>Básico
+                                                <input type="radio" name="accountType" value="0"
+                                                       onChange={this.handleChange} checked="checked"/>Básico
                                             </label>
                                             <label className="radio-inline">
-                                                <input type="radio" name="accountType" onChange={this.handleChange} value="1"/>Artista
+                                                <input type="radio" name="accountType" onChange={this.handleChange}
+                                                       value="1"/>Artista
                                             </label>
 
                                         </div>
@@ -227,7 +232,7 @@ function LoginControl(props) {
         return (
             <div>
                 {
-                    (props.error ? <Error message="Email e password Errados!!!"/> : "" )
+                    (props.errorLogin ? <Error message="Email e password Errados!!!"/> : "" )
                 }
                 <LoginUtilizador loginUser={props.loginUser}/>
             </div>
@@ -244,24 +249,23 @@ class MenuComponent extends React.Component {
         this.state = {
             active: "3"
         };
-        this.registerMode = this.registerMode.bind(this);
-        this.loginMode = this.loginMode.bind(this);
         this.changeActive = this.changeActive.bind(this);
     }
 
-    registerMode() {
-        this.props.updateRegister(true);
-
-    }
-
-    loginMode() {
-        this.props.updateLogin(true);
-
-    }
 
     changeActive(i) {
+        this.props.reset();
         let s = this.state;
         s.active = i;
+        switch (i) {
+            case 1:
+                this.props.showRegister();
+                break;
+            case 2:
+                this.props.showLogin();
+                break;
+
+        }
         this.setState(s);
     }
 
@@ -290,15 +294,17 @@ class MenuComponent extends React.Component {
                             <div id="navbar" className="navbar-collapse collapse">
                                 <ul id="landing_nav" className="nav navbar-nav navbar-right">
                                     <li className={this.state.active == 1 ? "active" : ""}>
-                                        <Link to={"/register"}
-                                              onClick={() => this.changeActive(1)}>
-                                            Registar</Link></li>
-                                    <li className={this.state.active == 2 ? "active" : ""}><Link to={"/login"}
-                                                                                                 onClick={() => this.changeActive(2)}>Login</Link>
+                                        <a
+                                            onClick={() => this.changeActive(1)}>
+                                            Registar</a></li>
+                                    <li className={this.state.active == 2 ? "active" : ""}>
+                                        <a
+                                            onClick={() => this.changeActive(2)}>Login</a>
                                     </li>
-                                    <li className={this.state.active == 3 ? "active" : ""}><Link to={"/gallery"}
-                                                                                                 onClick={() => this.changeActive(3)}>Galeria
-                                        Pública</Link></li>
+                                    <li className={this.state.active == 3 ? "active" : ""}>
+                                        <Link to={"/landing/gallery"}
+                                              onClick={() => this.changeActive(3)}>Galeria
+                                            Pública</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -328,20 +334,18 @@ class LandingPage extends React.Component {
         this.addUser = this.addUser.bind(this);
         this.reset = this.reset.bind(this);
         this.loginUser = this.loginUser.bind(this);
-        this.updateRegister = this.updateRegister.bind(this);
-        this.updateLogin = this.updateLogin.bind(this);
-        this.updateGallery = this.updateGallery.bind(this);
+        this.showRegister = this.showRegister.bind(this);
+        this.showLogin = this.showLogin.bind(this);
+        this.props.history.push("/landing/gallery");
 
     }
 
     getInitialState() {
-        this.props.history.push("/");
+        this.props.history.push("/landing");
         return {
-            added: false,
             register: false,
             login: false,
             gallery: false,
-            error: false
         };
     }
 
@@ -353,32 +357,29 @@ class LandingPage extends React.Component {
         this.setState(s);
     }
 
-    updateRegister(r) {
+    showRegister() {
+
         let s = this.getInitialState();
-        s.register = r;
+        s.register = true;
         this.setState(s);
     }
 
-    updateGallery(r) {
+    showLogin() {
         let s = this.getInitialState();
-
-        this.props.updateGallery(r);
-        this.setState(s);
-    }
-
-    updateLogin(r) {
-        let s = this.getInitialState();
-        s.login = r;
+        s.login = true;
         this.setState(s);
     }
 
     reset() {
-        this.setState(this.getInitialState());
+        let s = this.state;
+        s.register = false;
+        s.login = false;
+        this.props.changeState({errorLogin: false, added: false})
+        this.setState(s);
 
     }
 
     loginUser(u) {
-        // this.reset();
         this.props.loginUser(u);
     }
 
@@ -390,36 +391,25 @@ class LandingPage extends React.Component {
 
         return (
             <div>
-                <MenuComponent route={this.props.route} updateRegister={this.updateRegister}
-                               updateLogin={this.updateLogin}
-                               updateGallery={this.updateGallery}/>
+                <MenuComponent route={this.props.route}
+                               reset={this.reset} showLogin={this.showLogin} showRegister={this.showRegister}/>
 
-                <Route path="/login" exact={true} render={() => {
+                <LoginControl login={this.state.login} loginUser={this.loginUser}
+                              errorLogin={this.props.errorLogin}/>
+
+                <RegisterControl register={this.state.register} added={this.props.added} addUser={this.addUser}/>
+
+                <Route path="/landing/gallery" render={() => {
                     return (
-                        <div>
-
-                            {
-                                (this.props.errorLogin ? <Error message="Email e password Errados!!!"/> : "" )
-                            }
-                            <LoginUtilizador loginUser={this.loginUser}/>
-
-                        </div>
+                        <PublicGallery/>
                     );
                 }}/>
 
-                <Route path="/register" exact={true} render={() => {
+                <Route path="/landing/pieces/:id" exact={true} render={({match}) => {
                     return (
-                        <div>
-
-                            {
-                                (this.props.added != null && this.props.added ?
-                                    <Sucesso message="Criação com sucesso!!"/> :
-                                    <RegistarUtilizador addUser={this.addUser}/> )
-                            }
-                        </div>
+                        <Piece piece_id={match.params.id}/>
                     );
                 }}/>
-
 
             </div>
         );

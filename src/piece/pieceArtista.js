@@ -222,7 +222,6 @@ class PieceEditar extends React.Component {
 
     render() {
         let p = this.state;
-        console.log(p);
         return (
             <div>
                 <section className="content_form_big" id="section_edit">
@@ -236,7 +235,7 @@ class PieceEditar extends React.Component {
 
                                 <div className="form-group row">
 
-                                    <label for="name" className="col-sm-2 col-form-label">Nome</label>
+                                    <label htmlFor="name" className="col-sm-2 col-form-label">Nome</label>
                                     <div className="col-sm-10">
                                         <input type="text" id="name" className="form-control" name="name"
                                                placeholder="Inserir nome" value={p.name} onChange={this.handleChange}
@@ -246,7 +245,7 @@ class PieceEditar extends React.Component {
                                 </div>
 
                                 <div className="form-group row">
-                                    <label for="dateOfCreation" className="col-sm-2 col-form-label">Data:</label>
+                                    <label htmlFor="dateOfCreation" className="col-sm-2 col-form-label">Data:</label>
 
                                     <div className="col-sm-4">
                                         <div className="input-group">
@@ -263,20 +262,20 @@ class PieceEditar extends React.Component {
 
                                 <div className="form-group row">
 
-                                    <label for="techniques" className="col-sm-2 col-form-label">Técnicas</label>
+                                    <label htmlFor="techniques" className="col-sm-2 col-form-label">Técnicas</label>
                                     <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="valor,valor,.." pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$"
+                                               placeholder="valor,valor,.." pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$"
                                                value={p.techniques} onChange={this.handleChange}/>
                                     </div>
                                 </div>
 
                                 <div className="form-group row">
 
-                                    <label for="keywords" className="col-sm-2 col-form-label">Keywords:</label>
+                                    <label htmlFor="keywords" className="col-sm-2 col-form-label">Keywords:</label>
                                     <div className="col-sm-10">
                                         <input type="text" name="keywords" id="keywords"
-                                               pattern="^(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+$" placeholder="valor,valor,.."
+                                               pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$" placeholder="valor,valor,.."
                                                value={p.keywords} className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
@@ -284,7 +283,7 @@ class PieceEditar extends React.Component {
 
                                 <div className="form-group row">
 
-                                    <label for="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
+                                    <label htmlFor="multimedia" className="col-sm-2 col-form-label">Multimedia</label>
                                     <div className="col-sm-10">
                                        <textarea name="multimedia" id="multimedia" className="form-control"
                                                  onChange={this.handleChange} value={p.multimedia}></textarea>
@@ -350,15 +349,13 @@ class PieceArtista extends React.Component {
         let arr = [];
         if (s.indexOf(",") > -1) {
             let k = s.split(',');
-            console.log("k");
-            console.log(k);
             arr = k;
         } else if (s.indexOf("\n") > -1) {
             let k = s.split('\n');
             arr = k;
         } else
             arr.push(s);
-        console.log(arr);
+
         return arr;
     }
 
@@ -371,6 +368,7 @@ class PieceArtista extends React.Component {
         $.ajax({
             type: 'PUT',
             url: url + "artwork",
+            xhrFields: {withCredentials: true},
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(p),
             success: function (result) {
@@ -396,6 +394,7 @@ class PieceArtista extends React.Component {
         $.ajax({
             type: 'PUT',
             url: url + "artwork/" + t.props.piece.id + "/sell?price=" + s.price,
+            xhrFields: {withCredentials: true},
             //contentType: "application/json; charset=utf-8",
             success: function (result) {
                 $('#myModal').modal('hide');
@@ -403,8 +402,8 @@ class PieceArtista extends React.Component {
 
             },
             error: function (status) {
-                alert("Erro " + status);
-                console.log("Failed	to	Put:	" + status);
+                alert("Erro " + status.responseJSON.exception);
+                console.log(status.responseJSON.exception);
             }
         });
 
@@ -415,6 +414,7 @@ class PieceArtista extends React.Component {
         $.ajax({
             type: 'DELETE',
             url: url + "artwork/" + t.props.piece.id,
+            xhrFields: {withCredentials: true},
             //contentType: "application/json; charset=utf-8",
             success: function (result) {
                 $('#modalRemovePiece').modal('hide');
@@ -434,6 +434,7 @@ class PieceArtista extends React.Component {
         $.ajax({
             type: 'PUT',
             url: url + "artwork/" + t.props.piece.id + "/keep",
+            xhrFields: {withCredentials: true},
             //contentType: "application/json; charset=utf-8",
             success: function (result) {
                 $('#modalRemoveSale').modal('hide');

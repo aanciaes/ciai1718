@@ -94,13 +94,14 @@ class PieceBasico extends React.Component {
         let b = {
             bidAmount: amount,
             pieceId: t.props.piece.id,
-            userId: t.props.user.id
+            bidderId: t.props.user.id
         };
 
         $.ajax({
             type: 'POST',
             url: url + "bid",
             contentType: "application/json; charset=utf-8",
+            xhrFields: {withCredentials: true},
             data: JSON.stringify(b),
             success: function (result) {
                 console.log(result);

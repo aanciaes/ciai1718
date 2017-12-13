@@ -15,7 +15,7 @@ class BidDetail extends React.Component {
 
 
     render() {
-        let b = this.props.bid;
+        let b = this.props.bid.bid;
 
         return (
             <div>
@@ -23,7 +23,7 @@ class BidDetail extends React.Component {
                     <div>
                         <h1>BID</h1>
                         <div><b>Id:</b> {b.bidId} </div>
-                        <div><b>Bidder:</b> {b.userId} </div>
+                        <div><b>Bidder:</b> {this.props.bid.bidderEmail} </div>
                         <div><b>Peça:</b> {b.pieceId} </div>
                         <div><b>BidAmount:</b> {b.bidAmount} </div>
                     </div>

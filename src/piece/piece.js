@@ -19,10 +19,40 @@ class PieceBids extends React.Component {
             bids: []
         };
         this.getBidsPiece = this.getBidsPiece.bind(this);
+        this.reloadTableData = this.reloadTableData.bind(this);
     }
 
     componentDidMount() {
         this.getBidsPiece();
+
+        let columns = [
+            {
+                title: 'BidId',
+                width: 120,
+                data: 'BidId'
+            },
+            {
+                title: 'BidAmount',
+                width: 120,
+                data: 'BidAmount'
+            }
+        ];
+        $(this.refs.bids).DataTable({
+            dom: '<"data-table-wrapper"t>',
+            columns,
+            ordering: false
+        });
+
+    }
+
+    reloadTableData(bids) {
+
+        const table = $('.data-table-wrapper')
+            .find('table')
+            .DataTable();
+        table.clear();
+        table.rows.add(bids);
+        table.draw();
     }
 
     getBidsPiece() {
@@ -31,9 +61,12 @@ class PieceBids extends React.Component {
         $.ajax({
             type: 'GET',
             url: url + "bid/piece/" + t.props.piece.id,
+
             success: function (result) {
-                console.log(result);
+
+
                 t.state.bids = result;
+
                 t.setState(t.state);
             },
             error: function (status) {
@@ -45,38 +78,13 @@ class PieceBids extends React.Component {
     }
 
     render() {
-        console.log(this.state.bids);
-        let columns = [
-            {title: 'BidId', prop: 'bidId'},
-            {title: 'Bidder', prop: 'userId'},
-            {title: 'Valor', prop: 'bidAmount'},
-        ];
+
+        this.reloadTableData(this.state.bids);
         return (
             <div>
                 <h2 className="subtitle40 tangerine">Bids</h2>
                 <div className="table-responsive">
-                    <table className="table-striped table-bordered table-hover table-condensed" id="bids" width="100%">
-                        <thead>
-                        <tr>
-                            <th>BidId</th>
-                            <th>Bidder</th>
-                            <th>Valor</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            this.state.bids.map((bid, index) => (
-                                <tr key={index}>
-                                    <td>{bid.bidId}</td>
-                                    <td>{bid.userId}</td>
-                                    <td>{bid.bidAmount}</td>
-                                </tr>
-                            ))
-                        }
-                        <tr>
-
-                        </tr>
-                        </tbody>
+                    <table className="table-striped table-bordered table-hover table-condensed" ref="bids" width="100%">
                     </table>
                 </div>
 
@@ -110,7 +118,7 @@ class PieceDetail extends React.Component {
 
                                         {
                                             p.multimedia.map((image, index)=>(
-                                                <div key={index} className={index == 0 ? "item active" : "item"}>
+                                                <div key={index} className={index === 0 ? "item active" : "item"}>
                                                     <img src={image} alt={image}/>
                                                 </div>
                                             ))
@@ -182,10 +190,10 @@ class PieceDetail extends React.Component {
 function PieceControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
-        if (u.accountType == 1 && props.piece.author == u.id)
+        if (u.accountType === 1 && props.piece.author === u.id)
             return (<PieceArtista piece={props.piece} updatePiece={props.updatePiece} getPiece={props.getPiece}
                                   hideDetail={props.hideDetail}/>);
-        else if (u.accountType == 0)
+        else if (u.accountType === 0)
             return (<PieceBasico piece={props.piece} user={u}/>);
     }
     return null;
@@ -247,15 +255,22 @@ class Piece extends React.Component {
 
     getPiece(id) {
         let t = this;
-        $.get(url + "artwork/" + id, function (data) {
-
-            let piece = data.artWork;
-            piece.authorName = data.authorName;
-            let s = t.state;
-            console.log(s);
-            s.piece = piece;
-
-            t.setState(s);
+        $.ajax({
+            type: 'GET',
+            xhrFields: {withCredentials: true},
+            url: url + "artwork/" + id,
+            //contentType: "application/json; charset=utf-8",
+            success: function (data, textStatus, request) {
+                let piece = data.artWork;
+                piece.authorName = data.authorName;
+                let s = t.state;
+                s.piece = piece;
+                t.setState(s);
+            },
+            error: function (status) {
+                alert("Erro");
+                console.log(status);
+            }
         });
     }
 

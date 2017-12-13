@@ -64,7 +64,12 @@ class EditarUtilizador extends React.Component {
 
     handleChange({target}) {
         let s = this.state;
-        s.user[target.name] = target.value;
+        if (target.name == "password") {
+            if (target.value != "")
+                s.user[target.name] = target.value;
+        }
+        else
+            s.user[target.name] = target.value;
         this.setState(s);
     }
 
@@ -95,22 +100,6 @@ class EditarUtilizador extends React.Component {
                             <label>Password</label>
                             <input type="password" className="form-control" name="password"
                                    placeholder="Inserir Password" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <div>
-                                <label>Tipo Utilizador</label>
-                            </div>
-                            <div>
-                                <label className="radio-inline">
-                                    <input type="radio" name="accountType" value="0"
-                                           checked={this.state.user.accountType == 0 ? 'checked' : ''}
-                                           onChange={this.handleChange} required="required"/>Básico</label>
-                                <label className="radio-inline">
-                                    <input type="radio" name="accountType" value="1"
-                                           checked={this.state.user.accountType == 1 ? 'checked' : ''}
-                                           onChange={this.handleChange} required="required"/>Artista</label>
-                            </div>
-
                         </div>
                         <div>
                             <button type="submit" className="btn btn-primary">Editar</button>

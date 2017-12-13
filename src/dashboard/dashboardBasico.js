@@ -47,8 +47,8 @@ class MeusBids extends React.Component {
                         (bid, index) =>
                             (
                                 <li className="list-group-item" key={index}>
-                                    <Link to={"/dashboard/bid/" + bid.bidId}>
-                                        <BidItem bid={bid}/>
+                                    <Link to={"/dashboard/bid/" + bid.bid.bidId}>
+                                        <BidItem bid={bid.bid}/>
                                     </Link>
                                 </li>
                             )

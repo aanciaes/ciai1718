@@ -11,9 +11,8 @@ import './dashboard.css';
 import PublicGallery from '../publicGallery/publicGallery';
 import Piece from '../piece/piece';
 import Bid from '../bid/bid';
-import $ from 'jquery';
-import Config from '../config/config';
-const url = Config.url;
+
+//const url = Config.url;
 
 class MenuDash extends React.Component {
     constructor(props) {
@@ -55,7 +54,7 @@ class MenuDash extends React.Component {
                             <div id="navbar-collapse" className="collapse navbar-collapse">
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className="dropdown">
-                                        <a id="flag" href="#" className="dropdown-toggle count-info"
+                                        <a id="flag"  className="dropdown-toggle count-info"
                                            data-toggle="dropdown">
                                             <i className="fa fa-envelope"></i>
                                             <span className="count label label-primary">8</span>
@@ -105,7 +104,7 @@ class MenuDash extends React.Component {
                                         </ul>
                                     </li>
                                     <li className="dropdown">
-                                        <a id="user-profile" href="#" className="dropdown-toggle"
+                                        <a id="user-profile"  className="dropdown-toggle"
                                            data-toggle="dropdown"><img
                                             className="img-responsive img-thumbnail img-circle"/>
                                             {this.props.user.name}</a>
@@ -142,10 +141,6 @@ class MenuDash extends React.Component {
 
 class Dashboard extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
 
     render() {
 
@@ -155,7 +150,7 @@ class Dashboard extends React.Component {
         return (
             <div>
                 <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
-                {user.accountType == 1 ?
+                {user.accountType === 1 ?
                     <DashboardArtista
                         user={user}/> :
                     <DashboardBasico user={user}/> }
