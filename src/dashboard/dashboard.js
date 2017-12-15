@@ -11,8 +11,149 @@ import './dashboard.css';
 import PublicGallery from '../publicGallery/publicGallery';
 import Piece from '../piece/piece';
 import Bid from '../bid/bid';
+import $ from 'jquery';
+import Utils from '../utils/utils';
+import Config from '../config/config';
 
-//const url = Config.url;
+const url = Config.url;
+
+
+
+const BidItem = ({bid})=>
+    <div>
+        <p>Id: {bid.bidId}</p>
+        <p>Amount:{bid.bidAmount}</p>
+        <p>Piece:{bid.pieceId}</p>
+    </div>;
+
+
+
+class MeusBids extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            bids: []
+        };
+
+        this.getMyBids(this.state);
+
+    }
+
+    getMyBids(state) {
+        let t = this;
+        let u = url + "bid/artist/" + this.props.user.id;
+        if(this.props.user.accountType == 0)
+            u = url + "bid/user/" + this.props.user.id;
+
+        Utils.ajaxRequest('GET',
+           u,
+            function (data) {
+                state.bids = data;
+                console.log(data);
+                t.setState(state);
+            },
+            true,
+            {}
+        );
+        /* $.get(url + "bid/user/" + this.props.user.id, function (data) {
+         state.bids = data;
+         console.log(data);
+         t.setState(state);
+         });*/
+    }
+
+    render() {
+
+        return (<div>
+
+            <ul>
+                {
+                    this.state.bids.map(
+                        (bid, index) =>
+                            (
+                                <li className="list-group-item" key={index}>
+                                    <Link to={"/dashboard/bid/" + bid.bidId}>
+                                        <BidItem bid={bid}/>
+                                    </Link>
+                                </li>
+                            )
+                    )
+                }
+            </ul>
+
+        </div>);
+    }
+
+}
+
+
+
+const SalesItem = ({sale})=>
+    <div>
+        <p>BId: {sale.bidId}</p>
+        <p>Date:{sale.dateOfSale}</p>
+        <p>SalesId:{sale.saleId}</p>
+    </div>;
+
+
+class Vendas extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            sales: []
+        };
+
+        // this.getMySales(this.state);
+
+    }
+
+    componentDidMount(){
+        this.getMySales(this.state);
+    }
+
+    getMySales(state) {
+        let t = this;
+
+        Utils.ajaxRequest('GET',
+            url + "sales/user/" + this.props.user.id,
+            function (data) {
+                state.sales = data;
+                console.log(data);
+                t.setState(state);
+            },
+            true,
+            {}
+        );
+        /* $.get(url + "bid/user/" + this.props.user.id, function (data) {
+         state.bids = data;
+         console.log(data);
+         t.setState(state);
+         });*/
+    }
+
+    render() {
+
+        return (<div>
+
+            <ul>
+                {
+                    this.state.sales.map(
+                        (sale, index) =>
+                            (
+                                <li className="list-group-item" key={index}>
+                                    <SalesItem sale={sale}/>
+                                </li>
+                            )
+                    )
+                }
+            </ul>
+
+        </div>);
+    }
+
+}
 
 class MenuDash extends React.Component {
     constructor(props) {
@@ -148,7 +289,7 @@ class Dashboard extends React.Component {
         const args = this.props;
         const user = args.user;
         return (
-            <div>
+            <div id="content_dashboard">
                 <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
                 {user.accountType === 1 ?
                     <DashboardArtista
@@ -184,6 +325,19 @@ class Dashboard extends React.Component {
                     <Route path="/dashboard/bid/:id" exact={true} render={({match}) => {
                         return (
                             <Bid bid_id={match.params.id} user={user}/>
+                        );
+                    }}/>
+
+                    <Route path="/dashboard/mysales" exact={true} render={() => {
+                        return (
+                            <Vendas user={user}/>
+                        );
+                    }}/>
+
+
+                    <Route path="/dashboard/mybids" exact={true} render={() => {
+                        return (
+                            <MeusBids user={user}/>
                         );
                     }}/>
                 </div>

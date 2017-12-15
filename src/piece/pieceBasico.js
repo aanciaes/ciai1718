@@ -95,8 +95,7 @@ class PieceBasico extends React.Component {
         let b = {
             bidAmount: amount,
             pieceId: t.props.piece.id,
-            bidderId: t.props.user.id,
-            bidderEmail:t.props.user.email
+            bidderId: t.props.user.id
         };
 
         Utils.ajaxRequest('POST',

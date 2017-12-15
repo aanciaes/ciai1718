@@ -5,6 +5,7 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 
 
+
 class Utils {
     constructor() {
 
@@ -24,6 +25,7 @@ class Utils {
             success: success,
 
             error: function (status) {
+
                 alert("ERRO: " + status.responseJSON.exception);
                 console.log(status);
             },

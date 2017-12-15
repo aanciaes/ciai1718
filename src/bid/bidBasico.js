@@ -74,7 +74,7 @@ class BidBasico extends React.Component {
         let t = this;
 
         Utils.ajaxRequest('DELETE',
-            url + "bid/"+t.props.bid.bid.bidId,
+            url + "bid/"+t.props.bid.bidId,
             function (result) {
                 console.log(result);
                 $('#modalRemoveBid').modal('hide');

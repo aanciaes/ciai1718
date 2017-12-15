@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import './publicGallery.css';
-import { Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import $ from 'jquery';
 import Config from '../config/config';
 import Utils from '../utils/utils';
@@ -67,7 +67,7 @@ class PiecesList extends React.Component {
 
     render() {
         let currentLocation = window.location.pathname;
-        let parent = "";
+        let parent = "/landing";
         if (currentLocation.indexOf("dashboard") > -1) {
             parent = "/dashboard";
         }

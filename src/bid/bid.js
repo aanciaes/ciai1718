@@ -7,7 +7,8 @@ import Config from '../config/config';
 import Utils from '../utils/utils';
 import './bid.css';
 import BidBasico from './bidBasico';
-import $ from 'jquery';
+import BidArtista from './bidArtista';
+
 
 const url = Config.url;
 
@@ -16,7 +17,7 @@ class BidDetail extends React.Component {
 
 
     render() {
-        let b = this.props.bid.bid;
+        let b = this.props.bid;
 
         return (
             <div>
@@ -27,6 +28,7 @@ class BidDetail extends React.Component {
                         <div><b>Bidder:</b> {this.props.bid.bidderEmail} </div>
                         <div><b>Peça:</b> {b.pieceId} </div>
                         <div><b>BidAmount:</b> {b.bidAmount} </div>
+                        <div><b>Estado:</b>{b.bidState}</div>
                     </div>
                 </section>
             </div>
@@ -38,7 +40,7 @@ function BidControl(props) {
     if (props.user !== undefined && props.user != null) {
         let u = props.user;
         if (u.accountType == 1)
-            return (<div></div>);
+            return (<BidArtista bid={props.bid} updateBid={props.updateBid}/>);
         else if (u.accountType == 0)
             return (<BidBasico bid={props.bid}/>);
     }
@@ -60,7 +62,7 @@ function BidInitialized(props) {
         let p = props.parent;
         return (
             <div id="content_bid">
-                <BidControl bid={p.state.bid} user={p.props.user}/>
+                <BidControl bid={p.state.bid} user={p.props.user} updateBid={p.updateBid}/>
                 <BidDetailControl bid={p.state.bid} detail={p.state.detail}/>
 
             </div>);
@@ -91,8 +93,9 @@ class Bid extends React.Component {
             url + "bid/" + id,
             function (data) {
                 let s = t.state;
+                console.log(data);
                 s.bid = data;
-                console.log(s);
+
                 t.setState(s);
             },
             true,

@@ -61,7 +61,7 @@ class RegistarUtilizador extends React.Component {
         return (
             <div className="forms">
                 <section>
-
+                    <div><img src="imgs/logo2.png"/></div>
                     <div className="content_form">
 
                         <div className="header_form">
@@ -163,8 +163,9 @@ class LoginUtilizador extends React.Component {
         return (
             <div className="forms">
                 <section>
-
+                    <div><img src="imgs/logo2.png"/></div>
                     <div className="content_form">
+
                         <div className="header_form">
                             <h5 className="tangerine">Login</h5>
                         </div>
@@ -286,9 +287,8 @@ class MenuComponent extends React.Component {
                                 </button>
                                 <a className="navbar-brand">
                                     <div className="logo_img">
-                                        <img src="imgs/logo2.png"/>
+                                        <img src="../imgs/logo2.png" alt="logo" />
                                     </div>
-
                                 </a>
                             </div>
                             <div id="navbar" className="navbar-collapse collapse">

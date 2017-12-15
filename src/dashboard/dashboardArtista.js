@@ -10,6 +10,8 @@ import Config from '../config/config';
 
 const url = Config.url;
 
+
+
 class PieceItem extends React.Component {
     constructor(props) {
         super(props);
@@ -271,8 +273,18 @@ class MenuAsideArtista extends React.Component {
                         </li>
                         <li>
                             <a href="#">
-                                <span className="sidebar-icon"><i className="fa fa-money"></i></span>
-                                <span className="sidebar-title">Bids</span>
+                                <Link to={"/dashboard/mybids"}>
+                                    <span className="sidebar-icon"><i className="fa fa-money"></i></span>
+                                    <span className="sidebar-title">Bids</span>
+                                </Link>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <Link to={"/dashboard/mysales"}>
+                                    <span className="sidebar-icon"><i className="fa fa-money"></i></span>
+                                    <span className="sidebar-title">Vendas</span>
+                                </Link>
                             </a>
                         </li>
                     </ul>
@@ -338,25 +350,25 @@ class DashboardArtista extends React.Component {
 
 
         /*$.ajax({
-            type: 'POST',
-            url: url + 'artwork',
-            xhrFields: {
-                withCredentials: true
-            },
-            processData: false,
-            dataType: "json",
-            contentType: "application/json;",
-            data: JSON.stringify(p),
-            success: function (result) {
+         type: 'POST',
+         url: url + 'artwork',
+         xhrFields: {
+         withCredentials: true
+         },
+         processData: false,
+         dataType: "json",
+         contentType: "application/json;",
+         data: JSON.stringify(p),
+         success: function (result) {
 
-                t.props.history.push("/dashboard/piece/mygallery");
-            },
-            error: function (status) {
-                alert("Erro a criar peça!!");
-                console.log(status);
-                console.log("Failed	to	Post:	" + status);
-            }
-        });*/
+         t.props.history.push("/dashboard/piece/mygallery");
+         },
+         error: function (status) {
+         alert("Erro a criar peça!!");
+         console.log(status);
+         console.log("Failed	to	Post:	" + status);
+         }
+         });*/
 
 
     }
@@ -377,6 +389,7 @@ class DashboardArtista extends React.Component {
                         <MinhaGaleria user={this.props.user}/>
                     );
                 }}/>
+                
 
                 <MenuAsideArtista/>
 

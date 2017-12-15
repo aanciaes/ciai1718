@@ -10,70 +10,6 @@ import Utils from '../utils/utils';
 const url = Config.url;
 
 
-const BidItem = ({bid})=>
-    <div>
-        <p>Id: {bid.bidId}</p>
-        <p>Amount:{bid.bidAmount}</p>
-        <p>Piece:{bid.pieceId}</p>
-    </div>;
-
-class MeusBids extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            bids: []
-        };
-
-        this.getMyBids(this.state);
-
-    }
-
-    getMyBids(state) {
-        let t = this;
-
-        Utils.ajaxRequest('GET',
-            url + "bid/user/" + this.props.user.id,
-            function (data) {
-                state.bids = data;
-                console.log(data);
-                t.setState(state);
-            },
-            true,
-            {}
-        );
-       /* $.get(url + "bid/user/" + this.props.user.id, function (data) {
-            state.bids = data;
-            console.log(data);
-            t.setState(state);
-        });*/
-    }
-
-    render() {
-
-        return (<div>
-
-            <ul>
-                {
-                    this.state.bids.map(
-                        (bid, index) =>
-                            (
-                                <li className="list-group-item" key={index}>
-                                    <Link to={"/dashboard/bid/" + bid.bid.bidId}>
-                                        <BidItem bid={bid.bid}/>
-                                    </Link>
-                                </li>
-                            )
-                    )
-                }
-            </ul>
-
-        </div>);
-    }
-
-}
-
-
 class MenuAsideBasico extends React.Component {
 
     constructor(props) {
@@ -105,6 +41,12 @@ class MenuAsideBasico extends React.Component {
                                 <span className="sidebar-title">Bids</span>
                             </Link>
                         </li>
+                        <li>
+                                <Link to={"/dashboard/mysales"}>
+                                    <span className="sidebar-icon"><i className="fa fa-money"></i></span>
+                                    <span className="sidebar-title">Vendas</span>
+                                </Link>
+                        </li>
                     </ul>
                 </aside>
             </div>
@@ -127,12 +69,6 @@ class DashboardBasico extends React.Component {
         return (
             <div>
                 <MenuAsideBasico/>
-
-                <Route path="/dashboard/mybids" exact={true} render={() => {
-                    return (
-                        <MeusBids user={this.props.user}/>
-                    );
-                }}/>
             </div>
         );
     }

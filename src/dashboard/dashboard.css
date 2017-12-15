@@ -1,4 +1,8 @@
 
+#content_dashboard{
+    margin: 10px;
+}
+
 .piece_item img {
     max-width: 300px;
     width: auto;

@@ -4,10 +4,11 @@
 
 #loading{
     position:fixed;
-    top: 50%;
+    top: 40%;
     left: 50%;
     display: none;
     z-index: 10;
+    margin-right: 64px;
     margin-bottom: 59px;
 }
 .header_form{

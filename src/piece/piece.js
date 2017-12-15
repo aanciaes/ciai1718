@@ -21,16 +21,22 @@ class PieceBids extends React.Component {
         };
         this.getBidsPiece = this.getBidsPiece.bind(this);
         this.reloadTableData = this.reloadTableData.bind(this);
+
     }
 
     componentDidMount() {
-        this.getBidsPiece();
+        // this.getBidsPiece();
 
         let columns = [
             {
                 title: 'BidId',
                 width: 120,
                 data: 'BidId'
+            },
+            {
+                title: 'Bidder',
+                width: 120,
+                data: 'Bidder'
             },
             {
                 title: 'BidAmount',
@@ -41,16 +47,15 @@ class PieceBids extends React.Component {
         $(this.refs.bids).DataTable({
             dom: '<"data-table-wrapper"t>',
             columns,
-            ordering: false
+            ordering: true
         });
+
 
     }
 
     reloadTableData(bids) {
-
-        const table = $('.data-table-wrapper')
-            .find('table')
-            .DataTable();
+        console.log(bids);
+        let table = $(this.refs.bids).DataTable();
         table.clear();
         table.rows.add(bids);
         table.draw();
@@ -63,29 +68,30 @@ class PieceBids extends React.Component {
         Utils.ajaxRequest('GET',
             url + "bid/piece/" + t.props.piece.id,
             function (result) {
+                console.log(result);
                 t.state.bids = result;
                 t.setState(t.state);
             },
-            false,
+            true,
             {}
         );
 
-       /* $.ajax({
-            type: 'GET',
-            url: url + "bid/piece/" + t.props.piece.id,
+        /* $.ajax({
+         type: 'GET',
+         url: url + "bid/piece/" + t.props.piece.id,
 
-            success: function (result) {
+         success: function (result) {
 
 
-                t.state.bids = result;
+         t.state.bids = result;
 
-                t.setState(t.state);
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log(status);
-            }
-        });*/
+         t.setState(t.state);
+         },
+         error: function (status) {
+         alert("Erro " + status);
+         console.log(status);
+         }
+         });*/
 
     }
 
@@ -282,22 +288,22 @@ class Piece extends React.Component {
         );
 
         /*$.ajax({
-            type: 'GET',
-            xhrFields: {withCredentials: true},
-            url: url + "artwork/" + id,
-            //contentType: "application/json; charset=utf-8",
-            success: function (data, textStatus, request) {
-                let piece = data.artWork;
-                piece.authorName = data.authorName;
-                let s = t.state;
-                s.piece = piece;
-                t.setState(s);
-            },
-            error: function (status) {
-                alert("Erro");
-                console.log(status);
-            }
-        });*/
+         type: 'GET',
+         xhrFields: {withCredentials: true},
+         url: url + "artwork/" + id,
+         //contentType: "application/json; charset=utf-8",
+         success: function (data, textStatus, request) {
+         let piece = data.artWork;
+         piece.authorName = data.authorName;
+         let s = t.state;
+         s.piece = piece;
+         t.setState(s);
+         },
+         error: function (status) {
+         alert("Erro");
+         console.log(status);
+         }
+         });*/
     }
 
     updatePiece(p) {

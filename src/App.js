@@ -20,6 +20,9 @@ $.DataTable = require('datatables.net');
 const url = Config.url;
 
 
+
+
+
 class App extends Component {
 
     constructor(props) {
@@ -70,12 +73,6 @@ class App extends Component {
             },
             true,
             {
-                error: function (status) {
-                    let stateCopy = that.getCopyState(that.state);
-                    stateCopy.added = false;
-                    console.log(status);
-                    that.setState(stateCopy);
-                },
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify(u)
             }
@@ -109,7 +106,7 @@ class App extends Component {
             function (result, textStatus, request) {
 
                 let stateCopy = that.getCopyState(that.state);
-                stateCopy.user = result.user;
+                stateCopy.user = result;
                 that.setState(stateCopy);
                 that.props.history.push('/dashboard');
             },
@@ -208,7 +205,10 @@ class App extends Component {
 
             <div className="App">
                 <div className="container">
+
                     <img id="body_img" src="imgs/body/body.jpg"/>
+
+
 
                     <Route path="/" exact={true} render={() => {
                         return (
