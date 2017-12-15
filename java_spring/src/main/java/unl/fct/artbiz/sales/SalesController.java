@@ -3,6 +3,7 @@ package unl.fct.artbiz.sales;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import unl.fct.artbiz.auth.annotations.RestrictedToMatchingUserGivenId;
 import unl.fct.artbiz.sales.model.Sale;
@@ -19,7 +20,7 @@ public class SalesController {
     SaleService saleService;
 
     @RestrictedToMatchingUserGivenId
-    @RequestMapping(value = "/sales/user/{userId}")
+    @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     public List<Sale> getUserSales (@PathVariable long userId) {
         return saleService.getUserSales(userId);
     }
