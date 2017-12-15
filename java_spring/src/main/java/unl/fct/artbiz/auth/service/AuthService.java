@@ -58,10 +58,9 @@ public class AuthService implements UserDetailsService {
 
             if (user instanceof UserPrincipal) {
                 authUser = (UserPrincipal) user;
-                List<ArtWork> artWorks = artworkRepository.getArtWorksByAuthor(authUser.getUserId());
-                for (ArtWork a : artWorks) {
-                    if (a.getAuthor() == pieceId)
-                        return true;
+                ArtWork a = artworkRepository.findOne(pieceId);
+                if (a.getAuthor() == authUser.getUserId()) {
+                    return true;
                 }
                 return false;
             } else
