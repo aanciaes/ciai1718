@@ -17,7 +17,8 @@ public class SaleService {
 
     public List<Sale> getUserSales(long userId) {
         return salesRepository.findAll().stream().filter(sale -> {
-            if (sale.getBid().getArtWorkObject().getAuthor() == userId) {
+            if (sale.getBid().getArtWorkObject().getAuthor() == userId ||
+                    sale.getBid().getBidderId() == userId) {
                 return true;
             } else {
                 return false;
