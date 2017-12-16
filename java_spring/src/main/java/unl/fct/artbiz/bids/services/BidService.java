@@ -10,6 +10,9 @@ import unl.fct.artbiz.bids.exceptions.*;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.model.BidRepository;
 import unl.fct.artbiz.bids.model.BidState;
+import unl.fct.artbiz.notifications.model.Notification;
+import unl.fct.artbiz.notifications.model.NotificationState;
+import unl.fct.artbiz.notifications.services.NotificationService;
 import unl.fct.artbiz.sales.model.Sale;
 import unl.fct.artbiz.sales.model.SalesRepository;
 
@@ -32,36 +35,48 @@ public class BidService {
     @Autowired
     SalesRepository salesRepository;
 
-    public boolean exist (long id){
+    @Autowired
+    NotificationService notificationService;
+
+    public boolean exist(long id) {
         return bidRepository.exists(id);
     }
 
-    public Bid findById (long id) {
-        if(!exist(id))
+    public Bid findById(long id) {
+        if (!exist(id))
             throw new BidNotFoundException();
         return bidRepository.findOne(id);
 
     }
 
-    public void createBid (Bid incoming) {
-        if(exist(incoming.getBidId())){
+    public void createBid(Bid incoming) {
+        if (exist(incoming.getBidId())) {
             Bid lastBid = findById(incoming.getBidId());
-            if(lastBid.getBidAmount()< incoming.getBidAmount()) {
+            if (lastBid.getBidAmount() < incoming.getBidAmount()) {
                 incoming.setBidState(BidState.OPEN);
                 bidRepository.save(incoming);
 
                 //return incoming;
-            }else{
+            } else {
                 throw new LowerBidException();
             }
-        }else {
-            if(artworkRepository.exists(incoming.getPieceId())) {
+        } else {
+            if (artworkRepository.exists(incoming.getPieceId())) {
                 ArtWork artWork = artworkRepository.findOne(incoming.getPieceId());
 
                 if (artWork.isOnSale()) {
                     if (artWork.getPrice() <= incoming.getBidAmount()) {
                         incoming.setBidState(BidState.OPEN);
                         bidRepository.save(incoming);
+
+                        //Saving and sending notification
+                        Notification n = new Notification(incoming,
+                                "A new bid was placed in one of your pieces",
+                                artWork.getAuthor());
+
+                        notificationService.saveNotification(n);
+                        notificationService.notify(n, artWork.getAuthor());
+
                         //return incoming;
                     } else {
                         throw new BidIsToLowException();
@@ -69,19 +84,19 @@ public class BidService {
                 } else {
                     throw new PieceNotOnSaleException();
                 }
-            }else {
+            } else {
                 throw new ArtWorkNotFound();
             }
         }
     }
 
-    public List<Bid> getBidsMadeByUser (long id) {
+    public List<Bid> getBidsMadeByUser(long id) {
         return bidRepository.getBidsByBidderId(id);
     }
 
-    public List<Bid> getBidsOfArtist (long artistId) {
+    public List<Bid> getBidsOfArtist(long artistId) {
         return bidRepository.findAll().stream().filter(bid -> {
-            if(bid.getArtWorkObject().getAuthor()==artistId)
+            if (bid.getArtWorkObject().getAuthor() == artistId)
                 return true;
             return false;
         }).collect(Collectors.toList());
@@ -97,11 +112,11 @@ public class BidService {
 
     public Bid accept(Long bidId) {
         Bid bid = bidRepository.findOne(bidId);
-        if(bid.getBidState()!= BidState.OPEN){
+        if (bid.getBidState() != BidState.OPEN) {
             throw new BidStateNotOpenException();
-        }else{
-            if(bidRepository.countBidsByBidStateAndAndPieceId(BidState.ACCEPTED, bid.getPieceId())!=0)
-                throw new BidAlreadyAccepted ();
+        } else {
+            if (bidRepository.countBidsByBidStateAndAndPieceId(BidState.ACCEPTED, bid.getPieceId()) != 0)
+                throw new BidAlreadyAccepted();
             bid.setBidState(BidState.ACCEPTED);
             bidRepository.save(bid);
             return bid;
@@ -119,13 +134,13 @@ public class BidService {
         }
     }
 
-    public Bid finalizeBid (Long bidId) {
+    public Bid finalizeBid(Long bidId) {
         Bid bid = bidRepository.findOne(bidId);
-        if(bid.getBidState()!= BidState.ACCEPTED){
+        if (bid.getBidState() != BidState.ACCEPTED) {
             throw new BidStateNotAcceptedException();
-        }else{
-            if(bidRepository.countBidsByBidStateAndAndPieceId(BidState.FINALIZED, bid.getPieceId())!=0)
-                throw new BidAlreadyFinalize ();
+        } else {
+            if (bidRepository.countBidsByBidStateAndAndPieceId(BidState.FINALIZED, bid.getPieceId()) != 0)
+                throw new BidAlreadyFinalize();
             bid.setBidState(BidState.ACCEPTED);
             bidRepository.save(bid);
 

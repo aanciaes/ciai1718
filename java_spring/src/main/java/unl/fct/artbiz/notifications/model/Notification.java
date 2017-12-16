@@ -1,21 +1,40 @@
 package unl.fct.artbiz.notifications.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import unl.fct.artbiz.bids.model.Bid;
+
+import javax.persistence.*;
+
+@Entity
 public class Notification {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    @ManyToOne
+    private Bid bid;
+
+    @JsonIgnore
+    private Long destinationUser;
+
     private String message;
+
     private NotificationState state;
 
-    public Notification(String message) {
+    public Notification(Bid bid, String message, Long destinationUser) {
+        this.bid = bid;
         this.message = message;
-        this.state=NotificationState.NEW;
+        this.destinationUser = destinationUser;
+        this.state = NotificationState.NEW;
     }
 
-    public String getMessage() {
-        return message;
+    public Bid getBid() {
+        return bid;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setBid(Bid bid) {
+        this.bid = bid;
     }
 
     public NotificationState getState() {
