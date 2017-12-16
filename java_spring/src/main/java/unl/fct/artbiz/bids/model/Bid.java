@@ -16,7 +16,6 @@ public class Bid {
 
     private long pieceId;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "pieceId", insertable = false, updatable = false)
     private ArtWork artWorkObject;
