@@ -11,21 +11,52 @@ import './dashboard.css';
 import PublicGallery from '../publicGallery/publicGallery';
 import Piece from '../piece/piece';
 import Bid from '../bid/bid';
-import $ from 'jquery';
 import Utils from '../utils/utils';
 import Config from '../config/config';
-
 const url = Config.url;
 
+
+const BIDSTATE = {
+    "OPEN": "Pendente",
+    "ACCEPTED": "Aceite",
+    "REJECTED": "Rejeitado"
+};
+
+function StateBadges(props) {
+    switch (props.state) {
+        case "OPEN":
+            return (<span className="label label-info">{BIDSTATE[props.state]}</span>)
+        case "ACCEPTED":
+            return (<span className="label label-success">{BIDSTATE[props.state]}</span>)
+        case "REJECTED":
+            return (<span className="label label-danger">{BIDSTATE[props.state]}</span>)
+    }
+}
 
 
 const BidItem = ({bid})=>
     <div>
-        <p>Id: {bid.bidId}</p>
-        <p>Amount:{bid.bidAmount}</p>
-        <p>Piece:{bid.pieceId}</p>
+        <div className="row">
+            <div className="col-md-1 col-xs-12 state_bid">
+                <StateBadges state={bid.bidState}/>
+            </div>
+            <div className="col-md-2 col-xs-12 img_bid">
+                <img className="img-circle" src="../imgs/logo.png"/>
+            </div>
+            <div className="col-md-7 col-xs-12 description">
+                <p>Valor:{bid.bidAmount}</p>
+                <p>Peça:{bid.pieceId}</p>
+                <p>Bidder:{bid.bidderEmail}</p>
+            </div>
+            <div className="col-md-2 col-xs-12 buttons">
+                <div>
+                    <Link to={"/dashboard/bid/" + bid.bidId} className="btn btn-info">
+                        <i className="fa fa-eye"></i>
+                    </Link>
+                </div>
+            </div>
+        </div>
     </div>;
-
 
 
 class MeusBids extends React.Component {
@@ -43,11 +74,11 @@ class MeusBids extends React.Component {
     getMyBids(state) {
         let t = this;
         let u = url + "bid/artist/" + this.props.user.id;
-        if(this.props.user.accountType == 0)
+        if (this.props.user.accountType == 0)
             u = url + "bid/user/" + this.props.user.id;
 
         Utils.ajaxRequest('GET',
-           u,
+            u,
             function (data) {
                 state.bids = data;
                 console.log(data);
@@ -67,26 +98,25 @@ class MeusBids extends React.Component {
 
         return (<div>
 
-            <ul>
+
+            <ul id="list_my_bids">
                 {
                     this.state.bids.map(
                         (bid, index) =>
                             (
                                 <li className="list-group-item" key={index}>
-                                    <Link to={"/dashboard/bid/" + bid.bidId}>
-                                        <BidItem bid={bid}/>
-                                    </Link>
+                                    <BidItem bid={bid}/>
                                 </li>
                             )
                     )
                 }
             </ul>
 
+
         </div>);
     }
 
 }
-
 
 
 const SalesItem = ({sale})=>
@@ -109,7 +139,7 @@ class Vendas extends React.Component {
 
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.getMySales(this.state);
     }
 
@@ -195,7 +225,7 @@ class MenuDash extends React.Component {
                             <div id="navbar-collapse" className="collapse navbar-collapse">
                                 <ul className="nav navbar-nav navbar-right">
                                     <li className="dropdown">
-                                        <a id="flag"  className="dropdown-toggle count-info"
+                                        <a id="flag" className="dropdown-toggle count-info"
                                            data-toggle="dropdown">
                                             <i className="fa fa-envelope"></i>
                                             <span className="count label label-primary">8</span>
@@ -245,7 +275,7 @@ class MenuDash extends React.Component {
                                         </ul>
                                     </li>
                                     <li className="dropdown">
-                                        <a id="user-profile"  className="dropdown-toggle"
+                                        <a id="user-profile" className="dropdown-toggle"
                                            data-toggle="dropdown"><img
                                             className="img-responsive img-thumbnail img-circle"/>
                                             {this.props.user.name}</a>
@@ -330,14 +360,25 @@ class Dashboard extends React.Component {
 
                     <Route path="/dashboard/mysales" exact={true} render={() => {
                         return (
-                            <Vendas user={user}/>
+                            <div>
+                                <div class="title_dash">
+                                    <h2 className="title tangerine">Vendas</h2>
+                                </div>
+                                <Vendas user={user}/>
+                            </div>
                         );
                     }}/>
 
 
                     <Route path="/dashboard/mybids" exact={true} render={() => {
                         return (
-                            <MeusBids user={user}/>
+                            <div>
+                                <div class="title_dash">
+                                    <h2 className="title tangerine">Meus Bids</h2>
+                                </div>
+                                <MeusBids user={user}/>
+                            </div>
+
                         );
                     }}/>
                 </div>
