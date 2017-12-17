@@ -53,7 +53,7 @@ public class NotificationService {
     }
 
     public void getNewNotificationForUser(Long userId) {
-        notificationRepository.getNotificationsByDestinationUserAndAndState(userId, NotificationState.NEW)
+        notificationRepository.getNotificationsByDestinationUserAndState(userId, NotificationState.NEW)
         .forEach(notification -> {
             notify(notification, userId);
         });

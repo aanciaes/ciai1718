@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends CrudRepository<Notification, Long>{
 
-    List<Notification> getNotificationsByDestinationUserAndAndState (Long userId, NotificationState state);
+    List<Notification> getNotificationsByDestinationUserAndState (Long userId, NotificationState state);
 
 }
