@@ -135,6 +135,10 @@ public class BidService {
             bid.setBidState(BidState.REJECTED);
             bidRepository.save(bid);
 
+            //create a sale record
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            salesRepository.save(new Sale(bid.getBidId(), timeStamp));
+
             sendNotification(bid, "Your bid was rejected", bid.getBidderId());
             return bid;
         }
@@ -149,10 +153,6 @@ public class BidService {
                 throw new BidAlreadyFinalize();
             bid.setBidState(BidState.FINALIZED);
             bidRepository.save(bid);
-
-            //create a sale record
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            salesRepository.save(new Sale(bid.getBidId(), timeStamp));
 
             return bid;
         }
