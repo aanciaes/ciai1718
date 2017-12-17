@@ -69,15 +69,10 @@ public class BidService {
                         incoming.setBidState(BidState.OPEN);
                         bidRepository.save(incoming);
 
-                        //Saving and sending notification
-                        Notification n = new Notification(incoming,
-                                "A new bid was placed in one of your pieces",
+                        //Send notification
+                        sendNotification(incoming, "A new bid was placed in one of your pieces",
                                 artWork.getAuthor());
 
-                        notificationService.saveNotification(n);
-                        notificationService.notify(n, artWork.getAuthor());
-
-                        //return incoming;
                     } else {
                         throw new BidIsToLowException();
                     }
@@ -126,6 +121,8 @@ public class BidService {
             a.setOnSale(false);
             artworkRepository.save(a);
 
+            sendNotification(bid, "Your bid was accepted", bid.getBidderId());
+
             return bid;
         }
     }
@@ -137,6 +134,8 @@ public class BidService {
         } else {
             bid.setBidState(BidState.REJECTED);
             bidRepository.save(bid);
+
+            sendNotification(bid, "Your bid was rejected", bid.getBidderId());
             return bid;
         }
     }
@@ -148,7 +147,7 @@ public class BidService {
         } else {
             if (bidRepository.countBidsByBidStateAndAndPieceId(BidState.FINALIZED, bid.getPieceId()) != 0)
                 throw new BidAlreadyFinalize();
-            bid.setBidState(BidState.ACCEPTED);
+            bid.setBidState(BidState.FINALIZED);
             bidRepository.save(bid);
 
             //create a sale record
@@ -157,5 +156,14 @@ public class BidService {
 
             return bid;
         }
+    }
+
+    private void sendNotification (Bid bid, String message, long destinationUser) {
+        Notification n = new Notification(bid,
+                message,
+               destinationUser);
+
+        notificationService.saveNotification(n);
+        notificationService.notify(n, destinationUser);
     }
 }
