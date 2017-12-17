@@ -1,6 +1,7 @@
 package unl.fct.artbiz.auth.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jmx.export.annotation.ManagedNotification;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +11,8 @@ import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.auth.model.UserPrincipal;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.model.BidRepository;
+import unl.fct.artbiz.notifications.model.Notification;
+import unl.fct.artbiz.notifications.model.NotificationRepository;
 import unl.fct.artbiz.sales.model.Sale;
 import unl.fct.artbiz.sales.model.SalesRepository;
 import unl.fct.artbiz.sales.services.SaleService;
@@ -32,6 +35,9 @@ public class AuthService implements UserDetailsService {
 
     @Autowired
     SalesRepository salesRepository;
+
+    @Autowired
+    NotificationRepository notificationRepository;
 
     @Override
     public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -125,6 +131,27 @@ public class AuthService implements UserDetailsService {
                 long buyerId = sale.getBid().getBidderId();
 
                 if (buyerId == authUser.getUserId()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    public boolean restrictedToNotificationOwner (Long notificationId) {
+        if (notificationId != null) {
+            Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserPrincipal authUser = null;
+
+            if (user instanceof UserPrincipal) {
+                authUser = (UserPrincipal) user;
+                Notification n = notificationRepository.findOne(notificationId);
+                long destinationUser = n.getDestinationUser();
+
+                if (destinationUser == authUser.getUserId()) {
                     return true;
                 } else {
                     return false;
