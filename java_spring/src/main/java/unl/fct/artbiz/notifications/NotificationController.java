@@ -10,7 +10,8 @@ import unl.fct.artbiz.notifications.services.NotificationService;
 
 import java.util.List;
 
-@RestController("/notifications")
+@RestController
+@RequestMapping(value = "/notifications")
 public class NotificationController {
 
     @Autowired
@@ -27,7 +28,7 @@ public class NotificationController {
     }
 
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
-    public List<Notification> getNewNotificationForUser(@PathVariable Long userId) {
-        return notificationService.getNewNotificationForUser(userId);
+    public void getNewNotificationForUser(@PathVariable Long userId) {
+        notificationService.getNewNotificationForUser(userId);
     }
 }

@@ -52,7 +52,10 @@ public class NotificationService {
         );
     }
 
-    public List<Notification> getNewNotificationForUser(Long userId) {
-        return notificationRepository.getNotificationsByDestinationUserAndAndState(userId, NotificationState.NEW);
+    public void getNewNotificationForUser(Long userId) {
+        notificationRepository.getNotificationsByDestinationUserAndAndState(userId, NotificationState.NEW)
+        .forEach(notification -> {
+            notify(notification, userId);
+        });
     }
 }
