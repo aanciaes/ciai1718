@@ -10,6 +10,9 @@ import unl.fct.artbiz.artwork.model.ArtworkRepository;
 import unl.fct.artbiz.auth.model.UserPrincipal;
 import unl.fct.artbiz.bids.model.Bid;
 import unl.fct.artbiz.bids.model.BidRepository;
+import unl.fct.artbiz.sales.model.Sale;
+import unl.fct.artbiz.sales.model.SalesRepository;
+import unl.fct.artbiz.sales.services.SaleService;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.model.UserRepository;
 
@@ -26,6 +29,9 @@ public class AuthService implements UserDetailsService {
 
     @Autowired
     BidRepository bidRepository;
+
+    @Autowired
+    SalesRepository salesRepository;
 
     @Override
     public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -95,9 +101,30 @@ public class AuthService implements UserDetailsService {
             if (user instanceof UserPrincipal) {
                 authUser = (UserPrincipal) user;
                 Bid bid = bidRepository.findOne(bidId);
-                long ownerId = bidRepository.findOne(bidId).getArtWorkObject().getAuthor();
+                long ownerId = bid.getArtWorkObject().getAuthor();
 
                 if (ownerId == authUser.getUserId()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else
+                return false;
+        } else
+            return false;
+    }
+
+    public boolean isBuyer (Long saleId) {
+        if (saleId != null) {
+            Object user = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            UserPrincipal authUser = null;
+
+            if (user instanceof UserPrincipal) {
+                authUser = (UserPrincipal) user;
+                Sale sale = salesRepository.findOne(saleId);
+                long buyerId = sale.getBid().getBidderId();
+
+                if (buyerId == authUser.getUserId()) {
                     return true;
                 } else {
                     return false;

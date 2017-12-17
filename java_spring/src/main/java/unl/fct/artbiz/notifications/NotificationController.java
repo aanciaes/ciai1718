@@ -31,6 +31,5 @@ public class NotificationController {
     public void getNewNotificationForUser(@PathVariable Long userId) {
         //Through web socket
         notificationService.getNewNotificationForUser(userId);
-        notificationService.notify(new Notification(null, "asdd", 1l), 1l);
     }
 }
