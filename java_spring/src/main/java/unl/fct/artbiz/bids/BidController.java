@@ -69,7 +69,7 @@ public class BidController {
 
     @RequestMapping(value = "/{bidId}/finalize", method = RequestMethod.PUT)
     @RestrictedToPieceOwnerGivenBidId
-    public Bid finalizeBid (@PathVariable Long bidId) {
-        return bidService.finalizeBid(bidId);
+    public Bid finalizeBid (@PathVariable Long bidId, @RequestParam boolean isPublic) {
+        return bidService.finalizeBid(bidId, isPublic);
     }
 }

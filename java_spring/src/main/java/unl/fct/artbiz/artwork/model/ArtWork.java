@@ -37,6 +37,9 @@ public class ArtWork {
     private boolean onSale;
     private double price;
 
+    private boolean isSold;
+    private boolean isPublic;
+
     protected ArtWork() {
     }
 
@@ -53,6 +56,8 @@ public class ArtWork {
         this.author = author;
         this.onSale = onSale;
         this.price = price;
+        this.isSold = false;
+        this.isPublic = false;
     }
 
     public long getId() {
@@ -137,6 +142,22 @@ public class ArtWork {
 
     public User getAuthorObject() {
         return authorObject;
+    }
+
+    public boolean isSold() {
+        return isSold;
+    }
+
+    public void setSold(boolean sold) {
+        isSold = sold;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 
     @Override

@@ -144,15 +144,20 @@ public class BidService {
         }
     }
 
-    public Bid finalizeBid(Long bidId) {
+    public Bid finalizeBid(Long bidId, boolean isPublic) {
         Bid bid = bidRepository.findOne(bidId);
         if (bid.getBidState() != BidState.ACCEPTED) {
             throw new BidStateNotAcceptedException();
         } else {
             if (bidRepository.countBidsByBidStateAndAndPieceId(BidState.FINALIZED, bid.getPieceId()) != 0)
                 throw new BidAlreadyFinalize();
+
             bid.setBidState(BidState.FINALIZED);
             bidRepository.save(bid);
+
+            ArtWork a = artworkRepository.findOne(bid.getPieceId());
+            a.setSold(true);
+            a.setPublic(isPublic);
 
             sendNotification(bid, "The sale is finished", bid.getOwnerId());
 
