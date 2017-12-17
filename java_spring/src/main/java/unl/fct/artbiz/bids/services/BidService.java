@@ -121,6 +121,10 @@ public class BidService {
             a.setOnSale(false);
             artworkRepository.save(a);
 
+            //create a sale record
+            String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            salesRepository.save(new Sale(bid.getBidId(), timeStamp));
+
             sendNotification(bid, "Your bid was accepted", bid.getBidderId());
 
             return bid;
@@ -134,10 +138,6 @@ public class BidService {
         } else {
             bid.setBidState(BidState.REJECTED);
             bidRepository.save(bid);
-
-            //create a sale record
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            salesRepository.save(new Sale(bid.getBidId(), timeStamp));
 
             sendNotification(bid, "Your bid was rejected", bid.getBidderId());
             return bid;
