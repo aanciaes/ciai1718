@@ -22,6 +22,8 @@ public class Notification {
 
     private NotificationState state;
 
+    private long date;
+
     public Notification () {}
 
     public Notification(Bid bid, String message, Long destinationUser) {
@@ -29,6 +31,7 @@ public class Notification {
         this.message = message;
         this.destinationUser = destinationUser;
         this.state = NotificationState.NEW;
+        this.date = System.currentTimeMillis();
     }
 
     public Bid getBid() {
@@ -53,6 +56,14 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 
     public Long getDestinationUser() {
