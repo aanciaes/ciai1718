@@ -22,6 +22,8 @@ public class Notification {
 
     private NotificationState state;
 
+    public Notification () {}
+
     public Notification(Bid bid, String message, Long destinationUser) {
         this.bid = bid;
         this.message = message;
