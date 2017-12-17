@@ -46,5 +46,21 @@ public class Notification {
     public void setState(NotificationState state) {
         this.state = state;
     }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Long getDestinationUser() {
+        return destinationUser;
+    }
+
+    public void setDestinationUser(Long destinationUser) {
+        this.destinationUser = destinationUser;
+    }
 }
 
