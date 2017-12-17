@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class Bid {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long bidId;
 
     private long pieceId;
@@ -38,7 +38,8 @@ public class Bid {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private BidState bidState;
 
-    public Bid () {}
+    public Bid() {
+    }
 
     public Bid(long pieceId, long bidderId, double bidAmount) {
         this.pieceId = pieceId;
@@ -100,7 +101,7 @@ public class Bid {
     }
 
     public String getBidderEmail() {
-        return bidderObject.getEmail();
+        return bidderObject == null ? bidderEmail : bidderObject.getEmail();
     }
 
     public void setBidderEmail(String bidderEmail) {
@@ -108,6 +109,6 @@ public class Bid {
     }
 
     public long getOwnerId() {
-        return getArtWorkObject().getAuthor();
+        return artWorkObject == null ? ownerId : getArtWorkObject().getAuthor();
     }
 }
