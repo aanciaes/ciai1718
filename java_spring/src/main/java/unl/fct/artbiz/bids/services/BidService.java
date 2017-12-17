@@ -119,6 +119,13 @@ public class BidService {
                 throw new BidAlreadyAccepted();
             bid.setBidState(BidState.ACCEPTED);
             bidRepository.save(bid);
+
+            //Remove artwork from on sale.
+            //A bid was accepted so the piece will not receive any more bids
+            ArtWork a = artworkRepository.findOne(bid.getPieceId());
+            a.setOnSale(false);
+            artworkRepository.save(a);
+
             return bid;
         }
     }

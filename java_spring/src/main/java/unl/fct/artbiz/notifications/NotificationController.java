@@ -29,6 +29,7 @@ public class NotificationController {
 
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     public void getNewNotificationForUser(@PathVariable Long userId) {
+        //Through web socket
         notificationService.getNewNotificationForUser(userId);
     }
 }
