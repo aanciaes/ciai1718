@@ -20,6 +20,7 @@ public class Sale {
     private Bid bid;
 
     private String dateOfSale;
+    private boolean isPublic;
 
     public Sale() {
     }
@@ -27,6 +28,7 @@ public class Sale {
     public Sale(long bidId, String dateOfSale) {
         this.bidId = bidId;
         this.dateOfSale = dateOfSale;
+        this.isPublic = false;
     }
 
     public long getSaleId() {
@@ -55,5 +57,13 @@ public class Sale {
 
     public Bid getBid() {
         return bid;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 }

@@ -30,7 +30,7 @@ import java.util.Arrays;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "artwork/search", "/artwork/search/**", "/artwork/artist/**"};
+    private static final String[] publicGetEndpoints = {"/artwork", "/artwork/{id}", "artwork/search", "/artwork/search/**", "/artwork/artist/**", "/notifications/**"};
     private static final String[] publicPostEndpoints = {"/user/register"};
 
     @Autowired
@@ -60,8 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**");
-
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**", "/art-biz/**");
     }
 
     @Autowired
