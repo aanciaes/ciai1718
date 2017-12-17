@@ -154,6 +154,8 @@ public class BidService {
             bid.setBidState(BidState.FINALIZED);
             bidRepository.save(bid);
 
+            sendNotification(bid, "The sale is finished", bid.getOwnerId());
+
             return bid;
         }
     }
