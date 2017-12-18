@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import unl.fct.artbiz.auth.annotations.RestrictedToBuyer;
 import unl.fct.artbiz.auth.annotations.RestrictedToMatchingUser;
+import unl.fct.artbiz.auth.annotations.RestrictedToMatchingUserGivenId;
 import unl.fct.artbiz.auth.annotations.RestrictedToNoficationOwner;
 import unl.fct.artbiz.notifications.model.Notification;
 import unl.fct.artbiz.notifications.services.NotificationService;
@@ -32,7 +33,7 @@ public class NotificationController {
         notificationService.readNotification(notificationId);
     }
 
-    @RestrictedToMatchingUser
+    @RestrictedToMatchingUserGivenId
     @RequestMapping(value = "/user/{userId}", method = RequestMethod.GET)
     public void getNewNotificationForUser(@PathVariable Long userId) {
         //Through web socket
