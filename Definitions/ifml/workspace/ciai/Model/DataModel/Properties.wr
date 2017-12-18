@@ -37,7 +37,7 @@
     <Attribute id="ent2#att6" name="tipo" type="string"/>
     <Attribute id="ent2#att22" name="name" type="string"/>
   </Entity>
-  <Entity gr:x="40" gr:y="310" id="ent3" name="Artista" duration="persistent">
+  <Entity gr:x="25" gr:y="330" id="ent3" name="Artista" duration="persistent">
     <Attribute id="ent3#att2" key="true" name="oid" type="integer"/>
     <Generalization superEntity="ent2"/>
   </Entity>
@@ -59,7 +59,7 @@
     <RelationshipRole1 id="rel1#role1" name="PecaToArtista" maxCard="N"/>
     <RelationshipRole2 id="rel1#role2" name="ArtistaToPeca" maxCard="1"/>
   </Relationship>
-  <Entity gr:x="500" gr:y="325" id="ent5" name="Venda" duration="persistent" attributeOrder="ent5#att13 ent5#att23 ent5#att24 ent5#att25 ent5#att26 ent5#att27 ent5#att28">
+  <Entity gr:x="630" gr:y="215" id="ent5" name="Venda" duration="persistent" attributeOrder="ent5#att13 ent5#att23 ent5#att24 ent5#att25 ent5#att26 ent5#att27 ent5#att28">
     <Attribute id="ent5#att13" key="true" name="oid" type="integer"/>
     <Attribute id="ent5#att23" name="comprador" type="string"/>
     <Attribute id="ent5#att24" name="vendedor" type="string"/>
@@ -89,5 +89,14 @@
   <Relationship id="rel5" name="Utilizador_Notificacao" sourceEntity="ent2" targetEntity="ent7">
     <RelationshipRole1 id="rel5#role9" name="UtilizadorToNotificacao" maxCard="1"/>
     <RelationshipRole2 id="rel5#role10" name="NotificacaoToUtilizador" maxCard="N"/>
+  </Relationship>
+  <Entity gr:x="235" gr:y="635" id="ent8" name="Keywords" duration="persistent" attributeOrder="ent8#att29 ent8#att30 ent8#att31">
+    <Attribute id="ent8#att29" key="true" name="oid" type="integer"/>
+    <Attribute id="ent8#att30" name="peca_id" type="string"/>
+    <Attribute id="ent8#att31" name="keyword" type="string"/>
+  </Entity>
+  <Relationship id="rel3" name="Keywords_Peca" sourceEntity="ent8" targetEntity="ent1">
+    <RelationshipRole1 id="rel3#role5" name="KeywordsToPeca" maxCard="N"/>
+    <RelationshipRole2 id="rel3#role6" name="PecaToKeywords" maxCard="N"/>
   </Relationship>
 </DataModel>

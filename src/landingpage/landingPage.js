@@ -1,10 +1,15 @@
 /**
  * Created by Tecnico on 09/11/2017.
  */
-import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom'
+import React, {Component, PropTypes}from 'react';
+import {Route, Link, withRouter} from 'react-router-dom'
 import './landingPage.css';
+import Config from '../config/config';
+import $ from 'jquery';
+
 import PublicGallery from '../publicGallery/publicGallery';
+import Piece from '../piece/piece';
+const url = Config.url;
 
 
 const Error = ({message}) =>
@@ -30,8 +35,8 @@ class RegistarUtilizador extends React.Component {
             email: "",
             name: "",
             password: "",
-            type: ""
-        }
+            accountType: ""
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.recordUser = this.recordUser.bind(this);
@@ -41,7 +46,9 @@ class RegistarUtilizador extends React.Component {
         this.setState({
                 [target.name]: target.value
             }
-        )
+        );
+
+
     }
 
     recordUser(e, inputData) {
@@ -50,46 +57,72 @@ class RegistarUtilizador extends React.Component {
     }
 
     render() {
+
         return (
-            <div>
+            <div className="forms">
                 <section>
-                    <h1>Registar</h1>
-                    <form id="form_register" onSubmit={this.recordUser}>
-                        <div className="form-group">
-                            <label>Name:</label>
-                            <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" className="form-control" name="email"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Inserir email" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" name="password"
-                                   placeholder="Inserir Password" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <div>
-                                <label>Tipo Utilizador</label>
-                            </div>
-                            <div>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="0"
-                                                                       onChange={this.handleChange}/>Básico</label>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="1"
-                                                                       onChange={this.handleChange}/>Artista</label>
-                            </div>
+                    <div><img src="imgs/logo2.png"/></div>
+                    <div className="content_form">
 
+                        <div className="header_form">
+                            <h5 className="tangerine">Registar</h5>
                         </div>
-                        <div>
-                            <button type="submit" className="btn btn-primary">Registar</button>
-                        </div>
+                        <div className="content">
+                            <form id="form_register" className="form-horizontal form_normal" onSubmit={this.recordUser}>
+                                <div className="form-group">
 
-                    </form>
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon">  Nome</span>
+                                        <input type="text" className="form-control" name="name"
+                                               placeholder="Inserir nome" onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon"> Email</span>
+                                        <input type="email" className="form-control" name="email"
+                                               aria-describedby="emailHelp"
+                                               placeholder="Inserir email" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon">Password</span>
+                                        <input type="password" className="form-control" name="password"
+                                               placeholder="Inserir Password" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+                                </div>
+
+
+                                <div className="form-group">
+
+
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon"> Tipo de Utilizador</span>
+                                        <div>
+
+                                            <label className="radio-inline">
+                                                <input type="radio" name="accountType" value="0"
+                                                       onChange={this.handleChange} checked="checked"/>Básico
+                                            </label>
+                                            <label className="radio-inline">
+                                                <input type="radio" name="accountType" onChange={this.handleChange}
+                                                       value="1"/>Artista
+                                            </label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <button className="btn btn-primary" type="submit">Registar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </section>
 
             </div>
@@ -108,7 +141,7 @@ class LoginUtilizador extends React.Component {
             email: "",
             password: "",
             type: ""
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.login = this.login.bind(this);
@@ -128,26 +161,51 @@ class LoginUtilizador extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="forms">
                 <section>
-                    <h1>Login</h1>
-                    <form id="form_login" onSubmit={this.login}>
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" className="form-control" name="email"
-                                   aria-describedby="emailHelp"
-                                   placeholder="Enter email" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" name="password"
-                                   placeholder="Password" onChange={this.handleChange}/>
-                        </div>
-                        <div>
-                            <button type="submit" className="btn btn-primary">Entrar</button>
-                        </div>
+                    <div><img src="imgs/logo2.png"/></div>
+                    <div className="content_form">
 
-                    </form>
+                        <div className="header_form">
+                            <h5 className="tangerine">Login</h5>
+                        </div>
+                        <div className="content">
+                            <form id="form_login" className="form_normal" onSubmit={this.login}>
+                                <div className="form-group">
+
+                                    <div className="input-group form_input">
+                                        <span className="input-group-addon">Email</span>
+                                        <input type="email" className="form-control" name="email"
+                                               aria-describedby="emailHelp"
+                                               placeholder="Enter email" onChange={this.handleChange}
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div className="form-group">
+
+                                    <div className="input-group form_input ">
+                                        <span className="input-group-addon">Password</span>
+                                        <input type="password" className="form-control" name="password"
+                                               placeholder="Password" onChange={this.handleChange} required="required"/>
+                                    </div>
+
+
+                                </div>
+                                <div className="form-group">
+                                    <div className="row">
+
+                                        <div className="col-md-12 col-xs-12">
+                                            <button type="submit" className="btn btn-primary">Entrar</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+
                 </section>
 
             </div>
@@ -175,7 +233,7 @@ function LoginControl(props) {
         return (
             <div>
                 {
-                    (props.error ? <Error message="Email e password Errados!!!"/> : "" )
+                    (props.errorLogin ? <Error message="Email e password Errados!!!"/> : "" )
                 }
                 <LoginUtilizador loginUser={props.loginUser}/>
             </div>
@@ -185,64 +243,77 @@ function LoginControl(props) {
     return null;
 }
 
-function GalleryControl(props) {
-    if (props.gallery) {
-        return (<PublicGallery/>);
-    }
-    return null;
-}
-
 
 class MenuComponent extends React.Component {
     constructor(props) {
         super(props);
-        this.registerMode = this.registerMode.bind(this);
-        this.loginMode = this.loginMode.bind(this);
-        this.galleryMode = this.galleryMode.bind(this);
+        this.state = {
+            active: "3"
+        };
+        this.changeActive = this.changeActive.bind(this);
     }
 
-    registerMode() {
-        this.props.updateRegister(true);
-    }
 
-    loginMode() {
-        this.props.updateLogin(true);
-    }
+    changeActive(i) {
+        this.props.reset();
+        let s = this.state;
+        s.active = i;
+        switch (i) {
+            case 1:
+                this.props.showRegister();
+                break;
+            case 2:
+                this.props.showLogin();
+                break;
 
-    galleryMode() {
-        this.props.updateGallery(true);
+        }
+        this.setState(s);
     }
 
 
     render() {
         return ( <div>
 
-            <header className="App-header">
-                <nav className="navbar navbar-default navbar-fixed-top">
-                    <div className="container">
-                        <div className="navbar-header">
-                            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
-                                    data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                <span className="sr-only">Toggle navigation</span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                                <span className="icon-bar"></span>
-                            </button>
-                            <a className="navbar-brand" href="#">ArtBiz</a>
+                <header>
+                    <nav className="navbar navbar-default navbar-fixed-top">
+                        <div className="container">
+                            <div className="navbar-header">
+                                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse"
+                                        data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span className="sr-only">Toggle navigation</span>
+                                    <span className="icon-bar"></span>
+                                    <span className="icon-bar"></span>
+                                    <span className="icon-bar"></span>
+                                </button>
+                                <a className="navbar-brand">
+                                    <div className="logo_img">
+                                        <img src="../imgs/logo2.png" alt="logo" />
+                                    </div>
+                                </a>
+                            </div>
+                            <div id="navbar" className="navbar-collapse collapse">
+                                <ul id="landing_nav" className="nav navbar-nav navbar-right">
+                                    <li className={this.state.active == 1 ? "active" : ""}>
+                                        <a
+                                            onClick={() => this.changeActive(1)}>
+                                            Registar</a></li>
+                                    <li className={this.state.active == 2 ? "active" : ""}>
+                                        <a
+                                            onClick={() => this.changeActive(2)}>Login</a>
+                                    </li>
+                                    <li className={this.state.active == 3 ? "active" : ""}>
+                                        <Link to={"/landing/gallery"}
+                                              onClick={() => this.changeActive(3)}>Galeria
+                                            Pública</Link></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div id="navbar" className="navbar-collapse collapse">
-                            <ul className="nav navbar-nav navbar-right">
-                                <li><a href="#" onClick={this.registerMode}> Registar</a></li>
-                                <li><a href="#" onClick={this.loginMode}>Login</a></li>
-                                <li><a href="#" onClick={this.galleryMode}>Galeria Pública</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
+                    </nav>
+                </header>
 
 
-        </div>);
+            </div>
+        );
     }
 }
 
@@ -257,28 +328,27 @@ class LandingPage extends React.Component {
             added: false,
             register: false,
             login: false,
-            gallery: false,
             error: false
         };
         this.getInitialState = this.getInitialState.bind(this);
         this.addUser = this.addUser.bind(this);
         this.reset = this.reset.bind(this);
         this.loginUser = this.loginUser.bind(this);
-        this.updateRegister = this.updateRegister.bind(this);
-        this.updateLogin = this.updateLogin.bind(this);
-        this.updateGallery = this.updateGallery.bind(this);
+        this.showRegister = this.showRegister.bind(this);
+        this.showLogin = this.showLogin.bind(this);
+        this.props.history.push("/landing/gallery");
 
     }
 
     getInitialState() {
+        this.props.history.push("/landing");
         return {
-            added: false,
             register: false,
             login: false,
             gallery: false,
-            error: false
         };
     }
+
 
     addUser(u) {
         let s = this.state;
@@ -287,41 +357,32 @@ class LandingPage extends React.Component {
         this.setState(s);
     }
 
-    updateRegister(r) {
+    showRegister() {
+
         let s = this.getInitialState();
-        s.register = r;
+        s.register = true;
         this.setState(s);
     }
 
-    updateGallery(r) {
+    showLogin() {
         let s = this.getInitialState();
-        s.gallery = r;
-        this.setState(s);
-    }
-
-    updateLogin(r) {
-        let s = this.getInitialState();
-        s.login = r;
+        s.login = true;
         this.setState(s);
     }
 
     reset() {
-        this.setState(this.getInitialState());
+        let s = this.state;
+        s.register = false;
+        s.login = false;
+        this.props.changeState({errorLogin: false, added: false})
+        this.setState(s);
 
     }
 
     loginUser(u) {
-        this.reset();
-        console.log(this.props.loginUser(u));
-
-        if (this.props.loginUser(u) == false) {
-            console.log(1);
-            let s = Object.assign({}, this.state);
-            s.error = true;
-            this.setState(s);
-        }
-
+        this.props.loginUser(u);
     }
+
 
     render() {
 
@@ -330,14 +391,25 @@ class LandingPage extends React.Component {
 
         return (
             <div>
-                <MenuComponent updateRegister={this.updateRegister} updateLogin={this.updateLogin}
-                               updateGallery={this.updateGallery}/>
+                <MenuComponent route={this.props.route}
+                               reset={this.reset} showLogin={this.showLogin} showRegister={this.showRegister}/>
 
+                <LoginControl login={this.state.login} loginUser={this.loginUser}
+                              errorLogin={this.props.errorLogin}/>
 
-                <RegisterControl added={s.added} register={s.register} addUser={this.addUser}/>
-                <LoginControl error={s.error} login={s.login} loginUser={this.loginUser}/>
-                <GalleryControl gallery={s.gallery}/>
+                <RegisterControl register={this.state.register} added={this.props.added} addUser={this.addUser}/>
 
+                <Route path="/landing/gallery" render={() => {
+                    return (
+                        <PublicGallery/>
+                    );
+                }}/>
+
+                <Route path="/landing/pieces/:id" exact={true} render={({match}) => {
+                    return (
+                        <Piece piece_id={match.params.id}/>
+                    );
+                }}/>
 
             </div>
         );
@@ -345,4 +417,4 @@ class LandingPage extends React.Component {
 
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);

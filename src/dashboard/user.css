@@ -1,0 +1,16 @@
+#user_profile{
+    background-color: white;
+    border-radius: 1px;
+    box-shadow: 0px 0px 1px 0px lightgray;
+    padding: 10px;
+}
+
+#user_profile img{
+    max-width: 100px;
+    text-align: left;
+}
+#user_profile .profile_title{
+    border-bottom: solid 1px lightgray;
+    margin-bottom: 10px;
+    text-align: left;
+}

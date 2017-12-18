@@ -3,7 +3,9 @@
  */
 
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom'
+import Utils from '../utils/utils';
+import './user.css';
+
 
 const types = {
     0: 'Basico',
@@ -24,12 +26,20 @@ class DetalheUtilizador extends React.Component {
     render() {
         return (
             <div>
-                <h2>Perfil</h2>
-                <div>
-                    <a href="#" onClick={this.editMode}>Editar</a>
-                    <p>Name:{this.props.user.name}</p>
-                    <p>Email:{this.props.user.email}</p>
-                    <p>Tipo:{types[this.props.user.type]}</p>
+
+                <div id="user_profile">
+                    <div className="profile_title tangerine subtitle">Perfil</div>
+                    <div className="row">
+                        <div className="col-md-3 col-xs-12">
+                        </div>
+                        <div className="col-md-9 col-xs-12">
+                            <a onClick={this.editMode}><i className="fa fa-edit"></i>Editar</a>
+                            <h6>Name:{this.props.user.name}</h6>
+                            <h6>Email:{this.props.user.email}</h6>
+                            <h6>Tipo:{types[this.props.user.accountType]}</h6>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
@@ -52,7 +62,12 @@ class EditarUtilizador extends React.Component {
 
     handleChange({target}) {
         let s = this.state;
-        s.user[target.name] = target.value;
+        if (target.name == "password") {
+            if (target.value != "")
+                s.user[target.name] = target.value;
+        }
+        else
+            s.user[target.name] = target.value;
         this.setState(s);
     }
 
@@ -70,26 +85,19 @@ class EditarUtilizador extends React.Component {
                         <div className="form-group">
                             <label>Name:</label>
                             <input type="text" className="form-control" name="name"
-                                   placeholder="Inserir nome" onChange={this.handleChange}/>
+                                   placeholder="Inserir nome" value={this.state.user.name}
+                                   onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input type="email" className="form-control" name="email"
+                                   placeholder="Inserir email" value={this.state.user.email}
+                                   onChange={this.handleChange} required="required"/>
                         </div>
                         <div className="form-group">
                             <label>Password</label>
                             <input type="password" className="form-control" name="password"
                                    placeholder="Inserir Password" onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <div>
-                                <label>Tipo Utilizador</label>
-                            </div>
-                            <div>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="0"
-                                                                       onChange={this.handleChange}/>Básico</label>
-                                <label className="radio-inline"><input type="radio" name="type"
-                                                                       value="1"
-                                                                       onChange={this.handleChange}/>Artista</label>
-                            </div>
-
                         </div>
                         <div>
                             <button type="submit" className="btn btn-primary">Editar</button>
@@ -118,7 +126,7 @@ class User extends React.Component {
         super(props);
         this.state = {
             edit: false
-        }
+        };
         this.updateEdit = this.updateEdit.bind(this);
         this.getInitialState = this.getInitialState.bind(this);
         this.updateUser = this.updateUser.bind(this);
@@ -144,9 +152,8 @@ class User extends React.Component {
     }
 
     updateUser(u) {
-        if (this.props.updateUser(u.id, u) == true) {
-            this.reset();
-        }
+        this.reset();
+        this.props.updateUser(u);
     }
 
     render() {

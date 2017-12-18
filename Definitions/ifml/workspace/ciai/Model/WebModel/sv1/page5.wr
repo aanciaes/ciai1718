@@ -83,7 +83,27 @@
         <layout:SubPage pageId="sv1#page5#alt1#page12">
           <layout:Grid containerType="grid">
             <layout:Row>
-              <layout:Cell colspan="12"/>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page5#alt1#page12#gctu3">
+                  <layout:Link link="sv1#page5#alt1#page12#gctu3#ln4"/>
+                </layout:Unit>
+              </layout:Cell>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+              <layout:Cell/>
+            </layout:Row>
+            <layout:Row>
+              <layout:Cell colspan="12">
+                <layout:Unit unitId="sv1#page5#alt1#page12#pwu7"/>
+              </layout:Cell>
               <layout:Cell/>
               <layout:Cell/>
               <layout:Cell/>
@@ -273,12 +293,16 @@
         <NoOpContentUnit id="sv1#page5#alt1#page12#gctu17" name="Remover Pe&#231;a" gr:x="375" gr:y="0" linkOrder="sv1#page5#alt1#page12#gctu17#ln44">
           <Link id="sv1#page5#alt1#page12#gctu17#ln44" name="Flow44" to="sv1#switch9" automaticCoupling="true" type="normal" validate="true"/>
         </NoOpContentUnit>
-        <NoOpContentUnit id="sv1#page5#alt1#page12#gctu19" name="Vender Pe&#231;a" gr:x="210" gr:y="305" linkOrder="sv1#page5#alt1#page12#gctu19#ln49">
+        <NoOpContentUnit id="sv1#page5#alt1#page12#gctu19" name="Vender Pe&#231;a" gr:x="250" gr:y="315" linkOrder="sv1#page5#alt1#page12#gctu19#ln49">
           <Link id="sv1#page5#alt1#page12#gctu19#ln49" name="Flow49" to="sv1#page5#alt1#page12#enu12" automaticCoupling="true" type="normal" validate="true"/>
         </NoOpContentUnit>
         <EntryUnit id="sv1#page5#alt1#page12#enu12" name="Meter Pe&#231;a Venda" gr:x="360" gr:y="260" entity="ent1" linkOrder="sv1#page5#alt1#page12#enu12#ln51">
           <Link id="sv1#page5#alt1#page12#enu12#ln51" name="Flow51" to="sv1#mfu5" automaticCoupling="true" type="normal" validate="true"/>
         </EntryUnit>
+        <NoOpContentUnit gr:x="140" gr:y="145" id="sv1#page5#alt1#page12#gctu3" name="BidsPeca" linkOrder="sv1#page5#alt1#page12#gctu3#ln4">
+          <Link id="sv1#page5#alt1#page12#gctu3#ln4" name="Flow4" to="sv1#page5#alt1#page12#pwu7" automaticCoupling="true" type="normal" validate="true"/>
+        </NoOpContentUnit>
+        <PowerIndexUnit gr:x="155" gr:y="250" id="sv1#page5#alt1#page12#pwu7" name="BidsPeca" sortable="true" checkable="false" useCountQuery="false" entity="ent6"/>
       </ContentUnits>
     </Page>
   </Alternative>
