@@ -8,6 +8,7 @@ import unl.fct.artbiz.users.exceptions.EmailAlreadyExistsException;
 import unl.fct.artbiz.users.exceptions.UserNotFoundException;
 import unl.fct.artbiz.users.model.User;
 import unl.fct.artbiz.users.model.UserRepository;
+import unl.fct.artbiz.users.utils.Utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -21,7 +22,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> getAll () {
+    public List<User> getAll() {
         return userRepository.findAll();
     }
 
@@ -29,7 +30,7 @@ public class UserService {
         if (userRepository.exists(user.getId()))
             throw new DuplicatedUser();
 
-        if(userRepository.existsByEmail(user.getEmail()))
+        if (userRepository.existsByEmail(user.getEmail()))
             throw new EmailAlreadyExistsException();
 
         user.setup();
@@ -46,23 +47,15 @@ public class UserService {
     public User updateUser(User user) {
         User currentUser = userRepository.findOne(user.getId());
 
-        if (currentUser==null) {
-            throw new UserNotFoundException();
-        }
+        Utils.validateUserUpdate(currentUser, user);
 
-        //Check if user is trying to change is email
-        //If so, he cannot change to an email that already exists
-        if(!user.getEmail().equals(currentUser.getEmail())) {
-            if (userRepository.existsByEmail(user.getEmail()))
-                throw new EmailAlreadyExistsException();
-        }else {
-            user.setup();
-            user.setPassword(hash(user.getPassword()));
-        }
+        user.setup();
+        user.setPassword(hash(user.getPassword()));
+
         return userRepository.save(user);
     }
 
-    private String hash (String base) {
+    private String hash(String base) {
         ShaPasswordEncoder encoder = new ShaPasswordEncoder();
         encoder.setEncodeHashAsBase64(true);
         return encoder.encodePassword(base, null);
