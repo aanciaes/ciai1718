@@ -507,9 +507,6 @@ class PieceArtista extends React.Component {
                     <button className="btn btn-danger" data-toggle="modal" data-target="#modalRemovePiece">
                         Remover
                     </button>
-                    <button className="btn btn-green">
-                        Bids
-                    </button>
                     {this.props.piece.onSale ?
                         <button className="btn btn-primary" data-toggle="modal" data-target="#modalRemoveSale">
                             Tirar de Venda</button> :

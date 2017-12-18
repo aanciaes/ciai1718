@@ -32,6 +32,7 @@ class PieceItem extends React.Component {
                     <div className="desc_piece">
 
                         <span className={p.onSale ? "price_prod" : ""}> {p.onSale ? p.price + " €" : "" }</span>
+                        {p.sold ? <span className='sold_prod'>Vendido</span> : ""}
                         <div>
                             <small>Autor:{p.authorName}</small>
                         </div>
@@ -118,11 +119,11 @@ class Gallery extends React.Component {
             false,
             {}
         );
-       /* $.get(url + "artwork", function (data) {
+        /* $.get(url + "artwork", function (data) {
 
-            t.state.pieces = data;
-            t.setState(t.state);
-        });*/
+         t.state.pieces = data;
+         t.setState(t.state);
+         });*/
     }
 
 
@@ -138,16 +139,16 @@ class Gallery extends React.Component {
             false,
             {}
         );
-       /* $.get(url + "artwork/search?searchQuery=" + target.value, function (data) {
-            st.state.pieces = data;
-            st.setState(st.state);
-        });*/
+        /* $.get(url + "artwork/search?searchQuery=" + target.value, function (data) {
+         st.state.pieces = data;
+         st.setState(st.state);
+         });*/
 
     }
 
     render() {
 
-        
+
         return (
             <div>
                 <section className="gallery">

@@ -34,13 +34,24 @@ const ButtonFinalize = () =>
 class PopupFinalizeBid extends React.Component {
     constructor(props) {
         super(props);
+        this.state ={
+            isPublic:false
+        },
         this.finalizeBid = this.finalizeBid.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange({target}) {
+
+        let s = this.state;
+        s[target.name] = target.checked;
+        this.setState(s);
     }
 
 
     finalizeBid(e, inputData) {
         e.preventDefault();
-        this.props.finalizeBid();
+        this.props.finalizeBid(this.state.isPublic);
     }
 
     render() {
@@ -56,6 +67,10 @@ class PopupFinalizeBid extends React.Component {
                                     <b>Pretende Finalizar bid (vai ser criada uma venda)??</b>
                                 </div>
                                 <div className="modal-footer">
+                                    <div id="public_question">
+                                        <strong>Pretende tornar venda pública: </strong> <input type="checkbox" name="isPublic"
+                                                                                  onChange={this.handleChange}/>
+                                    </div>
                                     <div className="row">
                                         <div className="col-md-6 col-xs-12">
                                             <button type="submit" className="btn btn-success">
@@ -203,20 +218,7 @@ class BidArtista extends React.Component {
             true,
             {}
         );
-        /* $.ajax({
-         type: 'DELETE',
-         url: url + "bid/"+t.props.bid.bid.bidId,
-         contentType: "application/json; charset=utf-8",
-         success: function (result) {
-         console.log(result);
-         $('#modalRemoveBid').modal('hide');
-         t.props.history.push("/dashboard/mybids");
-         },
-         error: function (status) {
-         alert("Erro " + status);
-         console.log(status);
-         }
-         });*/
+
     }
 
     rejectBid() {
@@ -235,11 +237,10 @@ class BidArtista extends React.Component {
 
     }
 
-    finalizeBid() {
+    finalizeBid(data) {
         let t = this;
-
         Utils.ajaxRequest('PUT',
-            url + "bid/" + t.props.bid.bidId + "/finalize",
+            url + "bid/" + t.props.bid.bidId + "/finalize?isPublic="+data,
             function (result) {
                 console.log(result);
                 $('#modalFinalizeBid').modal('hide');

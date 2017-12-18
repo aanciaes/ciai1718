@@ -61,8 +61,6 @@ class PopupRemoveBid extends React.Component {
 }
 
 
-
-
 class BidBasico extends React.Component {
     constructor(props) {
         super(props);
@@ -74,7 +72,7 @@ class BidBasico extends React.Component {
         let t = this;
 
         Utils.ajaxRequest('DELETE',
-            url + "bid/"+t.props.bid.bidId,
+            url + "bid/" + t.props.bid.bidId,
             function (result) {
                 console.log(result);
                 $('#modalRemoveBid').modal('hide');
@@ -83,29 +81,30 @@ class BidBasico extends React.Component {
             true,
             {}
         );
-       /* $.ajax({
-            type: 'DELETE',
-            url: url + "bid/"+t.props.bid.bid.bidId,
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                console.log(result);
-                $('#modalRemoveBid').modal('hide');
-                t.props.history.push("/dashboard/mybids");
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log(status);
-            }
-        });*/
+        /* $.ajax({
+         type: 'DELETE',
+         url: url + "bid/"+t.props.bid.bid.bidId,
+         contentType: "application/json; charset=utf-8",
+         success: function (result) {
+         console.log(result);
+         $('#modalRemoveBid').modal('hide');
+         t.props.history.push("/dashboard/mybids");
+         },
+         error: function (status) {
+         alert("Erro " + status);
+         console.log(status);
+         }
+         });*/
     }
 
     render() {
         return (
             <div>
                 <div className="menu_buttons">
-                    <button className="btn btn-danger" data-toggle="modal" data-target="#modalRemoveBid">
-                        Anular Bid
-                    </button>
+                    {this.props.bid.state == 'OPEN' ?
+                        <button className="btn btn-danger" data-toggle="modal" data-target="#modalRemoveBid">
+                            Anular Bid
+                        </button> : ""}
                     <PopupRemoveBid removeBid={this.removeBid}/>
                 </div>
 

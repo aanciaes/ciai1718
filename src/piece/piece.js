@@ -13,103 +13,7 @@ import $ from 'jquery';
 const url = Config.url;
 
 
-class PieceBids extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            bids: []
-        };
-        this.getBidsPiece = this.getBidsPiece.bind(this);
-        this.reloadTableData = this.reloadTableData.bind(this);
 
-    }
-
-    componentDidMount() {
-        // this.getBidsPiece();
-
-        let columns = [
-            {
-                title: 'BidId',
-                width: 120,
-                data: 'BidId'
-            },
-            {
-                title: 'Bidder',
-                width: 120,
-                data: 'Bidder'
-            },
-            {
-                title: 'BidAmount',
-                width: 120,
-                data: 'BidAmount'
-            }
-        ];
-        $(this.refs.bids).DataTable({
-            dom: '<"data-table-wrapper"t>',
-            columns,
-            ordering: true
-        });
-
-
-    }
-
-    reloadTableData(bids) {
-        console.log(bids);
-        let table = $(this.refs.bids).DataTable();
-        table.clear();
-        table.rows.add(bids);
-        table.draw();
-    }
-
-    getBidsPiece() {
-        let t = this;
-
-
-        Utils.ajaxRequest('GET',
-            url + "bid/piece/" + t.props.piece.id,
-            function (result) {
-                console.log(result);
-                t.state.bids = result;
-                t.setState(t.state);
-            },
-            true,
-            {}
-        );
-
-        /* $.ajax({
-         type: 'GET',
-         url: url + "bid/piece/" + t.props.piece.id,
-
-         success: function (result) {
-
-
-         t.state.bids = result;
-
-         t.setState(t.state);
-         },
-         error: function (status) {
-         alert("Erro " + status);
-         console.log(status);
-         }
-         });*/
-
-    }
-
-    render() {
-
-        //this.reloadTableData(this.state.bids);
-        return (
-            <div>
-                <h2 className="subtitle40 tangerine">Bids</h2>
-                <div className="table-responsive">
-                    <table className="table-striped table-bordered table-hover table-condensed" ref="bids" width="100%">
-                    </table>
-                </div>
-
-            </div>
-        );
-    }
-}
 
 
 class PieceDetail extends React.Component {
@@ -186,17 +90,13 @@ class PieceDetail extends React.Component {
                                     </div>
                                 </div>
 
-                                <PieceBids piece={p}/>
-
+                                <div className="content_description">
+                                    <h2>Descrição</h2>
+                                    <p>{p.description}</p>
+                                </div>
                             </div>
 
                         </div>
-                    </div>
-
-
-                    <div className="content content_description">
-                        <h2>Descrição</h2>
-                        <p>{p.description}</p>
                     </div>
 
                 </section>

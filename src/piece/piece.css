@@ -38,6 +38,16 @@
 }
 
 .content_description{
+     text-align: left;
+     margin-left: 10px;
+     padding-bottom: 10px;
+
+ }
+.content_description h2{
+    font-size: 45px;
+}
+
+.bids_description{
     text-align: left;
     margin-left: 10px;
     border-top: 1px solid lightgray;

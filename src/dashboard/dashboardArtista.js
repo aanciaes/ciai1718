@@ -11,7 +11,6 @@ import Config from '../config/config';
 const url = Config.url;
 
 
-
 class PieceItem extends React.Component {
     constructor(props) {
         super(props);
@@ -272,20 +271,20 @@ class MenuAsideArtista extends React.Component {
                             </ul>
                         </li>
                         <li>
-                            <a href="#">
-                                <Link to={"/dashboard/mybids"}>
-                                    <span className="sidebar-icon"><i className="fa fa-money"></i></span>
-                                    <span className="sidebar-title">Bids</span>
-                                </Link>
-                            </a>
+
+                            <Link to={"/dashboard/mybids"}>
+                                <span className="sidebar-icon"><i className="fa fa-money"></i></span>
+                                <span className="sidebar-title">Bids</span>
+                            </Link>
+
                         </li>
                         <li>
-                            <a href="#">
-                                <Link to={"/dashboard/mysales"}>
-                                    <span className="sidebar-icon"><i className="fa fa-money"></i></span>
-                                    <span className="sidebar-title">Vendas</span>
-                                </Link>
-                            </a>
+
+                            <Link to={"/dashboard/mysales"}>
+                                <span className="sidebar-icon"><i className="fa fa-money"></i></span>
+                                <span className="sidebar-title">Vendas</span>
+                            </Link>
+
                         </li>
                     </ul>
                 </aside>
@@ -389,7 +388,7 @@ class DashboardArtista extends React.Component {
                         <MinhaGaleria user={this.props.user}/>
                     );
                 }}/>
-                
+
 
                 <MenuAsideArtista/>
 

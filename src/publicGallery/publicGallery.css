@@ -72,9 +72,9 @@ small {
 }
 
 .info_button div {
-    border: solid 1px #1ab394;
+    border: solid 1px #6aa3d5;
     cursor: pointer;
-    color: #1ab394;
+    color: #6aa3d5;
     text-decoration: none;
     padding: 5px;
     width: 100%;
@@ -84,14 +84,23 @@ small {
 
 .info_button div:hover {
     color: white;
-    background: #1ab394;
+    background: #6aa3d5;
 }
 
 .price_prod {
     position: absolute;
     right: 16px;
     padding: 6px 20px;
-    background-color: #1ab394;
+    background-color: #6aa3d5;
+    color: white;
+    font-weight: bold;
+}
+
+.sold_prod {
+    position: absolute;
+    right: 16px;
+    padding: 6px 20px;
+    background-color: #4bb959;
     color: white;
     font-weight: bold;
 }

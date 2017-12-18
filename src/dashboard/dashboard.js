@@ -13,23 +13,31 @@ import Piece from '../piece/piece';
 import Bid from '../bid/bid';
 import Utils from '../utils/utils';
 import Config from '../config/config';
+import SockJS from 'sockjs-client';
+import Stomp from 'stompjs';
+import $ from 'jquery'
 const url = Config.url;
 
+var socket;
+var stompClient;
 
 const BIDSTATE = {
     "OPEN": "Pendente",
     "ACCEPTED": "Aceite",
-    "REJECTED": "Rejeitado"
+    "REJECTED": "Rejeitado",
+    "FINALIZED": "Finalizado"
 };
 
 function StateBadges(props) {
     switch (props.state) {
         case "OPEN":
-            return (<span className="label label-info">{BIDSTATE[props.state]}</span>)
+            return (<span className="label label-warning">{BIDSTATE[props.state]}</span>)
         case "ACCEPTED":
             return (<span className="label label-success">{BIDSTATE[props.state]}</span>)
         case "REJECTED":
             return (<span className="label label-danger">{BIDSTATE[props.state]}</span>)
+        case "FINALIZED":
+            return (<span className="label label-info">{BIDSTATE[props.state]}</span>)
     }
 }
 
@@ -41,7 +49,8 @@ const BidItem = ({bid})=>
                 <StateBadges state={bid.bidState}/>
             </div>
             <div className="col-md-2 col-xs-12 img_bid">
-                <img className="img-circle" src="../imgs/logo.png"/>
+                <img className="img-circle"
+                     src={bid.artWorkObject.multimedia.length > 0 ? bid.artWorkObject.multimedia[0] : ""}/>
             </div>
             <div className="col-md-7 col-xs-12 description">
                 <p>Valor:{bid.bidAmount}</p>
@@ -59,7 +68,137 @@ const BidItem = ({bid})=>
     </div>;
 
 
-class MeusBids extends React.Component {
+class MenuOptions extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            notifications: []
+        };
+        this.notifications = this.notifications.bind(this);
+        this.readNotification = this.readNotification.bind(this);
+        this.getNotifications = this.getNotifications.bind(this);
+    }
+
+    componentDidMount() {
+        this.notifications();
+    }
+
+    notifications() {
+
+
+        socket = new SockJS(url + 'art-biz/');
+        stompClient = Stomp.over(socket);
+        let user = this.props.user;
+        let t = this;
+
+        stompClient.connect({}, function (frame) {
+            stompClient.subscribe('/' + user.id + '/notify', function (data) {
+
+                console.log(data);
+                let d = JSON.parse(data.body);
+                if(d.state == 'NEW')
+                   t.state.notifications.push(d);
+
+                t.setState(t.state);
+            });
+
+            t.getNotifications(user.id)
+        });
+
+
+    }
+
+    getNotifications(userId){
+        Utils.ajaxRequest("GET",
+            url + "notifications/user/" + userId,
+            function (data) {
+            },
+            true,
+            {});
+    }
+
+
+    readNotification(id, bidId) {
+
+        let t = this;
+        let user = this.props.user;
+        Utils.ajaxRequest("PUT",
+            url + "notifications/" + id + "/read"
+            , function (data) {
+                t.state.notifications= [];
+                t.setState(t.state);
+                t.getNotifications(user.id);
+                t.props.history.push("/dashboard/bid/" + bidId);
+            }, true, {})
+
+    }
+
+
+    render() {
+        let size = this.state.notifications.length;
+        return (
+            <div>
+
+
+                <ul className="nav navbar-nav navbar-right">
+                    <li className="dropdown">
+                        <a id="flag" className="dropdown-toggle count-info"
+                           data-toggle="dropdown">
+                            <i className="fa fa-envelope"></i>
+                            <span className="count label label-primary">{size > 0 ? size : ""}</span>
+                        </a>
+                        <ul className="dropdown-menu dropdown-alerts">
+
+                            {this.state.notifications.map((n, index) => (
+                                <li key={index}>
+                                    <a onClick={()=>this.readNotification(n.id,n.bid.bidId)}>
+                                        <div>
+                                            <i className="fa fa-envelope fa-fw"></i>{n.message}
+                                            <span
+                                                className="pull-right text-muted small">{Utils.diff_minutes(new Date(n.date), new Date())}
+                                                minutes ago</span>
+                                        </div>
+                                    </a>
+                                    <div className="clear"></div>
+                                </li>
+
+                            ))}
+                        </ul>
+                    </li>
+                    <li className="dropdown">
+                        <a id="user-profile" className="dropdown-toggle"
+                           data-toggle="dropdown"><img
+                            className="img-responsive img-thumbnail img-circle"/>
+                            {this.props.user.name}</a>
+                        <ul className="dropdown-menu dropdown-block" role="menu">
+                            <li>
+                                <Link to={"/dashboard/user"}>
+                                    <div>
+                                        <i className="fa fa-user"></i> Perfil
+                                    </div>
+                                </Link>
+                            </li>
+                            <li>
+                                <a onClick={this.props.logout}>
+                                    <div>
+                                        <i className="fa fa-sign-out"></i> Logout
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        )
+
+    }
+
+
+}
+
+class MyBids extends React.Component {
 
     constructor(props) {
         super(props);
@@ -127,7 +266,7 @@ const SalesItem = ({sale})=>
     </div>;
 
 
-class Vendas extends React.Component {
+class Sales extends React.Component {
 
     constructor(props) {
         super(props);
@@ -193,6 +332,8 @@ class MenuDash extends React.Component {
     }
 
     logout() {
+        stompClient.disconnect();
+        socket.close();
         this.props.logoutUser();
     }
 
@@ -223,80 +364,7 @@ class MenuDash extends React.Component {
                                 </a>
                             </div>
                             <div id="navbar-collapse" className="collapse navbar-collapse">
-                                <ul className="nav navbar-nav navbar-right">
-                                    <li className="dropdown">
-                                        <a id="flag" className="dropdown-toggle count-info"
-                                           data-toggle="dropdown">
-                                            <i className="fa fa-envelope"></i>
-                                            <span className="count label label-primary">8</span>
-                                        </a>
-                                        <ul className="dropdown-menu dropdown-alerts">
-                                            <li>
-                                                <a href="mailbox.html">
-                                                    <div>
-                                                        <i className="fa fa-envelope fa-fw"></i> You have 16 messages
-                                                        <span
-                                                            className="pull-right text-muted small">4 minutes ago</span>
-                                                    </div>
-                                                </a>
-                                                <div className="clear"></div>
-                                            </li>
-                                            <li className="divider"></li>
-                                            <li>
-                                                <a href="profile.html">
-                                                    <div>
-                                                        <i className="fa fa-twitter fa-fw"></i> 3 New Followers
-                                                        <span
-                                                            className="pull-right text-muted small">12 minutes ago</span>
-                                                    </div>
-                                                </a>
-                                                <div className="clear"></div>
-                                            </li>
-                                            <li className="divider"></li>
-                                            <li>
-                                                <a href="grid_options.html">
-                                                    <div>
-                                                        <i className="fa fa-upload fa-fw"></i> Server Rebooted
-                                                        <span
-                                                            className="pull-right text-muted small">4 minutes ago</span>
-                                                    </div>
-                                                </a>
-                                                <div className="clear"></div>
-                                            </li>
-                                            <li className="divider"></li>
-                                            <li>
-                                                <div className="text-center link-block">
-                                                    <a href="notifications.html">
-                                                        <strong>See All Alerts</strong>
-                                                        <i className="fa fa-angle-right"></i>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li className="dropdown">
-                                        <a id="user-profile" className="dropdown-toggle"
-                                           data-toggle="dropdown"><img
-                                            className="img-responsive img-thumbnail img-circle"/>
-                                            {this.props.user.name}</a>
-                                        <ul className="dropdown-menu dropdown-block" role="menu">
-                                            <li>
-                                                <Link to={"/dashboard/user"}>
-                                                    <div>
-                                                        <i className="fa fa-user"></i> Perfil
-                                                    </div>
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <a onClick={this.logout}>
-                                                    <div>
-                                                        <i className="fa fa-sign-out"></i> Logout
-                                                    </div>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                <MenuOptions user={this.props.user} logout={this.logout} history={this.props.history}/>
                             </div>
                         </div>
                     </nav>
@@ -320,7 +388,8 @@ class Dashboard extends React.Component {
         const user = args.user;
         return (
             <div id="content_dashboard">
-                <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}/>
+                <MenuDash user={user} logoutUser={args.logoutUser} updateUserMode={this.updateUserMode}
+                          history={this.props.history}/>
                 {user.accountType === 1 ?
                     <DashboardArtista
                         user={user}/> :
@@ -364,7 +433,7 @@ class Dashboard extends React.Component {
                                 <div class="title_dash">
                                     <h2 className="title tangerine">Vendas</h2>
                                 </div>
-                                <Vendas user={user}/>
+                                <Sales user={user}/>
                             </div>
                         );
                     }}/>
@@ -373,10 +442,10 @@ class Dashboard extends React.Component {
                     <Route path="/dashboard/mybids" exact={true} render={() => {
                         return (
                             <div>
-                                <div class="title_dash">
+                                <div className="title_dash">
                                     <h2 className="title tangerine">Meus Bids</h2>
                                 </div>
-                                <MeusBids user={user}/>
+                                <MyBids user={user}/>
                             </div>
 
                         );

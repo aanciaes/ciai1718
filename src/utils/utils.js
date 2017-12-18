@@ -5,11 +5,11 @@ import React, {Component} from 'react';
 import $ from 'jquery';
 
 
-
 class Utils {
     constructor() {
 
         this.ajaxRequest = this.ajaxRequest.bind(this);
+        this.diff_minutes = this.diff_minutes.bind(this);
     }
 
 
@@ -44,6 +44,14 @@ class Utils {
             params.data = optional.data;
 
         $.ajax(params);
+    }
+
+    diff_minutes(dt2, dt1) {
+
+        let diff = (dt2.getTime() - dt1.getTime()) / 1000;
+        diff /= 60;
+        return Math.abs(Math.round(diff));
+
     }
 }
 
