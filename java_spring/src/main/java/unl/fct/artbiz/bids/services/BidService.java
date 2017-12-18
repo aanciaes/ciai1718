@@ -120,6 +120,14 @@ public class BidService {
             ArtWork a = artworkRepository.findOne(bid.getPieceId());
             a.setOnSale(false);
 
+            //Reject all other bids on same piece
+            List<Bid> bids = getBidsOfPiece(bid.getPieceId());
+            for(Bid b : bids){
+                if(b.getBidId() != bidId){
+                    reject(b.getBidId());
+                }
+            }
+
             //create a sale record
             String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
             Sale s = new Sale(bid.getBidId(), timeStamp);
