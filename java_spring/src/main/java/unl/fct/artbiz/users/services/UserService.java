@@ -44,14 +44,21 @@ public class UserService {
     }
 
     public User updateUser(User user) {
-        if (!userRepository.exists(user.getId())) {
+        User currentUser = userRepository.findOne(user.getId());
+
+        if (currentUser==null) {
             throw new UserNotFoundException();
         }
-        if(userRepository.existsByEmail(user.getEmail()))
-            throw new EmailAlreadyExistsException();
 
-        user.setup();
-        user.setPassword(hash(user.getPassword()));
+        //Check if user is trying to change is email
+        //If so, he cannot change to an email that already exists
+        if(!user.getEmail().equals(currentUser.getEmail())) {
+            if (userRepository.existsByEmail(user.getEmail()))
+                throw new EmailAlreadyExistsException();
+        }else {
+            user.setup();
+            user.setPassword(hash(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
