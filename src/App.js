@@ -77,25 +77,7 @@ class App extends Component {
                 data: JSON.stringify(u)
             }
         );
-        /* $.ajax({
-         type: 'POST',
-         url: url + "user/register",
-         contentType: "application/json; charset=utf-8",
-         data: JSON.stringify(u),
-         success: function (result) {
-         let stateCopy = that.getCopyState(that.state);
-         stateCopy.user = result;
-         stateCopy.added = true;
-         that.setState(stateCopy);
 
-         },
-         error: function (status) {
-         let stateCopy = that.getCopyState(that.state);
-         stateCopy.added = false;
-         console.log(status);
-         that.setState(stateCopy);
-         }
-         });*/
     }
 
     loginUser(u) {
@@ -120,24 +102,7 @@ class App extends Component {
             }
         );
 
-        /*$.ajax({
-         type: 'POST',
-         xhrFields: {withCredentials: true},
-         url: url + "login?username=" + u.email + "&password=" + u.password,
-         //contentType: "application/json; charset=utf-8",
-         success: function (result, textStatus, request) {
 
-         let stateCopy = that.getCopyState(that.state);
-         stateCopy.user = result.user;
-         that.setState(stateCopy);
-         that.props.history.push('/dashboard');
-         },
-         error: function (status) {
-         let stateCopy = that.getCopyState(that.state);
-         stateCopy.errorLogin = true;
-         that.setState(stateCopy);
-         }
-         });*/
 
     }
 
@@ -156,23 +121,7 @@ class App extends Component {
             {}
         );
 
-        /* $.ajax({
-         type: 'POST',
-         xhrFields: {withCredentials: true},
-         url: url + "logout",
-         //contentType: "application/json; charset=utf-8",
-         success: function (result, textStatus, request) {
-         let stateCopy = that.getCopyState(that.state);
-         stateCopy.user = "";
-         that.setState(stateCopy);
-         that.props.history.push('/landing/gallery');
-         },
-         error: function (status) {
-         let stateCopy = that.getCopyState(that.state);
-         stateCopy.errorLogin = true;
-         that.setState(stateCopy);
-         }
-         });*/
+
     }
 
     updateUser(u) {

@@ -57,7 +57,7 @@ class RegistarUtilizador extends React.Component {
     }
 
     render() {
-        console.log(this.state);
+
         return (
             <div className="forms">
                 <section>

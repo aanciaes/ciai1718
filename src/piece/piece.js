@@ -183,23 +183,7 @@ class Piece extends React.Component {
             {}
         );
 
-        /*$.ajax({
-         type: 'GET',
-         xhrFields: {withCredentials: true},
-         url: url + "artwork/" + id,
-         //contentType: "application/json; charset=utf-8",
-         success: function (data, textStatus, request) {
-         let piece = data.artWork;
-         piece.authorName = data.authorName;
-         let s = t.state;
-         s.piece = piece;
-         t.setState(s);
-         },
-         error: function (status) {
-         alert("Erro");
-         console.log(status);
-         }
-         });*/
+
     }
 
     updatePiece(p) {

@@ -101,7 +101,7 @@ class PieceBasico extends React.Component {
         Utils.ajaxRequest('POST',
             url + "bid",
             function (result) {
-                console.log(result);
+
                 $('#modalBid').modal('hide');
                 t.props.history.push("/dashboard/mybids");
             },
@@ -112,22 +112,7 @@ class PieceBasico extends React.Component {
             }
         );
 
-       /* $.ajax({
-            type: 'POST',
-            url: url + "bid",
-            contentType: "application/json; charset=utf-8",
-            xhrFields: {withCredentials: true},
-            data: JSON.stringify(b),
-            success: function (result) {
-                console.log(result);
-                $('#modalBid').modal('hide');
-                t.props.history.push("/dashboard/mybids");
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log(status);
-            }
-        });*/
+
     }
 
     render() {

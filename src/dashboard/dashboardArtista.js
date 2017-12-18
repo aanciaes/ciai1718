@@ -64,7 +64,6 @@ class MinhaGaleria extends React.Component {
         let t = this;
         $.get(url + "artwork/artist/" + this.props.user.id + "/list", function (data) {
             state.pieces = data;
-            console.log(data);
             t.setState(state);
         });
     }
@@ -348,26 +347,7 @@ class DashboardArtista extends React.Component {
         );
 
 
-        /*$.ajax({
-         type: 'POST',
-         url: url + 'artwork',
-         xhrFields: {
-         withCredentials: true
-         },
-         processData: false,
-         dataType: "json",
-         contentType: "application/json;",
-         data: JSON.stringify(p),
-         success: function (result) {
 
-         t.props.history.push("/dashboard/piece/mygallery");
-         },
-         error: function (status) {
-         alert("Erro a criar peça!!");
-         console.log(status);
-         console.log("Failed	to	Post:	" + status);
-         }
-         });*/
 
 
     }

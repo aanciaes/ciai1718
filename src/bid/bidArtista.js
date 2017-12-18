@@ -211,7 +211,7 @@ class BidArtista extends React.Component {
         Utils.ajaxRequest('PUT',
             url + "bid/" + t.props.bid.bidId + "/accept",
             function (result) {
-                console.log(result);
+
                 $('#modalAcceptBid').modal('hide');
                 t.props.updateBid(result);
             },
@@ -227,7 +227,7 @@ class BidArtista extends React.Component {
         Utils.ajaxRequest('PUT',
             url + "bid/" + t.props.bid.bidId + "/reject",
             function (result) {
-                console.log(result);
+
                 $('#modalRejectBid').modal('hide');
                 t.props.updateBid(result);
             },
@@ -242,7 +242,7 @@ class BidArtista extends React.Component {
         Utils.ajaxRequest('PUT',
             url + "bid/" + t.props.bid.bidId + "/finalize?isPublic="+data,
             function (result) {
-                console.log(result);
+
                 $('#modalFinalizeBid').modal('hide');
                 t.props.updateBid(result);
             },

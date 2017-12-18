@@ -74,27 +74,14 @@ class BidBasico extends React.Component {
         Utils.ajaxRequest('DELETE',
             url + "bid/" + t.props.bid.bidId,
             function (result) {
-                console.log(result);
+
                 $('#modalRemoveBid').modal('hide');
                 t.props.history.push("/dashboard/mybids");
             },
             true,
             {}
         );
-        /* $.ajax({
-         type: 'DELETE',
-         url: url + "bid/"+t.props.bid.bid.bidId,
-         contentType: "application/json; charset=utf-8",
-         success: function (result) {
-         console.log(result);
-         $('#modalRemoveBid').modal('hide');
-         t.props.history.push("/dashboard/mybids");
-         },
-         error: function (status) {
-         alert("Erro " + status);
-         console.log(status);
-         }
-         });*/
+
     }
 
     render() {

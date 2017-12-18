@@ -95,10 +95,10 @@ class MenuOptions extends React.Component {
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/' + user.id + '/notify', function (data) {
 
-                console.log(data);
+
                 let d = JSON.parse(data.body);
-                if(d.state == 'NEW')
-                   t.state.notifications.push(d);
+                if (d.state == 'NEW')
+                    t.state.notifications.push(d);
 
                 t.setState(t.state);
             });
@@ -109,7 +109,7 @@ class MenuOptions extends React.Component {
 
     }
 
-    getNotifications(userId){
+    getNotifications(userId) {
         Utils.ajaxRequest("GET",
             url + "notifications/user/" + userId,
             function (data) {
@@ -126,7 +126,7 @@ class MenuOptions extends React.Component {
         Utils.ajaxRequest("PUT",
             url + "notifications/" + id + "/read"
             , function (data) {
-                t.state.notifications= [];
+                t.state.notifications = [];
                 t.setState(t.state);
                 t.getNotifications(user.id);
                 t.props.history.push("/dashboard/bid/" + bidId);
@@ -152,7 +152,7 @@ class MenuOptions extends React.Component {
 
                             {this.state.notifications.map((n, index) => (
                                 <li key={index}>
-                                    <a onClick={()=>this.readNotification(n.id,n.bid.bidId)}>
+                                    <a onClick={()=>this.readNotification(n.id, n.bid.bidId)}>
                                         <div>
                                             <i className="fa fa-envelope fa-fw"></i>{n.message}
                                             <span
@@ -220,17 +220,13 @@ class MyBids extends React.Component {
             u,
             function (data) {
                 state.bids = data;
-                console.log(data);
+
                 t.setState(state);
             },
             true,
             {}
         );
-        /* $.get(url + "bid/user/" + this.props.user.id, function (data) {
-         state.bids = data;
-         console.log(data);
-         t.setState(state);
-         });*/
+
     }
 
     render() {
@@ -259,10 +255,11 @@ class MyBids extends React.Component {
 
 
 const SalesItem = ({sale})=>
-    <div>
-        <p>BId: {sale.bidId}</p>
-        <p>Date:{sale.dateOfSale}</p>
-        <p>SalesId:{sale.saleId}</p>
+    <div id="sales_detail">
+        <p><strong>Bid: </strong> {sale.bidId}</p>
+        <p><strong>Comprador: </strong> {sale.buyerEmail}</p>
+        <p><strong>Data: </strong> {sale.dateOfSale}</p>
+        <p><strong>Público: </strong> {sale.public ? "SIM" : "NÃO"}</p>
     </div>;
 
 
@@ -289,17 +286,13 @@ class Sales extends React.Component {
             url + "sales/user/" + this.props.user.id,
             function (data) {
                 state.sales = data;
-                console.log(data);
+
                 t.setState(state);
             },
             true,
             {}
         );
-        /* $.get(url + "bid/user/" + this.props.user.id, function (data) {
-         state.bids = data;
-         console.log(data);
-         t.setState(state);
-         });*/
+
     }
 
     render() {

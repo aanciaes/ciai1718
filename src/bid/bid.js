@@ -21,13 +21,12 @@ class BidDetail extends React.Component {
 
         return (
             <div>
-                <section>
+                <section id="bid_detail">
                     <div>
-                        <h1>BID</h1>
                         <div><b>Id:</b> {b.bidId} </div>
                         <div><b>Bidder:</b> {this.props.bid.bidderEmail} </div>
-                        <div><b>Peça:</b> {b.pieceId} </div>
-                        <div><b>BidAmount:</b> {b.bidAmount} </div>
+                        <div><b>Peça:</b> {b.artWorkObject.name} </div>
+                        <div><b>Valor:</b> {b.bidAmount} </div>
                         <div><b>Estado:</b>{b.bidState}</div>
                     </div>
                 </section>

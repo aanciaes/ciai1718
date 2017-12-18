@@ -31,9 +31,6 @@ class DetalheUtilizador extends React.Component {
                     <div className="profile_title tangerine subtitle">Perfil</div>
                     <div className="row">
                         <div className="col-md-3 col-xs-12">
-                            <img
-                                src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm"
-                                className="img-circle"/>
                         </div>
                         <div className="col-md-9 col-xs-12">
                             <a onClick={this.editMode}><i className="fa fa-edit"></i>Editar</a>
