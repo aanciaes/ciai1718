@@ -28,3 +28,9 @@ yarn-error.log*
 Definitions/ifml/workspace/.metadata
 Definitions/ifml/workspace/ciai/.Temp*
 Definitions/ifml/workspace/ciai/.project
+
+# java_spring
+java_spring/target/
+
+# H2 databases
+java_spring/*.db

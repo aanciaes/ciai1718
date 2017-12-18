@@ -39,7 +39,7 @@
     "author": {
       "type": "string"
     },
-    "sale": {
+    "onSale": {
       "description": "True if the piece is available for sale",
       "type": "boolean"
     }
