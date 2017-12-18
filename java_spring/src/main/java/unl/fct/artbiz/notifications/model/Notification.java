@@ -34,6 +34,14 @@ public class Notification {
         this.date = System.currentTimeMillis();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Bid getBid() {
         return bid;
     }

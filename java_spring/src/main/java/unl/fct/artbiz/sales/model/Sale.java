@@ -1,6 +1,7 @@
 package unl.fct.artbiz.sales.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import unl.fct.artbiz.bids.model.Bid;
 
 import javax.persistence.*;
@@ -18,6 +19,9 @@ public class Sale {
     @ManyToOne
     @JoinColumn(name = "bidId", insertable = false, updatable = false)
     private Bid bid;
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String buyerEmail;
 
     private String dateOfSale;
     private boolean isPublic;
@@ -65,5 +69,13 @@ public class Sale {
 
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
+    }
+
+    public String getBuyerEmail() {
+        return bid==null ? null : bid.getBidderEmail();
+    }
+
+    public void setBuyerEmail(String buyerEmail) {
+        this.buyerEmail = buyerEmail;
     }
 }

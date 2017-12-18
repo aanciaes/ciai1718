@@ -119,11 +119,13 @@ public class BidService {
             //A bid was accepted so the piece will not receive any more bids
             ArtWork a = artworkRepository.findOne(bid.getPieceId());
             a.setOnSale(false);
-            artworkRepository.save(a);
 
             //create a sale record
             String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-            salesRepository.save(new Sale(bid.getBidId(), timeStamp));
+            Sale s = new Sale(bid.getBidId(), timeStamp);
+            salesRepository.save(s);
+            a.setSale(s);
+            artworkRepository.save(a);
 
             sendNotification(bid, "Your bid was accepted", bid.getBidderId());
 
@@ -156,8 +158,7 @@ public class BidService {
             bidRepository.save(bid);
 
             ArtWork a = artworkRepository.findOne(bid.getPieceId());
-            a.setSold(true);
-            a.setPublic(isPublic);
+            a.getSale().setPublic(isPublic);
 
             sendNotification(bid, "The sale is finished", bid.getBidderId());
 
