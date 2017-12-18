@@ -54,7 +54,7 @@ const BidItem = ({bid})=>
             </div>
             <div className="col-md-7 col-xs-12 description">
                 <p>Valor:{bid.bidAmount}</p>
-                <p>Peça:{bid.pieceId}</p>
+                <p>Peça:{bid.artWorkObject.name}</p>
                 <p>Bidder:{bid.bidderEmail}</p>
             </div>
             <div className="col-md-2 col-xs-12 buttons">

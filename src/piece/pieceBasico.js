@@ -139,7 +139,6 @@ class PieceBasico extends React.Component {
                             Fazer Bid
                         </button> : ""
                     }
-
                     <PopupBid makeBid={this.makeBid}/>
                 </div>
 

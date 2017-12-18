@@ -266,7 +266,8 @@ class PieceEditar extends React.Component {
                                     <label htmlFor="techniques" className="col-sm-2 col-form-label">Técnicas</label>
                                     <div className="col-sm-10">
                                         <input type="text" className="form-control" id="techniques" name="techniques"
-                                               placeholder="valor,valor,.." pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$"
+                                               placeholder="valor,valor,.."
+                                               pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$"
                                                value={p.techniques} onChange={this.handleChange}/>
                                     </div>
                                 </div>
@@ -276,7 +277,8 @@ class PieceEditar extends React.Component {
                                     <label htmlFor="keywords" className="col-sm-2 col-form-label">Keywords:</label>
                                     <div className="col-sm-10">
                                         <input type="text" name="keywords" id="keywords"
-                                               pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$" placeholder="valor,valor,.."
+                                               pattern="^(?:[a-zÀ-úA-Z0-9 ]+,)*[a-zÀ-úA-Z0-9 ]+$"
+                                               placeholder="valor,valor,.."
                                                value={p.keywords} className="form-control"
                                                onChange={this.handleChange}/>
                                     </div>
@@ -382,26 +384,26 @@ class PieceArtista extends React.Component {
         );
 
         /*$.ajax({
-            type: 'PUT',
-            url: url + "artwork",
-            xhrFields: {withCredentials: true},
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(p),
-            success: function (result) {
-                t.props.updatePiece(result);
-                let s = t.state;
-                s.edit = false;
-                t.setState(s);
-                /* let s = t.state;
-                 s.piece = result;
-                 s.edit = false;
-                 t.setState(s);
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log(status);
-            }
-        });*/
+         type: 'PUT',
+         url: url + "artwork",
+         xhrFields: {withCredentials: true},
+         contentType: "application/json; charset=utf-8",
+         data: JSON.stringify(p),
+         success: function (result) {
+         t.props.updatePiece(result);
+         let s = t.state;
+         s.edit = false;
+         t.setState(s);
+         /* let s = t.state;
+         s.piece = result;
+         s.edit = false;
+         t.setState(s);
+         },
+         error: function (status) {
+         alert("Erro " + status);
+         console.log(status);
+         }
+         });*/
 
     }
 
@@ -418,20 +420,20 @@ class PieceArtista extends React.Component {
             {}
         );
         /*$.ajax({
-            type: 'PUT',
-            url: url + "artwork/" + t.props.piece.id + "/sell?price=" + s.price,
-            xhrFields: {withCredentials: true},
-            //contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                $('#myModal').modal('hide');
-                t.props.getPiece(t.props.piece.id);
+         type: 'PUT',
+         url: url + "artwork/" + t.props.piece.id + "/sell?price=" + s.price,
+         xhrFields: {withCredentials: true},
+         //contentType: "application/json; charset=utf-8",
+         success: function (result) {
+         $('#myModal').modal('hide');
+         t.props.getPiece(t.props.piece.id);
 
-            },
-            error: function (status) {
-                alert("Erro " + status.responseJSON.exception);
-                console.log(status.responseJSON.exception);
-            }
-        });*/
+         },
+         error: function (status) {
+         alert("Erro " + status.responseJSON.exception);
+         console.log(status.responseJSON.exception);
+         }
+         });*/
 
     }
 
@@ -449,21 +451,21 @@ class PieceArtista extends React.Component {
             {}
         );
 
-       /* $.ajax({
-            type: 'DELETE',
-            url: url + "artwork/" + t.props.piece.id,
-            xhrFields: {withCredentials: true},
-            //contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                $('#modalRemovePiece').modal('hide');
-                t.props.history.push("/dashboard/piece/mygallery");
+        /* $.ajax({
+         type: 'DELETE',
+         url: url + "artwork/" + t.props.piece.id,
+         xhrFields: {withCredentials: true},
+         //contentType: "application/json; charset=utf-8",
+         success: function (result) {
+         $('#modalRemovePiece').modal('hide');
+         t.props.history.push("/dashboard/piece/mygallery");
 
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log("Failed	to	Put:	" + status);
-            }
-        });*/
+         },
+         error: function (status) {
+         alert("Erro " + status);
+         console.log("Failed	to	Put:	" + status);
+         }
+         });*/
 
     }
 
@@ -482,42 +484,47 @@ class PieceArtista extends React.Component {
         );
 
         /*$.ajax({
-            type: 'PUT',
-            url: url + "artwork/" + t.props.piece.id + "/keep",
-            xhrFields: {withCredentials: true},
-            //contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                $('#modalRemoveSale').modal('hide');
-                t.props.getPiece(t.props.piece.id);
+         type: 'PUT',
+         url: url + "artwork/" + t.props.piece.id + "/keep",
+         xhrFields: {withCredentials: true},
+         //contentType: "application/json; charset=utf-8",
+         success: function (result) {
+         $('#modalRemoveSale').modal('hide');
+         t.props.getPiece(t.props.piece.id);
 
-            },
-            error: function (status) {
-                alert("Erro " + status);
-                console.log("Failed	to	Put:	" + status);
-            }
-        });*/
+         },
+         error: function (status) {
+         alert("Erro " + status);
+         console.log("Failed	to	Put:	" + status);
+         }
+         });*/
 
     }
 
     render() {
         return (
             <div>
-                <div className="menu_buttons">
-                    <button className="btn btn-primary" onClick={this.showEdit}>Editar</button>
-                    <button className="btn btn-danger" data-toggle="modal" data-target="#modalRemovePiece">
-                        Remover
-                    </button>
-                    {this.props.piece.onSale ?
-                        <button className="btn btn-primary" data-toggle="modal" data-target="#modalRemoveSale">
-                            Tirar de Venda</button> :
-                        <button className="btn btn-primary" data-toggle="modal" data-target="#myModal">Colocar
-                            em Venda</button>
-                    }
 
+                <div className="dropdown" id="options_drop">
+                    <button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Opções
+                        <span className="caret"></span></button>
+                    <ul className="dropdown-menu">
+                        <li><a onClick={this.showEdit}><i className="fa fa-edit"></i>Editar</a></li>
+                        <li><a data-toggle="modal" data-target="#modalRemovePiece"><i className="fa fa-remove"></i>Remover</a>
+                        </li>
+                        <li>{this.props.piece.onSale ?
+                            <a data-toggle="modal" data-target="#modalRemoveSale">
+                                Tirar de Venda</a> :
+                            <a data-toggle="modal" data-target="#myModal">Colocar
+                                em Venda</a>
+                        }</li>
+                    </ul>
+                </div>
+                <div className="clear"></div>
                     <PopupOnSale onSalePiece={this.onSalePiece}/>
                     <PopupRemoveSale removeSalePiece={this.removeSalePiece}/>
                     <PopupRemovePiece removePiece={this.removePiece}/>
-                </div>
+
                 <div>
                     <PieceEditControl edit={this.state.edit} piece={this.props.piece} editPiece={this.editPiece}/>
                 </div>

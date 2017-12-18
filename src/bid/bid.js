@@ -62,6 +62,9 @@ function BidInitialized(props) {
         let p = props.parent;
         return (
             <div id="content_bid">
+                <div className="title_dash">
+                    <h2 className="title tangerine">BID</h2>
+                </div>
                 <BidControl bid={p.state.bid} user={p.props.user} updateBid={p.updateBid}/>
                 <BidDetailControl bid={p.state.bid} detail={p.state.detail}/>
 

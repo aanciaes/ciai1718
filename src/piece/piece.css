@@ -2,6 +2,14 @@
     margin-top: 15px;
     margin-left: 10px;
 }
+
+#options_drop{
+   float:right;
+}
+
+.clear{
+    clear: both;
+}
 .content_piece{
     background-color: white;
     border-radius: 2px;

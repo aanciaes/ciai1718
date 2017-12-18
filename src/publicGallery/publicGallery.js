@@ -32,7 +32,9 @@ class PieceItem extends React.Component {
                     <div className="desc_piece">
 
                         <span className={p.onSale ? "price_prod" : ""}> {p.onSale ? p.price + " €" : "" }</span>
-                        {p.sold ? <span className='sold_prod'>Vendido</span> : ""}
+                        {p.sale != null ?
+                            <span className='sold_prod'>Vendido</span> : ""}
+                        {p.sale != null && p.sale.public ? <span className="sold_buyer"><small><div>Vendido a:</div><div><b>{p.sale.buyerEmail}</b></div></small></span> : "" }
                         <div>
                             <small>Autor:{p.authorName}</small>
                         </div>

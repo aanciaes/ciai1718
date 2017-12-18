@@ -105,6 +105,13 @@ small {
     font-weight: bold;
 }
 
+.sold_buyer{
+    position: absolute;
+    padding: 6px 20px;
+    right: 16px;
+    bottom: 35px;
+}
+
 #search_field {
     margin-top: 10px;
     margin-bottom: 10px;

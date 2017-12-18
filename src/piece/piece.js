@@ -13,9 +13,6 @@ import $ from 'jquery';
 const url = Config.url;
 
 
-
-
-
 class PieceDetail extends React.Component {
 
     constructor(props) {
@@ -28,8 +25,6 @@ class PieceDetail extends React.Component {
         return (
             <div>
                 <section className="content_piece">
-
-
                     <div className="row">
                         <div className="col-md-6 col-xs-12">
 
@@ -98,7 +93,6 @@ class PieceDetail extends React.Component {
 
                         </div>
                     </div>
-
                 </section>
             </div>
         );
@@ -135,13 +129,15 @@ function PieceInitialized(props) {
         return (
 
             <div>
-                <div>
-                    <PieceControl piece={p.state.piece} user={p.props.user} updatePiece={p.updatePiece}
-                                  getPiece={p.getPiece} hideDetail={p.hideDetail}/>
+                <div className="row">
+                    <div className="col-md-12">
+
+                        <PieceControl piece={p.state.piece} user={p.props.user} updatePiece={p.updatePiece}
+                                      getPiece={p.getPiece} hideDetail={p.hideDetail}/>
+                        <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
+                    </div>
                 </div>
-                <div>
-                    <PieceDetailControl piece={p.state.piece} detail={p.state.detail}/>
-                </div>
+
             </div>);
     }
     return null;
