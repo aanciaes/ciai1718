@@ -159,7 +159,7 @@ public class BidService {
             a.setSold(true);
             a.setPublic(isPublic);
 
-            sendNotification(bid, "The sale is finished", bid.getOwnerId());
+            sendNotification(bid, "The sale is finished", bid.getBidderId());
 
             return bid;
         }
