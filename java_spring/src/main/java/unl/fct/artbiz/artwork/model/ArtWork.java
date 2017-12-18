@@ -1,6 +1,7 @@
 package unl.fct.artbiz.artwork.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import unl.fct.artbiz.sales.model.Sale;
 import unl.fct.artbiz.users.model.User;
 
 import javax.persistence.*;
@@ -37,8 +38,8 @@ public class ArtWork {
     private boolean onSale;
     private double price;
 
-    private boolean isSold;
-    private boolean isPublic;
+    @OneToOne
+    private Sale sale;
 
     protected ArtWork() {
     }
@@ -56,8 +57,9 @@ public class ArtWork {
         this.author = author;
         this.onSale = onSale;
         this.price = price;
-        this.isSold = false;
-        this.isPublic = false;
+        this.sale=null;
+       /* this.isSold = false;
+        this.isPublic = false;*/
     }
 
     public long getId() {
@@ -144,7 +146,15 @@ public class ArtWork {
         return authorObject;
     }
 
-    public boolean isSold() {
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
+    /*public boolean isSold() {
         return isSold;
     }
 
@@ -158,7 +168,7 @@ public class ArtWork {
 
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
-    }
+    }*/
 
     @Override
     public boolean equals(Object object) {
