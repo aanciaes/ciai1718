@@ -7,7 +7,7 @@ spring:
 #Active environment
 spring:
   profiles:
-    active: dev
+    active: prod
 
 ---
 #Test settings
@@ -59,7 +59,7 @@ spring:
   profiles: prod
 
   datasource:
-    url: jdbc:mysql://localhost:3306/art_biz?useSSL=false&createDatabaseIfNotExist=true
+    url: jdbc:mysql://${DEPENDS_ON}/art_biz?useSSL=false&createDatabaseIfNotExist=true
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver

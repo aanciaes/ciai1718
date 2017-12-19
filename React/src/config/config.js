@@ -6,7 +6,8 @@ import React, {Component} from 'react';
 
 class Config {
     constructor() {
-        this.url = "http://localhost:8080/";
+        this.url = "https://localhost:8443/";
+        alert(this.url);
     }
 }
 
