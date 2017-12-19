@@ -1,0 +1,14 @@
+#content_bid {
+    background-color: white;
+    border-radius: 3px;
+}
+
+#public_question{
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+#bid_detail{
+    text-align: left;
+    padding-left: 10px;
+}

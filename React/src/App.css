@@ -1,0 +1,112 @@
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css');
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+
+
+#loading{
+    position:fixed;
+    top: 40%;
+    left: 50%;
+    display: none;
+    z-index: 10;
+    margin-right: 64px;
+    margin-bottom: 59px;
+}
+.header_form{
+    margin-left: 5px;
+}
+
+.tangerine{
+    font-family: "Tangerine", serif;
+}
+.subtitle{
+    font-size: 30pt;
+}
+.subtitle40{
+    font-size: 40pt;
+}
+.left_text{
+    text-align: left;
+}
+a:hover{
+   text-decoration: none !important;
+}
+
+.App {
+    text-align: center;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: white;
+    height: 75px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+a {
+    cursor: pointer;
+}
+
+#body_img {
+    z-index: -1;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    animation: opacity_animation 5s;
+    opacity: 0.2;
+}
+
+.logo_img {
+    width: 125px;
+    margin-bottom: 5px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+}
+
+.logo_img img {
+    width: 100%;
+}
+
+.loading_screen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+
+nav .active {
+    border-top: solid black 1px;
+    font-weight: bold;
+    background-color: #efefef;
+    color: #0a0a0a;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes opacity_animation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.2;
+    }
+}

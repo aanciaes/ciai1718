@@ -1,0 +1,81 @@
+#section_edit{
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+#options_drop{
+   float:right;
+}
+
+.clear{
+    clear: both;
+}
+.content_piece{
+    background-color: white;
+    border-radius: 2px;
+    margin-top: 50px;
+    box-shadow: 0px 0px 1px 0px gray;
+    padding-right: 10px;
+}
+#PieceCaroussel{
+
+    width: 100%;
+    margin: 20px;
+
+}
+
+.onSale{
+    color: green;
+}
+
+
+.img_content{
+    line-height: 300px;
+    width: 100%;
+    min-height: 400px;
+    padding: 25px;
+    border-right: solid 1px lightgray;
+
+}
+
+.img_content img {
+
+    max-width: 100%;
+    height: auto;
+    overflow-y: hidden;
+}
+
+.content_description{
+     text-align: left;
+     margin-left: 10px;
+     padding-bottom: 10px;
+
+ }
+.content_description h2{
+    font-size: 45px;
+}
+
+.bids_description{
+    text-align: left;
+    margin-left: 10px;
+    border-top: 1px solid lightgray;
+    padding-bottom: 10px;
+
+}
+.content_description h2{
+    font-family: "Tangerine", serif;
+    font-size: 50px;
+}
+.description_piece{
+    text-align: left;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.description_piece .title_piece{
+    font-size: 24pt ;
+    font-weight: bold;
+    color: grey;
+}
+.description_piece .header_description{
+    border-bottom: solid grey 1px;
+}
